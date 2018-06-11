@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Vodafone Lt';
+    src: url('../fonts/VodafoneLt.ttf');
+}
+
+@font-face {
+    font-family: 'Vodafone Rg_Bd';
+    src: url('../fonts/VodafoneRg_Bd.ttf');
+}
+
+@font-face {
+    font-family: 'Vodafone Rg';
+    src: url('../fonts/VodafoneRg.ttf');
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../fonts/helvetica-neue.ttf');
+}
+
+

@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
+		01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C022FD20C99304003E48CC /* AppDelegate.swift */; };
+		01C0230020C99304003E48CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C022FF20C99304003E48CC /* ViewController.swift */; };
+		01C0230320C99304003E48CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01C0230120C99304003E48CC /* Main.storyboard */; };
+		01C0230520C99304003E48CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01C0230420C99304003E48CC /* Assets.xcassets */; };
+		01C0230820C99304003E48CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01C0230620C99304003E48CC /* LaunchScreen.storyboard */; };
+		01C0233A20C9C940003E48CC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233320C9C940003E48CC /* Roboto-Medium.ttf */; };
+		01C0233B20C9C940003E48CC /* VodafoneLt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233420C9C940003E48CC /* VodafoneLt.ttf */; };
+		01C0233C20C9C940003E48CC /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233520C9C940003E48CC /* Roboto-Regular.ttf */; };
+		01C0233D20C9C940003E48CC /* VodafoneRg_Bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233620C9C940003E48CC /* VodafoneRg_Bd.ttf */; };
+		01C0233E20C9C940003E48CC /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233720C9C940003E48CC /* Roboto-Thin.ttf */; };
+		01C0233F20C9C940003E48CC /* VodafoneRg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233820C9C940003E48CC /* VodafoneRg.ttf */; };
+		01C0234020C9C940003E48CC /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01C0233920C9C940003E48CC /* Roboto-Light.ttf */; };
+		01C0234E20C9C957003E48CC /* custom.css in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234120C9C956003E48CC /* custom.css */; };
+		01C0234F20C9C957003E48CC /* simswap.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234220C9C956003E48CC /* simswap.html */; };
+		01C0235020C9C957003E48CC /* terms.css in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234320C9C956003E48CC /* terms.css */; };
+		01C0235120C9C957003E48CC /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234420C9C956003E48CC /* icon2.png */; };
+		01C0235220C9C957003E48CC /* terms_netperform.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234520C9C956003E48CC /* terms_netperform.html */; };
+		01C0235320C9C957003E48CC /* data_permissions.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234620C9C956003E48CC /* data_permissions.html */; };
+		01C0235420C9C957003E48CC /* font.css in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234720C9C956003E48CC /* font.css */; };
+		01C0235520C9C957003E48CC /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234820C9C957003E48CC /* icon1.png */; };
+		01C0235620C9C957003E48CC /* app.v2.css in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234920C9C957003E48CC /* app.v2.css */; };
+		01C0235720C9C957003E48CC /* slidebars.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234A20C9C957003E48CC /* slidebars.min.css */; };
+		01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234B20C9C957003E48CC /* terms_and_conditions.html */; };
+		01C0235920C9C957003E48CC /* roaming_faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234C20C9C957003E48CC /* roaming_faq.html */; };
+		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
+		01C022FA20C99304003E48CC /* My Vodafone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Vodafone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		01C022FD20C99304003E48CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		01C022FF20C99304003E48CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		01C0230220C99304003E48CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		01C0230420C99304003E48CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		01C0230720C99304003E48CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		01C0230920C99304003E48CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01C0233320C9C940003E48CC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		01C0233420C9C940003E48CC /* VodafoneLt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VodafoneLt.ttf; sourceTree = "<group>"; };
+		01C0233520C9C940003E48CC /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		01C0233620C9C940003E48CC /* VodafoneRg_Bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VodafoneRg_Bd.ttf; sourceTree = "<group>"; };
+		01C0233720C9C940003E48CC /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		01C0233820C9C940003E48CC /* VodafoneRg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VodafoneRg.ttf; sourceTree = "<group>"; };
+		01C0233920C9C940003E48CC /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		01C0234120C9C956003E48CC /* custom.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = custom.css; sourceTree = "<group>"; };
+		01C0234220C9C956003E48CC /* simswap.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = simswap.html; sourceTree = "<group>"; };
+		01C0234320C9C956003E48CC /* terms.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = terms.css; sourceTree = "<group>"; };
+		01C0234420C9C956003E48CC /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
+		01C0234520C9C956003E48CC /* terms_netperform.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_netperform.html; sourceTree = "<group>"; };
+		01C0234620C9C956003E48CC /* data_permissions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = data_permissions.html; sourceTree = "<group>"; };
+		01C0234720C9C956003E48CC /* font.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = font.css; sourceTree = "<group>"; };
+		01C0234820C9C957003E48CC /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
+		01C0234920C9C957003E48CC /* app.v2.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = app.v2.css; sourceTree = "<group>"; };
+		01C0234A20C9C957003E48CC /* slidebars.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = slidebars.min.css; sourceTree = "<group>"; };
+		01C0234B20C9C957003E48CC /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
+		01C0234C20C9C957003E48CC /* roaming_faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roaming_faq.html; sourceTree = "<group>"; };
+		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01C022F720C99304003E48CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01C022F120C99304003E48CC = {
+			isa = PBXGroup;
+			children = (
+				01C022FC20C99304003E48CC /* My Vodafone */,
+				01C022FB20C99304003E48CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		01C022FB20C99304003E48CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01C022FA20C99304003E48CC /* My Vodafone.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01C022FC20C99304003E48CC /* My Vodafone */ = {
+			isa = PBXGroup;
+			children = (
+				01C0233220C9C907003E48CC /* htmls */,
+				01C0233120C9C8F9003E48CC /* fonts */,
+				01C022FD20C99304003E48CC /* AppDelegate.swift */,
+				01C022FF20C99304003E48CC /* ViewController.swift */,
+				01C0230120C99304003E48CC /* Main.storyboard */,
+				01C0230420C99304003E48CC /* Assets.xcassets */,
+				01C0230620C99304003E48CC /* LaunchScreen.storyboard */,
+				01C0230920C99304003E48CC /* Info.plist */,
+				01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */,
+			);
+			path = "My Vodafone";
+			sourceTree = "<group>";
+		};
+		01C0233120C9C8F9003E48CC /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				01C0233920C9C940003E48CC /* Roboto-Light.ttf */,
+				01C0233320C9C940003E48CC /* Roboto-Medium.ttf */,
+				01C0233520C9C940003E48CC /* Roboto-Regular.ttf */,
+				01C0233720C9C940003E48CC /* Roboto-Thin.ttf */,
+				01C0233420C9C940003E48CC /* VodafoneLt.ttf */,
+				01C0233620C9C940003E48CC /* VodafoneRg_Bd.ttf */,
+				01C0233820C9C940003E48CC /* VodafoneRg.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		01C0233220C9C907003E48CC /* htmls */ = {
+			isa = PBXGroup;
+			children = (
+				01C0234920C9C957003E48CC /* app.v2.css */,
+				01C0234120C9C956003E48CC /* custom.css */,
+				01C0234620C9C956003E48CC /* data_permissions.html */,
+				01C0234720C9C956003E48CC /* font.css */,
+				01C0234820C9C957003E48CC /* icon1.png */,
+				01C0234420C9C956003E48CC /* icon2.png */,
+				01C0234C20C9C957003E48CC /* roaming_faq.html */,
+				01C0234D20C9C957003E48CC /* roamingdiscounts.html */,
+				01C0234220C9C956003E48CC /* simswap.html */,
+				01C0234A20C9C957003E48CC /* slidebars.min.css */,
+				01C0234B20C9C957003E48CC /* terms_and_conditions.html */,
+				01C0234520C9C956003E48CC /* terms_netperform.html */,
+				01C0234320C9C956003E48CC /* terms.css */,
+			);
+			path = htmls;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01C022F920C99304003E48CC /* My Vodafone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01C0230C20C99305003E48CC /* Build configuration list for PBXNativeTarget "My Vodafone" */;
+			buildPhases = (
+				01C022F620C99304003E48CC /* Sources */,
+				01C022F720C99304003E48CC /* Frameworks */,
+				01C022F820C99304003E48CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "My Vodafone";
+			productName = "My Vodafone";
+			productReference = 01C022FA20C99304003E48CC /* My Vodafone.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01C022F220C99304003E48CC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Chef Dennis Barimah";
+				TargetAttributes = {
+					01C022F920C99304003E48CC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 01C022F520C99304003E48CC /* Build configuration list for PBXProject "My Vodafone" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 01C022F120C99304003E48CC;
+			productRefGroup = 01C022FB20C99304003E48CC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01C022F920C99304003E48CC /* My Vodafone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01C022F820C99304003E48CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01C0233E20C9C940003E48CC /* Roboto-Thin.ttf in Resources */,
+				01C0233D20C9C940003E48CC /* VodafoneRg_Bd.ttf in Resources */,
+				01C0235220C9C957003E48CC /* terms_netperform.html in Resources */,
+				01C0234020C9C940003E48CC /* Roboto-Light.ttf in Resources */,
+				01C0235020C9C957003E48CC /* terms.css in Resources */,
+				01C0233C20C9C940003E48CC /* Roboto-Regular.ttf in Resources */,
+				01C0235120C9C957003E48CC /* icon2.png in Resources */,
+				01C0233A20C9C940003E48CC /* Roboto-Medium.ttf in Resources */,
+				01C0235520C9C957003E48CC /* icon1.png in Resources */,
+				01C0235920C9C957003E48CC /* roaming_faq.html in Resources */,
+				01C0230820C99304003E48CC /* LaunchScreen.storyboard in Resources */,
+				01C0234E20C9C957003E48CC /* custom.css in Resources */,
+				01C0235720C9C957003E48CC /* slidebars.min.css in Resources */,
+				01C0235420C9C957003E48CC /* font.css in Resources */,
+				01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */,
+				01C0234F20C9C957003E48CC /* simswap.html in Resources */,
+				01C0233B20C9C940003E48CC /* VodafoneLt.ttf in Resources */,
+				01C0233F20C9C940003E48CC /* VodafoneRg.ttf in Resources */,
+				01C0235320C9C957003E48CC /* data_permissions.html in Resources */,
+				01C0235620C9C957003E48CC /* app.v2.css in Resources */,
+				01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */,
+				01C0230520C99304003E48CC /* Assets.xcassets in Resources */,
+				01C0230320C99304003E48CC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01C022F620C99304003E48CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01C0230020C99304003E48CC /* ViewController.swift in Sources */,
+				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
+				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		01C0230120C99304003E48CC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01C0230220C99304003E48CC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		01C0230620C99304003E48CC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01C0230720C99304003E48CC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		01C0230A20C99305003E48CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		01C0230B20C99305003E48CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		01C0230D20C99305003E48CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "My Vodafone/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myvodafone.app.My-Vodafone";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		01C0230E20C99305003E48CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "My Vodafone/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myvodafone.app.My-Vodafone";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01C022F520C99304003E48CC /* Build configuration list for PBXProject "My Vodafone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01C0230A20C99305003E48CC /* Debug */,
+				01C0230B20C99305003E48CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01C0230C20C99305003E48CC /* Build configuration list for PBXNativeTarget "My Vodafone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01C0230D20C99305003E48CC /* Debug */,
+				01C0230E20C99305003E48CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01C022F220C99304003E48CC /* Project object */;
+}
