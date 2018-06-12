@@ -133,6 +133,9 @@ class homePrePaidViewController: UIViewController {
     @IBAction func closeMenu(_ sender: Any) {
         //always set trailing constraint to -261 to close
         menuViewTrailingConstraint.constant = -261
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
         menuShowing = !menuShowing
         hamburger.isHidden = false
     }
@@ -177,6 +180,17 @@ class homePrePaidViewController: UIViewController {
             dropdown.tintColor = UIColor.white
         }
         dropDownShowing = !dropDownShowing
+    }
+    
+    
+    @IBAction func btnHomeAction(_ sender: Any) {
+        //always set trailing constraint to -261 to close
+        menuViewTrailingConstraint.constant = -261
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        menuShowing = !menuShowing
+        hamburger.isHidden = false
     }
     
     //set menu btn to white colour
