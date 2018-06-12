@@ -13,6 +13,11 @@ class homePrePaidViewController: UIViewController {
     @IBOutlet weak var menuViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var hamburger: UIButton!
     @IBOutlet weak var ic_close: UIButton!
+    @IBOutlet weak var dropdown: UIButton!
+    @IBOutlet weak var speedCheck: UIButton!
+    @IBOutlet weak var networkU: UIButton!
+    @IBOutlet weak var bbFinder: UIButton!
+    @IBOutlet weak var networkCov: UIButton!
     
     @IBOutlet weak var ic_home: UIImageView!
     @IBOutlet weak var ic_mobile: UIImageView!
@@ -28,7 +33,13 @@ class homePrePaidViewController: UIViewController {
     @IBOutlet weak var ic_info: UIImageView!
     @IBOutlet weak var ic_logout: UIImageView!
     
+    
+    @IBOutlet weak var icMailTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnMessageTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var menuViewHeightConstraint: NSLayoutConstraint!
+    
     var menuShowing = false
+    var dropDownShowing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +137,48 @@ class homePrePaidViewController: UIViewController {
         hamburger.isHidden = false
     }
     
+    
+    @IBAction func showNetworks(_ sender: Any) {
+        if(dropDownShowing){
+            print(dropDownShowing)
+            //show all hidden network pdts
+            speedCheck.isHidden = true
+            networkU.isHidden = true
+            bbFinder.isHidden = true
+            networkCov.isHidden = true
+            
+            //Change constants of menu items under network menu
+            icMailTopConstraint.constant = 10
+            btnMessageTopConstraint.constant = 16
+            menuViewHeightConstraint.constant = 646
+            
+            //now change chevron down to chevron up
+            let chevronDown = UIImage(named: "chevDown")
+            let tintedImage = chevronDown?.withRenderingMode(.alwaysTemplate)
+            dropdown.setImage(tintedImage, for: .normal)
+            dropdown.tintColor = UIColor.white
+            
+        }else{
+            //show all hidden network pdts
+            speedCheck.isHidden = false
+            networkU.isHidden = false
+            bbFinder.isHidden = false
+            networkCov.isHidden = false
+            
+            //Change constants of menu items under network menu
+            icMailTopConstraint.constant = 126
+            btnMessageTopConstraint.constant = 133
+            menuViewHeightConstraint.constant = 735
+            
+            //now change chevron down to chevron up
+            let chevronUp = UIImage(named: "chevron_up")
+            let tintedImage = chevronUp?.withRenderingMode(.alwaysTemplate)
+            dropdown.setImage(tintedImage, for: .normal)
+            dropdown.tintColor = UIColor.white
+        }
+        dropDownShowing = !dropDownShowing
+    }
+    
     //set menu btn to white colour
     func changeMenuBtnColour(){
         let btnMenu = UIImage(named: "hamburger")
@@ -137,6 +190,11 @@ class homePrePaidViewController: UIViewController {
         let closeTinted = btnClose?.withRenderingMode(.alwaysTemplate)
         ic_close.setImage(closeTinted, for: .normal)
         ic_close.tintColor = UIColor.white
+        
+        let btnDropDown = UIImage(named: "chevDown")
+        let chevTinted = btnDropDown?.withRenderingMode(.alwaysTemplate)
+        dropdown.setImage(chevTinted, for: .normal)
+        dropdown.tintColor = UIColor.white
         
     }
 
