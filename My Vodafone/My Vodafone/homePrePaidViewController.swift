@@ -14,6 +14,20 @@ class homePrePaidViewController: UIViewController {
     @IBOutlet weak var hamburger: UIButton!
     @IBOutlet weak var ic_close: UIButton!
     
+    @IBOutlet weak var ic_home: UIImageView!
+    @IBOutlet weak var ic_mobile: UIImageView!
+    @IBOutlet weak var ic_ratings: UIImageView!
+    @IBOutlet weak var ic_top_up: UIImageView!
+    @IBOutlet weak var ic_roaming: UIImageView!
+    @IBOutlet weak var call_icon: UIImageView!
+    @IBOutlet weak var ic_location_marker: UIImageView!
+    @IBOutlet weak var ic_network: UIImageView!
+    @IBOutlet weak var ic_mail: UIImageView!
+    @IBOutlet weak var ic_profile: UIImageView!
+    @IBOutlet weak var ic_settings: UIImageView!
+    @IBOutlet weak var ic_info: UIImageView!
+    @IBOutlet weak var ic_logout: UIImageView!
+    
     var menuShowing = false
     
     override func viewDidLoad() {
@@ -21,12 +35,72 @@ class homePrePaidViewController: UIViewController {
 
         // change button colours.
         changeMenuBtnColour()
+        //code to change image colours
+        self.perform(#selector(changeImageColorToWhite), with: nil, afterDelay: 0)
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /*Function to change image colours to white*/
+    @objc func changeImageColorToWhite() {
+        let templateImageHome = ic_home.image?.withRenderingMode(.alwaysTemplate)
+        ic_home.image = templateImageHome
+        ic_home.tintColor = UIColor.white
+        
+        let templateImageMobile = ic_mobile.image?.withRenderingMode(.alwaysTemplate)
+        ic_mobile.image = templateImageMobile
+        ic_mobile.tintColor = UIColor.white
+        
+        let templateImageRatings = ic_ratings.image?.withRenderingMode(.alwaysTemplate)
+        ic_ratings.image = templateImageRatings
+        ic_ratings.tintColor = UIColor.white
+        
+        let templateImageTopUP = ic_top_up.image?.withRenderingMode(.alwaysTemplate)
+        ic_top_up.image = templateImageTopUP
+        ic_top_up.tintColor = UIColor.white
+        
+        let templateImageRoaming = ic_roaming.image?.withRenderingMode(.alwaysTemplate)
+        ic_roaming.image = templateImageRoaming
+        ic_roaming.tintColor = UIColor.white
+        
+        let templateImageCalls = call_icon.image?.withRenderingMode(.alwaysTemplate)
+        call_icon.image = templateImageCalls
+        call_icon.tintColor = UIColor.white
+        
+        let templateImageMap = ic_location_marker.image?.withRenderingMode(.alwaysTemplate)
+        ic_location_marker.image = templateImageMap
+        ic_location_marker.tintColor = UIColor.white
+        
+        let templateImageNetwork = ic_network.image?.withRenderingMode(.alwaysTemplate)
+        ic_network.image = templateImageNetwork
+        ic_network.tintColor = UIColor.white
+        
+        let templateImageMessage = ic_mail.image?.withRenderingMode(.alwaysTemplate)
+        ic_mail.image = templateImageMessage
+        ic_mail.tintColor = UIColor.white
+        
+        let templateImageProfile = ic_profile.image?.withRenderingMode(.alwaysTemplate)
+        ic_profile.image = templateImageProfile
+        ic_profile.tintColor = UIColor.white
+        
+        let templateImageSettings = ic_settings.image?.withRenderingMode(.alwaysTemplate)
+        ic_settings.image = templateImageSettings
+        ic_settings.tintColor = UIColor.white
+        
+        let templateImageAbout = ic_info.image?.withRenderingMode(.alwaysTemplate)
+        ic_info.image = templateImageAbout
+        ic_info.tintColor = UIColor.white
+        
+        let templateImageLogout = ic_logout.image?.withRenderingMode(.alwaysTemplate)
+        ic_logout.image = templateImageLogout
+        ic_logout.tintColor = UIColor.white
+        
+        
+        
     }
     
 
