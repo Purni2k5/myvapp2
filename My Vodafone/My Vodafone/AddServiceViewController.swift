@@ -15,13 +15,37 @@ class AddServiceViewController: UIViewController, UIPickerViewDataSource, UIPick
     @IBOutlet weak var enterIDTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var serviceType: UITextField!
     @IBOutlet weak var chevDown: UIImageView!
+    @IBOutlet weak var hamburger: UIButton!
+    @IBOutlet weak var closeBtn: UIButton!
+    @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ic_home: UIImageView!
+    @IBOutlet weak var ic_mobile: UIImageView!
+    @IBOutlet weak var ic_ratings: UIImageView!
+    @IBOutlet weak var ic_top_up: UIImageView!
+    @IBOutlet weak var ic_travelling: UIImageView!
+    @IBOutlet weak var ic_locator: UIImageView!
+    @IBOutlet weak var ic_network: UIImageView!
+    @IBOutlet weak var ic_message: UIImageView!
+    @IBOutlet weak var ic_profile: UIImageView!
+    @IBOutlet weak var ic_settings: UIImageView!
+    @IBOutlet weak var ic_logout: UIImageView!
+    
+    @IBOutlet weak var ic_about: UIImageView!
+    @IBOutlet weak var dropDown: UIButton!
+    @IBOutlet weak var icMailTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnMessageTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var menuViewHeightConstraint: NSLayoutConstraint!
     
     var list = ["","Fixed Broadband", "Mobile"]
+    var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // change button colour.
         changeBackColour()
+        changeMenuIconColour()
+        //code to change image colours
+        self.perform(#selector(changeMenuIconsToWhite), with: nil, afterDelay: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,6 +117,83 @@ class AddServiceViewController: UIViewController, UIPickerViewDataSource, UIPick
         let tintedImage = back_image?.withRenderingMode(.alwaysTemplate)
         btnBack.setImage(tintedImage, for: .normal)
         btnBack.tintColor = UIColor.white
+    }
+    //change menu button icon colour
+    func changeMenuIconColour(){
+        let menu_image = UIImage(named: "hamburger")
+        let tintedImage = menu_image?.withRenderingMode(.alwaysTemplate)
+        hamburger.setImage(tintedImage, for: .normal)
+        hamburger.tintColor = UIColor.white
+        
+        let close_image = UIImage(named: "new_close")
+        let tintedImageC = close_image?.withRenderingMode(.alwaysTemplate)
+        closeBtn.setImage(tintedImageC, for: .normal)
+        closeBtn.tintColor = UIColor.white
+    }
+    //NB have also hooked up the close btn 
+    @IBAction func showMenu(_ sender: Any) {
+        if (menuShowing){
+            menuTrailingConstraint.constant = -261
+        }else{
+            menuTrailingConstraint.constant = 0
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        menuShowing = !menuShowing
+    }
+    
+    //change menu images to white colour
+    @objc func changeMenuIconsToWhite(){
+        let templateImageHome = ic_home.image?.withRenderingMode(.alwaysTemplate)
+        ic_home.image = templateImageHome
+        ic_home.tintColor = UIColor.white
+        
+        let templateImageMobile = ic_mobile.image?.withRenderingMode(.alwaysTemplate)
+        ic_mobile.image = templateImageMobile
+        ic_mobile.tintColor = UIColor.white
+        
+        let templateImageRatings = ic_ratings.image?.withRenderingMode(.alwaysTemplate)
+        ic_ratings.image = templateImageRatings
+        ic_ratings.tintColor = UIColor.white
+        
+        let templateImageTopUP = ic_top_up.image?.withRenderingMode(.alwaysTemplate)
+        ic_top_up.image = templateImageTopUP
+        ic_top_up.tintColor = UIColor.white
+        
+        let templateImageRoaming = ic_travelling.image?.withRenderingMode(.alwaysTemplate)
+        ic_travelling.image = templateImageRoaming
+        ic_travelling.tintColor = UIColor.white
+        
+       
+        
+        let templateImageMap = ic_locator.image?.withRenderingMode(.alwaysTemplate)
+        ic_locator.image = templateImageMap
+        ic_locator.tintColor = UIColor.white
+        
+        let templateImageNetwork = ic_network.image?.withRenderingMode(.alwaysTemplate)
+        ic_network.image = templateImageNetwork
+        ic_network.tintColor = UIColor.white
+        
+        let templateImageMessage = ic_message.image?.withRenderingMode(.alwaysTemplate)
+        ic_message.image = templateImageMessage
+        ic_message.tintColor = UIColor.white
+        
+        let templateImageProfile = ic_profile.image?.withRenderingMode(.alwaysTemplate)
+        ic_profile.image = templateImageProfile
+        ic_profile.tintColor = UIColor.white
+        
+        let templateImageSettings = ic_settings.image?.withRenderingMode(.alwaysTemplate)
+        ic_settings.image = templateImageSettings
+        ic_settings.tintColor = UIColor.white
+        
+        let templateImageAbout = ic_about.image?.withRenderingMode(.alwaysTemplate)
+        ic_about.image = templateImageAbout
+        ic_about.tintColor = UIColor.white
+        
+        let templateImageLogout = ic_logout.image?.withRenderingMode(.alwaysTemplate)
+        ic_logout.image = templateImageLogout
+        ic_logout.tintColor = UIColor.white
     }
 
 }

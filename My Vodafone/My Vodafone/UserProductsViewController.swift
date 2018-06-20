@@ -18,6 +18,9 @@ class UserProductsViewController: UIViewController {
 
         // make image round.
         makePicRound(image: userProfile)
+        
+        //change button colour
+        changeBtnImageColour()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +29,16 @@ class UserProductsViewController: UIViewController {
     }
     
 
+    /*Funtion to change button image colour*/
+    func changeBtnImageColour() {
+        let back_image = UIImage(named: "leftArrow")
+        let tintedImage = back_image?.withRenderingMode(.alwaysTemplate)
+        btnBack.setImage(tintedImage, for: .normal)
+        btnBack.tintColor = UIColor.white
+    }
+    
+    
+    
     /*
      Function to make profile pic round
      */

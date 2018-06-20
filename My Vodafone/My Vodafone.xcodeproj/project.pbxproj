@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
+		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
+		01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */; };
+		01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */; };
+		01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC079320D814320034B6B8 /* PrivacyPolicyViewController.swift */; };
 		01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C022FD20C99304003E48CC /* AppDelegate.swift */; };
 		01C0230020C99304003E48CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C022FF20C99304003E48CC /* ViewController.swift */; };
 		01C0230320C99304003E48CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01C0230120C99304003E48CC /* Main.storyboard */; };
@@ -40,11 +45,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
+		01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
+		01AC079320D814320034B6B8 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		01C022FA20C99304003E48CC /* My Vodafone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Vodafone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C022FD20C99304003E48CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C022FF20C99304003E48CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +127,11 @@
 				01853EB920CFD81E002DEB7D /* CardView.swift */,
 				01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */,
 				01853EBD20D05957002DEB7D /* UserProductsViewController.swift */,
+				01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */,
+				01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */,
+				01AC079320D814320034B6B8 /* PrivacyPolicyViewController.swift */,
+				0148E06220D915E9003D3F54 /* LogoutViewController.swift */,
+				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -251,9 +266,14 @@
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
+				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
+				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
+				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
+				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
+				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
