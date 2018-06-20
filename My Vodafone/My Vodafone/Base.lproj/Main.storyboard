@@ -140,10 +140,10 @@
             </objects>
             <point key="canvasLocation" x="10" y="-1011"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="K4d-Jh-fdp">
             <objects>
-                <viewController id="Tae-j8-n0g" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Tae-j8-n0g" customClass="LoginViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q1e-mr-N7W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,13 +158,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login in to My Vodafone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUZ-62-TNj">
-                                                <rect key="frame" x="60" y="25" width="255" height="51.5"/>
-                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="30"/>
+                                                <rect key="frame" x="60" y="25" width="255" height="53.5"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="31"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHl-95-w6e">
-                                                <rect key="frame" x="20" y="105.5" width="335" height="509"/>
+                                                <rect key="frame" x="20" y="107.5" width="335" height="509"/>
                                                 <subviews>
                                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="eDi-Cx-A6M">
                                                         <rect key="frame" x="20" y="18" width="295" height="80"/>
@@ -338,6 +338,9 @@
                         <viewLayoutGuide key="safeArea" id="xr8-48-G5u"/>
                     </view>
                     <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="loginHeader" destination="iUZ-62-TNj" id="zvx-HT-11A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g38-7t-Rv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3229,13 +3232,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register for My Vodafone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAa-WL-EBl">
-                                                <rect key="frame" x="95" y="18" width="250" height="62"/>
-                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="36"/>
+                                                <rect key="frame" x="95" y="18" width="250" height="51.5"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="30"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gJ-We-TEk">
-                                                <rect key="frame" x="20" y="105" width="335" height="580"/>
+                                                <rect key="frame" x="20" y="94.5" width="335" height="580"/>
                                                 <subviews>
                                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-rq-bkC">
                                                         <rect key="frame" x="20" y="18" width="295" height="80"/>
