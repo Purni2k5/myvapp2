@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
+    let preference = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,10 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         loginHeader.text = "Log in to \nMy Vodafone"
         indicator.isHidden = true
+        
+        //print login status
+//        let loginStatus = preference.object(forKey: "loginStatus")
+//        print("login stat: \(loginStatus!)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,7 +72,8 @@ class LoginViewController: UIViewController {
                 "username":username,
                 "password":password
             ]
-            callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
+            let response = callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
+            print("your response: \(response)")
             
             print("Good to go")
         }
@@ -110,6 +116,7 @@ class LoginViewController: UIViewController {
         urlConfig.timeoutIntervalForRequest = 30.0
         urlConfig.timeoutIntervalForResource = 60.0
         request.httpMethod = "POST"
+        
         //hash password
         var securedPass = md5(rawPassword)
         let hashPass = securedPass.sha1()
@@ -137,13 +144,36 @@ class LoginViewController: UIViewController {
                     //parsing the json
                     if let parseJSON = myJSON {
                         //creating a string
-                        var msg: String!
+                        var responseCode: Int!
+                        var responseMessage: String!
+                        var responseData: String!
                         //getting the json response
-                        msg = parseJSON["RESPONSEMESSAGE"] as! String?
-                        print(msg)
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+//                        responseData = parseJSON["RESPONSEDATA"] as! String
+//                        let responseData = jsonString as! [String: AnyObject]
+                        print(responseCode)
                         print("-------------- response data -------------")
                         print(parseJSON)
 //                        self.stopAsyncLoader()
+                        DispatchQueue.main.async { // Correct
+                            if responseCode == 0{
+                                self.stopAsyncLoader()
+                                self.preference.set("Yes", forKey: "loginStatus")
+//                                self.preference.set(responseData, forKey: "responseData")
+                                //go to home screen
+                                let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
+                                self.present(moveTo!, animated: true, completion: nil)
+                            }else{
+                                self.stopAsyncLoader()
+                                //display error message
+                                self.errorMessage.isHidden = false
+                                self.img_info.isHidden = false
+                                self.error_dialog_bg.isHidden = false
+                                self.errorMessage.text = responseMessage
+                                self.usernameTopConstraint.constant = 90
+                            }
+                        }
                     }
                 } catch {
                     print(error)
@@ -152,6 +182,7 @@ class LoginViewController: UIViewController {
             //executing the task
             task.resume()
         }
+        
     }
     //Hashing function
     func md5(_ string: String) -> String {

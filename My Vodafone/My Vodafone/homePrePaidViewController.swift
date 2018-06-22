@@ -41,6 +41,8 @@ class homePrePaidViewController: UIViewController {
     var menuShowing = false
     var dropDownShowing = false
     
+    let preference = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,6 +50,12 @@ class homePrePaidViewController: UIViewController {
         changeMenuBtnColour()
         //code to change image colours
         self.perform(#selector(changeImageColorToWhite), with: nil, afterDelay: 0)
+        
+        //get any user default value
+        let loginStat = preference.object(forKey: "loginStatus")
+        let responseData = preference.object(forKey: "responseData")
+        print("home status: \(loginStat)")
+        print("response: \(responseData)")
         
     }
 
