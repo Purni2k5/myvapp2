@@ -52,12 +52,42 @@ class homePrePaidViewController: UIViewController {
         self.perform(#selector(changeImageColorToWhite), with: nil, afterDelay: 0)
         
         //get any user default value
+        let food = ["Rice", "Yam", "Coffee"]
         let loginStat = preference.object(forKey: "loginStatus")
         let responseData = preference.object(forKey: "responseData")
-        print("home status: \(loginStat)")
-        print("response: \(responseData)")
+        
+        
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        preference.set(food, forKey: "food")
+        let sell = preference.object(forKey: "food")
+        let defaultService = UserData["DefaultService"] as! String
+        
+        let Services = preference.object(forKey: "ServiceList")
+        if let array = Services as? NSArray {
+            for obj in array {
+                if let dict = obj as? NSDictionary {
+                    // Now reference the data you need using:
+                    let id = dict.value(forKey: "DisplayName")
+                    let ServiceID = dict.value(forKey: "ID") as! String
+                    let AcctType = dict.value(forKey: "Type") as! String
+                    
+                    if(ServiceID == defaultService){
+                        if(AcctType == "PHONE_MOBILE_PRE_P"){
+                            print("prepaid")
+                        }else if(AcctType == "PHONE_MOBILE_POST_P"){
+                            print("postpaid")
+                        }else if(AcctType == "PHONE_MOBILE_HYBRID"){
+                            print("hybrid")
+                        }else{
+                            print("fbb")
+                        }
+                    }
+                }
+            }
+        }
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

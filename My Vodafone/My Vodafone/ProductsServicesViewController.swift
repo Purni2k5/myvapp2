@@ -13,6 +13,7 @@ class ProductsServicesViewController: UIViewController {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var addService: CardView!
     @IBOutlet weak var userPdts: CardView!
+    let preference = UserDefaults.standard
     
     
     override func viewDidLoad() {
@@ -30,6 +31,23 @@ class ProductsServicesViewController: UIViewController {
         
         let gestureRec2 = UITapGestureRecognizer(target: self, action: #selector(self.goToUserPdts))
         userPdts.addGestureRecognizer(gestureRec2)
+        
+        
+        let Services = preference.object(forKey: "ServiceList")
+        if let array = Services as? NSArray {
+            for obj in array {
+                if let dict = obj as? NSDictionary {
+                    // Now reference the data you need using:
+                    let id = dict.value(forKey: "DisplayName")
+                    let ServiceID = dict.value(forKey: "primaryID") as! String
+                    let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
+                    
+                    print(id)
+                    print(ServiceID)
+                    print(DisplayImageUrl)
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

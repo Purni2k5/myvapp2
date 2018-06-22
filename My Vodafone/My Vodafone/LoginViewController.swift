@@ -72,10 +72,8 @@ class LoginViewController: UIViewController {
                 "username":username,
                 "password":password
             ]
-            let response = callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
-            print("your response: \(response)")
+            callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
             
-            print("Good to go")
         }
     }
     
@@ -146,12 +144,16 @@ class LoginViewController: UIViewController {
                         //creating a string
                         var responseCode: Int!
                         var responseMessage: String!
-                        var responseData: String!
+                        var responseData: NSDictionary!
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-//                        responseData = parseJSON["RESPONSEDATA"] as! String
-//                        let responseData = jsonString as! [String: AnyObject]
+                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
+                        
+                        self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                        
+                        let obj = responseData["AccountStatus"] as! String
+                        print("Account stat: \(obj)")
                         print(responseCode)
                         print("-------------- response data -------------")
                         print(parseJSON)
@@ -160,7 +162,7 @@ class LoginViewController: UIViewController {
                             if responseCode == 0{
                                 self.stopAsyncLoader()
                                 self.preference.set("Yes", forKey: "loginStatus")
-//                                self.preference.set(responseData, forKey: "responseData")
+                                self.preference.set(responseData, forKey: "responseData")
                                 //go to home screen
                                 let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
                                 self.present(moveTo!, animated: true, completion: nil)
