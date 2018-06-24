@@ -148,12 +148,15 @@ class LoginViewController: UIViewController {
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
+                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                         
-                        self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                        if responseData != nil {
+                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                            let obj = responseData["AccountStatus"] as! String
+                            print("Account stat: \(obj)")
+                        }
                         
-                        let obj = responseData["AccountStatus"] as! String
-                        print("Account stat: \(obj)")
+                        
                         print(responseCode)
                         print("-------------- response data -------------")
                         print(parseJSON)
