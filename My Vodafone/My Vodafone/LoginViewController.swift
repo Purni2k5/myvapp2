@@ -27,8 +27,8 @@ class LoginViewController: UIViewController {
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
-    let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
+    //https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc
+    let login_api = URL(string: "http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc")
     let preference = UserDefaults.standard
     
     override func viewDidLoad() {

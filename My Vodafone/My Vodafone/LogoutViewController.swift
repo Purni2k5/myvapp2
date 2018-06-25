@@ -10,6 +10,7 @@ import UIKit
 
 class LogoutViewController: UIViewController {
     @IBOutlet weak var btnClose: UIButton!
+    let preference = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,12 @@ class LogoutViewController: UIViewController {
     }
     */
     
+    @IBAction func btnYes(_ sender: Any) {
+        preference.removeObject(forKey: "loginStatus")
+        preference.removeObject(forKey: "responseData")
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
     
     @IBAction func closeModal(_ sender: Any) {
         let move = storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")

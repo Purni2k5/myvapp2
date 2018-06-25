@@ -568,21 +568,21 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add A Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rud-WD-xDI">
-                                                        <rect key="frame" x="110" y="39" width="175" height="19"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="22"/>
+                                                        <rect key="frame" x="110" y="39" width="90.5" height="15"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="d7q-NH-dld">
-                                                        <rect key="frame" x="307" y="39" width="20" height="23"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="d7q-NH-dld">
+                                                        <rect key="frame" x="312" y="39" width="15" height="15"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="23" id="5I4-bn-dek"/>
-                                                            <constraint firstAttribute="width" constant="20" id="5nH-k0-0IA"/>
+                                                            <constraint firstAttribute="width" constant="15" id="BT9-Lj-vJK"/>
+                                                            <constraint firstAttribute="height" constant="15" id="iaN-dj-NA1"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new number of Fixed Broadband account to be managed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oak-hH-iGw">
-                                                        <rect key="frame" x="110" y="66" width="215" height="51.5"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
+                                                        <rect key="frame" x="110" y="62" width="215" height="44"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -595,18 +595,16 @@
                                                     <constraint firstItem="RhA-07-Ggk" firstAttribute="leading" secondItem="5UR-Qn-T87" secondAttribute="trailing" constant="10" id="Ska-Ko-8CR"/>
                                                     <constraint firstAttribute="trailing" secondItem="oak-hH-iGw" secondAttribute="trailing" constant="10" id="TVr-u8-aUu"/>
                                                     <constraint firstItem="RhA-07-Ggk" firstAttribute="top" secondItem="QwL-Jt-Bdq" secondAttribute="top" constant="25" id="UnL-Gi-OjC"/>
-                                                    <constraint firstItem="d7q-NH-dld" firstAttribute="leading" secondItem="rud-WD-xDI" secondAttribute="trailing" constant="22" id="dhB-4d-7TE"/>
+                                                    <constraint firstItem="d7q-NH-dld" firstAttribute="top" secondItem="QwL-Jt-Bdq" secondAttribute="top" constant="39" id="YeB-sh-tiH"/>
                                                     <constraint firstAttribute="bottom" secondItem="5UR-Qn-T87" secondAttribute="bottom" id="g3y-Ip-Mh7"/>
                                                     <constraint firstAttribute="height" constant="145" id="gb8-2u-lg0"/>
-                                                    <constraint firstItem="d7q-NH-dld" firstAttribute="top" secondItem="QwL-Jt-Bdq" secondAttribute="top" constant="39" id="q5d-Co-rlG"/>
-                                                    <constraint firstAttribute="trailing" secondItem="d7q-NH-dld" secondAttribute="trailing" constant="8" id="tjq-eu-dDD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="d7q-NH-dld" secondAttribute="trailing" constant="8" id="tWi-bZ-MT6"/>
                                                     <constraint firstItem="rud-WD-xDI" firstAttribute="top" secondItem="QwL-Jt-Bdq" secondAttribute="top" constant="39" id="toF-c5-Mir"/>
                                                     <constraint firstItem="5UR-Qn-T87" firstAttribute="top" secondItem="QwL-Jt-Bdq" secondAttribute="top" id="u6G-gR-gPQ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="rud-WD-xDI" secondAttribute="trailing" constant="50" id="uIQ-hd-WTo"/>
                                                     <constraint firstItem="oak-hH-iGw" firstAttribute="top" secondItem="rud-WD-xDI" secondAttribute="bottom" constant="8" id="ucW-gS-tlv"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oaV-DQ-C4d" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oaV-DQ-C4d" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="376" width="335" height="145"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LYo-Nb-pl2">
@@ -709,6 +707,7 @@
                     <connections>
                         <outlet property="addService" destination="QwL-Jt-Bdq" id="AlW-i6-ZDK"/>
                         <outlet property="btnBack" destination="HzX-d3-Xmy" id="41b-Gw-k1O"/>
+                        <outlet property="motherView" destination="D9h-N2-Zkd" id="HUp-hm-vyE"/>
                         <outlet property="userPdts" destination="oaV-DQ-C4d" id="sp1-mo-NYw"/>
                     </connections>
                 </viewController>
@@ -2555,6 +2554,9 @@
                                 <state key="normal" title="Yes log me out">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnYes:" destination="2ou-0d-Xcb" eventType="touchUpInside" id="OIf-11-btA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WE4-Bz-fK3">
                                 <rect key="frame" x="20" y="339" width="335" height="45"/>
@@ -3460,6 +3462,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow" width="28" height="51"/>
         <image name="arrow_right" width="512" height="512"/>
         <image name="bg2" width="750" height="651"/>
         <image name="call_icon" width="58" height="58"/>
