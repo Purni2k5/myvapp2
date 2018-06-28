@@ -125,7 +125,7 @@ class ProductsServicesViewController: UIViewController {
                     let image_arrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
                     onlyService.addSubview(image_arrow)
                     image_arrow.translatesAutoresizingMaskIntoConstraints = false
-                    image_arrow.leadingAnchor.constraint(equalTo: txtServiceName.trailingAnchor, constant: 40).isActive = true
+                    image_arrow.trailingAnchor.constraint(equalTo: onlyService.trailingAnchor, constant: -10).isActive = true
                     image_arrow.topAnchor.constraint(equalTo: onlyService.topAnchor, constant: 50).isActive = true
                     image_arrow.widthAnchor.constraint(equalToConstant: 15).isActive = true
                     image_arrow.heightAnchor.constraint(equalToConstant: 15).isActive = true
