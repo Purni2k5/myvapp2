@@ -43,6 +43,7 @@
 		01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234B20C9C957003E48CC /* terms_and_conditions.html */; };
 		01C0235920C9C957003E48CC /* roaming_faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234C20C9C957003E48CC /* roaming_faq.html */; };
 		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
+		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		01C0234B20C9C957003E48CC /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
 		01C0234C20C9C957003E48CC /* roaming_faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roaming_faq.html; sourceTree = "<group>"; };
 		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
+		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
 				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
+				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
+				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
