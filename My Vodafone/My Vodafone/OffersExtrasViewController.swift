@@ -19,7 +19,11 @@ class OffersExtrasViewController: UIViewController {
     
     @IBOutlet weak var cardRoundImages: UIImageView!
     @IBOutlet weak var imgDataBundle: UIImageView!
-    
+    @IBOutlet weak var imgVFX: UIImageView!
+    @IBOutlet weak var imgIDDBundles: UIImageView!
+    @IBOutlet weak var imgSettings: UIImageView!
+    @IBOutlet weak var imgVCash: UIImageView!
+    @IBOutlet weak var imgFBB: UIImageView!
     
     var menuShowing = false
     override func viewDidLoad() {
@@ -33,6 +37,15 @@ class OffersExtrasViewController: UIViewController {
         //make card images round
         makeImageRound(image: cardRoundImages)
         makeImageRound(image: imgDataBundle)
+        makeImageRound(image: imgVFX)
+        makeImageRound(image: imgIDDBundles)
+        makeImageRound(image: imgVCash)
+        makeImageRound(image: imgVCash)
+        makeImageRound(image: imgFBB)
+        makeImageRound(image: imgSettings)
+        
+        //change images to white
+        changeImageToWhite()
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,6 +96,7 @@ class OffersExtrasViewController: UIViewController {
         hamburger.setImage(tintedImageH, for: .normal)
         hamburger.tintColor = UIColor.white
         
+        
     }
     
     //Function to make images round
@@ -90,5 +104,28 @@ class OffersExtrasViewController: UIViewController {
         image.layer.cornerRadius = image.frame.size.width / 2
         image.clipsToBounds = true
 //        image.layer.borderWidth = 2
+    }
+    
+    //Function to change images to white
+    @objc func changeImageToWhite(){
+        let vfX = imgVFX.image?.withRenderingMode(.alwaysTemplate)
+        imgVFX.image = vfX
+        imgVFX.tintColor = UIColor.white
+        
+        let iddBundles = imgIDDBundles.image?.withRenderingMode(.alwaysTemplate)
+        imgIDDBundles.image = iddBundles
+        imgIDDBundles.tintColor = UIColor.white
+        
+        let vfcash = imgVCash.image?.withRenderingMode(.alwaysTemplate)
+        imgVCash.image = vfcash
+        imgVCash.tintColor = UIColor.white
+        
+        let ffB = imgFBB.image?.withRenderingMode(.alwaysTemplate)
+        imgFBB.image = ffB
+        imgFBB.tintColor = UIColor.white
+        
+        let settings = imgSettings.image?.withRenderingMode(.alwaysTemplate)
+        imgSettings.image = settings
+        imgSettings.tintColor = UIColor.white
     }
 }
