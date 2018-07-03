@@ -44,6 +44,7 @@
 		01C0235920C9C957003E48CC /* roaming_faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234C20C9C957003E48CC /* roaming_faq.html */; };
 		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
+		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		01C0234C20C9C957003E48CC /* roaming_faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roaming_faq.html; sourceTree = "<group>"; };
 		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
+		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
 				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
+				28E4B19020E966BF00336B1B /* TopUpViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
+				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
