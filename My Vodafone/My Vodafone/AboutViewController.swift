@@ -183,9 +183,9 @@ class AboutViewController: UIViewController {
             networkCov.isHidden = true
             
             //Change constants of menu items under network menu
-            icMailTopConstraint.constant = 10
+            icMailTopConstraint.constant = 13
             btnMessageTopConstraint.constant = 16
-            menuViewHeightConstraint.constant = 646
+            menuViewHeightConstraint.constant = 660
             
             //now change chevron up to chevron down
             let chevronDown = UIImage(named: "chevDown")
@@ -201,9 +201,9 @@ class AboutViewController: UIViewController {
             networkCov.isHidden = false
             
             //Change constants of menu items under network menu
-            icMailTopConstraint.constant = 130
-            btnMessageTopConstraint.constant = 137
-            menuViewHeightConstraint.constant = 735
+            icMailTopConstraint.constant = 140
+            btnMessageTopConstraint.constant = 143
+            menuViewHeightConstraint.constant = 780
             
             //now change chevron down to chevron up
             let chevronUp = UIImage(named: "chevron_up")

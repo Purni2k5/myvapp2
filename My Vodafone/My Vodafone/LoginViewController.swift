@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
             usernameTopConstraint.constant = 90
             error_dialog_bg.isHidden = false
             img_info.isHidden = false
-            errorMessage.text = "Provide Username"
+            errorMessage.text = "Provide Username / Password"
             errorMessage.isHidden = false
 //            btnLogin.isEnabled = false
         }else{
