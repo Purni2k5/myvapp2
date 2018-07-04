@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
+		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
 				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
 				28E4B19020E966BF00336B1B /* TopUpViewController.swift */,
+				014E311620ECCD03004ACE9A /* toppingUpViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
+				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
