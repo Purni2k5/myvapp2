@@ -25,6 +25,17 @@ class OffersExtrasViewController: UIViewController {
     @IBOutlet weak var imgVCash: UIImageView!
     @IBOutlet weak var imgFBB: UIImageView!
     
+    //Offers UIVIEWS
+    @IBOutlet weak var planCard: CardView!
+    @IBOutlet weak var dataBundlesCard: CardView!
+    @IBOutlet weak var vodafoneXCard: CardView!
+    @IBOutlet weak var IDDBundlesCard: CardView!
+    @IBOutlet weak var vodafoneCash: CardView!
+    @IBOutlet weak var fixedBBCard: CardView!
+    @IBOutlet weak var servicesCard: CardView!
+    @IBOutlet weak var planDesc: UITextView!
+    
+    
     var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +57,8 @@ class OffersExtrasViewController: UIViewController {
         
         //change images to white
         changeImageToWhite()
+        //Call gestures on all cards
+        addGesturesToCards()
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,15 +78,7 @@ class OffersExtrasViewController: UIViewController {
         menuShowing = !menuShowing
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
     //Function to change header text
     func changeHeader(){
@@ -128,5 +133,16 @@ class OffersExtrasViewController: UIViewController {
         let settings = imgSettings.image?.withRenderingMode(.alwaysTemplate)
         imgSettings.image = settings
         imgSettings.tintColor = UIColor.white
+    }
+    //Function to add gestures to all offers
+    func addGesturesToCards(){
+        let planRec = UITapGestureRecognizer(target: self, action: #selector(self.goToPlans))
+        planCard.addGestureRecognizer(planRec)
+        planDesc.addGestureRecognizer(planRec)
+    }
+    //Function to go to plans view controller
+    @objc func goToPlans(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "PlansViewController")
+        present(moveTo!, animated: true, completion: nil)
     }
 }

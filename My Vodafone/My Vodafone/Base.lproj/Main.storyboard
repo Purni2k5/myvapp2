@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -3015,9 +3016,12 @@
                     </view>
                     <size key="freeformSize" width="375" height="1400"/>
                     <connections>
+                        <outlet property="IDDBundlesCard" destination="rLw-Dk-QGl" id="1Zq-nd-r7O"/>
                         <outlet property="btnBack" destination="NoE-MK-MCB" id="Cdy-iH-heZ"/>
                         <outlet property="btnClose" destination="SUW-fV-A08" id="iPf-SY-xLV"/>
                         <outlet property="cardRoundImages" destination="0yP-ui-vCm" id="phy-df-mSp"/>
+                        <outlet property="dataBundlesCard" destination="Taq-VO-c7z" id="Eme-tj-kBR"/>
+                        <outlet property="fixedBBCard" destination="lm7-cf-5UJ" id="2j2-Pt-ppb"/>
                         <outlet property="hamburger" destination="u8i-eR-aKQ" id="6gD-zy-taM"/>
                         <outlet property="imgDataBundle" destination="vh0-l5-YLX" id="8a8-4i-YPf"/>
                         <outlet property="imgFBB" destination="ycR-Dh-ycV" id="zz9-qR-zC3"/>
@@ -3027,6 +3031,11 @@
                         <outlet property="imgVFX" destination="a7H-yj-DG2" id="SNl-Vo-VkG"/>
                         <outlet property="lblOffersHeader" destination="tsc-Qb-Nob" id="ecg-Ii-SkB"/>
                         <outlet property="menuViewTrailingConstraint" destination="LnG-Hr-gjF" id="g5U-3Z-8ip"/>
+                        <outlet property="planCard" destination="pAY-ZH-bQY" id="aDb-H0-nUf"/>
+                        <outlet property="planDesc" destination="JF1-v4-ME2" id="JBt-kw-1AE"/>
+                        <outlet property="servicesCard" destination="pcY-Zf-C0e" id="MJA-T5-PPt"/>
+                        <outlet property="vodafoneCash" destination="hFb-vz-l2D" id="MwX-5q-YU6"/>
+                        <outlet property="vodafoneXCard" destination="Q9L-UW-GeY" id="gbl-Kf-KVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kTh-9b-Yga" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3054,6 +3063,9 @@
                                     <constraint firstAttribute="height" constant="40" id="oXv-rA-QEA"/>
                                 </constraints>
                                 <state key="normal" image="leftArrow"/>
+                                <connections>
+                                    <segue destination="Cu8-dm-JAb" kind="show" id="GXG-iW-vQN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTa-sM-U5u">
                                 <rect key="frame" x="325" y="25" width="40" height="40"/>
@@ -3195,6 +3207,7 @@
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="btnBack" destination="UJu-Vb-sYO" id="zlR-Sy-x4o"/>
+                        <outlet property="goTopUp" destination="kT5-u6-Hsf" id="1wl-3t-R1v"/>
                         <outlet property="hamburger" destination="sTa-sM-U5u" id="ap0-Om-iKj"/>
                     </connections>
                 </viewController>
@@ -3220,31 +3233,1048 @@
                                             <constraint firstAttribute="width" constant="40" id="l2R-BC-uxx"/>
                                         </constraints>
                                         <state key="normal" image="new_close"/>
+                                        <connections>
+                                            <action selector="closeTopu:" destination="ztz-OY-pPc" eventType="touchUpInside" id="Uur-dV-GAl"/>
+                                        </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7F-LA-dtT">
+                                        <rect key="frame" x="20" y="87" width="335" height="21"/>
+                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="QeG-9a-ilj" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="top" constant="11" id="2wO-bz-VrH"/>
                                     <constraint firstAttribute="height" constant="130" id="KW2-Q6-vab"/>
                                     <constraint firstAttribute="trailing" secondItem="QeG-9a-ilj" secondAttribute="trailing" constant="19" id="U06-at-7at"/>
+                                    <constraint firstItem="t7F-LA-dtT" firstAttribute="leading" secondItem="258-8C-Mva" secondAttribute="leading" constant="20" id="aGA-Cp-OTK"/>
+                                    <constraint firstItem="t7F-LA-dtT" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="top" constant="87" id="iHe-AG-Je1"/>
+                                    <constraint firstAttribute="trailing" secondItem="t7F-LA-dtT" secondAttribute="trailing" constant="20" id="yJm-ku-VQa"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="CBn-X2-ixU">
+                                <rect key="frame" x="20" y="158" width="335" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="OCb-dq-Oz4"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="3Lt-CE-96L">
+                                <rect key="frame" x="33" y="167" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="4t2-cr-Asq"/>
+                                    <constraint firstAttribute="height" constant="30" id="aCQ-Cl-wgX"/>
+                                </constraints>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display error message to user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ee6-a9-oK0">
+                                <rect key="frame" x="71" y="172" width="284" height="14"/>
+                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile number you want to top up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Acv-IX-SkQ">
+                                <rect key="frame" x="20" y="170" width="319" height="14"/>
+                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xxa-Qu-tyH">
+                                <rect key="frame" x="20" y="189" width="335" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="9wj-7v-37P"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Scratch card pin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3J7-rO-pRE">
+                                <rect key="frame" x="20" y="260" width="335" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="dly-HA-iAn"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3N-15-1DZ">
+                                <rect key="frame" x="20" y="332" width="335" height="55"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="mVk-gD-stx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="18"/>
+                                <state key="normal" title="Proceed">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="topUp:" destination="ztz-OY-pPc" eventType="touchUpInside" id="pF3-aC-KhZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGK-HH-yrC">
+                                <rect key="frame" x="20" y="395" width="335" height="55"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="5Eb-Be-ivG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="18"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeTopu:" destination="ztz-OY-pPc" eventType="touchUpInside" id="UIq-G7-jnU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.44337565104166665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="CBn-X2-ixU" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="0PC-nv-fZM"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="AGK-HH-yrC" secondAttribute="trailing" constant="20" id="2IE-Ic-hjo"/>
+                            <constraint firstItem="3Lt-CE-96L" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="17" id="5IH-IG-e9R"/>
+                            <constraint firstItem="AGK-HH-yrC" firstAttribute="top" secondItem="p3N-15-1DZ" secondAttribute="bottom" constant="8" id="5cq-sg-1fk"/>
+                            <constraint firstItem="3Lt-CE-96L" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="33" id="G0w-Ma-Zdb"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="xxa-Qu-tyH" secondAttribute="trailing" constant="20" id="LI6-0i-fVa"/>
+                            <constraint firstItem="Acv-IX-SkQ" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="20" id="Ous-dG-EjJ"/>
+                            <constraint firstItem="3J7-rO-pRE" firstAttribute="top" secondItem="xxa-Qu-tyH" secondAttribute="bottom" constant="16" id="QeJ-bJ-DTO"/>
+                            <constraint firstItem="p3N-15-1DZ" firstAttribute="top" secondItem="3J7-rO-pRE" secondAttribute="bottom" constant="17" id="Sq3-8O-hUq"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="p3N-15-1DZ" secondAttribute="trailing" constant="20" id="aab-gC-Bfu"/>
+                            <constraint firstItem="Ee6-a9-oK0" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="22" id="dh3-LA-JSG"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="CBn-X2-ixU" secondAttribute="trailing" constant="20" id="e4r-Pa-GPq"/>
                             <constraint firstItem="258-8C-Mva" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" id="ehM-Al-1nL"/>
+                            <constraint firstItem="xxa-Qu-tyH" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="eoI-Q2-ut6"/>
+                            <constraint firstItem="AGK-HH-yrC" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="eoS-Ef-89n"/>
+                            <constraint firstItem="3J7-rO-pRE" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="jUK-lf-LMH"/>
+                            <constraint firstItem="xxa-Qu-tyH" firstAttribute="top" secondItem="Ee6-a9-oK0" secondAttribute="bottom" constant="3" id="lAa-CK-j8G"/>
                             <constraint firstItem="258-8C-Mva" firstAttribute="trailing" secondItem="WCn-MZ-QFD" secondAttribute="trailing" id="oKG-A2-loa"/>
+                            <constraint firstItem="Ee6-a9-oK0" firstAttribute="leading" secondItem="3Lt-CE-96L" secondAttribute="trailing" constant="8" id="omD-1z-myD"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="3J7-rO-pRE" secondAttribute="trailing" constant="20" id="pP6-Vz-Dng"/>
+                            <constraint firstItem="Acv-IX-SkQ" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="rA9-7h-2mC"/>
+                            <constraint firstItem="p3N-15-1DZ" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="sKu-Oa-DSw"/>
+                            <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="Ee6-a9-oK0" secondAttribute="trailing" constant="20" id="w99-1a-F3H"/>
                             <constraint firstItem="258-8C-Mva" firstAttribute="top" secondItem="WCn-MZ-QFD" secondAttribute="top" id="x2M-2L-ks7"/>
+                            <constraint firstItem="CBn-X2-ixU" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="8" id="ypr-Fa-a8D"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Acv-IX-SkQ" secondAttribute="trailing" constant="20" id="zGO-mZ-mNq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WCn-MZ-QFD"/>
                     </view>
                     <connections>
                         <outlet property="btnClose" destination="QeG-9a-ilj" id="28T-cS-LaV"/>
+                        <outlet property="txtScratchNumber" destination="3J7-rO-pRE" id="cNb-8h-39Q"/>
+                        <outlet property="txtTopUpNumber" destination="xxa-Qu-tyH" id="raR-y3-0F9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qXy-SM-lWT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4887.1999999999998" y="316.19190404797604"/>
+        </scene>
+        <!--Plans View Controller-->
+        <scene sceneID="Ik5-td-HGe">
+            <objects>
+                <viewController storyboardIdentifier="PlansViewController" id="Vw6-qD-pkp" customClass="PlansViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jvr-0m-WTV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siC-sY-maf">
+                                <rect key="frame" x="0.0" y="20" width="375" height="1980"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19n-QB-aqR">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="8kH-dE-haX">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="a3W-Qt-slL"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNk-bT-o7d">
+                                                <rect key="frame" x="5" y="5" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="3LC-oR-I3X"/>
+                                                    <constraint firstAttribute="width" constant="40" id="lWM-Ee-X2f"/>
+                                                </constraints>
+                                                <state key="normal" image="leftArrow"/>
+                                                <connections>
+                                                    <segue destination="sz7-cC-Npl" kind="show" id="knp-Pm-AoF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syu-YL-a2V">
+                                                <rect key="frame" x="325" y="5" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Dpb-pC-xKQ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="rhi-wF-gsM"/>
+                                                </constraints>
+                                                <state key="normal" image="hamburger"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p36-Cq-gcR">
+                                                <rect key="frame" x="20" y="90" width="335" height="21"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10G-XI-so5">
+                                                <rect key="frame" x="332" y="40" width="27" height="10.5"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iq3-pf-RwY" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="170" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yyf-hw-bEv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.49411764705882355" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="nra-mC-Srt"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="AIH-dd-5So">
+                                                        <rect key="frame" x="31" y="28" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607843137254" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="cPm-b3-ISg"/>
+                                                            <constraint firstAttribute="width" constant="50" id="fOv-sJ-nze"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8w-dX-7ZF">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaV-D6-YXo">
+                                                        <rect key="frame" x="89" y="53.5" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="E8t-GL-xsp">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="YDl-Fc-n3X"/>
+                                                            <constraint firstAttribute="width" constant="10" id="yiy-vO-cqX"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="BaV-D6-YXo" firstAttribute="leading" secondItem="AIH-dd-5So" secondAttribute="trailing" constant="8" id="1LI-EZ-n9e"/>
+                                                    <constraint firstAttribute="trailing" secondItem="E8t-GL-xsp" secondAttribute="trailing" constant="8" id="1b7-dB-Uh0"/>
+                                                    <constraint firstItem="Yyf-hw-bEv" firstAttribute="leading" secondItem="Iq3-pf-RwY" secondAttribute="leading" id="8ng-wF-bdv"/>
+                                                    <constraint firstAttribute="height" constant="110" id="C8E-Rh-UmD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BaV-D6-YXo" secondAttribute="trailing" constant="20" id="STy-Jv-ae5"/>
+                                                    <constraint firstItem="AIH-dd-5So" firstAttribute="top" secondItem="Iq3-pf-RwY" secondAttribute="top" constant="28" id="WJZ-Z4-vE6"/>
+                                                    <constraint firstItem="AIH-dd-5So" firstAttribute="leading" secondItem="Yyf-hw-bEv" secondAttribute="trailing" constant="19" id="ZaC-Xp-JDe"/>
+                                                    <constraint firstItem="Yyf-hw-bEv" firstAttribute="top" secondItem="Iq3-pf-RwY" secondAttribute="top" id="bg3-YO-bXz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="C8w-dX-7ZF" secondAttribute="trailing" constant="20" id="evk-MU-jHZ"/>
+                                                    <constraint firstItem="C8w-dX-7ZF" firstAttribute="leading" secondItem="AIH-dd-5So" secondAttribute="trailing" constant="8" id="ffT-yP-pI8"/>
+                                                    <constraint firstItem="BaV-D6-YXo" firstAttribute="top" secondItem="C8w-dX-7ZF" secondAttribute="bottom" constant="5" id="r2M-HR-sVH"/>
+                                                    <constraint firstItem="E8t-GL-xsp" firstAttribute="top" secondItem="Iq3-pf-RwY" secondAttribute="top" constant="41" id="rdA-jQ-wiM"/>
+                                                    <constraint firstItem="C8w-dX-7ZF" firstAttribute="top" secondItem="Iq3-pf-RwY" secondAttribute="top" constant="32" id="unV-NS-fCY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Yyf-hw-bEv" secondAttribute="bottom" id="zxe-Hj-s8c"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuO-ib-Juz" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="300" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FPY-eh-WUd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.49411764705882355" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="Htb-gM-AOW"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="AFQ-52-QiA">
+                                                        <rect key="frame" x="31" y="28" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="QAt-PL-gp9"/>
+                                                            <constraint firstAttribute="width" constant="50" id="zlo-4m-qNS"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-GX-CaO">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bJ-yx-147">
+                                                        <rect key="frame" x="89" y="53.5" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="XhS-Dp-86f">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="DSs-Fm-o5k"/>
+                                                            <constraint firstAttribute="height" constant="25" id="Igp-JN-FCx"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="XhS-Dp-86f" firstAttribute="top" secondItem="wuO-ib-Juz" secondAttribute="top" constant="41" id="5J4-04-30r"/>
+                                                    <constraint firstItem="m7d-GX-CaO" firstAttribute="leading" secondItem="AFQ-52-QiA" secondAttribute="trailing" constant="8" id="9Qq-Kg-wJj"/>
+                                                    <constraint firstItem="FPY-eh-WUd" firstAttribute="top" secondItem="wuO-ib-Juz" secondAttribute="top" id="FEC-qu-tk9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="XhS-Dp-86f" secondAttribute="trailing" constant="8" id="Fbx-Kz-i0n"/>
+                                                    <constraint firstItem="m7d-GX-CaO" firstAttribute="top" secondItem="wuO-ib-Juz" secondAttribute="top" constant="32" id="J4n-Lt-hcA"/>
+                                                    <constraint firstItem="4bJ-yx-147" firstAttribute="top" secondItem="m7d-GX-CaO" secondAttribute="bottom" constant="5" id="KtP-bT-LRD"/>
+                                                    <constraint firstItem="AFQ-52-QiA" firstAttribute="top" secondItem="wuO-ib-Juz" secondAttribute="top" constant="28" id="Nbo-I6-eb6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4bJ-yx-147" secondAttribute="trailing" constant="20" id="W19-3o-QoO"/>
+                                                    <constraint firstItem="4bJ-yx-147" firstAttribute="leading" secondItem="AFQ-52-QiA" secondAttribute="trailing" constant="8" id="ZAj-vB-Wf7"/>
+                                                    <constraint firstAttribute="height" constant="110" id="aI4-1D-nAM"/>
+                                                    <constraint firstAttribute="bottom" secondItem="FPY-eh-WUd" secondAttribute="bottom" id="gW5-eC-rM0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="m7d-GX-CaO" secondAttribute="trailing" constant="20" id="ndD-M7-RWN"/>
+                                                    <constraint firstItem="FPY-eh-WUd" firstAttribute="leading" secondItem="wuO-ib-Juz" secondAttribute="leading" id="y0G-NU-9VV"/>
+                                                    <constraint firstItem="AFQ-52-QiA" firstAttribute="leading" secondItem="FPY-eh-WUd" secondAttribute="trailing" constant="19" id="z6E-cl-Puq"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="et5-Cs-exw" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="430" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="516-yv-6Hs">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="XSb-Yc-wk3"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ZyZ-fX-VPT">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="MXu-Kd-nKH"/>
+                                                            <constraint firstAttribute="height" constant="50" id="ZRq-o0-1hf"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hn7-Mb-wl6">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zx-0I-eqL">
+                                                        <rect key="frame" x="89" y="53.5" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="boq-kx-vRo">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="3hh-fe-Ldw"/>
+                                                            <constraint firstAttribute="width" constant="10" id="Gxj-wR-uPf"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="516-yv-6Hs" firstAttribute="top" secondItem="et5-Cs-exw" secondAttribute="top" id="DmJ-oF-qQb"/>
+                                                    <constraint firstItem="1zx-0I-eqL" firstAttribute="top" secondItem="Hn7-Mb-wl6" secondAttribute="bottom" constant="5" id="GYJ-lM-s4G"/>
+                                                    <constraint firstAttribute="bottom" secondItem="516-yv-6Hs" secondAttribute="bottom" id="Lm0-m0-TqE"/>
+                                                    <constraint firstItem="Hn7-Mb-wl6" firstAttribute="leading" secondItem="ZyZ-fX-VPT" secondAttribute="trailing" constant="8" id="O3b-tf-Xln"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hn7-Mb-wl6" secondAttribute="trailing" constant="20" id="OjP-hI-qEj"/>
+                                                    <constraint firstItem="boq-kx-vRo" firstAttribute="top" secondItem="et5-Cs-exw" secondAttribute="top" constant="41" id="Pco-9Y-Yi7"/>
+                                                    <constraint firstItem="ZyZ-fX-VPT" firstAttribute="leading" secondItem="516-yv-6Hs" secondAttribute="trailing" constant="19" id="Ss6-ZX-j7u"/>
+                                                    <constraint firstAttribute="trailing" secondItem="boq-kx-vRo" secondAttribute="trailing" constant="8" id="U8Q-1R-Bkz"/>
+                                                    <constraint firstAttribute="height" constant="110" id="WJM-XT-whk"/>
+                                                    <constraint firstItem="ZyZ-fX-VPT" firstAttribute="top" secondItem="et5-Cs-exw" secondAttribute="top" constant="32" id="WwC-ON-eJ7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1zx-0I-eqL" secondAttribute="trailing" constant="20" id="ggU-Zw-fB8"/>
+                                                    <constraint firstItem="1zx-0I-eqL" firstAttribute="leading" secondItem="ZyZ-fX-VPT" secondAttribute="trailing" constant="8" id="grL-wT-0bo"/>
+                                                    <constraint firstItem="516-yv-6Hs" firstAttribute="leading" secondItem="et5-Cs-exw" secondAttribute="leading" id="lp8-hP-Ph8"/>
+                                                    <constraint firstItem="Hn7-Mb-wl6" firstAttribute="top" secondItem="et5-Cs-exw" secondAttribute="top" constant="32" id="u7z-Ct-p79"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDp-sU-0Mq" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="560" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Wm-mV-34s">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="Vof-sN-E2d"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="7rk-4a-yJY">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="E0w-SF-8Jb"/>
+                                                            <constraint firstAttribute="width" constant="50" id="TDj-Cg-Qt7"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-Gh-MN0">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bq1-xh-0dZ">
+                                                        <rect key="frame" x="89" y="53.5" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="d8V-8c-GOc">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="OqI-Se-Lro"/>
+                                                            <constraint firstAttribute="height" constant="25" id="quY-Ys-Kle"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="7rk-4a-yJY" firstAttribute="top" secondItem="LDp-sU-0Mq" secondAttribute="top" constant="32" id="0B8-KD-Qgq"/>
+                                                    <constraint firstItem="5Wm-mV-34s" firstAttribute="top" secondItem="LDp-sU-0Mq" secondAttribute="top" id="0IM-Dm-HQf"/>
+                                                    <constraint firstItem="5Wm-mV-34s" firstAttribute="leading" secondItem="LDp-sU-0Mq" secondAttribute="leading" id="0na-VO-enA"/>
+                                                    <constraint firstItem="bq1-xh-0dZ" firstAttribute="top" secondItem="zVb-Gh-MN0" secondAttribute="bottom" constant="5" id="APE-rN-0vW"/>
+                                                    <constraint firstItem="bq1-xh-0dZ" firstAttribute="leading" secondItem="7rk-4a-yJY" secondAttribute="trailing" constant="8" id="Bfi-Cc-jnV"/>
+                                                    <constraint firstItem="zVb-Gh-MN0" firstAttribute="leading" secondItem="7rk-4a-yJY" secondAttribute="trailing" constant="8" id="FDx-T0-lQq"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bq1-xh-0dZ" secondAttribute="trailing" constant="20" id="V7c-zl-FYO"/>
+                                                    <constraint firstAttribute="height" constant="110" id="X0X-oW-hTH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="d8V-8c-GOc" secondAttribute="trailing" constant="8" id="Yl7-bK-qJq"/>
+                                                    <constraint firstItem="zVb-Gh-MN0" firstAttribute="top" secondItem="LDp-sU-0Mq" secondAttribute="top" constant="32" id="ZzW-pm-v4j"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5Wm-mV-34s" secondAttribute="bottom" id="ek1-sn-QJA"/>
+                                                    <constraint firstItem="7rk-4a-yJY" firstAttribute="leading" secondItem="5Wm-mV-34s" secondAttribute="trailing" constant="19" id="fuf-VE-iSe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zVb-Gh-MN0" secondAttribute="trailing" constant="20" id="mWH-cO-qiL"/>
+                                                    <constraint firstItem="d8V-8c-GOc" firstAttribute="top" secondItem="LDp-sU-0Mq" secondAttribute="top" constant="41" id="nC2-i3-XtP"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4q5-N0-Gc0" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="686" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4XL-SQ-hVt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="i2M-QP-9d6"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="3Pd-Za-rNx">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="KJW-zg-J43"/>
+                                                            <constraint firstAttribute="width" constant="50" id="nqA-Tb-mJl"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiG-Ac-XBG">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hQ-Pu-Zlc">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Ezy-Cz-tmU">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="Lde-UP-pd7"/>
+                                                            <constraint firstAttribute="height" constant="25" id="m7X-Zz-Tkm"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="4XL-SQ-hVt" secondAttribute="bottom" id="CAY-cL-Zbz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Ezy-Cz-tmU" secondAttribute="trailing" constant="8" id="EHw-nV-h89"/>
+                                                    <constraint firstItem="Ezy-Cz-tmU" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="top" constant="41" id="L2E-Y4-Dr6"/>
+                                                    <constraint firstItem="4XL-SQ-hVt" firstAttribute="leading" secondItem="4q5-N0-Gc0" secondAttribute="leading" id="LCy-05-s7I"/>
+                                                    <constraint firstItem="JiG-Ac-XBG" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="top" constant="32" id="QO5-z3-CkJ"/>
+                                                    <constraint firstAttribute="height" constant="110" id="UuY-eq-zlb"/>
+                                                    <constraint firstItem="3Pd-Za-rNx" firstAttribute="leading" secondItem="4XL-SQ-hVt" secondAttribute="trailing" constant="19" id="bir-5x-sZw"/>
+                                                    <constraint firstItem="3Pd-Za-rNx" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="top" constant="32" id="hni-ga-9y0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8hQ-Pu-Zlc" secondAttribute="trailing" constant="20" id="jC6-pZ-aMh"/>
+                                                    <constraint firstItem="JiG-Ac-XBG" firstAttribute="leading" secondItem="3Pd-Za-rNx" secondAttribute="trailing" constant="8" id="l0Y-lN-Pgt"/>
+                                                    <constraint firstItem="4XL-SQ-hVt" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="top" id="myB-xx-5KE"/>
+                                                    <constraint firstItem="8hQ-Pu-Zlc" firstAttribute="top" secondItem="JiG-Ac-XBG" secondAttribute="bottom" constant="5" id="s57-rQ-23D"/>
+                                                    <constraint firstItem="8hQ-Pu-Zlc" firstAttribute="leading" secondItem="3Pd-Za-rNx" secondAttribute="trailing" constant="8" id="vdh-SI-SGr"/>
+                                                    <constraint firstAttribute="trailing" secondItem="JiG-Ac-XBG" secondAttribute="trailing" constant="20" id="wsJ-AC-bqI"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEN-VT-Xx6" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="816" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8vh-of-IXb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="WoW-DV-gjU"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="h55-dJ-BGp">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="7yw-mg-lIB"/>
+                                                            <constraint firstAttribute="height" constant="50" id="PVG-UZ-S28"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL2-VL-W6D">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGE-Bj-zVk">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="aMX-ek-jnX">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="COg-Rj-tDF"/>
+                                                            <constraint firstAttribute="height" constant="25" id="D6b-T2-GJF"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="8vh-of-IXb" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="top" id="2oN-Ps-18N"/>
+                                                    <constraint firstAttribute="trailing" secondItem="oL2-VL-W6D" secondAttribute="trailing" constant="20" id="35q-fn-Jnv"/>
+                                                    <constraint firstItem="h55-dJ-BGp" firstAttribute="leading" secondItem="8vh-of-IXb" secondAttribute="trailing" constant="19" id="9uS-Mn-Vem"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aMX-ek-jnX" secondAttribute="trailing" constant="8" id="BWt-VK-hga"/>
+                                                    <constraint firstItem="BGE-Bj-zVk" firstAttribute="leading" secondItem="h55-dJ-BGp" secondAttribute="trailing" constant="8" id="CVg-WF-8j6"/>
+                                                    <constraint firstItem="aMX-ek-jnX" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="top" constant="41" id="FYf-mg-gFC"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Pf9-ZO-nKB"/>
+                                                    <constraint firstItem="h55-dJ-BGp" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="top" constant="32" id="PuW-nj-UYq"/>
+                                                    <constraint firstItem="oL2-VL-W6D" firstAttribute="leading" secondItem="h55-dJ-BGp" secondAttribute="trailing" constant="8" id="WGa-Oc-vR9"/>
+                                                    <constraint firstItem="8vh-of-IXb" firstAttribute="leading" secondItem="MEN-VT-Xx6" secondAttribute="leading" id="c4p-Ra-Iz9"/>
+                                                    <constraint firstAttribute="bottom" secondItem="8vh-of-IXb" secondAttribute="bottom" id="cR6-19-eeP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BGE-Bj-zVk" secondAttribute="trailing" constant="20" id="mfl-Xt-scn"/>
+                                                    <constraint firstItem="BGE-Bj-zVk" firstAttribute="top" secondItem="oL2-VL-W6D" secondAttribute="bottom" constant="5" id="p2Q-3X-K5b"/>
+                                                    <constraint firstItem="oL2-VL-W6D" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="top" constant="32" id="zVL-DX-W58"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CzV-Xs-jWX">
+                                                <rect key="frame" x="20" y="946" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zau-26-iMM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="qSx-ea-OOq"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="CDD-ln-qWN">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="ljd-8h-yq8"/>
+                                                            <constraint firstAttribute="width" constant="50" id="zVo-dE-3iS"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FB-cq-X4w">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CY-DT-uXB">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-f9-Nx9">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="O0I-QA-aUV"/>
+                                                            <constraint firstAttribute="height" constant="25" id="QZL-ED-7xU"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Zau-26-iMM" firstAttribute="leading" secondItem="CzV-Xs-jWX" secondAttribute="leading" id="0kY-kj-gdE"/>
+                                                    <constraint firstItem="9FB-cq-X4w" firstAttribute="leading" secondItem="CDD-ln-qWN" secondAttribute="trailing" constant="8" id="5Q5-Ou-ZVQ"/>
+                                                    <constraint firstItem="FxT-f9-Nx9" firstAttribute="top" secondItem="CzV-Xs-jWX" secondAttribute="top" constant="41" id="69F-Cl-zZe"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Zau-26-iMM" secondAttribute="bottom" id="8tM-Af-l7i"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Np1-uD-QWn"/>
+                                                    <constraint firstAttribute="trailing" secondItem="FxT-f9-Nx9" secondAttribute="trailing" constant="8" id="Qt4-zN-TdE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="9FB-cq-X4w" secondAttribute="trailing" constant="20" id="asb-xs-ryN"/>
+                                                    <constraint firstItem="2CY-DT-uXB" firstAttribute="top" secondItem="9FB-cq-X4w" secondAttribute="bottom" constant="5" id="fip-Fc-sjJ"/>
+                                                    <constraint firstItem="9FB-cq-X4w" firstAttribute="top" secondItem="CzV-Xs-jWX" secondAttribute="top" constant="32" id="g3B-GI-p19"/>
+                                                    <constraint firstItem="CDD-ln-qWN" firstAttribute="leading" secondItem="Zau-26-iMM" secondAttribute="trailing" constant="19" id="j0F-28-Gg7"/>
+                                                    <constraint firstItem="2CY-DT-uXB" firstAttribute="leading" secondItem="CDD-ln-qWN" secondAttribute="trailing" constant="8" id="lKl-RL-JG9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2CY-DT-uXB" secondAttribute="trailing" constant="20" id="opG-Dt-Gru"/>
+                                                    <constraint firstItem="CDD-ln-qWN" firstAttribute="top" secondItem="CzV-Xs-jWX" secondAttribute="top" constant="32" id="vu0-xG-Il3"/>
+                                                    <constraint firstItem="Zau-26-iMM" firstAttribute="top" secondItem="CzV-Xs-jWX" secondAttribute="top" id="xG2-qG-fZX"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tR4-6y-laN" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1076" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oNt-7n-J7Q">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="dS3-3d-9PA"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="3O3-7k-Ae9">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="AEo-IQ-cRZ"/>
+                                                            <constraint firstAttribute="width" constant="50" id="taU-Yf-mXV"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFG-kB-cyS">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04K-bf-R5b">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Fd6-fw-BTR">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="ttv-XR-WXD"/>
+                                                            <constraint firstAttribute="width" constant="10" id="x7h-Kg-tEM"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="oNt-7n-J7Q" firstAttribute="leading" secondItem="tR4-6y-laN" secondAttribute="leading" id="5lt-eY-xui"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Fd6-fw-BTR" secondAttribute="trailing" constant="8" id="7OO-wg-Q5E"/>
+                                                    <constraint firstItem="EFG-kB-cyS" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="top" constant="32" id="87p-EO-Emk"/>
+                                                    <constraint firstItem="04K-bf-R5b" firstAttribute="leading" secondItem="3O3-7k-Ae9" secondAttribute="trailing" constant="8" id="F68-of-6qV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="04K-bf-R5b" secondAttribute="trailing" constant="20" id="QHt-kl-BDe"/>
+                                                    <constraint firstItem="3O3-7k-Ae9" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="top" constant="32" id="Qzd-kc-Tgd"/>
+                                                    <constraint firstItem="04K-bf-R5b" firstAttribute="top" secondItem="EFG-kB-cyS" secondAttribute="bottom" constant="5" id="V54-PD-xRB"/>
+                                                    <constraint firstItem="EFG-kB-cyS" firstAttribute="leading" secondItem="3O3-7k-Ae9" secondAttribute="trailing" constant="8" id="VGu-w8-p6S"/>
+                                                    <constraint firstAttribute="bottom" secondItem="oNt-7n-J7Q" secondAttribute="bottom" id="dDR-0Z-R8v"/>
+                                                    <constraint firstItem="Fd6-fw-BTR" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="top" constant="41" id="fIh-jw-p3R"/>
+                                                    <constraint firstItem="3O3-7k-Ae9" firstAttribute="leading" secondItem="oNt-7n-J7Q" secondAttribute="trailing" constant="19" id="fkH-06-pzU"/>
+                                                    <constraint firstItem="oNt-7n-J7Q" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="top" id="qeq-B0-c3M"/>
+                                                    <constraint firstAttribute="trailing" secondItem="EFG-kB-cyS" secondAttribute="trailing" constant="20" id="tWP-wo-VRW"/>
+                                                    <constraint firstAttribute="height" constant="110" id="yy8-7E-TOp"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAh-ct-kFl" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1206" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pC1-Rl-2fi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="fbl-LQ-tyS"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-y4-cVV">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="3Mc-gG-1eK"/>
+                                                            <constraint firstAttribute="width" constant="50" id="ciT-tO-w91"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-Qz-rHf">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iix-KB-VUA">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="HOp-Ee-OvA">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="rYt-zC-kc2"/>
+                                                            <constraint firstAttribute="height" constant="25" id="tZn-Tk-3Da"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="iix-KB-VUA" firstAttribute="leading" secondItem="hXh-y4-cVV" secondAttribute="trailing" constant="8" id="0T0-ph-8R8"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8i7-Qz-rHf" secondAttribute="trailing" constant="20" id="6U1-fN-lj6"/>
+                                                    <constraint firstItem="pC1-Rl-2fi" firstAttribute="leading" secondItem="eAh-ct-kFl" secondAttribute="leading" id="6rT-PH-Xyz"/>
+                                                    <constraint firstItem="8i7-Qz-rHf" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="top" constant="32" id="Dod-dn-GIx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pC1-Rl-2fi" secondAttribute="bottom" id="OY1-Py-Fpx"/>
+                                                    <constraint firstItem="pC1-Rl-2fi" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="top" id="XrL-nW-ci7"/>
+                                                    <constraint firstItem="HOp-Ee-OvA" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="top" constant="41" id="eil-Iu-2fe"/>
+                                                    <constraint firstAttribute="height" constant="110" id="hdB-WD-jvE"/>
+                                                    <constraint firstItem="hXh-y4-cVV" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="top" constant="32" id="iNR-TF-Sat"/>
+                                                    <constraint firstItem="iix-KB-VUA" firstAttribute="top" secondItem="8i7-Qz-rHf" secondAttribute="bottom" constant="5" id="ild-kc-4lJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="HOp-Ee-OvA" secondAttribute="trailing" constant="8" id="k6U-YI-Wd7"/>
+                                                    <constraint firstItem="8i7-Qz-rHf" firstAttribute="leading" secondItem="hXh-y4-cVV" secondAttribute="trailing" constant="8" id="kC2-U5-BJ7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="iix-KB-VUA" secondAttribute="trailing" constant="20" id="rmu-MC-wVP"/>
+                                                    <constraint firstItem="hXh-y4-cVV" firstAttribute="leading" secondItem="pC1-Rl-2fi" secondAttribute="trailing" constant="19" id="vAX-ph-rBD"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yvb-CP-cpN" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1336" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZfW-vJ-XKE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="LvJ-En-akj"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="0G6-Yc-cnP">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="EYU-yq-yM8"/>
+                                                            <constraint firstAttribute="width" constant="50" id="XuP-bG-g9n"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7R-l9-1tt">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-cv-87Z">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="t0y-mP-Gmh">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="hNd-K9-Fik"/>
+                                                            <constraint firstAttribute="width" constant="10" id="hcR-js-Cyr"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ZfW-vJ-XKE" secondAttribute="bottom" id="49m-So-PIR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="u7R-l9-1tt" secondAttribute="trailing" constant="20" id="95d-AP-EYb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="I2A-cv-87Z" secondAttribute="trailing" constant="20" id="9rF-t8-wij"/>
+                                                    <constraint firstItem="0G6-Yc-cnP" firstAttribute="leading" secondItem="ZfW-vJ-XKE" secondAttribute="trailing" constant="19" id="AN2-pG-bk4"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Evi-Ka-Awe"/>
+                                                    <constraint firstItem="u7R-l9-1tt" firstAttribute="leading" secondItem="0G6-Yc-cnP" secondAttribute="trailing" constant="8" id="J2l-eO-aaM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="t0y-mP-Gmh" secondAttribute="trailing" constant="8" id="MD8-Ci-Q82"/>
+                                                    <constraint firstItem="u7R-l9-1tt" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="top" constant="32" id="Tv6-8e-34m"/>
+                                                    <constraint firstItem="I2A-cv-87Z" firstAttribute="leading" secondItem="0G6-Yc-cnP" secondAttribute="trailing" constant="8" id="VYS-OQ-tqh"/>
+                                                    <constraint firstItem="ZfW-vJ-XKE" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="top" id="Wbq-lA-4ju"/>
+                                                    <constraint firstItem="t0y-mP-Gmh" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="top" constant="41" id="Zhl-Qj-DXX"/>
+                                                    <constraint firstItem="I2A-cv-87Z" firstAttribute="top" secondItem="u7R-l9-1tt" secondAttribute="bottom" constant="5" id="eT2-wL-zLK"/>
+                                                    <constraint firstItem="0G6-Yc-cnP" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="top" constant="32" id="gMS-cG-12s"/>
+                                                    <constraint firstItem="ZfW-vJ-XKE" firstAttribute="leading" secondItem="Yvb-CP-cpN" secondAttribute="leading" id="uJw-aL-g7o"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPg-7g-YEu" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1466" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hSo-9Q-TIN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="RaU-3g-soi"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="rdM-US-GRH">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="Rjg-Vq-7UY"/>
+                                                            <constraint firstAttribute="height" constant="50" id="hh3-nu-kHV"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jp-GW-dzv">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-Lu-S8V">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="xLV-NB-7tg">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="bmg-Sm-hBe"/>
+                                                            <constraint firstAttribute="height" constant="25" id="fP0-Qf-Bv7"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="rdM-US-GRH" firstAttribute="leading" secondItem="hSo-9Q-TIN" secondAttribute="trailing" constant="19" id="7gp-Hn-d6h"/>
+                                                    <constraint firstAttribute="height" constant="110" id="9Kn-mq-7Pd"/>
+                                                    <constraint firstItem="mdY-Lu-S8V" firstAttribute="leading" secondItem="rdM-US-GRH" secondAttribute="trailing" constant="8" id="9Xm-PZ-AJa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xLV-NB-7tg" secondAttribute="trailing" constant="8" id="EYJ-Tx-oyT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="mdY-Lu-S8V" secondAttribute="trailing" constant="20" id="KuV-qr-vvd"/>
+                                                    <constraint firstItem="rdM-US-GRH" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="top" constant="32" id="PfH-2e-XzD"/>
+                                                    <constraint firstItem="1Jp-GW-dzv" firstAttribute="leading" secondItem="rdM-US-GRH" secondAttribute="trailing" constant="8" id="QC0-pQ-EHw"/>
+                                                    <constraint firstItem="1Jp-GW-dzv" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="top" constant="32" id="UZ4-oc-DBl"/>
+                                                    <constraint firstItem="mdY-Lu-S8V" firstAttribute="top" secondItem="1Jp-GW-dzv" secondAttribute="bottom" constant="5" id="Vpl-xw-HPG"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hSo-9Q-TIN" secondAttribute="bottom" id="Yly-QK-eje"/>
+                                                    <constraint firstItem="xLV-NB-7tg" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="top" constant="41" id="cnD-Er-C1E"/>
+                                                    <constraint firstItem="hSo-9Q-TIN" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="top" id="eek-Kj-jxw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1Jp-GW-dzv" secondAttribute="trailing" constant="20" id="sbN-Fb-v7l"/>
+                                                    <constraint firstItem="hSo-9Q-TIN" firstAttribute="leading" secondItem="aPg-7g-YEu" secondAttribute="leading" id="wDF-SX-SqS"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hel-Ka-L8Y" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1596" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uTF-zp-1GF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="LEt-tH-yHZ"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-8o-buz">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="di6-8c-hTh"/>
+                                                            <constraint firstAttribute="height" constant="50" id="i9h-oS-6JK"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-dt-AuR">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFb-nS-QRf">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="SJD-Bh-LNU">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="3CC-Gx-8U5"/>
+                                                            <constraint firstAttribute="width" constant="10" id="RuC-L7-Vcg"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="aga-dt-AuR" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="top" constant="32" id="2ga-a0-6Fd"/>
+                                                    <constraint firstItem="uTF-zp-1GF" firstAttribute="leading" secondItem="Hel-Ka-L8Y" secondAttribute="leading" id="API-5d-RDz"/>
+                                                    <constraint firstItem="SJD-Bh-LNU" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="top" constant="41" id="C1g-wh-Tlq"/>
+                                                    <constraint firstItem="aga-dt-AuR" firstAttribute="leading" secondItem="OL2-8o-buz" secondAttribute="trailing" constant="8" id="LXJ-9l-UGQ"/>
+                                                    <constraint firstItem="OL2-8o-buz" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="top" constant="32" id="M55-kE-zyJ"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Nv8-oW-eCm"/>
+                                                    <constraint firstItem="uTF-zp-1GF" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="top" id="W4h-KL-9nK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hFb-nS-QRf" secondAttribute="trailing" constant="20" id="XCp-WF-K4k"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SJD-Bh-LNU" secondAttribute="trailing" constant="8" id="Xdy-LG-mXi"/>
+                                                    <constraint firstItem="hFb-nS-QRf" firstAttribute="top" secondItem="aga-dt-AuR" secondAttribute="bottom" constant="5" id="cvl-if-CDJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uTF-zp-1GF" secondAttribute="bottom" id="mry-Jb-a6Z"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aga-dt-AuR" secondAttribute="trailing" constant="20" id="nEk-k2-HMk"/>
+                                                    <constraint firstItem="OL2-8o-buz" firstAttribute="leading" secondItem="uTF-zp-1GF" secondAttribute="trailing" constant="19" id="prC-KJ-TGQ"/>
+                                                    <constraint firstItem="hFb-nS-QRf" firstAttribute="leading" secondItem="OL2-8o-buz" secondAttribute="trailing" constant="8" id="qog-JB-fxN"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGf-tL-MZh" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1726" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly4-l2-raJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="BSp-e6-aNY">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-SO-8VP">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fp-zR-NCb">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-Uq-NJ2">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="110" id="flq-SD-88U"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUM-OY-VBN" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1856" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3dS-k8-GmE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="Dkb-VF-bEg"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="jKk-4Y-dwB">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="pMj-di-rL4"/>
+                                                            <constraint firstAttribute="width" constant="50" id="yyL-oN-gML"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMf-rD-yRd">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgE-L8-4Yk">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="prL-iw-aGv">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="VwR-oZ-Aco"/>
+                                                            <constraint firstAttribute="height" constant="25" id="eQN-Un-Kmp"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="3dS-k8-GmE" firstAttribute="leading" secondItem="TUM-OY-VBN" secondAttribute="leading" id="09i-hN-d7W"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AMf-rD-yRd" secondAttribute="trailing" constant="20" id="5bz-KR-uFp"/>
+                                                    <constraint firstItem="AMf-rD-yRd" firstAttribute="top" secondItem="TUM-OY-VBN" secondAttribute="top" constant="32" id="6gF-Ll-zsO"/>
+                                                    <constraint firstItem="prL-iw-aGv" firstAttribute="top" secondItem="TUM-OY-VBN" secondAttribute="top" constant="41" id="8Vr-0t-Y30"/>
+                                                    <constraint firstItem="EgE-L8-4Yk" firstAttribute="top" secondItem="AMf-rD-yRd" secondAttribute="bottom" constant="5" id="JNt-Vy-Ggc"/>
+                                                    <constraint firstItem="jKk-4Y-dwB" firstAttribute="top" secondItem="TUM-OY-VBN" secondAttribute="top" constant="32" id="Pw8-pH-4MY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="EgE-L8-4Yk" secondAttribute="trailing" constant="20" id="Tsd-9X-ER1"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Vdi-zH-V7y"/>
+                                                    <constraint firstItem="3dS-k8-GmE" firstAttribute="top" secondItem="TUM-OY-VBN" secondAttribute="top" id="ZKR-Cl-5uA"/>
+                                                    <constraint firstItem="EgE-L8-4Yk" firstAttribute="leading" secondItem="jKk-4Y-dwB" secondAttribute="trailing" constant="8" id="fjV-E0-BCW"/>
+                                                    <constraint firstItem="jKk-4Y-dwB" firstAttribute="leading" secondItem="3dS-k8-GmE" secondAttribute="trailing" constant="19" id="g66-fo-WiU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3dS-k8-GmE" secondAttribute="bottom" id="otz-7c-fUi"/>
+                                                    <constraint firstItem="AMf-rD-yRd" firstAttribute="leading" secondItem="jKk-4Y-dwB" secondAttribute="trailing" constant="8" id="pio-F2-HuJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="prL-iw-aGv" secondAttribute="trailing" constant="8" id="vHh-YF-uXC"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="BNk-bT-o7d" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="5" id="1OV-sr-TuL"/>
+                                            <constraint firstItem="Hel-Ka-L8Y" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="bottom" constant="20" id="22J-8f-nTW"/>
+                                            <constraint firstItem="Iq3-pf-RwY" firstAttribute="top" secondItem="8kH-dE-haX" secondAttribute="bottom" constant="20" id="3aE-k5-rBk"/>
+                                            <constraint firstAttribute="trailing" secondItem="Iq3-pf-RwY" secondAttribute="trailing" constant="20" id="3zt-Z9-pjL"/>
+                                            <constraint firstItem="aPg-7g-YEu" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="bottom" constant="20" id="4b7-kE-iHn"/>
+                                            <constraint firstItem="Hel-Ka-L8Y" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="4m2-QN-hst"/>
+                                            <constraint firstItem="LDp-sU-0Mq" firstAttribute="top" secondItem="et5-Cs-exw" secondAttribute="bottom" constant="20" id="59W-1s-qp6"/>
+                                            <constraint firstItem="eAh-ct-kFl" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="7PU-pt-I4I"/>
+                                            <constraint firstItem="wuO-ib-Juz" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="7h9-X1-Qby"/>
+                                            <constraint firstItem="eAh-ct-kFl" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="bottom" constant="20" id="7pu-gJ-2DJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="TUM-OY-VBN" secondAttribute="trailing" constant="20" id="8SN-ma-KfC"/>
+                                            <constraint firstItem="wGf-tL-MZh" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="9R8-mq-kBG"/>
+                                            <constraint firstItem="BNk-bT-o7d" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="5" id="Aat-Uy-6nb"/>
+                                            <constraint firstAttribute="trailing" secondItem="10G-XI-so5" secondAttribute="trailing" constant="16" id="Aph-ej-oJU"/>
+                                            <constraint firstItem="aPg-7g-YEu" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="Azq-nw-hfY"/>
+                                            <constraint firstItem="10G-XI-so5" firstAttribute="leading" secondItem="8kH-dE-haX" secondAttribute="trailing" constant="-43" id="Chh-mZ-P0v"/>
+                                            <constraint firstAttribute="trailing" secondItem="aPg-7g-YEu" secondAttribute="trailing" constant="20" id="Dxz-Zb-X4l"/>
+                                            <constraint firstItem="CzV-Xs-jWX" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="bottom" constant="20" id="K72-Ci-E05"/>
+                                            <constraint firstAttribute="trailing" secondItem="wuO-ib-Juz" secondAttribute="trailing" constant="20" id="MnG-t5-Djl"/>
+                                            <constraint firstItem="10G-XI-so5" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="40" id="Osz-dc-D2j"/>
+                                            <constraint firstItem="LDp-sU-0Mq" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="PDq-Lh-V6b"/>
+                                            <constraint firstItem="wGf-tL-MZh" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="bottom" constant="20" id="PJg-XY-C8o"/>
+                                            <constraint firstAttribute="trailing" secondItem="p36-Cq-gcR" secondAttribute="trailing" constant="20" id="QcY-O0-EDY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Syu-YL-a2V" secondAttribute="trailing" constant="10" id="XCs-mU-n3L"/>
+                                            <constraint firstAttribute="trailing" secondItem="CzV-Xs-jWX" secondAttribute="trailing" constant="20" id="XEJ-5X-moV"/>
+                                            <constraint firstAttribute="trailing" secondItem="4q5-N0-Gc0" secondAttribute="trailing" constant="20" id="Y9p-bP-mOb"/>
+                                            <constraint firstItem="Yvb-CP-cpN" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="bottom" constant="20" id="ZGc-bS-oOm"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yvb-CP-cpN" secondAttribute="trailing" constant="20" id="azG-UT-LRM"/>
+                                            <constraint firstAttribute="trailing" secondItem="wGf-tL-MZh" secondAttribute="trailing" constant="20" id="bK0-wY-hUf"/>
+                                            <constraint firstItem="Yvb-CP-cpN" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="bSb-lF-cA9"/>
+                                            <constraint firstItem="4q5-N0-Gc0" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="c6m-Ip-5eI"/>
+                                            <constraint firstItem="p36-Cq-gcR" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="90" id="cSx-DS-vFl"/>
+                                            <constraint firstItem="4q5-N0-Gc0" firstAttribute="top" secondItem="LDp-sU-0Mq" secondAttribute="bottom" constant="16" id="cfh-bQ-B0T"/>
+                                            <constraint firstItem="et5-Cs-exw" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="d99-D5-bqa"/>
+                                            <constraint firstItem="tR4-6y-laN" firstAttribute="top" secondItem="CzV-Xs-jWX" secondAttribute="bottom" constant="20" id="dpc-xR-FnW"/>
+                                            <constraint firstItem="8kH-dE-haX" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" id="dxd-m8-pWm"/>
+                                            <constraint firstAttribute="trailing" secondItem="8kH-dE-haX" secondAttribute="trailing" id="fr7-te-bih"/>
+                                            <constraint firstItem="p36-Cq-gcR" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="g1N-ao-9I2"/>
+                                            <constraint firstItem="8kH-dE-haX" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" id="gow-Jm-C4a"/>
+                                            <constraint firstItem="et5-Cs-exw" firstAttribute="top" secondItem="wuO-ib-Juz" secondAttribute="bottom" constant="20" id="iD6-4Y-YhH"/>
+                                            <constraint firstItem="wuO-ib-Juz" firstAttribute="top" secondItem="Iq3-pf-RwY" secondAttribute="bottom" constant="20" id="jRA-NM-wWR"/>
+                                            <constraint firstAttribute="trailing" secondItem="LDp-sU-0Mq" secondAttribute="trailing" constant="20" id="lbI-hs-Ewo"/>
+                                            <constraint firstAttribute="trailing" secondItem="eAh-ct-kFl" secondAttribute="trailing" constant="20" id="mYb-0H-ZVD"/>
+                                            <constraint firstItem="Syu-YL-a2V" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="5" id="mtU-eZ-LCR"/>
+                                            <constraint firstItem="TUM-OY-VBN" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="pgb-ss-IXl"/>
+                                            <constraint firstAttribute="height" constant="2000" id="qL1-DR-y58"/>
+                                            <constraint firstItem="MEN-VT-Xx6" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="bottom" constant="20" id="r7l-SW-12r"/>
+                                            <constraint firstAttribute="trailing" secondItem="MEN-VT-Xx6" secondAttribute="trailing" constant="20" id="sW6-DU-xLz"/>
+                                            <constraint firstItem="Iq3-pf-RwY" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="t9E-DC-Ayu"/>
+                                            <constraint firstItem="tR4-6y-laN" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="tT2-sg-OJC"/>
+                                            <constraint firstItem="TUM-OY-VBN" firstAttribute="top" secondItem="wGf-tL-MZh" secondAttribute="bottom" constant="20" id="teh-ty-NZD"/>
+                                            <constraint firstAttribute="trailing" secondItem="tR4-6y-laN" secondAttribute="trailing" constant="20" id="uIC-Kz-pE9"/>
+                                            <constraint firstItem="CzV-Xs-jWX" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="udM-Dy-svb"/>
+                                            <constraint firstItem="MEN-VT-Xx6" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="vvi-nb-Vwf"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hel-Ka-L8Y" secondAttribute="trailing" constant="20" id="xZ2-ET-vNp"/>
+                                            <constraint firstAttribute="trailing" secondItem="et5-Cs-exw" secondAttribute="trailing" constant="20" id="z3e-7u-J3K"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="19n-QB-aqR" secondAttribute="trailing" id="GSW-4y-bG9"/>
+                                    <constraint firstAttribute="bottom" secondItem="19n-QB-aqR" secondAttribute="bottom" id="HKB-7a-K9u"/>
+                                    <constraint firstItem="19n-QB-aqR" firstAttribute="top" secondItem="siC-sY-maf" secondAttribute="top" id="Iqt-nB-6xr"/>
+                                    <constraint firstItem="19n-QB-aqR" firstAttribute="leading" secondItem="siC-sY-maf" secondAttribute="leading" id="tEm-4t-YJF"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="siC-sY-maf" firstAttribute="bottom" secondItem="y76-G6-qlB" secondAttribute="bottom" id="3xw-rT-mdJ"/>
+                            <constraint firstItem="siC-sY-maf" firstAttribute="top" secondItem="y76-G6-qlB" secondAttribute="top" id="Izx-Wa-Ief"/>
+                            <constraint firstItem="siC-sY-maf" firstAttribute="leading" secondItem="y76-G6-qlB" secondAttribute="leading" id="Kyz-NC-ixW"/>
+                            <constraint firstItem="19n-QB-aqR" firstAttribute="width" secondItem="jvr-0m-WTV" secondAttribute="width" id="deg-UY-uiq"/>
+                            <constraint firstItem="siC-sY-maf" firstAttribute="trailing" secondItem="y76-G6-qlB" secondAttribute="trailing" id="i5U-L2-R30"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y76-G6-qlB"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="2000"/>
+                    <connections>
+                        <outlet property="btnBack" destination="BNk-bT-o7d" id="WjH-mn-x1V"/>
+                        <outlet property="dblValueMonth" destination="ZyZ-fX-VPT" id="MeG-Ak-cQF"/>
+                        <outlet property="hamburger" destination="Syu-YL-a2V" id="EN9-Fd-TGJ"/>
+                        <outlet property="oneGH" destination="AIH-dd-5So" id="Ccn-Eu-SQp"/>
+                        <outlet property="twoGH" destination="AFQ-52-QiA" id="Pvc-Or-Snh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDl-DJ-0FH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5639.1999999999998" y="315.74212893553226"/>
         </scene>
         <!--Privacy Policy View Controller-->
         <scene sceneID="t8E-mg-NiJ">
@@ -4299,10 +5329,11 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4x2-5q-ckj"/>
-        <segue reference="VZQ-Lo-Af0"/>
-        <segue reference="5Yx-Aa-kBB"/>
-        <segue reference="e4T-ne-xEV"/>
-        <segue reference="2vk-nT-0hy"/>
+        <segue reference="wWO-lO-NA1"/>
+        <segue reference="knp-Pm-AoF"/>
+        <segue reference="E39-M4-8e2"/>
+        <segue reference="lh2-cX-OzX"/>
+        <segue reference="NbU-BM-Hrw"/>
+        <segue reference="kEk-um-KRT"/>
     </inferredMetricsTieBreakers>
 </document>

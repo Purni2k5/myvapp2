@@ -13,12 +13,17 @@ class TopUpViewController: UIViewController {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var hamburger: UIButton!
+    @IBOutlet weak var goTopUp: CardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // change image buttons colours
         changeBtnImageColour()
+        
+        //add gesture
+        let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.showTopUp))
+        goTopUp.addGestureRecognizer(gestureRec)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +43,13 @@ class TopUpViewController: UIViewController {
         hamburger.setImage(tintedImageH, for: .normal)
         hamburger.tintColor = UIColor.white
     }
-
+    
+    @objc func showTopUp(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "toppingUpViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    
     /*
     // MARK: - Navigation
 
