@@ -14,20 +14,38 @@ class toppingUpViewController: UIViewController {
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var txtTopUpNumber: UITextField!
     @IBOutlet weak var txtScratchNumber: UITextField!
+    @IBOutlet weak var errorDialog: UIImageView!
+    @IBOutlet weak var errorImage: UIImageView!
+    @IBOutlet weak var lblErrorMessage: UILabel!
+    
+    //contraints for labels
+    @IBOutlet weak var lblMobileNoTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var btnProceed: UIButton!
+    
+    //api url
+    let topUpUrl = URL(string: "http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc")
+    var username:String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        indicator.isHidden = true
 
         // change close btn colour.
         changeColour()
         //get default number and load
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         let defaultNumber = UserData["Contact"] as! String
+        username = UserData["Username"] as! String
         
         txtTopUpNumber.text = defaultNumber
         
         
         print("default::\(defaultNumber)")
+        print("username::\(username)")
     }
     @IBAction func closeTopu(_ sender: Any) {
         let gotToTup = storyboard?.instantiateViewController(withIdentifier: "TopUpViewController")
@@ -43,12 +61,69 @@ class toppingUpViewController: UIViewController {
         let scratchNumber = txtScratchNumber.text
         
         if numberTopUp == ""{
-            print("empty entry 1")
+            errorDialog.isHidden = false
+            errorImage.isHidden = false
+            lblErrorMessage.isHidden = false
+            lblErrorMessage.text = "Provide mobile number"
+            lblMobileNoTopConstraint.constant = 68
+            txtTopUpNumber.becomeFirstResponder()
         }else {
+            errorDialog.isHidden = true
+            errorImage.isHidden = true
+            lblErrorMessage.isHidden = true
+            lblMobileNoTopConstraint.constant = 20
             if scratchNumber == "" {
-                print("empty entry 2")
+                errorDialog.isHidden = false
+                errorImage.isHidden = false
+                lblErrorMessage.isHidden = false
+                lblErrorMessage.text = "Provide scratch card pin"
+                lblMobileNoTopConstraint.constant = 68
+                txtScratchNumber.becomeFirstResponder()
             }else{
-                print("good to go")
+                startAsyncLoader()
+                //create nsurl request
+                let request = NSMutableURLRequest(url: topUpUrl!)
+                request.httpMethod = "POST"
+                let postParameters: Dictionary<String, Any> = [
+                    "action":"topUp",
+                    "msisdn":numberTopUp!,
+                    "pin":scratchNumber!,
+                    "username":username
+                ]
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    //creating task to send post data
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
+                            print("error is:: \(error!)")
+                            return;
+                        }
+                        //parsing the response
+                        do{
+                            //converting response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            //parsing the json
+                            if let parseJSON = myJSON {
+                                var responseCode: Int!
+                                var responseMessage: String!
+                                //getting the json response
+//                                responseCode = parseJSON["RESPONSECODE"] as! Int?
+//                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                                print("responseJSON:: \(parseJSON)")
+                                DispatchQueue.main.async {
+                                    self.stopAsyncLoader()
+                                    
+                                }
+                            }
+                            
+                        }catch{
+                            print(error)
+                        }
+                    }
+                    task.resume()
+                    
+                }
             }
         }
     }
@@ -65,8 +140,22 @@ class toppingUpViewController: UIViewController {
         let tintedImage = close_image?.withRenderingMode(.alwaysTemplate)
         btnClose.setImage(tintedImage, for: .normal)
         btnClose.tintColor = UIColor.white
-        
-       
+    }
+    
+    //Function to start indicator
+    func startAsyncLoader(){
+        indicator.isHidden = false
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        btnProceed.isHidden = true
+    }
+    
+    //Function to stop Indicator
+    func stopAsyncLoader(){
+        indicator.isHidden = true
+        indicator.stopAnimating()
+        btnProceed.isHidden = false
     }
     
 

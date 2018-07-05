@@ -2495,7 +2495,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUT-2q-JVt">
-                                                <rect key="frame" x="337" y="40" width="27" height="11"/>
+                                                <rect key="frame" x="337" y="40" width="27" height="10.5"/>
                                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -2538,13 +2538,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCI-b9-RA6">
-                                                        <rect key="frame" x="91" y="35" width="227" height="19"/>
+                                                        <rect key="frame" x="91" y="35" width="227" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Explore the latest Tarrif Offers from Vodafone" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JF1-v4-ME2">
-                                                        <rect key="frame" x="83" y="54.5" width="213" height="30.5"/>
+                                                        <rect key="frame" x="83" y="54" width="213" height="31"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2595,13 +2595,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Bundles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7E-9N-0dg">
-                                                        <rect key="frame" x="89" y="38" width="227" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="227" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Browse through all data packages" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZDc-L6-CJv">
-                                                        <rect key="frame" x="83" y="57.5" width="213" height="27.5"/>
+                                                        <rect key="frame" x="83" y="57" width="213" height="28"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2652,13 +2652,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vodafone X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3S-F7-fb2">
-                                                        <rect key="frame" x="89" y="38" width="227" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="227" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Vodafone X products and bundles" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LAi-WN-vl8">
-                                                        <rect key="frame" x="85" y="57.5" width="211" height="27.5"/>
+                                                        <rect key="frame" x="85" y="57" width="211" height="28"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2709,13 +2709,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IDD Bundles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGr-Yv-JPJ">
-                                                        <rect key="frame" x="89" y="38" width="227" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="227" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="International bundles and offers" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XUS-Ns-C41">
-                                                        <rect key="frame" x="85" y="57.5" width="213" height="27.5"/>
+                                                        <rect key="frame" x="85" y="57" width="213" height="28"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2766,7 +2766,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Check vodafone cash balance topup and buy bundles" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d0J-ja-vnW">
-                                                        <rect key="frame" x="83" y="58" width="214" height="38"/>
+                                                        <rect key="frame" x="83" y="57.5" width="214" height="38.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2779,7 +2779,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vodafone Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci2-8A-bIc">
-                                                        <rect key="frame" x="89" y="38" width="226" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="226" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2823,13 +2823,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fixed Broadband" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60d-Ql-SCH">
-                                                        <rect key="frame" x="89" y="38" width="226" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="226" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Check your fixed broadband balance, make payments" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Yyv-7X-fbC">
-                                                        <rect key="frame" x="83" y="58" width="213" height="38"/>
+                                                        <rect key="frame" x="83" y="57.5" width="213" height="38.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2880,13 +2880,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Txi-Zj-yzM">
-                                                        <rect key="frame" x="89" y="38" width="227" height="19"/>
+                                                        <rect key="frame" x="89" y="38" width="227" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Credit Transfer, SIM Swap, Appointment booking" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ujI-Vo-c9W">
-                                                        <rect key="frame" x="89" y="58" width="226" height="38"/>
+                                                        <rect key="frame" x="89" y="57.5" width="226" height="38.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3082,8 +3082,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCb-zp-IM9">
-                                <rect key="frame" x="20" y="93" width="335" height="21"/>
-                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
+                                <rect key="frame" x="20" y="93" width="335" height="26"/>
+                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -3312,7 +3312,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGK-HH-yrC">
-                                <rect key="frame" x="20" y="395" width="335" height="55"/>
+                                <rect key="frame" x="20" y="402" width="335" height="55"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="5Eb-Be-ivG"/>
@@ -3325,26 +3325,35 @@
                                     <action selector="closeTopu:" destination="ztz-OY-pPc" eventType="touchUpInside" id="UIq-G7-jnU"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Qr-nr-1yy">
+                                <rect key="frame" x="162" y="308.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="SaW-ex-h3e"/>
+                                    <constraint firstAttribute="height" constant="50" id="fna-kl-cK7"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.44337565104166665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="CBn-X2-ixU" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="0PC-nv-fZM"/>
                             <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="AGK-HH-yrC" secondAttribute="trailing" constant="20" id="2IE-Ic-hjo"/>
                             <constraint firstItem="3Lt-CE-96L" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="17" id="5IH-IG-e9R"/>
-                            <constraint firstItem="AGK-HH-yrC" firstAttribute="top" secondItem="p3N-15-1DZ" secondAttribute="bottom" constant="8" id="5cq-sg-1fk"/>
+                            <constraint firstItem="AGK-HH-yrC" firstAttribute="top" secondItem="p3N-15-1DZ" secondAttribute="bottom" constant="15" id="5cq-sg-1fk"/>
                             <constraint firstItem="3Lt-CE-96L" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="33" id="G0w-Ma-Zdb"/>
                             <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="xxa-Qu-tyH" secondAttribute="trailing" constant="20" id="LI6-0i-fVa"/>
                             <constraint firstItem="Acv-IX-SkQ" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="20" id="Ous-dG-EjJ"/>
                             <constraint firstItem="3J7-rO-pRE" firstAttribute="top" secondItem="xxa-Qu-tyH" secondAttribute="bottom" constant="16" id="QeJ-bJ-DTO"/>
                             <constraint firstItem="p3N-15-1DZ" firstAttribute="top" secondItem="3J7-rO-pRE" secondAttribute="bottom" constant="17" id="Sq3-8O-hUq"/>
+                            <constraint firstItem="2Qr-nr-1yy" firstAttribute="centerX" secondItem="hWF-Gf-nCS" secondAttribute="centerX" id="Y2n-d8-UXA"/>
                             <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="p3N-15-1DZ" secondAttribute="trailing" constant="20" id="aab-gC-Bfu"/>
                             <constraint firstItem="Ee6-a9-oK0" firstAttribute="top" secondItem="258-8C-Mva" secondAttribute="bottom" constant="22" id="dh3-LA-JSG"/>
                             <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="CBn-X2-ixU" secondAttribute="trailing" constant="20" id="e4r-Pa-GPq"/>
                             <constraint firstItem="258-8C-Mva" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" id="ehM-Al-1nL"/>
                             <constraint firstItem="xxa-Qu-tyH" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="eoI-Q2-ut6"/>
                             <constraint firstItem="AGK-HH-yrC" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="eoS-Ef-89n"/>
+                            <constraint firstItem="2Qr-nr-1yy" firstAttribute="centerY" secondItem="hWF-Gf-nCS" secondAttribute="centerY" id="fDS-hK-wGV"/>
                             <constraint firstItem="3J7-rO-pRE" firstAttribute="leading" secondItem="WCn-MZ-QFD" secondAttribute="leading" constant="20" id="jUK-lf-LMH"/>
-                            <constraint firstItem="xxa-Qu-tyH" firstAttribute="top" secondItem="Ee6-a9-oK0" secondAttribute="bottom" constant="3" id="lAa-CK-j8G"/>
+                            <constraint firstItem="xxa-Qu-tyH" firstAttribute="top" secondItem="Acv-IX-SkQ" secondAttribute="bottom" constant="5" id="lAa-CK-j8G"/>
                             <constraint firstItem="258-8C-Mva" firstAttribute="trailing" secondItem="WCn-MZ-QFD" secondAttribute="trailing" id="oKG-A2-loa"/>
                             <constraint firstItem="Ee6-a9-oK0" firstAttribute="leading" secondItem="3Lt-CE-96L" secondAttribute="trailing" constant="8" id="omD-1z-myD"/>
                             <constraint firstItem="WCn-MZ-QFD" firstAttribute="trailing" secondItem="3J7-rO-pRE" secondAttribute="trailing" constant="20" id="pP6-Vz-Dng"/>
@@ -3359,6 +3368,12 @@
                     </view>
                     <connections>
                         <outlet property="btnClose" destination="QeG-9a-ilj" id="28T-cS-LaV"/>
+                        <outlet property="btnProceed" destination="p3N-15-1DZ" id="H45-6Z-zN0"/>
+                        <outlet property="errorDialog" destination="CBn-X2-ixU" id="TSd-IZ-jYL"/>
+                        <outlet property="errorImage" destination="3Lt-CE-96L" id="5bp-tW-I2R"/>
+                        <outlet property="indicator" destination="2Qr-nr-1yy" id="2pW-CZ-aZq"/>
+                        <outlet property="lblErrorMessage" destination="Ee6-a9-oK0" id="Pc8-9o-sut"/>
+                        <outlet property="lblMobileNoTopConstraint" destination="Ous-dG-EjJ" id="KeZ-Cr-LoL"/>
                         <outlet property="txtScratchNumber" destination="3J7-rO-pRE" id="cNb-8h-39Q"/>
                         <outlet property="txtTopUpNumber" destination="xxa-Qu-tyH" id="raR-y3-0F9"/>
                     </connections>
@@ -5561,11 +5576,12 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wWO-lO-NA1"/>
+        <segue reference="hDS-5q-rs3"/>
+        <segue reference="GXG-iW-vQN"/>
         <segue reference="knp-Pm-AoF"/>
         <segue reference="E39-M4-8e2"/>
         <segue reference="lh2-cX-OzX"/>
-        <segue reference="NbU-BM-Hrw"/>
+        <segue reference="e4T-ne-xEV"/>
         <segue reference="kEk-um-KRT"/>
     </inferredMetricsTieBreakers>
 </document>
