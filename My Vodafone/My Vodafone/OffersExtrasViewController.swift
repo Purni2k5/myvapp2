@@ -138,7 +138,7 @@ class OffersExtrasViewController: UIViewController {
     func addGesturesToCards(){
         let planRec = UITapGestureRecognizer(target: self, action: #selector(self.goToPlans))
         planCard.addGestureRecognizer(planRec)
-        planDesc.addGestureRecognizer(planRec)
+//        planDesc.addGestureRecognizer(planRec)
     }
     //Function to go to plans view controller
     @objc func goToPlans(_sender: UITapGestureRecognizer){

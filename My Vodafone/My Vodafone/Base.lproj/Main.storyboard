@@ -3372,14 +3372,14 @@
             <objects>
                 <viewController storyboardIdentifier="PlansViewController" id="Vw6-qD-pkp" customClass="PlansViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jvr-0m-WTV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="2530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siC-sY-maf">
-                                <rect key="frame" x="0.0" y="20" width="375" height="1980"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="2510"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19n-QB-aqR">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2530"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="8kH-dE-haX">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
@@ -3407,8 +3407,8 @@
                                                 <state key="normal" image="hamburger"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p36-Cq-gcR">
-                                                <rect key="frame" x="20" y="90" width="335" height="21"/>
-                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
+                                                <rect key="frame" x="20" y="90" width="335" height="26"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="30"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -3492,13 +3492,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="zlo-4m-qNS"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-GX-CaO">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-GX-CaO">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bJ-yx-147">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bJ-yx-147">
                                                         <rect key="frame" x="89" y="53.5" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3548,13 +3548,13 @@
                                                             <constraint firstAttribute="height" constant="50" id="ZRq-o0-1hf"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hn7-Mb-wl6">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double Value Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hn7-Mb-wl6">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zx-0I-eqL">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 2.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zx-0I-eqL">
                                                         <rect key="frame" x="89" y="53.5" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3604,13 +3604,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="TDj-Cg-Qt7"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-Gh-MN0">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Classic Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-Gh-MN0">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bq1-xh-0dZ">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bq1-xh-0dZ">
                                                         <rect key="frame" x="89" y="53.5" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3660,13 +3660,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="nqA-Tb-mJl"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiG-Ac-XBG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Classic Freedom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiG-Ac-XBG">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hQ-Pu-Zlc">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hQ-Pu-Zlc">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3716,13 +3716,13 @@
                                                             <constraint firstAttribute="height" constant="50" id="PVG-UZ-S28"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL2-VL-W6D">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Hot Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL2-VL-W6D">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGE-Bj-zVk">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGE-Bj-zVk">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3772,13 +3772,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="zVo-dE-3iS"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FB-cq-X4w">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Hot Freedom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FB-cq-X4w">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CY-DT-uXB">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 70" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CY-DT-uXB">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3828,13 +3828,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="taU-Yf-mXV"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFG-kB-cyS">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Hot Voice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFG-kB-cyS">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04K-bf-R5b">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04K-bf-R5b">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3884,13 +3884,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="ciT-tO-w91"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-Qz-rHf">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Rush Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-Qz-rHf">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iix-KB-VUA">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iix-KB-VUA">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3940,13 +3940,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="XuP-bG-g9n"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7R-l9-1tt">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Rush Freedom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7R-l9-1tt">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-cv-87Z">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-cv-87Z">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -3996,13 +3996,13 @@
                                                             <constraint firstAttribute="height" constant="50" id="hh3-nu-kHV"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jp-GW-dzv">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Rush Voice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jp-GW-dzv">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-Lu-S8V">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-Lu-S8V">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -4052,13 +4052,13 @@
                                                             <constraint firstAttribute="height" constant="50" id="i9h-oS-6JK"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-dt-AuR">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Super Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-dt-AuR">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFb-nS-QRf">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFb-nS-QRf">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -4103,14 +4103,14 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-SO-8VP">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Red Super Freedom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-SO-8VP">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fp-zR-NCb">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price GHS 45" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fp-zR-NCb">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
@@ -4145,13 +4145,13 @@
                                                             <constraint firstAttribute="width" constant="50" id="yyL-oN-gML"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Ghana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMf-rD-yRd">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Super Voice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMf-rD-yRd">
                                                         <rect key="frame" x="89" y="32" width="226" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgE-L8-4Yk">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgE-L8-4Yk">
                                                         <rect key="frame" x="89" y="53" width="226" height="14"/>
                                                         <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -4183,11 +4183,217 @@
                                                     <constraint firstAttribute="trailing" secondItem="prL-iw-aGv" secondAttribute="trailing" constant="8" id="vHh-YF-uXC"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fms-pG-nn6" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="1986" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pbW-lo-cy2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="Fp0-fn-d9P"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="PGx-Sn-UUE">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="M4B-c0-A9V"/>
+                                                            <constraint firstAttribute="width" constant="50" id="yMM-RH-n60"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red life Weekly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgQ-He-ofu">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcH-ZW-LX4">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="BnS-ha-4hh">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="3rS-a1-Z4C"/>
+                                                            <constraint firstAttribute="width" constant="10" id="OO6-OJ-9el"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="PGx-Sn-UUE" firstAttribute="leading" secondItem="pbW-lo-cy2" secondAttribute="trailing" constant="19" id="BPe-uM-yOs"/>
+                                                    <constraint firstAttribute="height" constant="110" id="D4j-Ea-IEk"/>
+                                                    <constraint firstItem="CcH-ZW-LX4" firstAttribute="top" secondItem="FgQ-He-ofu" secondAttribute="bottom" constant="5" id="DlW-Fm-WBy"/>
+                                                    <constraint firstItem="CcH-ZW-LX4" firstAttribute="leading" secondItem="PGx-Sn-UUE" secondAttribute="trailing" constant="8" id="Eku-KR-G0z"/>
+                                                    <constraint firstItem="FgQ-He-ofu" firstAttribute="leading" secondItem="PGx-Sn-UUE" secondAttribute="trailing" constant="8" id="NlY-Zq-6WB"/>
+                                                    <constraint firstItem="FgQ-He-ofu" firstAttribute="top" secondItem="fms-pG-nn6" secondAttribute="top" constant="32" id="PaV-Bn-2X4"/>
+                                                    <constraint firstAttribute="trailing" secondItem="FgQ-He-ofu" secondAttribute="trailing" constant="20" id="aZD-9h-HtG"/>
+                                                    <constraint firstItem="pbW-lo-cy2" firstAttribute="leading" secondItem="fms-pG-nn6" secondAttribute="leading" id="dHl-6h-tLT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pbW-lo-cy2" secondAttribute="bottom" id="fFX-iU-MST"/>
+                                                    <constraint firstItem="pbW-lo-cy2" firstAttribute="top" secondItem="fms-pG-nn6" secondAttribute="top" id="hLV-uF-q4r"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CcH-ZW-LX4" secondAttribute="trailing" constant="20" id="ikV-pd-wfh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BnS-ha-4hh" secondAttribute="trailing" constant="8" id="jls-DL-3jU"/>
+                                                    <constraint firstItem="PGx-Sn-UUE" firstAttribute="top" secondItem="fms-pG-nn6" secondAttribute="top" constant="32" id="rau-VI-GQy"/>
+                                                    <constraint firstItem="BnS-ha-4hh" firstAttribute="top" secondItem="fms-pG-nn6" secondAttribute="top" constant="41" id="u5I-3q-rut"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-2w-J7u" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="2116" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x8q-SR-ni1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="27N-if-jf5"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="tSN-YL-pAS">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="p96-UO-9sV"/>
+                                                            <constraint firstAttribute="width" constant="50" id="qWi-vv-Uo2"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supreme Value Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbK-ud-Cu8">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 11.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyJ-nH-AoG">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6No-ET-OVI">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="10" id="296-v2-Z2A"/>
+                                                            <constraint firstAttribute="height" constant="25" id="wpe-Oe-tgb"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="6No-ET-OVI" firstAttribute="top" secondItem="XQX-2w-J7u" secondAttribute="top" constant="41" id="0l2-Wh-gNH"/>
+                                                    <constraint firstItem="tSN-YL-pAS" firstAttribute="leading" secondItem="x8q-SR-ni1" secondAttribute="trailing" constant="19" id="5OF-kp-sBU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RbK-ud-Cu8" secondAttribute="trailing" constant="20" id="90k-CT-eIH"/>
+                                                    <constraint firstAttribute="bottom" secondItem="x8q-SR-ni1" secondAttribute="bottom" id="Ja3-if-Mmy"/>
+                                                    <constraint firstAttribute="height" constant="110" id="LJU-ss-3U3"/>
+                                                    <constraint firstItem="lyJ-nH-AoG" firstAttribute="top" secondItem="RbK-ud-Cu8" secondAttribute="bottom" constant="5" id="NKs-ke-Moh"/>
+                                                    <constraint firstItem="RbK-ud-Cu8" firstAttribute="top" secondItem="XQX-2w-J7u" secondAttribute="top" constant="32" id="Va5-q0-nOA"/>
+                                                    <constraint firstItem="RbK-ud-Cu8" firstAttribute="leading" secondItem="tSN-YL-pAS" secondAttribute="trailing" constant="8" id="cxj-jT-NSN"/>
+                                                    <constraint firstItem="lyJ-nH-AoG" firstAttribute="leading" secondItem="tSN-YL-pAS" secondAttribute="trailing" constant="8" id="enI-xr-0hE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="lyJ-nH-AoG" secondAttribute="trailing" constant="20" id="f8A-42-nqb"/>
+                                                    <constraint firstItem="x8q-SR-ni1" firstAttribute="top" secondItem="XQX-2w-J7u" secondAttribute="top" id="laR-k8-gub"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6No-ET-OVI" secondAttribute="trailing" constant="8" id="p3K-4s-Cmr"/>
+                                                    <constraint firstItem="tSN-YL-pAS" firstAttribute="top" secondItem="XQX-2w-J7u" secondAttribute="top" constant="32" id="sJz-Rs-RRt"/>
+                                                    <constraint firstItem="x8q-SR-ni1" firstAttribute="leading" secondItem="XQX-2w-J7u" secondAttribute="leading" id="xaH-8E-rOD"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cp-0G-CP2" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="2246" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n0F-HM-Yfn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="Nrz-5Y-hX5"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="uXh-uX-Ln2">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="0Qq-2u-hzW"/>
+                                                            <constraint firstAttribute="height" constant="50" id="pqF-YO-GKp"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vodafone VIM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owB-Ua-M1J">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price GHS 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdJ-OF-kHL">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="9DH-fZ-WQl">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="Qws-Pz-iOZ"/>
+                                                            <constraint firstAttribute="width" constant="10" id="hrW-Me-JZd"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="owB-Ua-M1J" firstAttribute="top" secondItem="1Cp-0G-CP2" secondAttribute="top" constant="32" id="GEI-nA-Miy"/>
+                                                    <constraint firstItem="n0F-HM-Yfn" firstAttribute="top" secondItem="1Cp-0G-CP2" secondAttribute="top" id="HCs-FU-kpa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sdJ-OF-kHL" secondAttribute="trailing" constant="20" id="JFg-kS-GuL"/>
+                                                    <constraint firstItem="sdJ-OF-kHL" firstAttribute="leading" secondItem="uXh-uX-Ln2" secondAttribute="trailing" constant="8" id="MVr-rZ-x4M"/>
+                                                    <constraint firstItem="9DH-fZ-WQl" firstAttribute="top" secondItem="1Cp-0G-CP2" secondAttribute="top" constant="41" id="TFq-M6-QFk"/>
+                                                    <constraint firstItem="owB-Ua-M1J" firstAttribute="leading" secondItem="uXh-uX-Ln2" secondAttribute="trailing" constant="8" id="Ysz-Qw-l4b"/>
+                                                    <constraint firstAttribute="height" constant="110" id="Z1D-qx-mba"/>
+                                                    <constraint firstItem="sdJ-OF-kHL" firstAttribute="top" secondItem="owB-Ua-M1J" secondAttribute="bottom" constant="5" id="bxd-Gb-g4F"/>
+                                                    <constraint firstItem="n0F-HM-Yfn" firstAttribute="leading" secondItem="1Cp-0G-CP2" secondAttribute="leading" id="fZJ-Ui-I5I"/>
+                                                    <constraint firstAttribute="trailing" secondItem="9DH-fZ-WQl" secondAttribute="trailing" constant="8" id="npV-i1-cZz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="n0F-HM-Yfn" secondAttribute="bottom" id="oEg-LZ-OfJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="owB-Ua-M1J" secondAttribute="trailing" constant="20" id="saE-lT-ceg"/>
+                                                    <constraint firstItem="uXh-uX-Ln2" firstAttribute="leading" secondItem="n0F-HM-Yfn" secondAttribute="trailing" constant="19" id="usG-NP-Jg3"/>
+                                                    <constraint firstItem="uXh-uX-Ln2" firstAttribute="top" secondItem="1Cp-0G-CP2" secondAttribute="top" constant="32" id="zKo-8M-AhC"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rPO-ob-xx0" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="2376" width="335" height="110"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8P-G6-WTo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="12" height="110"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="call_icon" translatesAutoresizingMaskIntoConstraints="NO" id="GJO-tL-dyb">
+                                                        <rect key="frame" x="31" y="32" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome Pack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmF-26-ekW">
+                                                        <rect key="frame" x="89" y="32" width="226" height="16.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price GHS 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0K-hq-rHO">
+                                                        <rect key="frame" x="89" y="53" width="226" height="14"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6FD-gn-npH">
+                                                        <rect key="frame" x="317" y="41" width="10" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="110" id="s1s-hm-mHL"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="BNk-bT-o7d" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="5" id="1OV-sr-TuL"/>
                                             <constraint firstItem="Hel-Ka-L8Y" firstAttribute="top" secondItem="aPg-7g-YEu" secondAttribute="bottom" constant="20" id="22J-8f-nTW"/>
+                                            <constraint firstAttribute="trailing" secondItem="rPO-ob-xx0" secondAttribute="trailing" constant="20" id="3Hk-QG-oaU"/>
                                             <constraint firstItem="Iq3-pf-RwY" firstAttribute="top" secondItem="8kH-dE-haX" secondAttribute="bottom" constant="20" id="3aE-k5-rBk"/>
                                             <constraint firstAttribute="trailing" secondItem="Iq3-pf-RwY" secondAttribute="trailing" constant="20" id="3zt-Z9-pjL"/>
                                             <constraint firstItem="aPg-7g-YEu" firstAttribute="top" secondItem="Yvb-CP-cpN" secondAttribute="bottom" constant="20" id="4b7-kE-iHn"/>
@@ -4198,22 +4404,31 @@
                                             <constraint firstItem="eAh-ct-kFl" firstAttribute="top" secondItem="tR4-6y-laN" secondAttribute="bottom" constant="20" id="7pu-gJ-2DJ"/>
                                             <constraint firstAttribute="trailing" secondItem="TUM-OY-VBN" secondAttribute="trailing" constant="20" id="8SN-ma-KfC"/>
                                             <constraint firstItem="wGf-tL-MZh" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="9R8-mq-kBG"/>
+                                            <constraint firstItem="fms-pG-nn6" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="9vq-Ao-0HL"/>
                                             <constraint firstItem="BNk-bT-o7d" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="5" id="Aat-Uy-6nb"/>
                                             <constraint firstAttribute="trailing" secondItem="10G-XI-so5" secondAttribute="trailing" constant="16" id="Aph-ej-oJU"/>
                                             <constraint firstItem="aPg-7g-YEu" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="Azq-nw-hfY"/>
                                             <constraint firstItem="10G-XI-so5" firstAttribute="leading" secondItem="8kH-dE-haX" secondAttribute="trailing" constant="-43" id="Chh-mZ-P0v"/>
+                                            <constraint firstItem="rPO-ob-xx0" firstAttribute="top" secondItem="1Cp-0G-CP2" secondAttribute="bottom" constant="20" id="CyU-VD-KvS"/>
+                                            <constraint firstItem="XQX-2w-J7u" firstAttribute="top" secondItem="fms-pG-nn6" secondAttribute="bottom" constant="20" id="DVi-Hc-is7"/>
                                             <constraint firstAttribute="trailing" secondItem="aPg-7g-YEu" secondAttribute="trailing" constant="20" id="Dxz-Zb-X4l"/>
+                                            <constraint firstItem="XQX-2w-J7u" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="Fe9-ka-zyn"/>
                                             <constraint firstItem="CzV-Xs-jWX" firstAttribute="top" secondItem="MEN-VT-Xx6" secondAttribute="bottom" constant="20" id="K72-Ci-E05"/>
+                                            <constraint firstItem="1Cp-0G-CP2" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="M7H-iP-epE"/>
                                             <constraint firstAttribute="trailing" secondItem="wuO-ib-Juz" secondAttribute="trailing" constant="20" id="MnG-t5-Djl"/>
                                             <constraint firstItem="10G-XI-so5" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="40" id="Osz-dc-D2j"/>
                                             <constraint firstItem="LDp-sU-0Mq" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="PDq-Lh-V6b"/>
+                                            <constraint firstAttribute="trailing" secondItem="1Cp-0G-CP2" secondAttribute="trailing" constant="20" id="PFV-n3-wCJ"/>
                                             <constraint firstItem="wGf-tL-MZh" firstAttribute="top" secondItem="Hel-Ka-L8Y" secondAttribute="bottom" constant="20" id="PJg-XY-C8o"/>
+                                            <constraint firstItem="fms-pG-nn6" firstAttribute="top" secondItem="TUM-OY-VBN" secondAttribute="bottom" constant="20" id="PWs-t5-fEQ"/>
                                             <constraint firstAttribute="trailing" secondItem="p36-Cq-gcR" secondAttribute="trailing" constant="20" id="QcY-O0-EDY"/>
                                             <constraint firstAttribute="trailing" secondItem="Syu-YL-a2V" secondAttribute="trailing" constant="10" id="XCs-mU-n3L"/>
                                             <constraint firstAttribute="trailing" secondItem="CzV-Xs-jWX" secondAttribute="trailing" constant="20" id="XEJ-5X-moV"/>
                                             <constraint firstAttribute="trailing" secondItem="4q5-N0-Gc0" secondAttribute="trailing" constant="20" id="Y9p-bP-mOb"/>
                                             <constraint firstItem="Yvb-CP-cpN" firstAttribute="top" secondItem="eAh-ct-kFl" secondAttribute="bottom" constant="20" id="ZGc-bS-oOm"/>
+                                            <constraint firstItem="rPO-ob-xx0" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="ayS-pg-Tdb"/>
                                             <constraint firstAttribute="trailing" secondItem="Yvb-CP-cpN" secondAttribute="trailing" constant="20" id="azG-UT-LRM"/>
+                                            <constraint firstAttribute="trailing" secondItem="fms-pG-nn6" secondAttribute="trailing" constant="20" id="b2t-ub-u8j"/>
                                             <constraint firstAttribute="trailing" secondItem="wGf-tL-MZh" secondAttribute="trailing" constant="20" id="bK0-wY-hUf"/>
                                             <constraint firstItem="Yvb-CP-cpN" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="bSb-lF-cA9"/>
                                             <constraint firstItem="4q5-N0-Gc0" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="c6m-Ip-5eI"/>
@@ -4230,8 +4445,9 @@
                                             <constraint firstAttribute="trailing" secondItem="LDp-sU-0Mq" secondAttribute="trailing" constant="20" id="lbI-hs-Ewo"/>
                                             <constraint firstAttribute="trailing" secondItem="eAh-ct-kFl" secondAttribute="trailing" constant="20" id="mYb-0H-ZVD"/>
                                             <constraint firstItem="Syu-YL-a2V" firstAttribute="top" secondItem="19n-QB-aqR" secondAttribute="top" constant="5" id="mtU-eZ-LCR"/>
+                                            <constraint firstItem="1Cp-0G-CP2" firstAttribute="top" secondItem="XQX-2w-J7u" secondAttribute="bottom" constant="20" id="pdq-5R-9ZS"/>
                                             <constraint firstItem="TUM-OY-VBN" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="pgb-ss-IXl"/>
-                                            <constraint firstAttribute="height" constant="2000" id="qL1-DR-y58"/>
+                                            <constraint firstAttribute="height" constant="2530" id="qL1-DR-y58"/>
                                             <constraint firstItem="MEN-VT-Xx6" firstAttribute="top" secondItem="4q5-N0-Gc0" secondAttribute="bottom" constant="20" id="r7l-SW-12r"/>
                                             <constraint firstAttribute="trailing" secondItem="MEN-VT-Xx6" secondAttribute="trailing" constant="20" id="sW6-DU-xLz"/>
                                             <constraint firstItem="Iq3-pf-RwY" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="t9E-DC-Ayu"/>
@@ -4242,6 +4458,7 @@
                                             <constraint firstItem="MEN-VT-Xx6" firstAttribute="leading" secondItem="19n-QB-aqR" secondAttribute="leading" constant="20" id="vvi-nb-Vwf"/>
                                             <constraint firstAttribute="trailing" secondItem="Hel-Ka-L8Y" secondAttribute="trailing" constant="20" id="xZ2-ET-vNp"/>
                                             <constraint firstAttribute="trailing" secondItem="et5-Cs-exw" secondAttribute="trailing" constant="20" id="z3e-7u-J3K"/>
+                                            <constraint firstAttribute="trailing" secondItem="XQX-2w-J7u" secondAttribute="trailing" constant="20" id="zMy-vh-MP1"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -4263,13 +4480,28 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="y76-G6-qlB"/>
                     </view>
-                    <size key="freeformSize" width="375" height="2000"/>
+                    <size key="freeformSize" width="375" height="2530"/>
                     <connections>
                         <outlet property="btnBack" destination="BNk-bT-o7d" id="WjH-mn-x1V"/>
                         <outlet property="dblValueMonth" destination="ZyZ-fX-VPT" id="MeG-Ak-cQF"/>
                         <outlet property="hamburger" destination="Syu-YL-a2V" id="EN9-Fd-TGJ"/>
                         <outlet property="oneGH" destination="AIH-dd-5So" id="Ccn-Eu-SQp"/>
+                        <outlet property="redClassic" destination="7rk-4a-yJY" id="OHh-UC-BDj"/>
+                        <outlet property="redClassicFreedom" destination="3Pd-Za-rNx" id="7Cd-JT-Mbs"/>
+                        <outlet property="redHotData" destination="h55-dJ-BGp" id="mFu-uc-TwS"/>
+                        <outlet property="redHotFreedom" destination="CDD-ln-qWN" id="yYF-bT-rJa"/>
+                        <outlet property="redHotVoice" destination="3O3-7k-Ae9" id="rSb-a6-9ww"/>
+                        <outlet property="redLifeWeekly" destination="PGx-Sn-UUE" id="jQ5-7M-Rha"/>
+                        <outlet property="redRushData" destination="hXh-y4-cVV" id="HND-C6-1wN"/>
+                        <outlet property="redRushFreedom" destination="0G6-Yc-cnP" id="lQy-ej-ZeL"/>
+                        <outlet property="redRushVoice" destination="rdM-US-GRH" id="u3l-OG-Lvr"/>
+                        <outlet property="redSuperData" destination="OL2-8o-buz" id="teL-0y-At7"/>
+                        <outlet property="redSuperFreedom" destination="BSp-e6-aNY" id="YNH-q9-gPj"/>
+                        <outlet property="redSuperVoice" destination="jKk-4Y-dwB" id="wNg-JC-HBU"/>
+                        <outlet property="supremeValueMonthly" destination="tSN-YL-pAS" id="bis-kN-kPb"/>
                         <outlet property="twoGH" destination="AFQ-52-QiA" id="Pvc-Or-Snh"/>
+                        <outlet property="vodafoneVIM" destination="uXh-uX-Ln2" id="Jt0-hj-Ej9"/>
+                        <outlet property="welcomePack" destination="GJO-tL-dyb" id="HVv-Rt-Pud"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDl-DJ-0FH" userLabel="First Responder" sceneMemberID="firstResponder"/>
