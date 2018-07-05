@@ -30,6 +30,33 @@ class PlansViewController: UIViewController {
     @IBOutlet weak var supremeValueMonthly: UIImageView!
     @IBOutlet weak var vodafoneVIM: UIImageView!
     @IBOutlet weak var welcomePack: UIImageView!
+    @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
+    
+    //Plan cards View
+    @IBOutlet weak var oneGHCard: CardView!
+    @IBOutlet weak var twoGHCard: CardView!
+    @IBOutlet weak var dblValueMonthCard: CardView!
+    @IBOutlet weak var redClassiceDataCard: CardView!
+    @IBOutlet weak var redClassicFreedomCard: CardView!
+    @IBOutlet weak var redHotDataCard: CardView!
+    @IBOutlet weak var redHotFreedomCard: UIView!
+    @IBOutlet weak var redHotVoiceCard: CardView!
+    @IBOutlet weak var redRushDataCard: CardView!
+    @IBOutlet weak var redRushFreedomCard: CardView!
+    @IBOutlet weak var redRushVoiceCard: CardView!
+    @IBOutlet weak var redSuperDataCard: CardView!
+    @IBOutlet weak var redSuperFreedomCard: CardView!
+    @IBOutlet weak var redSuperVoiceCard: CardView!
+    @IBOutlet weak var redLifeWeeklyCard: CardView!
+    @IBOutlet weak var supremeValMonth: CardView!
+    @IBOutlet weak var vodafoneVimCard: CardView!
+    @IBOutlet weak var welcomePackCard: CardView!
+    
+    
+    
+    
+    var menuShowing = false
     
     
     override func viewDidLoad() {
@@ -56,6 +83,9 @@ class PlansViewController: UIViewController {
         makeImageRound(image: supremeValueMonthly)
         makeImageRound(image: vodafoneVIM)
         makeImageRound(image: welcomePack)
+        
+        //load gesture to cards
+        addGestureToCards()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +104,38 @@ class PlansViewController: UIViewController {
         let tintedMenu = menu_image?.withRenderingMode(.alwaysTemplate)
         hamburger.setImage(tintedMenu, for: .normal)
         hamburger.tintColor = UIColor.white
+        
+        let close_image = UIImage(named: "new_close")
+        let tintedClose = close_image?.withRenderingMode(.alwaysTemplate)
+        btnClose.setImage(tintedClose, for: .normal)
+        btnClose.tintColor = UIColor.white
     }
+    
+    //Function to show Menu
+    @IBAction func showMenu(_ sender: Any) {
+        if (menuShowing){
+            menuTrailingConstraint.constant = -280
+        }else{
+            menuTrailingConstraint.constant = 0
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        menuShowing = !menuShowing
+    }
+    
+    //Function to add tap gestures to cards
+    func addGestureToCards(){
+        let oneGHRec = UITapGestureRecognizer(target: self, action: #selector(self.goToOneGH))
+        oneGHCard.addGestureRecognizer(oneGHRec)
+    }
+    
+    //Function to OneGH
+    @objc func goToOneGH(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OneGHPlanViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
     
     //Function to make images round
     func makeImageRound(image:UIImageView){

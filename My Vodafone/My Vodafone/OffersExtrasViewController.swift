@@ -68,7 +68,7 @@ class OffersExtrasViewController: UIViewController {
     //show menu
     @IBAction func showMenu(_ sender: Any) {
         if (menuShowing){
-            menuViewTrailingConstraint.constant = -261
+            menuViewTrailingConstraint.constant = -280
         }else{
             menuViewTrailingConstraint.constant = 0
         }
