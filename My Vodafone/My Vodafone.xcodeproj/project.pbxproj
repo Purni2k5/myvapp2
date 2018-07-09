@@ -47,6 +47,7 @@
 		01C0235920C9C957003E48CC /* roaming_faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234C20C9C957003E48CC /* roaming_faq.html */; };
 		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
+		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		01C0234C20C9C957003E48CC /* roaming_faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roaming_faq.html; sourceTree = "<group>"; };
 		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
+		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 				01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */,
 				01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */,
 				01853EB920CFD81E002DEB7D /* CardView.swift */,
+				28937EE520EF96D20061F82B /* RoundView.swift */,
 				01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */,
 				01853EBD20D05957002DEB7D /* UserProductsViewController.swift */,
 				01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */,
@@ -299,6 +302,7 @@
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
+				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
