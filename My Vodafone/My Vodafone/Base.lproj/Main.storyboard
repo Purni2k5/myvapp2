@@ -4616,21 +4616,100 @@
                                                     <constraint firstAttribute="trailing" secondItem="w8L-jK-8Gm" secondAttribute="trailing" constant="8" id="riP-5z-kx6"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSg-za-DKM">
-                                                <rect key="frame" x="39" y="171" width="296" height="175"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSg-za-DKM">
+                                                <rect key="frame" x="40" y="140" width="295" height="144"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <string key="text">Get 100 mins to call Vodafone numbers, 5 mins to call other networks,100 SMS and 20 MB to browse all day untill midniight all for only GHS 1. Get an extra 20 MB data for purchasing through the My Vodafone app.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Bold" family="Vodafone Rg" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h18-kF-fUj" customClass="RoundView" customModule="My_Vodafone" customModuleProvider="target">
+                                                <rect key="frame" x="147.5" y="292" width="80" height="80"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-Qt-XrF">
+                                                        <rect key="frame" x="18" y="32.5" width="45.5" height="16.5"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="31D-5R-eLI"/>
+                                                    <constraint firstAttribute="width" constant="80" id="I4n-Jk-ST7"/>
+                                                    <constraint firstItem="hLf-Qt-XrF" firstAttribute="centerX" secondItem="h18-kF-fUj" secondAttribute="centerX" id="ebJ-aq-NTK"/>
+                                                    <constraint firstItem="hLf-Qt-XrF" firstAttribute="centerY" secondItem="h18-kF-fUj" secondAttribute="centerY" id="mk2-Cc-Gcw"/>
+                                                </constraints>
+                                            </view>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntk-RG-IO8">
+                                                <rect key="frame" x="40" y="392" width="295" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="hjB-yZ-Hip"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzA-Hd-N75">
+                                                <rect key="frame" x="40" y="461" width="295" height="55"/>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="isN-fe-Fob"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
+                                                <state key="normal" title="Buy">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lW-OH-U6n">
+                                                <rect key="frame" x="40" y="530" width="295" height="55"/>
+                                                <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="Bvy-ih-dG6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
+                                                <state key="normal" title="No Thanks">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vit-IW-lnf">
+                                                <rect key="frame" x="40" y="599" width="295" height="55"/>
+                                                <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="Aw5-yq-c3M"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
+                                                <state key="normal" title="Browse All">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="800" id="3Xn-9v-tYo"/>
+                                            <constraint firstAttribute="trailing" secondItem="2lW-OH-U6n" secondAttribute="trailing" constant="40" id="Hcg-Ke-4Ps"/>
                                             <constraint firstItem="6Kv-gs-6BD" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" id="IWO-UY-Ra6"/>
+                                            <constraint firstItem="bSg-za-DKM" firstAttribute="top" secondItem="6Kv-gs-6BD" secondAttribute="bottom" constant="10" id="LSg-Ic-MB6"/>
                                             <constraint firstItem="6Kv-gs-6BD" firstAttribute="top" secondItem="G4z-w7-jzn" secondAttribute="top" id="M4T-PF-NhH"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vit-IW-lnf" secondAttribute="trailing" constant="40" id="NDr-Q4-IYL"/>
+                                            <constraint firstItem="h18-kF-fUj" firstAttribute="top" secondItem="bSg-za-DKM" secondAttribute="bottom" constant="8" id="PxA-6N-HRf"/>
+                                            <constraint firstItem="ntk-RG-IO8" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="R1g-En-x0q"/>
                                             <constraint firstAttribute="trailing" secondItem="6Kv-gs-6BD" secondAttribute="trailing" id="TfC-Cm-zDw"/>
+                                            <constraint firstItem="ntk-RG-IO8" firstAttribute="top" secondItem="h18-kF-fUj" secondAttribute="bottom" constant="20" id="U9m-W2-Mgk"/>
+                                            <constraint firstItem="Vit-IW-lnf" firstAttribute="top" secondItem="2lW-OH-U6n" secondAttribute="bottom" constant="14" id="b8J-b4-GBt"/>
+                                            <constraint firstAttribute="trailing" secondItem="jzA-Hd-N75" secondAttribute="trailing" constant="40" id="eay-Wn-lqP"/>
+                                            <constraint firstItem="jzA-Hd-N75" firstAttribute="top" secondItem="ntk-RG-IO8" secondAttribute="bottom" constant="14" id="efD-al-U3M"/>
+                                            <constraint firstItem="2lW-OH-U6n" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="f1N-Hh-toV"/>
+                                            <constraint firstItem="Vit-IW-lnf" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="fMO-xk-Yhg"/>
+                                            <constraint firstAttribute="trailing" secondItem="jzA-Hd-N75" secondAttribute="trailing" constant="40" id="fpl-b0-yE6"/>
+                                            <constraint firstAttribute="trailing" secondItem="ntk-RG-IO8" secondAttribute="trailing" constant="40" id="j1Q-Uc-Ux2"/>
+                                            <constraint firstAttribute="trailing" secondItem="bSg-za-DKM" secondAttribute="trailing" constant="40" id="kDn-IL-mYU"/>
+                                            <constraint firstItem="jzA-Hd-N75" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="kkr-JQ-hBr"/>
+                                            <constraint firstItem="h18-kF-fUj" firstAttribute="centerX" secondItem="G4z-w7-jzn" secondAttribute="centerX" id="qne-C2-4WN"/>
+                                            <constraint firstItem="bSg-za-DKM" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="taO-z3-jnO"/>
+                                            <constraint firstItem="2lW-OH-U6n" firstAttribute="top" secondItem="jzA-Hd-N75" secondAttribute="bottom" constant="14" id="tfb-vq-oua"/>
+                                            <constraint firstItem="jzA-Hd-N75" firstAttribute="leading" secondItem="G4z-w7-jzn" secondAttribute="leading" constant="40" id="xG9-vK-Yg1"/>
                                         </constraints>
                                     </view>
                                 </subviews>
