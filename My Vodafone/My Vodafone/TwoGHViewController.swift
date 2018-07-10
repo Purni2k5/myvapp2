@@ -1,26 +1,27 @@
 //
-//  OneGHPlanViewController.swift
+//  TwoGHViewController.swift
 //  My Vodafone
 //
-//  Created by Chef Dennis Barimah on 05/07/2018.
+//  Created by Chef Dennis Barimah on 10/07/2018.
 //  Copyright © 2018 Chef Dennis Barimah. All rights reserved.
 //
 
 import UIKit
 
-class OneGHPlanViewController: UIViewController {
-    let preferences = UserDefaults.standard
-    var defaultNumber:String?
-
-    @IBOutlet weak var txtTopUpNumber: UITextField!
+class TwoGHViewController: UIViewController {
+    
     @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var txtTopUpNumber: UITextField!
+    
+    var defaultNumber:String?
+    let preferences = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // change btn colour
-        changeCloseColour()
-        //Get default number
-        var number = getDefaultNumber()
+        //change close colour
+        changeClose()
+        //get default number
+        let number = getDefaultNumber()
         txtTopUpNumber.text = number
     }
 
@@ -30,17 +31,22 @@ class OneGHPlanViewController: UIViewController {
     }
     
 
-    //change close btn colour
-    func changeCloseColour(){
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    //Change close btn colour
+    func changeClose(){
         let close_image = UIImage(named: "new_close")
         let tintedImage = close_image?.withRenderingMode(.alwaysTemplate)
         btnClose.setImage(tintedImage, for: .normal)
         btnClose.tintColor = UIColor.white
-    }
-    
-    @IBAction func closeView(_ sender: Any) {
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "PlansViewController")
-        present(moveTo!, animated: true, completion: nil)
     }
     
     //Function to get default number
@@ -50,5 +56,5 @@ class OneGHPlanViewController: UIViewController {
         print("My num:: \(defaultNumber!)")
         return defaultNumber!
     }
-    
+
 }

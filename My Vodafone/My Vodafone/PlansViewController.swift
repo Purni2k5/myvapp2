@@ -128,11 +128,20 @@ class PlansViewController: UIViewController {
     func addGestureToCards(){
         let oneGHRec = UITapGestureRecognizer(target: self, action: #selector(self.goToOneGH))
         oneGHCard.addGestureRecognizer(oneGHRec)
+        
+        let twoGHRec = UITapGestureRecognizer(target: self, action: #selector(self.goToTwoGH))
+        twoGHCard.addGestureRecognizer(twoGHRec)
     }
     
     //Function to OneGH
     @objc func goToOneGH(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "OneGHPlanViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to TwoGH
+    @objc func goToTwoGH(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "TwoGHViewController")
         present(moveTo!, animated: true, completion: nil)
     }
     

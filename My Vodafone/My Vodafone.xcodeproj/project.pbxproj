@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144B5DD20ED1D25007791C4 /* PlansViewController.swift */; };
+		0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */; };
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		0144B5DD20ED1D25007791C4 /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
+		0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoGHViewController.swift; sourceTree = "<group>"; };
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				014E311620ECCD03004ACE9A /* toppingUpViewController.swift */,
 				0144B5DD20ED1D25007791C4 /* PlansViewController.swift */,
 				0188912720EE76290080697F /* OneGHPlanViewController.swift */,
+				0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
+				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
