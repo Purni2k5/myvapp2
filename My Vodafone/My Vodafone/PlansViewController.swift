@@ -131,6 +131,33 @@ class PlansViewController: UIViewController {
         
         let twoGHRec = UITapGestureRecognizer(target: self, action: #selector(self.goToTwoGH))
         twoGHCard.addGestureRecognizer(twoGHRec)
+        
+        let dbleValueMonthlyRec = UITapGestureRecognizer(target: self, action: #selector(self.goToDbleValueMonthly))
+        dblValueMonthCard.addGestureRecognizer(dbleValueMonthlyRec)
+        
+        let redClassicDataRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedClassicData))
+        redClassiceDataCard.addGestureRecognizer(redClassicDataRec)
+        
+        let redClassicFreedomRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedClassicFreedom))
+        redClassicFreedomCard.addGestureRecognizer(redClassicFreedomRec)
+        
+        let redHotDataRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedHotData))
+        redHotDataCard.addGestureRecognizer(redHotDataRec)
+        
+        let redHotFreedomRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedHotFreedom))
+        redHotFreedomCard.addGestureRecognizer(redHotFreedomRec)
+        
+        let redHotVoiceRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedHotVoice))
+        redHotVoiceCard.addGestureRecognizer(redHotVoiceRec)
+        
+        let redRushDataRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedRushData))
+        redRushDataCard.addGestureRecognizer(redRushDataRec)
+        
+        let redRushFreedomRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedRushFreedom))
+        redRushFreedomCard.addGestureRecognizer(redRushFreedomRec)
+        
+        let redRushVoiceRec = UITapGestureRecognizer(target: self, action: #selector(self.goToRedRushVoice))
+        redRushVoiceCard.addGestureRecognizer(redRushVoiceRec)
     }
     
     //Function to OneGH
@@ -144,6 +171,59 @@ class PlansViewController: UIViewController {
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "TwoGHViewController")
         present(moveTo!, animated: true, completion: nil)
     }
+    //Function to Double Value Monthly
+    @objc func goToDbleValueMonthly(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "DbleValueMonthlyViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red classic data
+    @objc func goToRedClassicData(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedClassicDataViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red classic freedom
+    @objc func goToRedClassicFreedom(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedClassicFreedomViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    //Function to Red Hot Data
+    @objc func goToRedHotData(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedHotDataViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red Hot Freedom
+    @objc func goToRedHotFreedom(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedHotFreedomViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red Hot Freedom
+    @objc func goToRedHotVoice(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedHotVoiceViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red Hot Freedom
+    @objc func goToRedRushData(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedRushDataViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red Hot Freedom
+    @objc func goToRedRushFreedom(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedRushFreedomViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to Red Hot Freedom
+    @objc func goToRedRushVoice(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "RedRushVoiceViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
     
     
     //Function to make images round

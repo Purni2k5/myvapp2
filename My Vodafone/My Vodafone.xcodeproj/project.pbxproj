@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144B5DD20ED1D25007791C4 /* PlansViewController.swift */; };
 		0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */; };
+		0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */; };
+		0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */; };
+		0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */; };
+		0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */; };
+		0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */; };
+		0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */; };
+		0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */; };
+		0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */; };
+		0146FD9E20F5106A00AFEE82 /* RedRushVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */; };
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
@@ -55,6 +64,15 @@
 /* Begin PBXFileReference section */
 		0144B5DD20ED1D25007791C4 /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
 		0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoGHViewController.swift; sourceTree = "<group>"; };
+		0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbleValueMonthlyViewController.swift; sourceTree = "<group>"; };
+		0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedClassicDataViewController.swift; sourceTree = "<group>"; };
+		0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedClassicFreedomViewController.swift; sourceTree = "<group>"; };
+		0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotDataViewController.swift; sourceTree = "<group>"; };
+		0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotFreedomViewController.swift; sourceTree = "<group>"; };
+		0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotVoiceViewController.swift; sourceTree = "<group>"; };
+		0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushDataViewController.swift; sourceTree = "<group>"; };
+		0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushFreedomViewController.swift; sourceTree = "<group>"; };
+		0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushVoiceViewController.swift; sourceTree = "<group>"; };
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +176,15 @@
 				0144B5DD20ED1D25007791C4 /* PlansViewController.swift */,
 				0188912720EE76290080697F /* OneGHPlanViewController.swift */,
 				0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */,
+				0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */,
+				0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */,
+				0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */,
+				0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */,
+				0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */,
+				0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */,
+				0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */,
+				0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */,
+				0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -290,8 +317,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				01C0230020C99304003E48CC /* ViewController.swift in Sources */,
+				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
+				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
+				0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */,
+				0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */,
+				0146FD9E20F5106A00AFEE82 /* RedRushVoiceViewController.swift in Sources */,
 				0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
@@ -299,14 +331,18 @@
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
+				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
+				0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */,
+				0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
+				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
