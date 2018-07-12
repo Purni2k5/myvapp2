@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(_ sender: Any) {
-        print("clicked")
+        
         let username = txtUsername.text
         let password = txtPassword.text
         username?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -72,6 +72,8 @@ class LoginViewController: UIViewController {
                 "username":username,
                 "password":password
             ]
+            txtUsername.resignFirstResponder()
+            txtPassword.resignFirstResponder()
             callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
             
         }

@@ -13,6 +13,9 @@ class ProductsServicesViewController: UIViewController {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var addService: CardView!
     @IBOutlet weak var userPdts: CardView!
+    @IBOutlet weak var scroller: UIScrollView!
+    
+    
     let preference = UserDefaults.standard
     var displayImage = ""
     var displayName = ""
@@ -167,6 +170,7 @@ class ProductsServicesViewController: UIViewController {
                 if let array = Services as? NSArray {
                     var countView = 0
                     var topAnchorConstraint: CGFloat = 22
+                    var motherViewHeight: CGFloat = 1000
                     for obj in array {
                         if let dict = obj as? NSDictionary {
                             countView = countView + 1
@@ -177,9 +181,12 @@ class ProductsServicesViewController: UIViewController {
                             
                                 print("you did this")
                                 let stringCountView = String(countView)
+                            print("int to string \(stringCountView)")
                                 let service = UIView()
                                 view.addSubview(service)
+                                scroller.addSubview(service)
                                 service.translatesAutoresizingMaskIntoConstraints = false
+                            
                                 service.topAnchor.constraint(equalTo: addService.bottomAnchor, constant: topAnchorConstraint).isActive = true
                                 service.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20.0).isActive = true
                                 service.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20.0).isActive = true
@@ -189,7 +196,7 @@ class ProductsServicesViewController: UIViewController {
                                 print(id)
                                 print(ServiceID)
                                 print("image is:: \(DisplayImageUrl)")
-                            
+                                topAnchorConstraint = topAnchorConstraint + 165
                             
                         }
                     }
