@@ -14,6 +14,7 @@ class ProductsServicesViewController: UIViewController {
     @IBOutlet weak var addService: CardView!
     @IBOutlet weak var userPdts: CardView!
     @IBOutlet weak var scroller: UIScrollView!
+    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
     
     
     let preference = UserDefaults.standard
@@ -25,6 +26,12 @@ class ProductsServicesViewController: UIViewController {
     
     let defaultFontR = "VodafoneRg-Regular"
     let defaultFontB = "VodafoneRg-Bold"
+    
+//    let cardImage: UIImageView = {
+//       let image = UIImageView()
+//        image.backgroundColor = UIColor.cardImageColour
+//        return image
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +101,6 @@ class ProductsServicesViewController: UIViewController {
                 colorImage.leadingAnchor.constraint(equalTo: onlyService.leadingAnchor, constant: 0).isActive = true
                 onlyService.bottomAnchor.constraint(equalTo: colorImage.bottomAnchor, constant: 0).isActive = true
                 colorImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
-//                colorImage.frame = CGRect(x: 0, y: 0, width: 12, height: 145)
                 let colorForImage = UIColor(red: 0x00, green: 0x7E, blue: 0x92)
                 colorImage.backgroundColor = colorForImage
                 onlyService.bringSubview(toFront: colorImage)
@@ -170,18 +176,17 @@ class ProductsServicesViewController: UIViewController {
                 if let array = Services as? NSArray {
                     var countView = 0
                     var topAnchorConstraint: CGFloat = 22
-                    var motherViewHeight: CGFloat = 1000
                     for obj in array {
                         if let dict = obj as? NSDictionary {
                             countView = countView + 1
                             // Now reference the data you need using:
-                            let id = dict.value(forKey: "DisplayName")
-                            let ServiceID = dict.value(forKey: "primaryID") as! String
+                            let serviceName = dict.value(forKey: "DisplayName") as! String
+                            var ServiceID = dict.value(forKey: "primaryID") as! String
                             let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
                             
-                                print("you did this")
+                            
                                 let stringCountView = String(countView)
-                            print("int to string \(stringCountView)")
+//                            print("int to string \(stringCountView)")
                                 let service = UIView()
                                 view.addSubview(service)
                                 scroller.addSubview(service)
@@ -192,11 +197,70 @@ class ProductsServicesViewController: UIViewController {
                                 service.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20.0).isActive = true
                                 service.backgroundColor = UIColor.white
                                 service.heightAnchor.constraint(equalToConstant: 145).isActive = true
-                                print("view:: \(countView)")
+                                //transforming to cards
+                                service.layer.cornerRadius = 2
+                                service.layer.shadowOffset = CGSize(width: 0, height: 5)
+                                service.layer.shadowColor = UIColor.black.cgColor
+                                service.layer.shadowOpacity = 0.1
+                            
+                            //add left image view
+                            let cardImage = UIImageView()
+                            service.addSubview(cardImage)
+                            cardImage.backgroundColor = UIColor.cardImageColour
+                            cardImage.translatesAutoresizingMaskIntoConstraints = false
+                            cardImage.leadingAnchor.constraint(equalTo: service.leadingAnchor, constant: 0).isActive = true
+                            cardImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
+                            cardImage.topAnchor.constraint(equalTo: service.topAnchor, constant: 0).isActive = true
+                            cardImage.bottomAnchor.constraint(equalTo: service.bottomAnchor, constant: 0).isActive = true
+                            //Adding display images
+                            let dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                            service.addSubview(dp)
+                            dp.translatesAutoresizingMaskIntoConstraints = false
+                            dp.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
+                            dp.topAnchor.constraint(equalTo: service.topAnchor, constant: 25).isActive = true
+                            dp.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                            dp.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                            
+                            //make image round
+                            dp.layer.cornerRadius = dp.frame.size.width / 2
+                            dp.clipsToBounds = true
+                            dp.layer.borderWidth = 2
+                            dp.layer.borderColor = UIColor.white.cgColor
+                            
+                            //Adding display name
+                            let displayLblName = UILabel()
+                            service.addSubview(displayLblName)
+                            displayLblName.translatesAutoresizingMaskIntoConstraints = false
+                            displayLblName.text = serviceName
+                            displayLblName.font = UIFont(name: defaultFontR, size: 21)
+                            displayLblName.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
+                            displayLblName.topAnchor.constraint(equalTo: service.topAnchor, constant: 50).isActive = true
+                            
+                            //Adding service ID
+                            let serviceLblID = UILabel()
+                            service.addSubview(serviceLblID)
+                            serviceLblID.translatesAutoresizingMaskIntoConstraints = false
+                            let sNum = ServiceID.dropFirst(3)
+                            ServiceID = "0\(sNum)"
+                            serviceLblID.text = ServiceID
+                            serviceLblID.font = UIFont(name: defaultFontR, size: 16)
+                            serviceLblID.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
+                            serviceLblID.topAnchor.constraint(equalTo: displayLblName.bottomAnchor, constant: 8).isActive = true
+                            
+                            //Adding right arrow
+                            let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                            service.addSubview(rightArrow)
+                            rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                            rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                            rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                            rightArrow.trailingAnchor.constraint(equalTo: service.trailingAnchor, constant: -25).isActive = true
+                            rightArrow.topAnchor.constraint(equalTo: service.topAnchor, constant: 50).isActive = true
+                                /*print("view:: \(countView)")
                                 print(id)
                                 print(ServiceID)
-                                print("image is:: \(DisplayImageUrl)")
+                                print("image is:: \(DisplayImageUrl)")*/
                                 topAnchorConstraint = topAnchorConstraint + 165
+                                scrollHeight.constant = topAnchorConstraint - 300
                             
                         }
                     }

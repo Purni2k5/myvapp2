@@ -27,6 +27,8 @@
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
 		0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0188912720EE76290080697F /* OneGHPlanViewController.swift */; };
+		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
+		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
 		0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* LoginViewController.swift */; };
 		01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */; };
 		01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */; };
@@ -82,6 +84,8 @@
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
 		0188912720EE76290080697F /* OneGHPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGHPlanViewController.swift; sourceTree = "<group>"; };
+		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
+		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
 		0198E74D20DAB4B9000820F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Vodafone-Bridging-Header.h"; sourceTree = "<group>"; };
 		01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -152,11 +156,13 @@
 				01C0233220C9C907003E48CC /* htmls */,
 				01C0233120C9C8F9003E48CC /* fonts */,
 				01C022FD20C99304003E48CC /* AppDelegate.swift */,
+				018BB2DB21009B490004D697 /* mvaExtensions.swift */,
 				01C022FF20C99304003E48CC /* ViewController.swift */,
 				01C0230120C99304003E48CC /* Main.storyboard */,
 				01C0230420C99304003E48CC /* Assets.xcassets */,
 				01C0230620C99304003E48CC /* LaunchScreen.storyboard */,
 				01C0230920C99304003E48CC /* Info.plist */,
+				018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */,
 				01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */,
 				01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */,
 				01853EB920CFD81E002DEB7D /* CardView.swift */,
@@ -317,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01C0230020C99304003E48CC /* ViewController.swift in Sources */,
+				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
@@ -331,6 +338,7 @@
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
+				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
 				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
