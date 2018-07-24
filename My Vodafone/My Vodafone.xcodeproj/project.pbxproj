@@ -58,6 +58,7 @@
 		01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234B20C9C957003E48CC /* terms_and_conditions.html */; };
 		01C0235920C9C957003E48CC /* roaming_faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234C20C9C957003E48CC /* roaming_faq.html */; };
 		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
+		01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1A8162107A01300D4CDDC /* mvaURLS.swift */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
 		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
@@ -118,6 +119,7 @@
 		01C0234B20C9C957003E48CC /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
 		01C0234C20C9C957003E48CC /* roaming_faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roaming_faq.html; sourceTree = "<group>"; };
 		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
+		01C1A8162107A01300D4CDDC /* mvaURLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaURLS.swift; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
 		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				01C0233120C9C8F9003E48CC /* fonts */,
 				01C022FD20C99304003E48CC /* AppDelegate.swift */,
 				018BB2DB21009B490004D697 /* mvaExtensions.swift */,
+				01C1A8162107A01300D4CDDC /* mvaURLS.swift */,
 				01C022FF20C99304003E48CC /* ViewController.swift */,
 				01C0230120C99304003E48CC /* Main.storyboard */,
 				01C0230420C99304003E48CC /* Assets.xcassets */,
@@ -340,6 +343,7 @@
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
 				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
+				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
