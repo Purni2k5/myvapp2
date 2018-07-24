@@ -155,7 +155,7 @@ class homePrePaidViewController: UIViewController {
 
     @IBAction func showMenu(_ sender: Any) {
         if(menuShowing){
-            menuViewTrailingConstraint.constant = -261
+            menuViewTrailingConstraint.constant = -320
         }else{
             menuViewTrailingConstraint.constant = 0
             hamburger.isHidden = true
@@ -170,7 +170,7 @@ class homePrePaidViewController: UIViewController {
    
     @IBAction func closeMenu(_ sender: Any) {
         //always set trailing constraint to -261 to close
-        menuViewTrailingConstraint.constant = -261
+        menuViewTrailingConstraint.constant = -320
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
@@ -191,7 +191,7 @@ class homePrePaidViewController: UIViewController {
             //Change constants of menu items under network menu
             icMailTopConstraint.constant = 13
             btnMessageTopConstraint.constant = 16
-            menuViewHeightConstraint.constant = 660
+//            menuViewHeightConstraint.constant = 660
             
             //now change chevron down to chevron up
             let chevronDown = UIImage(named: "chevDown")
@@ -209,7 +209,7 @@ class homePrePaidViewController: UIViewController {
             //Change constants of menu items under network menu
             icMailTopConstraint.constant = 140
             btnMessageTopConstraint.constant = 143
-            menuViewHeightConstraint.constant = 780
+//            menuViewHeightConstraint.constant = 780
             
             //now change chevron down to chevron up
             let chevronUp = UIImage(named: "chevron_up")
