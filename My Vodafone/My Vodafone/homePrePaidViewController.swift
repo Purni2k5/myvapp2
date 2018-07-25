@@ -32,6 +32,7 @@ class homePrePaidViewController: UIViewController {
     @IBOutlet weak var ic_settings: UIImageView!
     @IBOutlet weak var ic_info: UIImageView!
     @IBOutlet weak var ic_logout: UIImageView!
+    @IBOutlet weak var lblVersion: UILabel!
     
     
     @IBOutlet weak var icMailTopConstraint: NSLayoutConstraint!
@@ -85,6 +86,8 @@ class homePrePaidViewController: UIViewController {
                 }
             }
         }
+        //get app version
+        lblVersion.text = getAppVersion()
         
     }
     
@@ -248,6 +251,11 @@ class homePrePaidViewController: UIViewController {
         dropdown.setImage(chevTinted, for: .normal)
         dropdown.tintColor = UIColor.white
         
+    }
+    
+    func getAppVersion()-> String{
+        let app_version = String.app_version
+        return app_version
     }
 
 }

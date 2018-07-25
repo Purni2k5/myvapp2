@@ -3065,6 +3065,24 @@
             </objects>
             <point key="canvasLocation" x="3333.5999999999999" y="143.92803598200899"/>
         </scene>
+        <!--Display Chosen Offer View Controller-->
+        <scene sceneID="PDa-ik-bZw">
+            <objects>
+                <viewController storyboardIdentifier="DisplayChosenOfferViewController" id="7Tn-gu-IhB" customClass="DisplayChosenOfferViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bwd-FD-f7F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6Vw-C2-aQu"/>
+                    </view>
+                    <connections>
+                        <outlet property="superView" destination="Bwd-FD-f7F" id="IYR-TS-BM9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ldt-lS-GNj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4353" y="-616"/>
+        </scene>
         <!--Top Up View Controller-->
         <scene sceneID="Ns8-MQ-Hgv">
             <objects>
@@ -4828,7 +4846,7 @@
                                                 <rect key="frame" x="147" y="273.5" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 1.99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bf5-Pd-1ze">
-                                                        <rect key="frame" x="6" y="32.5" width="68.5" height="16.5"/>
+                                                        <rect key="frame" x="6.5" y="32.5" width="68.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5003,7 +5021,7 @@
                                                 <rect key="frame" x="147" y="328" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 2.99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIl-mz-baJ">
-                                                        <rect key="frame" x="6.5" y="32" width="68.5" height="16.5"/>
+                                                        <rect key="frame" x="6" y="32" width="68.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5176,7 +5194,7 @@
                                                 <rect key="frame" x="147" y="328" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 120" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hcp-dh-zvK">
-                                                        <rect key="frame" x="7.5" y="32" width="65" height="16.5"/>
+                                                        <rect key="frame" x="8" y="32" width="65" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5352,7 +5370,7 @@
                                                 <rect key="frame" x="147" y="290" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 120" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfQ-ys-q4h">
-                                                        <rect key="frame" x="7.5" y="32" width="65" height="16.5"/>
+                                                        <rect key="frame" x="8" y="32" width="65" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5528,7 +5546,7 @@
                                                 <rect key="frame" x="147" y="328" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 60" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMh-r6-gtT">
-                                                        <rect key="frame" x="12.5" y="32" width="55.5" height="16.5"/>
+                                                        <rect key="frame" x="13" y="32" width="55.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5704,7 +5722,7 @@
                                                 <rect key="frame" x="147" y="292" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 70" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPr-r2-cG1">
-                                                        <rect key="frame" x="12.5" y="32" width="55.5" height="16.5"/>
+                                                        <rect key="frame" x="13" y="32" width="55.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5880,7 +5898,7 @@
                                                 <rect key="frame" x="147" y="310" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 60" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JzY-dv-BcA">
-                                                        <rect key="frame" x="12.5" y="32" width="55.5" height="16.5"/>
+                                                        <rect key="frame" x="13" y="32" width="55.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -6056,7 +6074,7 @@
                                                 <rect key="frame" x="147" y="310" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 25" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93l-0f-UhI">
-                                                        <rect key="frame" x="12.5" y="32" width="55.5" height="16.5"/>
+                                                        <rect key="frame" x="13" y="32" width="55.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -6232,7 +6250,7 @@
                                                 <rect key="frame" x="147" y="310" width="80" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GHS 35" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEa-iQ-xCO">
-                                                        <rect key="frame" x="12.5" y="32" width="55.5" height="16.5"/>
+                                                        <rect key="frame" x="13" y="32" width="55.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="19"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -7101,6 +7119,7 @@
                         <outlet property="ic_roaming" destination="Gb9-LY-C8K" id="w26-fG-dLJ"/>
                         <outlet property="ic_settings" destination="01n-HA-9Kj" id="zon-VN-7ia"/>
                         <outlet property="ic_top_up" destination="c6K-CS-rPX" id="Egu-cd-ZQg"/>
+                        <outlet property="lblVersion" destination="lzq-H7-QCF" id="wS4-rg-I5k"/>
                         <outlet property="menuViewTrailingConstraint" destination="5Lh-IS-jg6" id="qhd-7Q-FnX"/>
                         <outlet property="networkCov" destination="220-vS-nIM" id="e79-Z7-Fhp"/>
                         <outlet property="networkU" destination="ecf-ba-SMk" id="xzI-zX-NVA"/>
@@ -7580,9 +7599,9 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cRl-NU-k2c"/>
+        <segue reference="GXG-iW-vQN"/>
         <segue reference="zDj-pH-BRe"/>
-        <segue reference="kQz-F6-oNk"/>
+        <segue reference="knp-Pm-AoF"/>
         <segue reference="VZQ-Lo-Af0"/>
         <segue reference="5Yx-Aa-kBB"/>
         <segue reference="aQQ-rC-mCe"/>

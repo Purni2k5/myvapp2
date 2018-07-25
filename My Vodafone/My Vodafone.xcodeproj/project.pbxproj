@@ -29,6 +29,8 @@
 		0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0188912720EE76290080697F /* OneGHPlanViewController.swift */; };
 		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
 		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
+		019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538622108C5EB00E492A7 /* mvaConfig.swift */; };
+		019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */; };
 		0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* LoginViewController.swift */; };
 		01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */; };
 		01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */; };
@@ -87,6 +89,8 @@
 		0188912720EE76290080697F /* OneGHPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGHPlanViewController.swift; sourceTree = "<group>"; };
 		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
 		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
+		019538622108C5EB00E492A7 /* mvaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaConfig.swift; sourceTree = "<group>"; };
+		019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayChosenOfferViewController.swift; sourceTree = "<group>"; };
 		0198E74D20DAB4B9000820F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Vodafone-Bridging-Header.h"; sourceTree = "<group>"; };
 		01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */,
 				0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */,
 				0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */,
+				019538622108C5EB00E492A7 /* mvaConfig.swift */,
+				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 				0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
+				019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
@@ -353,6 +360,7 @@
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
+				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,

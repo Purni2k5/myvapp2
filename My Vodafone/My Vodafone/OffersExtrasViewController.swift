@@ -142,7 +142,7 @@ class OffersExtrasViewController: UIViewController {
     }
     //Function to go to plans view controller
     @objc func goToPlans(_sender: UITapGestureRecognizer){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "PlansViewController")
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController")
         present(moveTo!, animated: true, completion: nil)
     }
 }
