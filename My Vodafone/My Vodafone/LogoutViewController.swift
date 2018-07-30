@@ -41,6 +41,8 @@ class LogoutViewController: UIViewController {
     @IBAction func btnYes(_ sender: Any) {
         preference.removeObject(forKey: "loginStatus")
         preference.removeObject(forKey: "responseData")
+        preference.removeObject(forKey: "Plan")
+        preference.removeObject(forKey: "Data")
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }

@@ -13,6 +13,8 @@ extension UIColor {
     
     static let grayBackground = UIColor().colourFromHex("EBEBEB")
     static let cardImageColour = UIColor().colourFromHex("007E92")
+    static let vodaRed = UIColor().colourFromHex("4DE60000")
+    static let vodaIconColour = UIColor().colourFromHex("00B0CA")
     
     func colourFromHex(_ hex: String) -> UIColor {
         //make sure nor spaces and new lines in our hex string
@@ -38,4 +40,5 @@ extension UIColor {
 extension String {
     static let defaultFontR = "VodafoneRg-Regular"
     static let defaultFontB = "VodafoneRg-Bold"
+    static let offers = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/DBEnpoints"
 }

@@ -172,7 +172,7 @@ class OffersExtrasViewController: UIViewController {
     //Function to go to data bundles controller
     @objc func goToDataBundles(_sender: UITapGestureRecognizer){
         guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
-        moveTo.selectedOffer = "Data Bundles"
+        moveTo.selectedOffer = "Data"
         present(moveTo, animated: true, completion: nil)
     }
     
