@@ -86,7 +86,7 @@ class DisplayChosenOfferViewController: UIViewController {
         // Change view's background colour
         view.backgroundColor = UIColor.grayBackground
         setUpViews()
-//        print("transfered:: \(selectedOffer)")
+        print("transfered:: \(selectedOffer)")
         
        
         let vodafonePdts = preferences.object(forKey: selectedOffer)
@@ -105,13 +105,13 @@ class DisplayChosenOfferViewController: UIViewController {
             let asyncAPI = URL(string: String.offers)
             let request = NSMutableURLRequest(url: asyncAPI!)
             request.httpMethod = "POST"
-            selectedOffer = selectedOffer.uppercased()
+//            selectedOffer = selectedOffer.uppercased()
             //declare parameters
             let postParameters: Dictionary<String, Any> = [
                 "action":"products",
                 "option":"byType",
                 "msisdn":defaultNumber,
-                "productType":selectedOffer
+                "productType":selectedOffer.uppercased()
             ]
             if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                 request.httpBody = postData
@@ -147,7 +147,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                 if let array = getOffers as! NSArray?{
                                     let totalOffers = array.count
                                     let castTotalOffers = CGFloat(totalOffers)
-                                    var topAnchorConstraint: CGFloat = 140
+                                    var topAnchorConstraint: CGFloat = 170
                                     var cardHeight: CGFloat = 145
                                     for obj in array {
                                         if let dict = obj as? NSDictionary{
@@ -162,7 +162,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             offerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20.0).isActive = true
                                             offerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20.0).isActive = true
                                             offerView.backgroundColor = UIColor.white
-                                            offerView.heightAnchor.constraint(equalToConstant: 145).isActive = true
+                                            offerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
                                             //transforming to cards
                                             offerView.layer.cornerRadius = 2
                                             offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -242,7 +242,7 @@ class DisplayChosenOfferViewController: UIViewController {
             if let array = vodafonePdts as! NSArray?{
                 let totalOffers = array.count
                 let castTotalOffers = CGFloat(totalOffers)
-                var topAnchorConstraint: CGFloat = 140
+                var topAnchorConstraint: CGFloat = 170
                 var cardHeight: CGFloat = 145
                 for obj in array {
                     if let dict = obj as? NSDictionary{
@@ -257,7 +257,7 @@ class DisplayChosenOfferViewController: UIViewController {
                         offerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20.0).isActive = true
                         offerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20.0).isActive = true
                         offerView.backgroundColor = UIColor.white
-                        offerView.heightAnchor.constraint(equalToConstant: 145).isActive = true
+                        offerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
                         //transforming to cards
                         offerView.layer.cornerRadius = 2
                         offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -392,7 +392,15 @@ class DisplayChosenOfferViewController: UIViewController {
         selectedOfferLabel.leadingAnchor.constraint(equalTo: appBackImage.leadingAnchor, constant: 20).isActive = true
         selectedOfferLabel.trailingAnchor.constraint(equalTo: appBackImage.trailingAnchor, constant: -20).isActive = true
         selectedOfferLabel.topAnchor.constraint(equalTo: appBackImage.topAnchor, constant: 120).isActive = true
-        selectedOfferLabel.text = selectedOffer
+        if selectedOffer == "FBB"{
+            selectedOfferLabel.text = "Fixed Broadband"
+        }else if selectedOffer == "Data" {
+            selectedOfferLabel.text = "Data Bundles"
+        }
+        else{
+            selectedOfferLabel.text = selectedOffer
+        }
+        
         
         
         

@@ -202,7 +202,7 @@ class OffersExtrasViewController: UIViewController {
     //Function to go to fbb
     @objc func goToFBB(_sender: UITapGestureRecognizer){
         guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
-        moveTo.selectedOffer = "Fixed Broadband"
+        moveTo.selectedOffer = "FBB"
         present(moveTo, animated: true, completion: nil)
     }
     
