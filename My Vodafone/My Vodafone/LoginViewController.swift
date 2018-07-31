@@ -143,7 +143,7 @@ class LoginViewController: UIViewController {
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                     //parsing the json
                     if let parseJSON = myJSON {
-                        //creating a string
+                        //creating variables to hold response
                         var responseCode: Int!
                         var responseMessage: String!
                         var responseData: NSDictionary!

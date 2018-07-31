@@ -222,7 +222,8 @@ class DisplayChosenOfferViewController: UIViewController {
                                             rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
                                             
                                             topAnchorConstraint = topAnchorConstraint + 165
-                                            self.scrollView.contentSize.height = (cardHeight * castTotalOffers) + 620
+                                            //(cardHeight * castTotalOffers) + 620
+                                            self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
                                             
                                         }
                                     }
@@ -317,11 +318,13 @@ class DisplayChosenOfferViewController: UIViewController {
                         rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
                         
                         topAnchorConstraint = topAnchorConstraint + 165
-                        self.scrollView.contentSize.height = (cardHeight * castTotalOffers) + 620
-                        
+                        //(cardHeight * castTotalOffers) + 620
+                        self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
                     }
                 }
             }
+            //No do some background check again
+            print("Do background check again")
         }
         
     }
@@ -400,9 +403,6 @@ class DisplayChosenOfferViewController: UIViewController {
         else{
             selectedOfferLabel.text = selectedOffer
         }
-        
-        
-        
         
         
         //Activity loader
