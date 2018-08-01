@@ -27,6 +27,7 @@
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
 		0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0188912720EE76290080697F /* OneGHPlanViewController.swift */; };
+		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
 		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
 		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
 		019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538622108C5EB00E492A7 /* mvaConfig.swift */; };
@@ -87,6 +88,7 @@
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
 		0188912720EE76290080697F /* OneGHPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGHPlanViewController.swift; sourceTree = "<group>"; };
+		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
 		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
 		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
 		019538622108C5EB00E492A7 /* mvaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaConfig.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */,
 				019538622108C5EB00E492A7 /* mvaConfig.swift */,
 				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
+				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
+				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
 				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,

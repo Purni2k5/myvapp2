@@ -6688,6 +6688,36 @@
             </objects>
             <point key="canvasLocation" x="4917" y="1684"/>
         </scene>
+        <!--Dial Voda Cash View Controller-->
+        <scene sceneID="rqT-qE-3Tu">
+            <objects>
+                <viewController storyboardIdentifier="DialVodaCashViewController" id="4bT-zD-Ff7" customClass="DialVodaCashViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oiV-Yc-x2j">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="v0F-ND-VJd"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sZP-yq-Nee" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5794" y="1865"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ggd-oM-SH7">
+            <objects>
+                <viewController id="jPc-cf-meO" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l6R-os-8Ca">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="229-ul-dbG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ug-yT-YaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6540" y="1864"/>
+        </scene>
         <!--Home Pre Paid View Controller-->
         <scene sceneID="I7o-yl-Ahg">
             <objects>
@@ -7591,10 +7621,10 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MJt-lR-CCb"/>
+        <segue reference="8jf-JN-F0J"/>
         <segue reference="zDj-pH-BRe"/>
         <segue reference="knp-Pm-AoF"/>
-        <segue reference="VZQ-Lo-Af0"/>
+        <segue reference="H4M-se-2eH"/>
         <segue reference="5Yx-Aa-kBB"/>
         <segue reference="aQQ-rC-mCe"/>
         <segue reference="e5Y-bD-t5N"/>
