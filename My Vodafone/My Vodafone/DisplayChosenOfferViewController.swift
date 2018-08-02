@@ -16,6 +16,8 @@ class DisplayChosenOfferViewController: UIViewController {
     let preferences = UserDefaults.standard
     var totalOffers:Int!
     
+    let browseLabel = UILabel()
+    
     //create closure for top Image
     let appBackImage: UIImageView = {
         let topImage = UIImageView(image: #imageLiteral(resourceName: "bg2"))
@@ -96,9 +98,10 @@ class DisplayChosenOfferViewController: UIViewController {
 
         // Change view's background colour
         view.backgroundColor = UIColor.grayBackground
+        view.addSubview(scrollView)
+        
         setUpViews()
         print("transfered:: \(selectedOffer)")
-        
        
         let vodafonePdts = preferences.object(forKey: selectedOffer)
         let UserData = preferences.object(forKey: "responseData") as! NSDictionary
@@ -107,7 +110,7 @@ class DisplayChosenOfferViewController: UIViewController {
         //Check if offer is dynamic or not
         if selectedOffer == "Vodafone Cash" {
             let vodaCashMenu = cardView
-            view.addSubview(vodaCashMenu)
+            scrollView.addSubview(vodaCashMenu)
             vodaCashMenu.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
             vodaCashMenu.topAnchor.constraint(equalTo: superView.topAnchor, constant: 260).isActive = true
             vodaCashMenu.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
@@ -171,7 +174,7 @@ class DisplayChosenOfferViewController: UIViewController {
             
             //Vodafone cash Agent
             let vodaCashAgent = UIView()
-            superView.addSubview(vodaCashAgent)
+            scrollView.addSubview(vodaCashAgent)
             vodaCashAgent.translatesAutoresizingMaskIntoConstraints = false
             vodaCashAgent.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
             vodaCashAgent.topAnchor.constraint(equalTo: vodaCashMenu.bottomAnchor, constant: 50).isActive = true
@@ -245,7 +248,7 @@ class DisplayChosenOfferViewController: UIViewController {
             
         }else if selectedOffer == "Services"{
             let creditTransferCard = cardView
-            view.addSubview(creditTransferCard)
+            scrollView.addSubview(creditTransferCard)
             creditTransferCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
             creditTransferCard.topAnchor.constraint(equalTo: superView.topAnchor, constant: 260).isActive = true
             creditTransferCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
@@ -293,8 +296,8 @@ class DisplayChosenOfferViewController: UIViewController {
             creditTransferCard.addSubview(creditTransferLabelDesc)
             creditTransferLabelDesc.translatesAutoresizingMaskIntoConstraints = false
             creditTransferLabelDesc.text = "Transfer credit to other numbers"
-            creditTransferLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
-            creditTransferLabelDesc.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 12).isActive = true
+            creditTransferLabelDesc.font = UIFont(name: String.defaultFontR, size: 13)
+            creditTransferLabelDesc.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 8).isActive = true
             creditTransferLabelDesc.topAnchor.constraint(equalTo: creditTransferLabel.bottomAnchor, constant: 5).isActive = true
             creditTransferLabelDesc.trailingAnchor.constraint(equalTo: creditTransferCard.trailingAnchor, constant: -10).isActive = true
             
@@ -309,10 +312,10 @@ class DisplayChosenOfferViewController: UIViewController {
             
             /*Swap Sim*/
             let simSwapCard = UIView()
-            superView.addSubview(simSwapCard)
+            scrollView.addSubview(simSwapCard)
             simSwapCard.translatesAutoresizingMaskIntoConstraints = false
             simSwapCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
-            simSwapCard.topAnchor.constraint(equalTo: creditTransferCard.bottomAnchor, constant: 50).isActive = true
+            simSwapCard.topAnchor.constraint(equalTo: creditTransferCard.bottomAnchor, constant: 20).isActive = true
             simSwapCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
             simSwapCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
             simSwapCard.backgroundColor = UIColor.white
@@ -351,6 +354,7 @@ class DisplayChosenOfferViewController: UIViewController {
             simSwapCard.addSubview(requestLabel)
             requestLabel.translatesAutoresizingMaskIntoConstraints = false
             requestLabel.text = "Request for a SIM Swap"
+            requestLabel.numberOfLines = 0
             requestLabel.font = UIFont(name: String.defaultFontB, size: 20)
             requestLabel.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 8).isActive = true
             requestLabel.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 40).isActive = true
@@ -361,7 +365,7 @@ class DisplayChosenOfferViewController: UIViewController {
             simSwapCard.addSubview(swapLabelDesc)
             swapLabelDesc.translatesAutoresizingMaskIntoConstraints = false
             swapLabelDesc.text = "SIM Swap"
-            swapLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            swapLabelDesc.font = UIFont(name: String.defaultFontR, size: 13)
             swapLabelDesc.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 12).isActive = true
             swapLabelDesc.topAnchor.constraint(equalTo: requestLabel.bottomAnchor, constant: 5).isActive = true
             swapLabelDesc.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: -10).isActive = true
@@ -377,10 +381,10 @@ class DisplayChosenOfferViewController: UIViewController {
             
             /* Book Appointment */
             let bookAppoimentCard = UIView()
-            superView.addSubview(bookAppoimentCard)
+            scrollView.addSubview(bookAppoimentCard)
             bookAppoimentCard.translatesAutoresizingMaskIntoConstraints = false
             bookAppoimentCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
-            bookAppoimentCard.topAnchor.constraint(equalTo: simSwapCard.bottomAnchor, constant: 50).isActive = true
+            bookAppoimentCard.topAnchor.constraint(equalTo: simSwapCard.bottomAnchor, constant: 20).isActive = true
             bookAppoimentCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
             bookAppoimentCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
             bookAppoimentCard.backgroundColor = UIColor.white
@@ -429,8 +433,8 @@ class DisplayChosenOfferViewController: UIViewController {
             bookAppoimentCard.addSubview(bookLabelDesc)
             bookLabelDesc.translatesAutoresizingMaskIntoConstraints = false
             bookLabelDesc.text = "Book an appointment with us"
-            bookLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
-            bookLabelDesc.leadingAnchor.constraint(equalTo: roundImageApp.trailingAnchor, constant: 12).isActive = true
+            bookLabelDesc.font = UIFont(name: String.defaultFontR, size: 13)
+            bookLabelDesc.leadingAnchor.constraint(equalTo: roundImageApp.trailingAnchor, constant: 8).isActive = true
             bookLabelDesc.topAnchor.constraint(equalTo: bookingLabel.bottomAnchor, constant: 5).isActive = true
             bookLabelDesc.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -10).isActive = true
             
@@ -442,6 +446,59 @@ class DisplayChosenOfferViewController: UIViewController {
             bookArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
             bookArrow.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor, constant: 57).isActive = true
             bookArrow.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -9).isActive = true
+        }else if selectedOffer == "FBB" {
+            scrollView.addSubview(browseLabel)
+            browseLabel.translatesAutoresizingMaskIntoConstraints = false
+            browseLabel.text = "Browse"
+            browseLabel.font = UIFont(name: String.defaultFontR, size: 22)
+            browseLabel.textAlignment = .center
+            browseLabel.textColor = UIColor.colour_red_voilet
+            browseLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            browseLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 230).isActive = true
+            browseLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            
+            /*Browse*/
+            let bbBalanceCard = cardView
+            scrollView.addSubview(bbBalanceCard)
+            bbBalanceCard.translatesAutoresizingMaskIntoConstraints = false
+            bbBalanceCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            bbBalanceCard.topAnchor.constraint(equalTo: browseLabel.bottomAnchor, constant: 10).isActive = true
+            bbBalanceCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            //transform into card
+            bbBalanceCard.layer.cornerRadius = 2
+            bbBalanceCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            bbBalanceCard.layer.shadowColor = UIColor.black.cgColor
+            bbBalanceCard.layer.shadowOpacity = 0.1
+            
+            let bbPackagesCard = UIView()
+            scrollView.addSubview(bbPackagesCard)
+            bbPackagesCard.translatesAutoresizingMaskIntoConstraints = false
+            bbPackagesCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            bbPackagesCard.topAnchor.constraint(equalTo: bbBalanceCard.bottomAnchor, constant: 20).isActive = true
+            bbPackagesCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            bbPackagesCard.heightAnchor.constraint(equalToConstant: 120).isActive = true
+            bbPackagesCard.backgroundColor = UIColor.white
+            //transform into card
+            bbPackagesCard.layer.cornerRadius = 2
+            bbPackagesCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            bbPackagesCard.layer.shadowColor = UIColor.black.cgColor
+            bbPackagesCard.layer.shadowOpacity = 0.1
+            
+            let bbMoveCard = UIView()
+            scrollView.addSubview(bbMoveCard)
+            bbMoveCard.translatesAutoresizingMaskIntoConstraints = false
+            bbMoveCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            bbMoveCard.topAnchor.constraint(equalTo: bbPackagesCard.bottomAnchor, constant: 8).isActive = true
+            bbMoveCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            bbMoveCard.heightAnchor.constraint(equalToConstant: 120).isActive = true
+            bbMoveCard.backgroundColor = UIColor.white
+            //transform into card
+            bbMoveCard.layer.cornerRadius = 2
+            bbMoveCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            bbMoveCard.layer.shadowColor = UIColor.black.cgColor
+            bbMoveCard.layer.shadowOpacity = 0.1
+            
+            scrollView.contentSize.height = 1000
             
         }else{
             
@@ -847,7 +904,7 @@ class DisplayChosenOfferViewController: UIViewController {
 
     func setUpViews(){
         //Scroll view
-        view.addSubview(scrollView)
+        
         
         scrollView.topAnchor.constraint(equalTo: superView.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: superView.trailingAnchor).isActive = true

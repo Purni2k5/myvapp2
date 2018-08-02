@@ -16,6 +16,8 @@ extension UIColor {
     static let vodaRed = UIColor().colourFromHex("4DE60000")
     static let vodaIconColour = UIColor().colourFromHex("00B0CA")
     static let grayButton = UIColor().colourFromHex("4A4D4E")
+    static let colour_red_voilet = UIColor().colourFromHex("9C2AA0")
+    static let colour_red_voilet_30 = UIColor().colourFromHex("4D9C2AA0")
     
     func colourFromHex(_ hex: String) -> UIColor {
         //make sure nor spaces and new lines in our hex string
