@@ -244,6 +244,204 @@ class DisplayChosenOfferViewController: UIViewController {
             
             
         }else if selectedOffer == "Services"{
+            let creditTransferCard = cardView
+            view.addSubview(creditTransferCard)
+            creditTransferCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
+            creditTransferCard.topAnchor.constraint(equalTo: superView.topAnchor, constant: 260).isActive = true
+            creditTransferCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
+            creditTransferCard.layer.cornerRadius = 2
+            creditTransferCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            creditTransferCard.layer.shadowColor = UIColor.black.cgColor
+            creditTransferCard.layer.shadowOpacity = 0.1
+            
+            //left image with colour
+            let leftImageColour = UIImageView()
+            creditTransferCard.addSubview(leftImageColour)
+            leftImageColour.translatesAutoresizingMaskIntoConstraints = false
+            leftImageColour.backgroundColor = UIColor.cardImageColour
+            leftImageColour.leadingAnchor.constraint(equalTo: creditTransferCard.leadingAnchor).isActive = true
+            leftImageColour.topAnchor.constraint(equalTo: creditTransferCard.topAnchor).isActive = true
+            leftImageColour.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            leftImageColour.bottomAnchor.constraint(equalTo: creditTransferCard.bottomAnchor).isActive = true
+            
+            //round image with icon
+            let roundImage = UIImageView(image: #imageLiteral(resourceName: "ic_mobile"))
+            roundImage.image = roundImage.image!.withRenderingMode(.alwaysTemplate)
+            creditTransferCard.addSubview(roundImage)
+            roundImage.tintColor = UIColor.white
+            roundImage.backgroundColor = UIColor.vodaIconColour
+            roundImage.translatesAutoresizingMaskIntoConstraints = false
+            roundImage.topAnchor.constraint(equalTo: creditTransferCard.topAnchor, constant: 30).isActive = true
+            roundImage.leadingAnchor.constraint(equalTo: leftImageColour.trailingAnchor, constant: 19).isActive = true
+            roundImage.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImage.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImage.layer.cornerRadius = roundImage.frame.size.width / 2
+            roundImage.clipsToBounds = true
+            
+            //adding credit transfer label
+            let creditTransferLabel = UILabel()
+            creditTransferCard.addSubview(creditTransferLabel)
+            creditTransferLabel.translatesAutoresizingMaskIntoConstraints = false
+            creditTransferLabel.text = "Credit Transfer"
+            creditTransferLabel.font = UIFont(name: String.defaultFontB, size: 20)
+            creditTransferLabel.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 8).isActive = true
+            creditTransferLabel.topAnchor.constraint(equalTo: creditTransferCard.topAnchor, constant: 40).isActive = true
+            creditTransferLabel.trailingAnchor.constraint(equalTo: creditTransferCard.trailingAnchor, constant: 0).isActive = true
+            
+            //adding description
+            let creditTransferLabelDesc = UILabel()
+            creditTransferCard.addSubview(creditTransferLabelDesc)
+            creditTransferLabelDesc.translatesAutoresizingMaskIntoConstraints = false
+            creditTransferLabelDesc.text = "Transfer credit to other numbers"
+            creditTransferLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            creditTransferLabelDesc.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 12).isActive = true
+            creditTransferLabelDesc.topAnchor.constraint(equalTo: creditTransferLabel.bottomAnchor, constant: 5).isActive = true
+            creditTransferLabelDesc.trailingAnchor.constraint(equalTo: creditTransferCard.trailingAnchor, constant: -10).isActive = true
+            
+            //adding right arrow
+            let cashRightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+            creditTransferCard.addSubview(cashRightArrow)
+            cashRightArrow.translatesAutoresizingMaskIntoConstraints = false
+            cashRightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            cashRightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            cashRightArrow.topAnchor.constraint(equalTo: creditTransferCard.topAnchor, constant: 57).isActive = true
+            cashRightArrow.trailingAnchor.constraint(equalTo: creditTransferCard.trailingAnchor, constant: -9).isActive = true
+            
+            /*Swap Sim*/
+            let simSwapCard = UIView()
+            superView.addSubview(simSwapCard)
+            simSwapCard.translatesAutoresizingMaskIntoConstraints = false
+            simSwapCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
+            simSwapCard.topAnchor.constraint(equalTo: creditTransferCard.bottomAnchor, constant: 50).isActive = true
+            simSwapCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
+            simSwapCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            simSwapCard.backgroundColor = UIColor.white
+            //transforming it a card
+            simSwapCard.layer.cornerRadius = 2
+            simSwapCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            simSwapCard.layer.shadowColor = UIColor.black.cgColor
+            simSwapCard.layer.shadowOpacity = 0.1
+            
+            //left image with colour
+            let leftImageColourAgent = UIImageView()
+            simSwapCard.addSubview(leftImageColourAgent)
+            leftImageColourAgent.translatesAutoresizingMaskIntoConstraints = false
+            leftImageColourAgent.backgroundColor = UIColor.cardImageColour
+            leftImageColourAgent.leadingAnchor.constraint(equalTo: simSwapCard.leadingAnchor).isActive = true
+            leftImageColourAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor).isActive = true
+            leftImageColourAgent.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            leftImageColourAgent.bottomAnchor.constraint(equalTo: simSwapCard.bottomAnchor).isActive = true
+            
+            //round image with icon
+            let roundImageAgent = UIImageView(image: #imageLiteral(resourceName: "ic_mobile"))
+            roundImageAgent.image = roundImageAgent.image!.withRenderingMode(.alwaysTemplate)
+            simSwapCard.addSubview(roundImageAgent)
+            roundImageAgent.tintColor = UIColor.white
+            roundImageAgent.backgroundColor = UIColor.vodaIconColour
+            roundImageAgent.translatesAutoresizingMaskIntoConstraints = false
+            roundImageAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 30).isActive = true
+            roundImageAgent.leadingAnchor.constraint(equalTo: leftImageColourAgent.trailingAnchor, constant: 19).isActive = true
+            roundImageAgent.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImageAgent.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImageAgent.layer.cornerRadius = roundImageAgent.frame.size.width / 2
+            roundImageAgent.clipsToBounds = true
+            
+            //adding request label
+            let requestLabel = UILabel()
+            simSwapCard.addSubview(requestLabel)
+            requestLabel.translatesAutoresizingMaskIntoConstraints = false
+            requestLabel.text = "Request for a SIM Swap"
+            requestLabel.font = UIFont(name: String.defaultFontB, size: 20)
+            requestLabel.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 8).isActive = true
+            requestLabel.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 40).isActive = true
+            requestLabel.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: 1).isActive = true
+            
+            //adding menu description
+            let swapLabelDesc = UILabel()
+            simSwapCard.addSubview(swapLabelDesc)
+            swapLabelDesc.translatesAutoresizingMaskIntoConstraints = false
+            swapLabelDesc.text = "SIM Swap"
+            swapLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            swapLabelDesc.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 12).isActive = true
+            swapLabelDesc.topAnchor.constraint(equalTo: requestLabel.bottomAnchor, constant: 5).isActive = true
+            swapLabelDesc.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: -10).isActive = true
+            
+            //adding right arrow
+            let cashRightArrowAgent = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+            simSwapCard.addSubview(cashRightArrowAgent)
+            cashRightArrowAgent.translatesAutoresizingMaskIntoConstraints = false
+            cashRightArrowAgent.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            cashRightArrowAgent.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            cashRightArrowAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 57).isActive = true
+            cashRightArrowAgent.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: -9).isActive = true
+            
+            /* Book Appointment */
+            let bookAppoimentCard = UIView()
+            superView.addSubview(bookAppoimentCard)
+            bookAppoimentCard.translatesAutoresizingMaskIntoConstraints = false
+            bookAppoimentCard.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
+            bookAppoimentCard.topAnchor.constraint(equalTo: simSwapCard.bottomAnchor, constant: 50).isActive = true
+            bookAppoimentCard.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
+            bookAppoimentCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            bookAppoimentCard.backgroundColor = UIColor.white
+            //transforming it a card
+            bookAppoimentCard.layer.cornerRadius = 2
+            bookAppoimentCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            bookAppoimentCard.layer.shadowColor = UIColor.black.cgColor
+            bookAppoimentCard.layer.shadowOpacity = 0.1
+            
+            //left image with colour
+            let leftImageApp = UIImageView()
+            bookAppoimentCard.addSubview(leftImageApp)
+            leftImageApp.translatesAutoresizingMaskIntoConstraints = false
+            leftImageApp.backgroundColor = UIColor.cardImageColour
+            leftImageApp.leadingAnchor.constraint(equalTo: bookAppoimentCard.leadingAnchor).isActive = true
+            leftImageApp.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor).isActive = true
+            leftImageApp.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            leftImageApp.bottomAnchor.constraint(equalTo: bookAppoimentCard.bottomAnchor).isActive = true
+            
+            //round image with icon
+            let roundImageApp = UIImageView(image: #imageLiteral(resourceName: "ic_mobile"))
+            roundImageApp.image = roundImageApp.image!.withRenderingMode(.alwaysTemplate)
+            bookAppoimentCard.addSubview(roundImageApp)
+            roundImageApp.tintColor = UIColor.white
+            roundImageApp.backgroundColor = UIColor.vodaIconColour
+            roundImageApp.translatesAutoresizingMaskIntoConstraints = false
+            roundImageApp.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor, constant: 30).isActive = true
+            roundImageApp.leadingAnchor.constraint(equalTo: leftImageApp.trailingAnchor, constant: 19).isActive = true
+            roundImageApp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImageApp.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            roundImageApp.layer.cornerRadius = roundImageApp.frame.size.width / 2
+            roundImageApp.clipsToBounds = true
+            
+            //adding label
+            let bookingLabel = UILabel()
+            bookAppoimentCard.addSubview(bookingLabel)
+            bookingLabel.translatesAutoresizingMaskIntoConstraints = false
+            bookingLabel.text = "Appoinment Booking"
+            bookingLabel.font = UIFont(name: String.defaultFontB, size: 20)
+            bookingLabel.leadingAnchor.constraint(equalTo: roundImageApp.trailingAnchor, constant: 8).isActive = true
+            bookingLabel.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor, constant: 40).isActive = true
+            bookingLabel.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: 1).isActive = true
+            
+            //adding menu description
+            let bookLabelDesc = UILabel()
+            bookAppoimentCard.addSubview(bookLabelDesc)
+            bookLabelDesc.translatesAutoresizingMaskIntoConstraints = false
+            bookLabelDesc.text = "Book an appointment with us"
+            bookLabelDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            bookLabelDesc.leadingAnchor.constraint(equalTo: roundImageApp.trailingAnchor, constant: 12).isActive = true
+            bookLabelDesc.topAnchor.constraint(equalTo: bookingLabel.bottomAnchor, constant: 5).isActive = true
+            bookLabelDesc.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -10).isActive = true
+            
+            //adding right arrow
+            let bookArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+            bookAppoimentCard.addSubview(bookArrow)
+            bookArrow.translatesAutoresizingMaskIntoConstraints = false
+            bookArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            bookArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            bookArrow.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor, constant: 57).isActive = true
+            bookArrow.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -9).isActive = true
             
         }else{
             
