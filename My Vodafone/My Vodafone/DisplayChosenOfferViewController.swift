@@ -15,6 +15,7 @@ class DisplayChosenOfferViewController: UIViewController {
     var selectedOffer: String = ""
     let preferences = UserDefaults.standard
     var totalOffers:Int!
+    var offerName: String!
     
     let browseLabel = UILabel()
     
@@ -101,6 +102,7 @@ class DisplayChosenOfferViewController: UIViewController {
         view.addSubview(scrollView)
         
         setUpViews()
+        
         print("transfered:: \(selectedOffer)")
        
         let vodafonePdts = preferences.object(forKey: selectedOffer)
@@ -447,56 +449,13 @@ class DisplayChosenOfferViewController: UIViewController {
             bookArrow.topAnchor.constraint(equalTo: bookAppoimentCard.topAnchor, constant: 57).isActive = true
             bookArrow.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -9).isActive = true
         }else if selectedOffer == "FBB" {
-            scrollView.addSubview(browseLabel)
+            
+            superView.addSubview(browseLabel)
             browseLabel.translatesAutoresizingMaskIntoConstraints = false
             browseLabel.text = "Browse"
-            browseLabel.font = UIFont(name: String.defaultFontR, size: 22)
-            browseLabel.textAlignment = .center
-            browseLabel.textColor = UIColor.colour_red_voilet
-            browseLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            browseLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 230).isActive = true
-            browseLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-            
-            /*Browse*/
-            let bbBalanceCard = cardView
-            scrollView.addSubview(bbBalanceCard)
-            bbBalanceCard.translatesAutoresizingMaskIntoConstraints = false
-            bbBalanceCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            bbBalanceCard.topAnchor.constraint(equalTo: browseLabel.bottomAnchor, constant: 10).isActive = true
-            bbBalanceCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-            //transform into card
-            bbBalanceCard.layer.cornerRadius = 2
-            bbBalanceCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-            bbBalanceCard.layer.shadowColor = UIColor.black.cgColor
-            bbBalanceCard.layer.shadowOpacity = 0.1
-            
-            let bbPackagesCard = UIView()
-            scrollView.addSubview(bbPackagesCard)
-            bbPackagesCard.translatesAutoresizingMaskIntoConstraints = false
-            bbPackagesCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            bbPackagesCard.topAnchor.constraint(equalTo: bbBalanceCard.bottomAnchor, constant: 20).isActive = true
-            bbPackagesCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-            bbPackagesCard.heightAnchor.constraint(equalToConstant: 120).isActive = true
-            bbPackagesCard.backgroundColor = UIColor.white
-            //transform into card
-            bbPackagesCard.layer.cornerRadius = 2
-            bbPackagesCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-            bbPackagesCard.layer.shadowColor = UIColor.black.cgColor
-            bbPackagesCard.layer.shadowOpacity = 0.1
-            
-            let bbMoveCard = UIView()
-            scrollView.addSubview(bbMoveCard)
-            bbMoveCard.translatesAutoresizingMaskIntoConstraints = false
-            bbMoveCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            bbMoveCard.topAnchor.constraint(equalTo: bbPackagesCard.bottomAnchor, constant: 8).isActive = true
-            bbMoveCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-            bbMoveCard.heightAnchor.constraint(equalToConstant: 120).isActive = true
-            bbMoveCard.backgroundColor = UIColor.white
-            //transform into card
-            bbMoveCard.layer.cornerRadius = 2
-            bbMoveCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-            bbMoveCard.layer.shadowColor = UIColor.black.cgColor
-            bbMoveCard.layer.shadowOpacity = 0.1
+            browseLabel.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
+            browseLabel.topAnchor.constraint(equalTo: superView.topAnchor, constant: 200).isActive = true
+            browseLabel.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
             
             scrollView.contentSize.height = 1000
             
@@ -559,8 +518,9 @@ class DisplayChosenOfferViewController: UIViewController {
                                         var cardHeight: CGFloat = 145
                                         for obj in array {
                                             if let dict = obj as? NSDictionary{
-                                                let offerName = dict.value(forKey: "NAME") as! String
+                                                self.offerName = dict.value(forKey: "NAME") as! String
                                                 let offerPrice = dict.value(forKey: "PRICE") as! String
+                                                let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                                 
                                                 //creating the uiview
                                                 let offerView = UIView()
@@ -604,7 +564,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 let offerNameLbl = UILabel()
                                                 self.scrollView.addSubview(offerNameLbl)
                                                 offerNameLbl.translatesAutoresizingMaskIntoConstraints = false
-                                                offerNameLbl.text = offerName
+                                                offerNameLbl.text = self.offerName
                                                 offerNameLbl.font = UIFont(name: String.defaultFontB, size: 20)
                                                 offerNameLbl.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 38).isActive = true
                                                 offerNameLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -629,10 +589,14 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 rightArrow.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 57).isActive = true
                                                 rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
                                                 
+                                                
                                                 topAnchorConstraint = topAnchorConstraint + 165
                                                 //(cardHeight * castTotalOffers) + 620
                                                 self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
                                                 
+                                                //Adding gesture
+                                                let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToBuyBundle))
+                                                offerView.addGestureRecognizer(touchRec)
                                             }
                                         }
                                     }
@@ -655,8 +619,9 @@ class DisplayChosenOfferViewController: UIViewController {
                     var cardHeight: CGFloat = 145
                     for obj in array {
                         if let dict = obj as? NSDictionary{
-                            let offerName = dict.value(forKey: "NAME") as! String
+                            offerName = dict.value(forKey: "NAME") as! String
                             let offerPrice = dict.value(forKey: "PRICE") as! String
+                            let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                             
                             //creating the uiview
                             let offerView = UIView()
@@ -728,6 +693,13 @@ class DisplayChosenOfferViewController: UIViewController {
                             topAnchorConstraint = topAnchorConstraint + 165
                             //(cardHeight * castTotalOffers) + 620
                             self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
+                            
+                            
+                            //Adding gesture
+//                            let touchRec = UITapGestureRecognizer(target: self, action: goToBuyBundle(_sender: self, offerNanni: "KooNimo"))
+//                            offerView.addGestureRecognizer(touchRec)
+                            
+                            
                         }
                     }
                 }
@@ -793,8 +765,9 @@ class DisplayChosenOfferViewController: UIViewController {
                                     var cardHeight: CGFloat = 145
                                     for obj in array {
                                         if let dict = obj as? NSDictionary{
-                                            let offerName = dict.value(forKey: "NAME") as! String
+                                            self.offerName = dict.value(forKey: "NAME") as? String
                                             let offerPrice = dict.value(forKey: "PRICE") as! String
+                                            let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                             
                                             //creating the uiview
                                             let offerView = UIView()
@@ -838,7 +811,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             let offerNameLbl = UILabel()
                                             self.scrollView.addSubview(offerNameLbl)
                                             offerNameLbl.translatesAutoresizingMaskIntoConstraints = false
-                                            offerNameLbl.text = offerName
+                                            offerNameLbl.text = self.offerName
                                             offerNameLbl.font = UIFont(name: String.defaultFontB, size: 20)
                                             offerNameLbl.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 38).isActive = true
                                             offerNameLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -866,6 +839,10 @@ class DisplayChosenOfferViewController: UIViewController {
                                             topAnchorConstraint = topAnchorConstraint + 165
                                             //(cardHeight * castTotalOffers) + 620
                                             self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
+                                            
+                                            //Adding gesture
+                                            let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToBuyBundle))
+                                            offerView.addGestureRecognizer(touchRec)
                                             
                                         }
                                     }
@@ -901,11 +878,21 @@ class DisplayChosenOfferViewController: UIViewController {
 //        present(moveTo!, animated: true, completion: nil)
     }
     
+    //Function to go to buy offer
+    @objc func goToBuyBundle(_sender: UITapGestureRecognizer, offerNanni: String){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "BuyOfferViewController") as? BuyOfferViewController else {return}
+        moveTo.selectedOffer = offerNanni
+        moveTo.selectedOfferPrice = "2GS"
+        moveTo.selectedOfferDesc = "Hurray"
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
 
     func setUpViews(){
         //Scroll view
-        
-        
         scrollView.topAnchor.constraint(equalTo: superView.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: superView.trailingAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: superView.leadingAnchor).isActive = true
@@ -915,6 +902,7 @@ class DisplayChosenOfferViewController: UIViewController {
         scrollView.addSubview(hamburgerButton)
         scrollView.addSubview(menuLabel)
         scrollView.addSubview(selectedOfferLabel)
+        scrollView.addSubview(browseLabel)
         
         
         //top Image

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117A47D21148617003EBE09 /* BuyOfferViewController.swift */; };
 		0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144B5DD20ED1D25007791C4 /* PlansViewController.swift */; };
 		0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */; };
 		0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0117A47D21148617003EBE09 /* BuyOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyOfferViewController.swift; sourceTree = "<group>"; };
 		0144B5DD20ED1D25007791C4 /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
 		0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoGHViewController.swift; sourceTree = "<group>"; };
 		0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbleValueMonthlyViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				019538622108C5EB00E492A7 /* mvaConfig.swift */,
 				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
 				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
+				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
+				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
 				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
