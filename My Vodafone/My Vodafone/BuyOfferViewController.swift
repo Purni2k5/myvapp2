@@ -19,7 +19,7 @@ class BuyOfferViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = UIColor.dark_background
-        scrollView.contentSize.height = 1500
+        scrollView.contentSize.height = 2500
         return scrollView
     }()
     
@@ -71,11 +71,13 @@ class BuyOfferViewController: UIViewController {
         vcScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         vcScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        
         //Dark view
-        vcScrollView.addSubview(darkView)
-        darkView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        darkView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        darkView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        /*vcScrollView.addSubview(darkView)
+        darkView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
+        darkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor).isActive = true
+        darkView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor).isActive = true
+        darkView.widthAnchor.constraint(equalTo: vcScrollView.widthAnchor).isActive = true
         darkView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
         //Close button
@@ -91,11 +93,13 @@ class BuyOfferViewController: UIViewController {
         //Offer Label
         darkView.addSubview(offerLabel)
         offerLabel.text = selectedOffer
-        offerLabel.font = UIFont(name: String.defaultFontR, size: 22)
+        offerLabel.font = UIFont(name: String.defaultFontR, size: 29)
         offerLabel.textAlignment = .center
         offerLabel.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 95).isActive = true
         offerLabel.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
-        offerLabel.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
+        offerLabel.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true */
+        
+        
     }
     
 

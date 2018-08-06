@@ -16,6 +16,8 @@ class DisplayChosenOfferViewController: UIViewController {
     let preferences = UserDefaults.standard
     var totalOffers:Int!
     var offerName: String!
+    var offerPrice: String!
+    var offerDescription: String!
     
     let browseLabel = UILabel()
     
@@ -90,6 +92,7 @@ class DisplayChosenOfferViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.white
         view.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        var offerVariable: String?
         return view
     }()
     
@@ -519,8 +522,8 @@ class DisplayChosenOfferViewController: UIViewController {
                                         for obj in array {
                                             if let dict = obj as? NSDictionary{
                                                 self.offerName = dict.value(forKey: "NAME") as! String
-                                                let offerPrice = dict.value(forKey: "PRICE") as! String
-                                                let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
+                                                self.offerPrice = dict.value(forKey: "PRICE") as! String
+                                                self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                                 
                                                 //creating the uiview
                                                 let offerView = UIView()
@@ -574,7 +577,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 let offerPriceLbl = UILabel()
                                                 self.scrollView.addSubview(offerPriceLbl)
                                                 offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
-                                                offerPriceLbl.text = "Price GHS \(offerPrice)"
+                                                offerPriceLbl.text = "Price GHS \(self.offerPrice)"
                                                 offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
                                                 offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
                                                 offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -617,14 +620,17 @@ class DisplayChosenOfferViewController: UIViewController {
                     let castTotalOffers = CGFloat(totalOffers)
                     var topAnchorConstraint: CGFloat = 170
                     var cardHeight: CGFloat = 145
-                    for obj in array {
+                    for (index, obj) in array.enumerated() {
                         if let dict = obj as? NSDictionary{
                             offerName = dict.value(forKey: "NAME") as! String
-                            let offerPrice = dict.value(forKey: "PRICE") as! String
-                            let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
+                            offerPrice = dict.value(forKey: "PRICE") as! String
+                            offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                             
                             //creating the uiview
-                            let offerView = UIView()
+                            let offerView = GesturesView()
+                            offerView.offerVariable = offerName
+                            offerView.offerPrice = offerPrice
+                            offerView.offerDescription = offerDescription
                             self.scrollView.addSubview(offerView)
                             offerView.translatesAutoresizingMaskIntoConstraints = false
                             offerView.topAnchor.constraint(equalTo: self.appBackImage.bottomAnchor, constant: topAnchorConstraint).isActive = true
@@ -637,6 +643,7 @@ class DisplayChosenOfferViewController: UIViewController {
                             offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
                             offerView.layer.shadowColor = UIColor.black.cgColor
                             offerView.layer.shadowOpacity = 0.1
+                            offerView.tag = index
                             
                             //add left image view
                             let cardImage = UIImageView()
@@ -675,7 +682,7 @@ class DisplayChosenOfferViewController: UIViewController {
                             let offerPriceLbl = UILabel()
                             self.scrollView.addSubview(offerPriceLbl)
                             offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
-                            offerPriceLbl.text = "Price GHS \(offerPrice)"
+                            offerPriceLbl.text = "Price GHS " + offerPrice
                             offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
                             offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
                             offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -696,8 +703,8 @@ class DisplayChosenOfferViewController: UIViewController {
                             
                             
                             //Adding gesture
-//                            let touchRec = UITapGestureRecognizer(target: self, action: goToBuyBundle(_sender: self, offerNanni: "KooNimo"))
-//                            offerView.addGestureRecognizer(touchRec)
+                            let touchRec = UITapGestureRecognizer.init(target: self, action: #selector(goToBuyBundle(_sender:)))
+                            offerView.addGestureRecognizer(touchRec)
                             
                             
                         }
@@ -766,8 +773,8 @@ class DisplayChosenOfferViewController: UIViewController {
                                     for obj in array {
                                         if let dict = obj as? NSDictionary{
                                             self.offerName = dict.value(forKey: "NAME") as? String
-                                            let offerPrice = dict.value(forKey: "PRICE") as! String
-                                            let offerDescription = dict.value(forKey: "DESCRIPTION") as! String
+                                            self.offerPrice = dict.value(forKey: "PRICE") as! String
+                                            self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                             
                                             //creating the uiview
                                             let offerView = UIView()
@@ -821,7 +828,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             let offerPriceLbl = UILabel()
                                             self.scrollView.addSubview(offerPriceLbl)
                                             offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
-                                            offerPriceLbl.text = "Price GHS \(offerPrice)"
+                                            offerPriceLbl.text = "Price GHS \(self.offerPrice)"
                                             offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
                                             offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
                                             offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -879,14 +886,17 @@ class DisplayChosenOfferViewController: UIViewController {
     }
     
     //Function to go to buy offer
-    @objc func goToBuyBundle(_sender: UITapGestureRecognizer, offerNanni: String){
+    @objc func goToBuyBundle(_sender: UITapGestureRecognizer){
+//        print(array[sender.view!.tag])
         guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "BuyOfferViewController") as? BuyOfferViewController else {return}
-        moveTo.selectedOffer = offerNanni
-        moveTo.selectedOfferPrice = "2GS"
-        moveTo.selectedOfferDesc = "Hurray"
+        guard let gestureVariables = _sender.view as? GesturesView else {return}
+        moveTo.selectedOffer = gestureVariables.offerVariable!
+        moveTo.selectedOfferPrice = gestureVariables.offerPrice!
+        moveTo.selectedOfferDesc = gestureVariables.offerDescription!
         self.addChildViewController(moveTo)
         moveTo.view.frame = self.view.frame
         self.view.addSubview(moveTo.view)
+        moveTo.view.isUserInteractionEnabled = false
         moveTo.didMove(toParentViewController: self)
     }
     
