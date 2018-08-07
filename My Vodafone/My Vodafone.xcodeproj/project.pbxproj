@@ -32,6 +32,8 @@
 		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
 		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
 		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
+		01941D9B2119B2E300B7D207 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9A2119B2E300B7D207 /* AppExtensions.swift */; };
+		01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9C2119F34B00B7D207 /* CheckInternet.swift */; };
 		019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538622108C5EB00E492A7 /* mvaConfig.swift */; };
 		019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */; };
 		0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* LoginViewController.swift */; };
@@ -95,6 +97,8 @@
 		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
 		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
 		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
+		01941D9A2119B2E300B7D207 /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		01941D9C2119F34B00B7D207 /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
 		019538622108C5EB00E492A7 /* mvaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaConfig.swift; sourceTree = "<group>"; };
 		019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayChosenOfferViewController.swift; sourceTree = "<group>"; };
 		0198E74D20DAB4B9000820F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01941D992119B2A600B7D207 /* mvaExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				01941D9A2119B2E300B7D207 /* AppExtensions.swift */,
+			);
+			path = mvaExtensions;
+			sourceTree = "<group>";
+		};
 		01C022F120C99304003E48CC = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +177,7 @@
 		01C022FC20C99304003E48CC /* My Vodafone */ = {
 			isa = PBXGroup;
 			children = (
+				01941D992119B2A600B7D207 /* mvaExtensions */,
 				01C0233220C9C907003E48CC /* htmls */,
 				01C0233120C9C8F9003E48CC /* fonts */,
 				01C022FD20C99304003E48CC /* AppDelegate.swift */,
@@ -209,6 +222,7 @@
 				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
 				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
 				0160449E21187759008BD98F /* GestureView.swift */,
+				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -341,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01C0230020C99304003E48CC /* ViewController.swift in Sources */,
+				01941D9B2119B2E300B7D207 /* AppExtensions.swift in Sources */,
 				0160449F21187759008BD98F /* GestureView.swift in Sources */,
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
@@ -376,6 +391,7 @@
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
 				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
+				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

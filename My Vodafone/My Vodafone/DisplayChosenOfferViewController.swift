@@ -718,6 +718,14 @@ class DisplayChosenOfferViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if CheckInternet.Connection(){
+//            self.Alert(Message: "Connected")
+        }else{
+            self.Alert(Message: "You're offline")
+        }
+    }
+    
     func makeAsync(offer:String, msisdn:String){
         let request_api = URL(string: String.offers)
         let request = NSMutableURLRequest(url: request_api!)
@@ -896,8 +904,16 @@ class DisplayChosenOfferViewController: UIViewController {
         self.addChildViewController(moveTo)
         moveTo.view.frame = self.view.frame
         self.view.addSubview(moveTo.view)
-        moveTo.view.isUserInteractionEnabled = false
         moveTo.didMove(toParentViewController: self)
+    }
+    
+    func Alert (Message: String){
+        
+        let alert = UIAlertController(title: "Alert", message: Message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+        
     }
     
 

@@ -13,7 +13,7 @@ extension UIColor {
     
     static let grayBackground = UIColor().colourFromHex("EBEBEB")
     static let cardImageColour = UIColor().colourFromHex("007E92")
-    static let vodaRed = UIColor().colourFromHex("4DE60000")
+    static let vodaRed = UIColor().colourFromHex("E60000")
     static let vodaIconColour = UIColor().colourFromHex("00B0CA")
     static let grayButton = UIColor().colourFromHex("4A4D4E")
     static let colour_red_voilet = UIColor().colourFromHex("9C2AA0")
@@ -45,4 +45,5 @@ extension String {
     static let defaultFontR = "VodafoneRg-Regular"
     static let defaultFontB = "VodafoneRg-Bold"
     static let offers = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/DBEnpoints"
+    static let buyPackage = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
 }

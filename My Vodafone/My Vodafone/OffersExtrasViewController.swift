@@ -25,6 +25,8 @@ class OffersExtrasViewController: UIViewController {
     @IBOutlet weak var imgVCash: UIImageView!
     @IBOutlet weak var imgFBB: UIImageView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     //Offers UIVIEWS
     @IBOutlet weak var planCard: CardView!
     @IBOutlet weak var dataBundlesCard: CardView!
@@ -35,8 +37,26 @@ class OffersExtrasViewController: UIViewController {
     @IBOutlet weak var servicesCard: CardView!
     @IBOutlet weak var planDesc: UITextView!
     
+    //create a closure for error view
+    let errorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
+    //create a closure label
+    let errorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
+    //create a closure for errorDate label
+    let errorDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     var menuShowing = false
     override func viewDidLoad() {
@@ -61,6 +81,8 @@ class OffersExtrasViewController: UIViewController {
         changeImageToWhite()
         //Call gestures on all cards
         addGesturesToCards()
+        
+//        setUpViews()
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,6 +127,14 @@ class OffersExtrasViewController: UIViewController {
         hamburger.tintColor = UIColor.white
         
         
+    }
+    
+    func setUpViews(){
+        errorView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        errorView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        errorView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        errorView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        errorView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     
     //Function to make images round
