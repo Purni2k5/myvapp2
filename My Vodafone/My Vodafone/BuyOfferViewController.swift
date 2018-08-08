@@ -14,8 +14,11 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var selectedOffer: String = ""
     var selectedOfferPrice: String = ""
     var selectedOfferDesc: String = ""
+    var selectedOfferPID: String = ""
     var selectedAccount:  String?
     var selectedNumberHidden: String?
+    var username:String?
+    var msisdn: String?
     
     //create a closure for scroll view
     let vcScrollView: UIScrollView = {
@@ -85,14 +88,16 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return activity_loader
         
     }()
-    
+    //create closure for confirm dialogue
+    let confirmDialog = UIView()
     let circularView = UIView()
     let txtPurchaseNum = UITextField()
     let txtHiddenPurchaseNum = UITextField()
     let buyButton = UIButton()
     
     var registeredAccounts = [String]()
-    
+    fileprivate var darkViewTopConstraint1: NSLayoutConstraint?
+    fileprivate var darkViewTopConstraint2: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +106,9 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         view.addSubview(vcScrollView)
         setUpViews()
         let Services = preferences.object(forKey: "ServiceList")
+        let responseData = preferences.object(forKey: "responseData") as! NSDictionary
+        username = responseData["Username"] as? String
+//        print("username \(username!)")
         if let array = Services as? NSArray{
             var iterate = 0
             for obj in array {
@@ -132,6 +140,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         print(selectedOfferDesc)
         print(selectedOfferPrice)
         print(selectedOffer)
+        print(selectedOfferPID)
         
     }
 
@@ -151,8 +160,10 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         //Dark view
         let childDarkView = darkView
         vcScrollView.addSubview(childDarkView)
+        darkViewTopConstraint1 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor)
+        darkViewTopConstraint2 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor, constant: 300)
         childDarkView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
-        childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor).isActive = true
+        darkViewTopConstraint1?.isActive = true
         childDarkView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor).isActive = true
         childDarkView.widthAnchor.constraint(equalTo: vcScrollView.widthAnchor).isActive = true
         childDarkView.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -347,17 +358,73 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         activity_loader.centerXAnchor.constraint(equalTo: vcScrollView.centerXAnchor).isActive = true
         buyButton.isHidden = true
         
-        //Now make the async call
-        let checkUrl = URL(string: String.buyPackage)
-        let request = NSMutableURLRequest(url: checkUrl!)
-        request.httpMethod = "POST"
+        // first check for internet connectivity
+        if CheckInternet.Connection(){
+            //Now make the async call
+            let checkUrl = URL(string: String.buyPackage)
+            let request = NSMutableURLRequest(url: checkUrl!)
+            request.httpMethod = "POST"
+            msisdn = txtHiddenPurchaseNum.text
+            let postParameters: Dictionary<String, Any> = [
+                "action":"buyPackageCheck",
+                "msisdn":msisdn!,
+                "username":username!,
+                "bundleid":selectedOfferPID
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                //creating a task to send request
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is \(error!.localizedDescription)")
+                        self.activity_loader.stopAnimating()
+                        self.buyButton.isHidden = false
+                        return;
+                    }
+                    //passing the response
+                    do{
+                        //converting the response to NSDictionary
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON{
+                            var responseCode: Int!
+                            var responseMessage: String!
+                            var bundleToRemove: String!
+                            
+                            responseCode = parseJSON["RESPONSECODE"] as! Int
+                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                            bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String
+                            
+                            print("response:: \(parseJSON)")
+                            DispatchQueue.main.async {
+                                self.activity_loader.stopAnimating()
+                                self.buyButton.isHidden = false
+                                
+                                /*Display dialogue message*/
+                                //push dark view down
+                                self.darkViewTopConstraint1?.isActive = false
+                                self.darkViewTopConstraint2?.isActive = true
+//                                self.vcScrollView.addSubview(self.confirmDialog)
+//                                self.confirmDialog.translatesAutoresizingMaskIntoConstraints = false
+                                
+                            }
+                        }
+                    }catch {
+                        print(error.localizedDescription)
+                        self.activity_loader.stopAnimating()
+                        self.buyButton.isHidden = false
+                    }
+                }
+                task.resume()
+            }
+        }else{
+            print("No internet connection")
+        }
         
-        let postParameters: Dictionary<String, Any> = [
-            "action":"buyPackageCheck",
-            "msisdn":"msisdn",
-            "username":"username",
-            "bundleid":"bundleid"
-        ]
+        
     }
     //Function to hide status bar
     override var prefersStatusBarHidden: Bool{
