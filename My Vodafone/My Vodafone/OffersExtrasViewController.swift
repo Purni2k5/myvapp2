@@ -106,8 +106,9 @@ class OffersExtrasViewController: UIViewController {
 
     //Function to change header text
     func changeHeader(){
-        lblOffersHeader.text = "Offers and Extras \nfor you"
+        lblOffersHeader.text = "Offers and Extras for you"
         lblOffersHeader.numberOfLines = 0
+        lblOffersHeader.lineBreakMode = .byWordWrapping
     }
     //Function to change close btn colour
     func changeCloseBtnColour(){

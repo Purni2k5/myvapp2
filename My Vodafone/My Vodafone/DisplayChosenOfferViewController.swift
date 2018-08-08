@@ -583,7 +583,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 let offerPriceLbl = UILabel()
                                                 self.scrollView.addSubview(offerPriceLbl)
                                                 offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
-                                                offerPriceLbl.text = "Price GHS \(self.offerPrice)"
+                                                offerPriceLbl.text = "Price GHS \(self.offerPrice!)"
                                                 offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
                                                 offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
                                                 offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -719,7 +719,12 @@ class DisplayChosenOfferViewController: UIViewController {
                     }
                 }
                 //No do some background check again
-                makeAsync(offer: selectedOffer, msisdn: defaultNumber)
+                if CheckInternet.Connection() {
+                    makeAsync(offer: selectedOffer, msisdn: defaultNumber)
+                }else{
+                    print("No internet")
+                }
+                
                 
             }
         }
@@ -773,7 +778,6 @@ class DisplayChosenOfferViewController: UIViewController {
                         let newTotalOffers = responseMessage.count
                         print("new count \(newTotalOffers)")
                         
-                        if newTotalOffers != self.totalOffers {
                             DispatchQueue.main.async {
                                 //Populate again
                                 //Clean existing particular userdefaults
@@ -849,7 +853,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             let offerPriceLbl = UILabel()
                                             self.scrollView.addSubview(offerPriceLbl)
                                             offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
-                                            offerPriceLbl.text = "Price GHS \(self.offerPrice)"
+                                            offerPriceLbl.text = "Price GHS \(self.offerPrice!)"
                                             offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
                                             offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
                                             offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
@@ -876,9 +880,6 @@ class DisplayChosenOfferViewController: UIViewController {
                                     }
                                 }
                             }
-                        }else{
-                            print("Don't populate")
-                        }
                     }
                     
                 }catch {

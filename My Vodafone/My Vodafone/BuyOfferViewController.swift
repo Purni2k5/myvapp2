@@ -19,6 +19,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var selectedNumberHidden: String?
     var username:String?
     var msisdn: String?
+    var bundleToRemove: String!
     
     //create a closure for scroll view
     let vcScrollView: UIScrollView = {
@@ -94,6 +95,9 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     let txtPurchaseNum = UITextField()
     let txtHiddenPurchaseNum = UITextField()
     let buyButton = UIButton()
+    let lblResponse = UILabel()
+    let btnCancel = UIButton()
+    let btnContinue = UIButton()
     
     var registeredAccounts = [String]()
     fileprivate var darkViewTopConstraint1: NSLayoutConstraint?
@@ -104,6 +108,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         modalPresentationCapturesStatusBarAppearance = true
         
         view.addSubview(vcScrollView)
+        view.backgroundColor = UIColor.dark_background
         setUpViews()
         let Services = preferences.object(forKey: "ServiceList")
         let responseData = preferences.object(forKey: "responseData") as! NSDictionary
@@ -161,7 +166,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let childDarkView = darkView
         vcScrollView.addSubview(childDarkView)
         darkViewTopConstraint1 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor)
-        darkViewTopConstraint2 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor, constant: 300)
+        darkViewTopConstraint2 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor, constant: 200)
         childDarkView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
         darkViewTopConstraint1?.isActive = true
         childDarkView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor).isActive = true
@@ -272,6 +277,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         noButton.topAnchor.constraint(equalTo: buyButton.bottomAnchor, constant: 20).isActive = true
         noButton.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor, constant: 40).isActive = true
         noButton.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor, constant: -40).isActive = true
+        noButton.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
         
         //Creating a buy button
         let browseButton = UIButton()
@@ -284,16 +290,14 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         browseButton.topAnchor.constraint(equalTo: noButton.bottomAnchor, constant: 20).isActive = true
         browseButton.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor, constant: 40).isActive = true
         browseButton.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor, constant: -40).isActive = true
-        
-        vcScrollView.addSubview(errorView)
-        errorView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
-        errorView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor, constant: 0).isActive = true
-        errorView.heightAnchor.constraint(equalToConstant: 130).isActive = true
-        errorView.widthAnchor.constraint(equalTo: vcScrollView.widthAnchor).isActive = true
-        errorView.topAnchor.constraint(equalTo: browseButton.bottomAnchor, constant: 20).isActive = true
+        browseButton.addTarget(self, action: #selector(goToOffersExtras), for: .touchUpInside)
         
         createPickerView()
         createToolBar()
+        
+        vcScrollView.addSubview(activity_loader)
+        activity_loader.topAnchor.constraint(equalTo: txtPurchaseNum.bottomAnchor, constant: 30).isActive = true
+        activity_loader.centerXAnchor.constraint(equalTo: vcScrollView.centerXAnchor).isActive = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -301,6 +305,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         //Now make view circular
         circularView.layer.cornerRadius = circularView.frame.size.width / 2
         circularView.clipsToBounds = true
+        activity_loader.isHidden = true
     }
     
 
@@ -351,12 +356,15 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @objc func dismissKeyBoard(){
         view.endEditing(true)
     }
+    //Function to go to offers and extras VC
+    @objc func goToOffersExtras(){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
     //Function to check bundle purchase
     @objc func btnBuy(){
-        vcScrollView.addSubview(activity_loader)
-        activity_loader.topAnchor.constraint(equalTo: txtPurchaseNum.bottomAnchor, constant: 30).isActive = true
-        activity_loader.centerXAnchor.constraint(equalTo: vcScrollView.centerXAnchor).isActive = true
-        buyButton.isHidden = true
+        
+        start_activity_loader()
         
         // first check for internet connectivity
         if CheckInternet.Connection(){
@@ -392,11 +400,16 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                         if let parseJSON = myJSON{
                             var responseCode: Int!
                             var responseMessage: String!
-                            var bundleToRemove: String!
+                            
                             
                             responseCode = parseJSON["RESPONSECODE"] as! Int
                             responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                            bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String
+                            if parseJSON["BUNDLETOREMOVE"] != nil{
+                                self.bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String
+                            }else{
+                                self.bundleToRemove = ""
+                            }
+                            
                             
                             print("response:: \(parseJSON)")
                             DispatchQueue.main.async {
@@ -407,9 +420,54 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                                 //push dark view down
                                 self.darkViewTopConstraint1?.isActive = false
                                 self.darkViewTopConstraint2?.isActive = true
-//                                self.vcScrollView.addSubview(self.confirmDialog)
-//                                self.confirmDialog.translatesAutoresizingMaskIntoConstraints = false
+                                self.vcScrollView.addSubview(self.confirmDialog)
+                                self.confirmDialog.translatesAutoresizingMaskIntoConstraints = false
+                                self.confirmDialog.backgroundColor = UIColor.dark_background
+                                self.confirmDialog.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                                self.confirmDialog.topAnchor.constraint(equalTo: self.vcScrollView.topAnchor, constant: 0).isActive = true
+                                self.confirmDialog.leadingAnchor.constraint(equalTo: self.vcScrollView.leadingAnchor).isActive = true
+                                self.confirmDialog.trailingAnchor.constraint(equalTo: self.vcScrollView.trailingAnchor).isActive = true
+                                self.confirmDialog.widthAnchor.constraint(equalTo: self.vcScrollView.widthAnchor).isActive = true
                                 
+                                //Label to hold response message
+                                
+                                self.vcScrollView.addSubview(self.lblResponse)
+                                self.lblResponse.translatesAutoresizingMaskIntoConstraints = false
+                                self.lblResponse.text = responseMessage
+                                self.lblResponse.font = UIFont(name: String.defaultFontR, size: 20)
+                                self.lblResponse.textColor = UIColor.white
+                                self.lblResponse.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
+                                self.lblResponse.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
+                                self.lblResponse.topAnchor.constraint(equalTo: self.confirmDialog.topAnchor, constant: 40).isActive = true
+                                self.lblResponse.numberOfLines = 0
+                                self.lblResponse.lineBreakMode = .byWordWrapping
+//                                lblResponse.textAlignment = .center
+                                
+                                //Button to continue
+                                
+                                self.vcScrollView.addSubview(self.btnContinue)
+                                self.btnContinue.translatesAutoresizingMaskIntoConstraints = false
+                                self.btnContinue.backgroundColor = UIColor.vodaRed
+                                self.btnContinue.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                                self.btnContinue.widthAnchor.constraint(equalToConstant: 150).isActive = true
+                                self.btnContinue.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
+                                self.btnContinue.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 30).isActive = true
+                                self.btnContinue.setTitle("Continue", for: .normal)
+                                self.btnContinue.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
+                                self.btnContinue.addTarget(self, action: #selector(self.btnContinueExe), for: .touchUpInside)
+                                
+                                //Button to continue
+                                
+                                self.vcScrollView.addSubview(self.btnCancel)
+                                self.btnCancel.translatesAutoresizingMaskIntoConstraints = false
+                                self.btnCancel.backgroundColor = UIColor.grayButton
+                                self.btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                                self.btnCancel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+                                self.btnCancel.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
+                                self.btnCancel.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 30).isActive = true
+                                self.btnCancel.setTitle("Cancel", for: .normal)
+                                self.btnCancel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
+                                self.btnCancel.addTarget(self, action: #selector(self.closeDialogue), for: .touchUpInside)
                             }
                         }
                     }catch {
@@ -422,9 +480,131 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }else{
             print("No internet connection")
+            self.activity_loader.stopAnimating()
+            self.buyButton.isHidden = false
         }
         
+    }
+    //Function to continue with purchase of confirm
+    @objc func btnContinueExe(){
+       start_activity_loader()
+        self.confirmDialog.isHidden = true
+        self.lblResponse.isHidden = true
+        self.btnContinue.isHidden = true
+        self.btnCancel.isHidden = true
+        self.darkViewTopConstraint2?.isActive = false
+        self.darkViewTopConstraint1?.isActive = true
         
+        //Now continue with purchase
+        let async_api = URL(string: String.buyPackage)
+        let request = NSMutableURLRequest(url: async_api!)
+        request.httpMethod = "POST"
+        msisdn = txtHiddenPurchaseNum.text
+        
+        let postParameters:Dictionary<String, Any> = [
+            "action":"buyPackage",
+            "msisdn":msisdn!,
+            "username":username!,
+            "bundleid":"rt \(selectedOfferPID)",
+            "bundletoremove":bundleToRemove
+        ]
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            //creating a task to send the request
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    self.stop_activity_loader()
+                    return
+                }
+                //parsing response
+                do{
+                    //converting the response to NSDictionary
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON {
+                        var responseCode: Int!
+                        var responseMessage: String!
+                        
+                        responseCode = parseJSON["RESPONSECODE"] as! Int
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                        print("response:: \(parseJSON)")
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                            //Now create a view to display response
+                            
+                            /*let responseView = UIView()
+                            self.vcScrollView.addSubview(responseView)
+                            responseView.translatesAutoresizingMaskIntoConstraints = false
+                            responseView.backgroundColor = UIColor.black
+                            responseView.layer.shadowOpacity = 0.1
+                            responseView.leadingAnchor.constraint(equalTo: self.vcScrollView.leadingAnchor, constant: 0).isActive = true
+                            responseView.trailingAnchor.constraint(equalTo: self.vcScrollView.trailingAnchor, constant: 0).isActive = true
+                            responseView.widthAnchor.constraint(equalTo: self.vcScrollView.widthAnchor).isActive = true
+                            responseView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                            responseView.bottomAnchor.constraint(equalTo: self.vcScrollView.bottomAnchor).isActive = true */
+                            
+                            let theHeight = self.view.frame.size.height //grabs the height of your view
+                            let responseView = UIView()
+                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                            responseView.isOpaque = false
+                            responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                            
+                            self.view.addSubview(responseView)
+                            
+                            //label to hold response message
+                            let responseLabel = UILabel()
+                            self.vcScrollView.addSubview(responseLabel)
+                            responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                            responseLabel.text = responseMessage
+                            responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                            responseLabel.textColor = UIColor.white
+                            responseLabel.textAlignment = .center
+                            responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                            responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                            responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                            responseLabel.numberOfLines = 0
+                            responseLabel.lineBreakMode = .byWordWrapping
+                            
+                            UIView.animate(withDuration: 5, animations: {
+                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                            }, completion: { (true) in
+                                self.view.removeFromSuperview()
+                            })
+                        }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                    self.stop_activity_loader()
+                }
+            }
+            task.resume()
+        }
+    }
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        buyButton.isHidden = true
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        buyButton.isHidden = false
+    }
+    @objc func closeDialogue(){
+        self.confirmDialog.isHidden = true
+        self.lblResponse.isHidden = true
+        self.btnContinue.isHidden = true
+        self.btnCancel.isHidden = true
+        self.darkViewTopConstraint2?.isActive = false
+        self.darkViewTopConstraint1?.isActive = true
     }
     //Function to hide status bar
     override var prefersStatusBarHidden: Bool{

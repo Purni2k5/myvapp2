@@ -24,8 +24,8 @@ class toppingUpViewController: UIViewController {
     
     @IBOutlet weak var btnProceed: UIButton!
     
-    //api url
-    let topUpUrl = URL(string: "http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc")
+    //api urlhttp://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc
+    let topUpUrl = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
     var username:String = ""
     
     
