@@ -23,6 +23,8 @@
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
 		0160449F21187759008BD98F /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160449E21187759008BD98F /* GestureView.swift */; };
+		016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */; };
+		016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -88,6 +90,8 @@
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
 		0160449E21187759008BD98F /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
+		016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = offlineNotifViewController.swift; sourceTree = "<group>"; };
+		016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
 				0160449E21187759008BD98F /* GestureView.swift */,
 				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
+				016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */,
+				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -364,10 +370,12 @@
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */,
 				0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */,
+				016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */,
 				0146FD9E20F5106A00AFEE82 /* RedRushVoiceViewController.swift in Sources */,
 				0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
+				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
 				019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,

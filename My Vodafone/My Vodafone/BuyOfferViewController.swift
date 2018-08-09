@@ -15,6 +15,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var selectedOfferPrice: String = ""
     var selectedOfferDesc: String = ""
     var selectedOfferPID: String = ""
+    var selectedUSSD: String = ""
     var selectedAccount:  String?
     var selectedNumberHidden: String?
     var username:String?
@@ -146,6 +147,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         print(selectedOfferPrice)
         print(selectedOffer)
         print(selectedOfferPID)
+        print("up ussd: \(selectedUSSD)")
         
     }
 
@@ -167,9 +169,9 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         vcScrollView.addSubview(childDarkView)
         darkViewTopConstraint1 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor)
         darkViewTopConstraint2 = childDarkView.topAnchor.constraint(equalTo: vcScrollView.topAnchor, constant: 200)
-        childDarkView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
+//        childDarkView.leadingAnchor.constraint(equalTo: vcScrollView.leadingAnchor).isActive = true
         darkViewTopConstraint1?.isActive = true
-        childDarkView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor).isActive = true
+//        childDarkView.trailingAnchor.constraint(equalTo: vcScrollView.trailingAnchor).isActive = true
         childDarkView.widthAnchor.constraint(equalTo: vcScrollView.widthAnchor).isActive = true
         childDarkView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -451,7 +453,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                                 self.btnContinue.heightAnchor.constraint(equalToConstant: 55).isActive = true
                                 self.btnContinue.widthAnchor.constraint(equalToConstant: 150).isActive = true
                                 self.btnContinue.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
-                                self.btnContinue.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 30).isActive = true
+                                self.btnContinue.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
                                 self.btnContinue.setTitle("Continue", for: .normal)
                                 self.btnContinue.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
                                 self.btnContinue.addTarget(self, action: #selector(self.btnContinueExe), for: .touchUpInside)
@@ -464,7 +466,7 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                                 self.btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
                                 self.btnCancel.widthAnchor.constraint(equalToConstant: 150).isActive = true
                                 self.btnCancel.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
-                                self.btnCancel.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 30).isActive = true
+                                self.btnCancel.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
                                 self.btnCancel.setTitle("Cancel", for: .normal)
                                 self.btnCancel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
                                 self.btnCancel.addTarget(self, action: #selector(self.closeDialogue), for: .touchUpInside)
@@ -482,6 +484,13 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             print("No internet connection")
             self.activity_loader.stopAnimating()
             self.buyButton.isHidden = false
+            //move to ussd
+            let moveTo = storyboard?.instantiateViewController(withIdentifier: "offlineNotifViewController") as! offlineNotifViewController
+            moveTo.ussdCode = selectedUSSD
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
         }
         
     }

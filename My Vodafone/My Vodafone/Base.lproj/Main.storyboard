@@ -200,7 +200,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WVu-5z-iDt">
                                                         <rect key="frame" x="20" y="55" width="295" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="ooR-Vi-XKB"/>
+                                                            <constraint firstAttribute="height" constant="45" id="zmG-Ub-aFS"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
@@ -215,17 +215,17 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WOm-Sz-pHr">
                                                         <rect key="frame" x="20" y="155" width="295" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="wWL-hA-Q7b"/>
+                                                            <constraint firstAttribute="height" constant="45" id="1MA-mB-YSh"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4J6-QL-fus">
-                                                        <rect key="frame" x="20" y="220" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="220" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="UyS-lT-nnc"/>
+                                                            <constraint firstAttribute="height" constant="55" id="QaQ-Ii-fUb"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Log in">
@@ -236,10 +236,10 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hs6-Ek-6E5">
-                                                        <rect key="frame" x="20" y="281" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="295" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="F9K-Z8-0xC"/>
+                                                            <constraint firstAttribute="height" constant="55" id="sw2-2V-tZp"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Forgotten Password">
@@ -250,16 +250,16 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not registered with My Vodafone?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2P-QK-IMl">
-                                                        <rect key="frame" x="20" y="351" width="295" height="43"/>
+                                                        <rect key="frame" x="30" y="360" width="275" height="43"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ot2-oR-fir">
-                                                        <rect key="frame" x="20" y="413" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="424" width="295" height="55"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="ryQ-3T-he4"/>
+                                                            <constraint firstAttribute="height" constant="55" id="ryQ-3T-he4"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Register now">
@@ -279,42 +279,42 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="j2P-QK-IMl" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="0M3-VL-Ell"/>
+                                                    <constraint firstItem="WVu-5z-iDt" firstAttribute="top" secondItem="pVz-1g-i94" secondAttribute="bottom" constant="10" id="0Qq-Zs-cNy"/>
                                                     <constraint firstAttribute="trailing" secondItem="eDi-Cx-A6M" secondAttribute="trailing" constant="20" id="2MF-dN-APi"/>
-                                                    <constraint firstItem="WOm-Sz-pHr" firstAttribute="top" secondItem="qQ5-2u-Gis" secondAttribute="bottom" constant="10" id="2V6-t7-laX"/>
                                                     <constraint firstItem="JQs-bz-wfb" firstAttribute="leading" secondItem="41b-vK-quH" secondAttribute="trailing" constant="10" id="34i-jc-64a"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WVu-5z-iDt" secondAttribute="trailing" constant="20" id="3xp-GJ-MFK"/>
                                                     <constraint firstItem="iJs-GO-lla" firstAttribute="centerY" secondItem="eHl-95-w6e" secondAttribute="centerY" id="4aV-fJ-ihd"/>
-                                                    <constraint firstItem="qQ5-2u-Gis" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="7PC-r6-M8s"/>
+                                                    <constraint firstItem="qQ5-2u-Gis" firstAttribute="top" secondItem="WVu-5z-iDt" secondAttribute="bottom" constant="30" id="7bC-68-bBO"/>
                                                     <constraint firstItem="pVz-1g-i94" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="8VO-ba-Y3C"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Hs6-Ek-6E5" secondAttribute="trailing" constant="20" id="B1h-dT-nkV"/>
-                                                    <constraint firstItem="Hs6-Ek-6E5" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="BbB-5b-I5L"/>
-                                                    <constraint firstItem="WVu-5z-iDt" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="By7-wi-VuR"/>
-                                                    <constraint firstItem="Hs6-Ek-6E5" firstAttribute="top" secondItem="4J6-QL-fus" secondAttribute="bottom" constant="16" id="F3I-bj-KNs"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hs6-Ek-6E5" secondAttribute="trailing" constant="20" id="FG7-4b-o28"/>
                                                     <constraint firstAttribute="trailing" secondItem="pVz-1g-i94" secondAttribute="trailing" constant="20" id="HJj-Bg-cpz"/>
-                                                    <constraint firstItem="4J6-QL-fus" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="JWs-Ur-Jxe"/>
-                                                    <constraint firstAttribute="bottom" secondItem="ot2-oR-fir" secondAttribute="bottom" constant="51" id="MV4-Qt-0qR"/>
-                                                    <constraint firstItem="WOm-Sz-pHr" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="P3q-uh-lAa"/>
-                                                    <constraint firstItem="ot2-oR-fir" firstAttribute="top" secondItem="j2P-QK-IMl" secondAttribute="bottom" constant="19" id="Rdc-is-Pgy"/>
+                                                    <constraint firstItem="ot2-oR-fir" firstAttribute="top" secondItem="j2P-QK-IMl" secondAttribute="bottom" constant="21" id="JXv-lh-vDw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ot2-oR-fir" secondAttribute="bottom" constant="30" id="MV4-Qt-0qR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4J6-QL-fus" secondAttribute="trailing" constant="20" id="Ncs-SL-WhT"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="top" secondItem="41b-vK-quH" secondAttribute="bottom" constant="-35" id="SbA-BL-etx"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="top" secondItem="JQs-bz-wfb" secondAttribute="bottom" constant="-32" id="U1v-es-fb1"/>
+                                                    <constraint firstItem="Hs6-Ek-6E5" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="WcT-3T-LOg"/>
                                                     <constraint firstItem="iJs-GO-lla" firstAttribute="centerX" secondItem="eHl-95-w6e" secondAttribute="centerX" id="XYX-T4-Ewe"/>
-                                                    <constraint firstAttribute="trailing" secondItem="4J6-QL-fus" secondAttribute="trailing" constant="20" id="YGk-Yx-sUI"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="top" secondItem="eHl-95-w6e" secondAttribute="top" constant="18" id="Yox-sD-JQz"/>
-                                                    <constraint firstAttribute="trailing" secondItem="j2P-QK-IMl" secondAttribute="trailing" constant="20" id="ZHw-mf-5YT"/>
-                                                    <constraint firstItem="j2P-QK-IMl" firstAttribute="top" secondItem="Hs6-Ek-6E5" secondAttribute="bottom" constant="25" id="bVE-n0-mdA"/>
-                                                    <constraint firstItem="4J6-QL-fus" firstAttribute="top" secondItem="WOm-Sz-pHr" secondAttribute="bottom" constant="20" id="ddS-nJ-uxF"/>
+                                                    <constraint firstItem="4J6-QL-fus" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="ZNv-fl-z34"/>
+                                                    <constraint firstAttribute="trailing" secondItem="j2P-QK-IMl" secondAttribute="trailing" constant="30" id="aUI-jr-OZ9"/>
+                                                    <constraint firstItem="WOm-Sz-pHr" firstAttribute="top" secondItem="qQ5-2u-Gis" secondAttribute="bottom" constant="10" id="awc-8I-tT9"/>
+                                                    <constraint firstItem="qQ5-2u-Gis" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="cuJ-kR-NQ8"/>
                                                     <constraint firstItem="ot2-oR-fir" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="fJR-GV-XZc"/>
                                                     <constraint firstAttribute="height" constant="509" id="fdx-9R-dO5"/>
-                                                    <constraint firstAttribute="trailing" secondItem="WVu-5z-iDt" secondAttribute="trailing" constant="20" id="flm-vm-kPy"/>
+                                                    <constraint firstItem="4J6-QL-fus" firstAttribute="top" secondItem="WOm-Sz-pHr" secondAttribute="bottom" constant="20" id="fuW-kj-1Eq"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="leading" secondItem="41b-vK-quH" secondAttribute="trailing" constant="-33" id="hed-bU-kJu"/>
-                                                    <constraint firstAttribute="trailing" secondItem="WOm-Sz-pHr" secondAttribute="trailing" constant="20" id="jCK-ah-3GZ"/>
-                                                    <constraint firstItem="qQ5-2u-Gis" firstAttribute="top" secondItem="WVu-5z-iDt" secondAttribute="bottom" constant="30" id="jF6-X1-iFC"/>
+                                                    <constraint firstItem="j2P-QK-IMl" firstAttribute="top" secondItem="Hs6-Ek-6E5" secondAttribute="bottom" constant="10" id="jJl-lp-4Z4"/>
+                                                    <constraint firstItem="Hs6-Ek-6E5" firstAttribute="top" secondItem="4J6-QL-fus" secondAttribute="bottom" constant="20" id="kDX-Om-der"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="leading" secondItem="JQs-bz-wfb" secondAttribute="trailing" constant="-229" id="kTn-Rd-7sp"/>
                                                     <constraint firstAttribute="trailing" secondItem="ot2-oR-fir" secondAttribute="trailing" constant="20" id="lx6-vb-rLV"/>
-                                                    <constraint firstAttribute="trailing" secondItem="qQ5-2u-Gis" secondAttribute="trailing" constant="20" id="nEx-ck-QdA"/>
-                                                    <constraint firstItem="WVu-5z-iDt" firstAttribute="top" secondItem="pVz-1g-i94" secondAttribute="bottom" constant="10" id="psp-7Y-eir"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qQ5-2u-Gis" secondAttribute="trailing" constant="20" id="pxh-To-FUp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WOm-Sz-pHr" secondAttribute="trailing" constant="20" id="tsr-qO-MDt"/>
+                                                    <constraint firstItem="j2P-QK-IMl" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="30" id="u6e-5E-Tzu"/>
                                                     <constraint firstItem="eDi-Cx-A6M" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="vAJ-B9-5zl"/>
                                                     <constraint firstItem="pVz-1g-i94" firstAttribute="top" secondItem="eHl-95-w6e" secondAttribute="top" constant="30" id="wTr-Ir-rPL"/>
+                                                    <constraint firstItem="WVu-5z-iDt" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="zA9-eQ-EoG"/>
+                                                    <constraint firstItem="WOm-Sz-pHr" firstAttribute="leading" secondItem="eHl-95-w6e" secondAttribute="leading" constant="20" id="zVR-RT-bJ4"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -6634,10 +6634,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nEf-FW-rep">
-                                <rect key="frame" x="20" y="262" width="335" height="45"/>
+                                <rect key="frame" x="20" y="262" width="335" height="55"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="zld-3x-9Ic"/>
+                                    <constraint firstAttribute="height" constant="55" id="zld-3x-9Ic"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="22"/>
                                 <state key="normal" title="Yes log me out">
@@ -6648,10 +6648,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WE4-Bz-fK3">
-                                <rect key="frame" x="20" y="339" width="335" height="45"/>
+                                <rect key="frame" x="20" y="349" width="335" height="55"/>
                                 <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="gA2-zX-blq"/>
+                                    <constraint firstAttribute="height" constant="55" id="gA2-zX-blq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="22"/>
                                 <state key="normal" title="Cancel">
@@ -6704,14 +6704,14 @@
             </objects>
             <point key="canvasLocation" x="5794" y="1865"/>
         </scene>
-        <!--View Controller-->
+        <!--Offline Notif View Controller-->
         <scene sceneID="ggd-oM-SH7">
             <objects>
-                <viewController id="jPc-cf-meO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="offlineNotifViewController" id="jPc-cf-meO" customClass="offlineNotifViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l6R-os-8Ca">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="229-ul-dbG"/>
                     </view>
                 </viewController>
@@ -7374,10 +7374,10 @@
             </objects>
             <point key="canvasLocation" x="2302" y="-556"/>
         </scene>
-        <!--View Controller-->
+        <!--Register View Controller-->
         <scene sceneID="oZV-if-joI">
             <objects>
-                <viewController id="ccb-Oq-7p6" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" id="ccb-Oq-7p6" customClass="RegisterViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9II-Kq-x30">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7475,10 +7475,10 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCP-5O-guh">
-                                                        <rect key="frame" x="20" y="295" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="295" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="Ubw-AZ-Jq9"/>
+                                                            <constraint firstAttribute="height" constant="55" id="Ubw-AZ-Jq9"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Register">
@@ -7486,10 +7486,10 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9d-sW-Tik">
-                                                        <rect key="frame" x="20" y="350" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="360" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="3cS-q8-gP6"/>
+                                                            <constraint firstAttribute="height" constant="55" id="3cS-q8-gP6"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Forgotten Password">
@@ -7500,16 +7500,16 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have a My Vodafone account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwa-o5-MhH">
-                                                        <rect key="frame" x="20" y="425" width="295" height="43"/>
+                                                        <rect key="frame" x="20" y="445" width="295" height="43"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96B-3F-oiV">
-                                                        <rect key="frame" x="20" y="484.5" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="504.5" width="295" height="55"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="9ox-di-OnZ"/>
+                                                            <constraint firstAttribute="height" constant="55" id="9ox-di-OnZ"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <state key="normal" title="Log in">
@@ -7637,12 +7637,12 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wWO-lO-NA1"/>
+        <segue reference="8jf-JN-F0J"/>
         <segue reference="dWe-yQ-gnn"/>
         <segue reference="LIk-QG-gFE"/>
         <segue reference="H4M-se-2eH"/>
         <segue reference="5Yx-Aa-kBB"/>
-        <segue reference="aQQ-rC-mCe"/>
-        <segue reference="e5Y-bD-t5N"/>
+        <segue reference="NbU-BM-Hrw"/>
+        <segue reference="kEk-um-KRT"/>
     </inferredMetricsTieBreakers>
 </document>

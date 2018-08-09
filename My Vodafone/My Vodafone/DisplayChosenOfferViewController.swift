@@ -19,6 +19,7 @@ class DisplayChosenOfferViewController: UIViewController {
     var offerPrice: String!
     var offerDescription: String!
     var offerPID: String!
+    var offerUSSD: String!
     
     let browseLabel = UILabel()
     
@@ -526,6 +527,8 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 self.offerPrice = dict.value(forKey: "PRICE") as! String
                                                 self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                                 self.offerPID = dict.value(forKey: "PID") as! String
+                                                self.offerUSSD = dict.value(forKey: "USSD") as! String
+                                                
                                                 
                                                 //creating the uiview
                                                 let offerView = GesturesView()
@@ -533,6 +536,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                                 offerView.offerPrice = self.offerPrice
                                                 offerView.offerDescription = self.offerDescription
                                                 offerView.offerPID = self.offerPID
+                                                offerView.offerUSSD = self.offerUSSD
                                                 self.scrollView.addSubview(offerView)
                                                 offerView.translatesAutoresizingMaskIntoConstraints = false
                                                 offerView.topAnchor.constraint(equalTo: self.appBackImage.bottomAnchor, constant: topAnchorConstraint).isActive = true
@@ -632,6 +636,7 @@ class DisplayChosenOfferViewController: UIViewController {
                             offerPrice = dict.value(forKey: "PRICE") as! String
                             offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                             offerPID = dict.value(forKey: "PID") as! String
+                            offerUSSD = dict.value(forKey: "USSD") as! String
                             
                             //creating the uiview
                             let offerView = GesturesView()
@@ -639,6 +644,7 @@ class DisplayChosenOfferViewController: UIViewController {
                             offerView.offerPrice = offerPrice
                             offerView.offerDescription = offerDescription
                             offerView.offerPID = offerPID
+                            offerView.offerUSSD = offerUSSD
                             self.scrollView.addSubview(offerView)
                             offerView.translatesAutoresizingMaskIntoConstraints = false
                             offerView.topAnchor.constraint(equalTo: self.appBackImage.bottomAnchor, constant: topAnchorConstraint).isActive = true
@@ -735,7 +741,7 @@ class DisplayChosenOfferViewController: UIViewController {
         if CheckInternet.Connection(){
 //            self.Alert(Message: "Connected")
         }else{
-            self.Alert(Message: "You're offline")
+//            self.Alert(Message: "You're offline")
         }
     }
     
@@ -796,6 +802,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             self.offerPrice = dict.value(forKey: "PRICE") as! String
                                             self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String
                                             self.offerPID = dict.value(forKey: "PID") as! String
+                                            self.offerUSSD = dict.value(forKey: "USSD") as! String
                                             
                                             //creating the uiview
                                             let offerView = GesturesView()
@@ -803,6 +810,7 @@ class DisplayChosenOfferViewController: UIViewController {
                                             offerView.offerPrice = self.offerPrice
                                             offerView.offerDescription = self.offerDescription
                                             offerView.offerPID = self.offerPID
+                                            offerView.offerUSSD = self.offerUSSD
                                             self.scrollView.addSubview(offerView)
                                             offerView.translatesAutoresizingMaskIntoConstraints = false
                                             offerView.topAnchor.constraint(equalTo: self.appBackImage.bottomAnchor, constant: topAnchorConstraint).isActive = true
@@ -916,6 +924,7 @@ class DisplayChosenOfferViewController: UIViewController {
         moveTo.selectedOfferPrice = gestureVariables.offerPrice!
         moveTo.selectedOfferDesc = gestureVariables.offerDescription!
         moveTo.selectedOfferPID = gestureVariables.offerPID!
+        moveTo.selectedUSSD = gestureVariables.offerUSSD!
         self.addChildViewController(moveTo)
         moveTo.view.frame = self.view.frame
         self.view.addSubview(moveTo.view)

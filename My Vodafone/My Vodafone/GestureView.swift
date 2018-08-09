@@ -14,4 +14,5 @@ class GesturesView: UIView {
     var offerPrice: String?
     var offerDescription: String?
     var offerPID: String?
+    var offerUSSD: String?
 }
