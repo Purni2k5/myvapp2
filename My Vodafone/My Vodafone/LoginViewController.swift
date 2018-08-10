@@ -118,7 +118,7 @@ class LoginViewController: UIViewController {
         request.httpMethod = "POST"
         
         //hash password
-        var securedPass = md5(rawPassword)
+        let securedPass = md5(rawPassword)
         let hashPass = securedPass.sha1()
         print("secured password: \(hashPass)")
         let postParameters:Dictionary<String, Any> = [

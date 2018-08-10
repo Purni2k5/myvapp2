@@ -6734,6 +6734,36 @@
             </objects>
             <point key="canvasLocation" x="7311" y="1864"/>
         </scene>
+        <!--Nointernet View Controller-->
+        <scene sceneID="sPW-XB-vMx">
+            <objects>
+                <viewController storyboardIdentifier="NointernetViewController" id="bG6-k4-VAs" customClass="NointernetViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mMk-TA-H1A">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="bDd-v8-u0y"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sId-dZ-fel" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8399" y="1864"/>
+        </scene>
+        <!--Account Conf View Controller-->
+        <scene sceneID="xch-Ed-TAj">
+            <objects>
+                <viewController storyboardIdentifier="AccountConfViewController" id="QRs-ct-9cZ" customClass="AccountConfViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qq8-yC-wek">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="1XP-yS-Mly"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q6j-V4-XwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9155" y="1878"/>
+        </scene>
         <!--Home Pre Paid View Controller-->
         <scene sceneID="I7o-yl-Ahg">
             <objects>
@@ -7411,21 +7441,21 @@
                                                 <rect key="frame" x="20" y="94.5" width="335" height="580"/>
                                                 <subviews>
                                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-rq-bkC">
-                                                        <rect key="frame" x="20" y="18" width="295" height="80"/>
+                                                        <rect key="frame" x="20" y="18" width="295" height="60"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="7pj-dK-d86"/>
+                                                            <constraint firstAttribute="height" constant="60" id="7pj-dK-d86"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="TYo-Tz-nPV">
-                                                        <rect key="frame" x="33" y="32" width="30" height="30"/>
+                                                        <rect key="frame" x="33" y="32" width="20" height="20"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="30" id="7IF-wG-oDB"/>
-                                                            <constraint firstAttribute="height" constant="30" id="Xum-La-Oi2"/>
+                                                            <constraint firstAttribute="width" constant="20" id="7IF-wG-oDB"/>
+                                                            <constraint firstAttribute="height" constant="20" id="Xum-La-Oi2"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zo-tD-X9a">
-                                                        <rect key="frame" x="71" y="36" width="145.5" height="15.5"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="18"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephone Number" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zo-tD-X9a">
+                                                        <rect key="frame" x="61" y="33" width="149" height="14"/>
+                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -7445,37 +7475,37 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXK-ny-b2I">
-                                                        <rect key="frame" x="20" y="113" width="295" height="15"/>
+                                                        <rect key="frame" x="20" y="110" width="295" height="15"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f9U-gS-Fc8">
-                                                        <rect key="frame" x="20" y="138" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="135" width="295" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="2rj-2l-las"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHz-RU-Grq">
-                                                        <rect key="frame" x="20" y="203" width="295" height="15"/>
+                                                        <rect key="frame" x="20" y="200" width="295" height="15"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Afb-EP-XLB">
-                                                        <rect key="frame" x="20" y="228" width="295" height="45"/>
+                                                        <rect key="frame" x="20" y="225" width="295" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="MVj-1K-6c1"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCP-5O-guh">
-                                                        <rect key="frame" x="20" y="295" width="295" height="55"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCP-5O-guh">
+                                                        <rect key="frame" x="20" y="292" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="55" id="Ubw-AZ-Jq9"/>
@@ -7484,9 +7514,12 @@
                                                         <state key="normal" title="Register">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="btnRegister:" destination="ccb-Oq-7p6" eventType="touchUpInside" id="oPj-Fl-mcI"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9d-sW-Tik">
-                                                        <rect key="frame" x="20" y="360" width="295" height="55"/>
+                                                        <rect key="frame" x="20" y="357" width="295" height="55"/>
                                                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="55" id="3cS-q8-gP6"/>
@@ -7500,13 +7533,13 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have a My Vodafone account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwa-o5-MhH">
-                                                        <rect key="frame" x="20" y="445" width="295" height="43"/>
+                                                        <rect key="frame" x="20" y="442" width="295" height="43"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96B-3F-oiV">
-                                                        <rect key="frame" x="20" y="504.5" width="295" height="55"/>
+                                                        <rect key="frame" x="20" y="501.5" width="295" height="55"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="55" id="9ox-di-OnZ"/>
@@ -7527,9 +7560,9 @@
                                                     <constraint firstAttribute="trailing" secondItem="wy7-1j-bzp" secondAttribute="trailing" constant="20" id="5ZZ-e5-Ewd"/>
                                                     <constraint firstItem="uXK-ny-b2I" firstAttribute="leading" secondItem="5gJ-We-TEk" secondAttribute="leading" constant="20" id="6GL-vH-Yyn"/>
                                                     <constraint firstItem="Afb-EP-XLB" firstAttribute="leading" secondItem="5gJ-We-TEk" secondAttribute="leading" constant="20" id="6hc-9z-1EC"/>
-                                                    <constraint firstItem="1zo-tD-X9a" firstAttribute="top" secondItem="5gJ-We-TEk" secondAttribute="top" constant="36" id="F8C-NR-J3e"/>
+                                                    <constraint firstItem="1zo-tD-X9a" firstAttribute="top" secondItem="5gJ-We-TEk" secondAttribute="top" constant="33" id="F8C-NR-J3e"/>
                                                     <constraint firstItem="A9d-sW-Tik" firstAttribute="top" secondItem="iCP-5O-guh" secondAttribute="bottom" constant="10" id="FEL-Hn-jxI"/>
-                                                    <constraint firstItem="uXK-ny-b2I" firstAttribute="top" secondItem="cP8-rq-bkC" secondAttribute="bottom" constant="15" id="G59-R9-cy1"/>
+                                                    <constraint firstItem="uXK-ny-b2I" firstAttribute="top" secondItem="kYf-lk-7Ma" secondAttribute="bottom" constant="20" id="G59-R9-cy1"/>
                                                     <constraint firstAttribute="trailing" secondItem="96B-3F-oiV" secondAttribute="trailing" constant="20" id="GqJ-bn-6Or"/>
                                                     <constraint firstItem="A9d-sW-Tik" firstAttribute="leading" secondItem="5gJ-We-TEk" secondAttribute="leading" constant="20" id="OVc-t0-4Ra"/>
                                                     <constraint firstItem="iCP-5O-guh" firstAttribute="leading" secondItem="5gJ-We-TEk" secondAttribute="leading" constant="20" id="RaY-N1-6ea"/>
@@ -7541,6 +7574,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="iCP-5O-guh" secondAttribute="trailing" constant="20" id="YEn-kM-ar5"/>
                                                     <constraint firstItem="DHz-RU-Grq" firstAttribute="top" secondItem="f9U-gS-Fc8" secondAttribute="bottom" constant="20" id="aU5-8j-AKP"/>
                                                     <constraint firstItem="kYf-lk-7Ma" firstAttribute="top" secondItem="wy7-1j-bzp" secondAttribute="bottom" constant="10" id="az6-2x-ptK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="96B-3F-oiV" secondAttribute="bottom" constant="23.5" id="bas-83-CeG"/>
                                                     <constraint firstItem="f9U-gS-Fc8" firstAttribute="top" secondItem="uXK-ny-b2I" secondAttribute="bottom" constant="10" id="ccn-Bl-51y"/>
                                                     <constraint firstItem="96B-3F-oiV" firstAttribute="top" secondItem="Dwa-o5-MhH" secondAttribute="bottom" constant="16" id="dKO-6A-WH1"/>
                                                     <constraint firstItem="1zo-tD-X9a" firstAttribute="leading" secondItem="TYo-Tz-nPV" secondAttribute="trailing" constant="8" id="e5W-xT-YYo"/>
@@ -7554,7 +7588,7 @@
                                                     <constraint firstItem="96B-3F-oiV" firstAttribute="leading" secondItem="5gJ-We-TEk" secondAttribute="leading" constant="20" id="nk7-af-a4f"/>
                                                     <constraint firstItem="TYo-Tz-nPV" firstAttribute="top" secondItem="5gJ-We-TEk" secondAttribute="top" constant="32" id="qkK-a5-EEV"/>
                                                     <constraint firstAttribute="trailing" secondItem="A9d-sW-Tik" secondAttribute="trailing" constant="20" id="t1E-LV-KwV"/>
-                                                    <constraint firstItem="cP8-rq-bkC" firstAttribute="leading" secondItem="1zo-tD-X9a" secondAttribute="trailing" constant="-196.5" id="t3D-6i-6JM"/>
+                                                    <constraint firstItem="cP8-rq-bkC" firstAttribute="leading" secondItem="1zo-tD-X9a" secondAttribute="trailing" constant="-190" id="t3D-6i-6JM"/>
                                                     <constraint firstAttribute="trailing" secondItem="uXK-ny-b2I" secondAttribute="trailing" constant="20" id="uRu-Dv-JSP"/>
                                                     <constraint firstItem="cP8-rq-bkC" firstAttribute="top" secondItem="5gJ-We-TEk" secondAttribute="top" constant="18" id="uz0-Oh-sTs"/>
                                                     <constraint firstAttribute="trailing" secondItem="DHz-RU-Grq" secondAttribute="trailing" constant="20" id="v84-4X-K0R"/>
@@ -7601,10 +7635,20 @@
                         <viewLayoutGuide key="safeArea" id="wcF-QK-RLF"/>
                     </view>
                     <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="errorDialogBg" destination="cP8-rq-bkC" id="aU0-Aw-k8x"/>
+                        <outlet property="errorMessage" destination="1zo-tD-X9a" id="SNf-Sp-nWr"/>
+                        <outlet property="info" destination="TYo-Tz-nPV" id="ogS-na-qn0"/>
+                        <outlet property="register" destination="iCP-5O-guh" id="bHB-qZ-w73"/>
+                        <outlet property="txtPassword" destination="f9U-gS-Fc8" id="Xj8-lX-Czi"/>
+                        <outlet property="txtPhoneNumber" destination="Afb-EP-XLB" id="Zbt-Jt-W0x"/>
+                        <outlet property="txtUsername" destination="kYf-lk-7Ma" id="uV8-tl-i2P"/>
+                        <outlet property="usernameTopConstraints" destination="2xL-ZC-YsV" id="Zu7-ef-qsj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ki-eW-zJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="-1231"/>
+            <point key="canvasLocation" x="1538" y="-1184"/>
         </scene>
     </scenes>
     <resources>

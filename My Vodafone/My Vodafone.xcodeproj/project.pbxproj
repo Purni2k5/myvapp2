@@ -25,6 +25,8 @@
 		0160449F21187759008BD98F /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160449E21187759008BD98F /* GestureView.swift */; };
 		016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */; };
 		016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */; };
+		016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */; };
+		016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -92,6 +94,8 @@
 		0160449E21187759008BD98F /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
 		016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = offlineNotifViewController.swift; sourceTree = "<group>"; };
 		016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NointernetViewController.swift; sourceTree = "<group>"; };
+		016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfViewController.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
 				016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */,
 				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
+				016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */,
+				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
+				016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */,
 				0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */,
 				0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */,
 				016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */,
@@ -400,6 +407,7 @@
 				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
+				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

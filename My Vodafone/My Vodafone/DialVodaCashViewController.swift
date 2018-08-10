@@ -95,6 +95,7 @@ class DialVodaCashViewController: UIViewController {
         contButton.translatesAutoresizingMaskIntoConstraints = false
         contButton.setTitle("Continue", for: .normal)
         contButton.setTitleColor(UIColor.white, for: .normal)
+        contButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
         contButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         contButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         contButton.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: 30).isActive = true
@@ -108,6 +109,7 @@ class DialVodaCashViewController: UIViewController {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(UIColor.white, for: .normal)
+        cancelButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
         cancelButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         cancelButton.topAnchor.constraint(equalTo: contButton.bottomAnchor, constant: 20).isActive = true

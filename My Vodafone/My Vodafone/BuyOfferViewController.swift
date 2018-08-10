@@ -82,8 +82,6 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let activity_loader = UIActivityIndicatorView()
         activity_loader.translatesAutoresizingMaskIntoConstraints = false
         activity_loader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-//        activity_loader.color = UIColor.vodaRed
-        //        activity_loader.backgroundColor = UIColor.cardImageColour
         activity_loader.startAnimating()
         activity_loader.hidesWhenStopped = true
         activity_loader.isHidden = false
