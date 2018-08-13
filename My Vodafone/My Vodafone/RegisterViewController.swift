@@ -49,10 +49,6 @@ class RegisterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         txtPhoneNumber.addTarget(self, action: #selector(checkInputFields), for: .editingChanged)
-        
-    }
-
-    override func viewDidLayoutSubviews() {
         activity_loader.isHidden = true
     }
     
@@ -62,6 +58,8 @@ class RegisterViewController: UIViewController {
         password = txtPassword.text
         msisdn = txtPhoneNumber.text
         txtPhoneNumber.resignFirstResponder()
+        txtUsername.resignFirstResponder()
+        txtPassword.resignFirstResponder()
         //First check for internet connection
         if !CheckInternet.Connection(){
             let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController")
@@ -72,7 +70,6 @@ class RegisterViewController: UIViewController {
         }else{
             if username != "" && password != "" && msisdn != "" {
                 //Check if username contains space
-                
                 if username!.contains(" "){
                     displayErrorMessage(errorMess: "Username should not contain spaces")
                 }else{
@@ -85,6 +82,7 @@ class RegisterViewController: UIViewController {
                     password = md5(password!)
                     password = password?.sha1()
                     passClone = password
+                    print("hash \(passClone!)")
                     
                     let postParameters: Dictionary<String, Any> = [
                         "action":"createNewAccount",
@@ -107,18 +105,62 @@ class RegisterViewController: UIViewController {
                             data, response, error in
                             if error != nil {
                                 print("error is:: \(error!.localizedDescription)")
-                                self.stop_activity_loader()
+                                DispatchQueue.main.async {
+                                    self.stop_activity_loader()
+                                    self.displayErrorMessage(errorMess: error!.localizedDescription)
+                                }
+                                
                                 return;
+                            }
+                            
+                            //parsing response
+                            do {
+                                //converting response to NSDictionary
+                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                DispatchQueue.main.async {
+                                    if let parsJSON = myJSON {
+                                        
+                                        var responseCode: Int!
+                                        var responseMessage: String!
+                                        var responseData: NSDictionary!
+                                        var username: String!
+                                        
+                                        //getting the json response
+                                        responseCode = parsJSON["RESPONSECODE"] as! Int?
+                                        responseMessage = parsJSON["RESPONSEMESSAGE"] as! String?
+                                        
+//                                        DispatchQueue.main.async {
+                                            if responseCode == 1{
+                                                self.displayErrorMessage(errorMess: responseMessage)
+                                            }else{
+                                                responseData = parsJSON["RESPONSEDATA"] as! NSDictionary?
+                                                username = responseData["Username"] as! String?
+                                                guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "AccountConfViewController") as? AccountConfViewController else{return}
+                                                moveTo.username = username
+                                                moveTo.responseMessage = responseMessage //A message containing a verification code has been sent to 0503088509. Use this code to activate your account within 5 minutes.
+                                                self.present(moveTo, animated: true, completion: nil)
+                                            }
+                                            
+                                            self.stop_activity_loader()
+//                                        }
+                                    }else{
+                                        self.stop_activity_loader()
+                                        self.displayErrorMessage(errorMess: "Sorry could not process your request try again later!")
+                                    }
+                                }
+                                
+                                
+                            }catch {
+                                print("catch error:: \(error.localizedDescription)")
+                                self.stop_activity_loader()
                             }
                         }
                         task.resume()
                     }
                 }
                 
-//                let moveTo = storyboard?.instantiateViewController(withIdentifier: "AccountConfViewController")
-//                present(moveTo!, animated: true, completion: nil)
             }else{
-                print("Some fields are empty")
+                displayErrorMessage(errorMess: "All fields are mandatory")
             }
         }
     }
@@ -134,7 +176,7 @@ class RegisterViewController: UIViewController {
         totalmsisdn = msisdn?.count
         password = txtPassword.text
         totalPassChar = password?.count
-        if totalmsisdn! == 10 && totalPassChar! >= 4 && password != "" && username != "" {
+        if totalmsisdn! == 10 && totalPassChar! >= 5 && password != "" && username != "" {
             register.backgroundColor = UIColor.vodaRed
             register.isEnabled = true
         }else{

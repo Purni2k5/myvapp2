@@ -10,6 +10,17 @@ import UIKit
 
 class AccountConfViewController: UIViewController {
     
+    var responseMessage:String?
+    var username: String?
+    var activationCode: String?
+    var totalOTP: Int?
+    
+    let txtOTP = UITextField()
+    let confirmButton = UIButton()
+    let lblMessage = UILabel()
+    
+    let preference = UserDefaults.standard
+    
     //create closure for image view
     let closureImage: UIImageView = {
        let view = UIImageView()
@@ -32,7 +43,24 @@ class AccountConfViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         return view
     }()
+    
+    //create activity loader closure
+    let activity_loader: UIActivityIndicatorView = {
+        let activity_loader = UIActivityIndicatorView()
+        activity_loader.translatesAutoresizingMaskIntoConstraints = false
+        activity_loader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activity_loader.startAnimating()
+        activity_loader.hidesWhenStopped = true
+        activity_loader.isHidden = true
+        return activity_loader
+        
+    }()
 
+    override func viewDidAppear(_ animated: Bool) {
+        txtOTP.addTarget(self, action: #selector(enableConfirmButton), for: .editingChanged)
+        activity_loader.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
@@ -107,7 +135,7 @@ class AccountConfViewController: UIViewController {
         darkView.translatesAutoresizingMaskIntoConstraints = false
         darkView.backgroundColor = UIColor.black.withAlphaComponent(0.70)
         darkView.isOpaque = false
-        darkView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        darkView.heightAnchor.constraint(equalToConstant: 320).isActive = true
         darkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
         darkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
         darkView.topAnchor.constraint(equalTo: actDesc.bottomAnchor, constant: 30).isActive = true
@@ -123,7 +151,7 @@ class AccountConfViewController: UIViewController {
         lblConfirmPin.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 20).isActive = true
         
         //txt otp
-        let txtOTP = UITextField()
+        
         scrollView.addSubview(txtOTP)
         txtOTP.translatesAutoresizingMaskIntoConstraints = false
         txtOTP.heightAnchor.constraint(equalToConstant: 45).isActive = true
@@ -137,7 +165,7 @@ class AccountConfViewController: UIViewController {
         txtOTP.keyboardType = .numberPad
         
         //confirm
-        let confirmButton = UIButton()
+        
         scrollView.addSubview(confirmButton)
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         confirmButton.backgroundColor = UIColor.grayButton
@@ -147,6 +175,8 @@ class AccountConfViewController: UIViewController {
         confirmButton.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
         confirmButton.topAnchor.constraint(equalTo: txtOTP.bottomAnchor, constant: 30).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        confirmButton.isEnabled = false
+        confirmButton.addTarget(self, action: #selector(verifyOTP), for: .touchUpInside)
         
         //cancel
         let cancelButton = UIButton()
@@ -158,20 +188,152 @@ class AccountConfViewController: UIViewController {
         cancelButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
         cancelButton.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
         cancelButton.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 10).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 20).isActive = true
         cancelButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         cancelButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
+        //View to hold message
+        let messageUIView = UIView()
+        scrollView.addSubview(messageUIView)
+        messageUIView.translatesAutoresizingMaskIntoConstraints = false
+        messageUIView.backgroundColor = UIColor.black.withAlphaComponent(0.80)
+        messageUIView.isOpaque = false
+        messageUIView.widthAnchor.constraint(equalTo: motherView.widthAnchor).isActive = true
+        messageUIView.bottomAnchor.constraint(equalTo: motherView.bottomAnchor, constant: 0).isActive = true
+        messageUIView.heightAnchor.constraint(equalToConstant: 110).isActive = true
+        
+        //label to hold message to user
+        
+        scrollView.addSubview(lblMessage)
+        lblMessage.translatesAutoresizingMaskIntoConstraints = false
+        lblMessage.textColor = UIColor.white
+        lblMessage.font = UIFont(name: String.defaultFontR, size: 16)
+        lblMessage.text = responseMessage
+        lblMessage.leadingAnchor.constraint(equalTo: messageUIView.leadingAnchor, constant: 10).isActive = true
+        lblMessage.trailingAnchor.constraint(equalTo: messageUIView.trailingAnchor, constant: -10).isActive = true
+        lblMessage.topAnchor.constraint(equalTo: messageUIView.topAnchor, constant: 60).isActive = true
+        lblMessage.numberOfLines = 0
+        lblMessage.lineBreakMode = .byWordWrapping
+        
         scrollView.contentSize.height = (view.frame.size.height + accountLbl.frame.size.height + actDesc.frame.size.height + darkView.frame.size.height + lblConfirmPin.frame.size.height + txtOTP.frame.size.height + confirmButton.frame.size.height + cancelButton.frame.size.height)
+        
+        scrollView.addSubview(activity_loader)
+        activity_loader.topAnchor.constraint(equalTo: txtOTP.bottomAnchor, constant: 30).isActive = true
+        activity_loader.centerXAnchor.constraint(equalTo: motherView.centerXAnchor).isActive = true
     }
     
     
-    
+    //Function to check input activity and enable confirm button
+    @objc func enableConfirmButton(){
+        activationCode = txtOTP.text
+        totalOTP = activationCode?.count
+        if totalOTP! >= 5 {
+            confirmButton.isEnabled = true
+            confirmButton.backgroundColor = UIColor.vodaRed
+        }
+    }
     //Function to go back
     @objc func goBack(){
         
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
         present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        confirmButton.isHidden = true
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        confirmButton.isHidden = false
+    }
+    
+    
+    //Function to verfify OTP
+    @objc func verifyOTP(){
+        let postParameters:Dictionary<String, Any> = [
+            "action":"activateAccount",
+            "username":username!,
+            "activationCode":activationCode!
+        ]
+        //Check if txt field is empty
+        if txtOTP.text == ""{
+            lblMessage.text = "Activation pin cannot be blank"
+        }else{
+            //Now check for internet connection
+            if !CheckInternet.Connection(){
+                let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController")
+                self.addChildViewController(moveTo!)
+                moveTo!.view.frame = self.view.frame
+                self.view.addSubview(moveTo!.view)
+                moveTo!.didMove(toParentViewController: self)
+            }else{
+                let asyn_api = URL(string: String.userSVC)
+                let request = NSMutableURLRequest(url: asyn_api!)
+                request.httpMethod = "POST"
+                
+                //Convert to JSON
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)) {
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    
+                    //creating a task to send request
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
+                            print("error is:: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                //TODO
+                                self.stop_activity_loader()
+                            }
+                            return;
+                        }
+                        
+                        //Parsing the response
+                        do {
+                            //converting response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            DispatchQueue.main.async {
+                                if let parseJSON = myJSON{
+                                    var responseCode: Int!
+                                    var responseData: NSDictionary!
+                                    var responseMessage: String!
+                                    
+                                    //getting the json response
+                                    responseCode = parseJSON["RESPONSECODE"] as! Int?
+                                    responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    
+                                    if responseCode == 1 {
+                                        self.lblMessage.text = responseMessage
+                                        self.stop_activity_loader()
+                                    }else{
+                                        self.stop_activity_loader()
+                                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                                        self.preference.set("Yes", forKey: "loginStatus")
+                                        self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                                        self.preference.set(responseData, forKey: "responseData")
+                                        
+                                        //go to home screen
+                                        let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
+                                        self.present(moveTo!, animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        }catch{
+                            print("catch:: \(error.localizedDescription)")
+                        }
+                    }
+                    task.resume()
+                }
+            }
+        }
+        
     }
 
 }

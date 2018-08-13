@@ -27,8 +27,8 @@ class LoginViewController: UIViewController {
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    //https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc
-    let login_api = URL(string: "http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc")
+    //http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc
+    let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
     let preference = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -67,14 +67,25 @@ class LoginViewController: UIViewController {
             error_dialog_bg.isHidden = true
             img_info.isHidden = true
             errorMessage.isHidden = true
-            startAsyncLoader()
+            
             let userData = [
                 "username":username,
                 "password":password
             ]
             txtUsername.resignFirstResponder()
             txtPassword.resignFirstResponder()
-            callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
+            
+            //check if there is internet connection
+            if !CheckInternet.Connection(){
+                let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController")
+                self.addChildViewController(moveTo!)
+                moveTo!.view.frame = self.view.frame
+                self.view.addSubview(moveTo!.view)
+                moveTo!.didMove(toParentViewController: self)
+            }else{
+                startAsyncLoader()
+               callLoginToAccount(url: login_api!, rawPassword: password!, username: username!)
+            }
             
         }
     }
@@ -134,7 +145,16 @@ class LoginViewController: UIViewController {
             let task = URLSession.shared.dataTask(with: request as URLRequest){
                 data, response, error in
                 if error != nil{
-                    print("error is \(error)")
+                    print("error is \(error!.localizedDescription)")
+                    DispatchQueue.main.async {
+                        //Todo
+                        self.stopAsyncLoader()
+                        self.errorMessage.isHidden = false
+                        self.img_info.isHidden = false
+                        self.error_dialog_bg.isHidden = false
+                        self.errorMessage.text = error!.localizedDescription
+                        self.usernameTopConstraint.constant = 90
+                    }
                     return;
                 }
                 //parsing the response
