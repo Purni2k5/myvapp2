@@ -31,7 +31,7 @@ class toppingUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         indicator.isHidden = true
 
         // change close btn colour.

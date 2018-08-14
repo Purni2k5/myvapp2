@@ -33,6 +33,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
 
         // Do any additional setup after loading the view.
         loginHeader.text = "Log in to \nMy Vodafone"

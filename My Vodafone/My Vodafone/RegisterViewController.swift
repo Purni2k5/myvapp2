@@ -33,9 +33,9 @@ class RegisterViewController: UIViewController {
         let activity_loader = UIActivityIndicatorView()
         activity_loader.translatesAutoresizingMaskIntoConstraints = false
         activity_loader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        activity_loader.startAnimating()
+        
         activity_loader.hidesWhenStopped = true
-        activity_loader.isHidden = false
+        
         return activity_loader
         
     }()
@@ -44,7 +44,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,7 +128,7 @@ class RegisterViewController: UIViewController {
                                         //getting the json response
                                         responseCode = parsJSON["RESPONSECODE"] as! Int?
                                         responseMessage = parsJSON["RESPONSEMESSAGE"] as! String?
-                                        
+                                        print(parsJSON)
 //                                        DispatchQueue.main.async {
                                             if responseCode == 1{
                                                 self.displayErrorMessage(errorMess: responseMessage)

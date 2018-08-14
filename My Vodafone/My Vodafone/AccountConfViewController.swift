@@ -49,9 +49,7 @@ class AccountConfViewController: UIViewController {
         let activity_loader = UIActivityIndicatorView()
         activity_loader.translatesAutoresizingMaskIntoConstraints = false
         activity_loader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        activity_loader.startAnimating()
         activity_loader.hidesWhenStopped = true
-        activity_loader.isHidden = true
         return activity_loader
         
     }()
@@ -64,6 +62,7 @@ class AccountConfViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        self.hideKeyboardWhenTappedAround()
     }
 
     //Setup views
@@ -256,6 +255,7 @@ class AccountConfViewController: UIViewController {
     
     //Function to verfify OTP
     @objc func verifyOTP(){
+        txtOTP.resignFirstResponder()
         let postParameters:Dictionary<String, Any> = [
             "action":"activateAccount",
             "username":username!,
@@ -273,6 +273,7 @@ class AccountConfViewController: UIViewController {
                 self.view.addSubview(moveTo!.view)
                 moveTo!.didMove(toParentViewController: self)
             }else{
+                start_activity_loader()
                 let asyn_api = URL(string: String.userSVC)
                 let request = NSMutableURLRequest(url: asyn_api!)
                 request.httpMethod = "POST"
@@ -291,6 +292,7 @@ class AccountConfViewController: UIViewController {
                             DispatchQueue.main.async {
                                 //TODO
                                 self.stop_activity_loader()
+                                self.lblMessage.text = error!.localizedDescription
                             }
                             return;
                         }
@@ -313,12 +315,12 @@ class AccountConfViewController: UIViewController {
                                         self.lblMessage.text = responseMessage
                                         self.stop_activity_loader()
                                     }else{
-                                        self.stop_activity_loader()
+                                        
                                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                                         self.preference.set("Yes", forKey: "loginStatus")
                                         self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
                                         self.preference.set(responseData, forKey: "responseData")
-                                        
+                                        self.stop_activity_loader()
                                         //go to home screen
                                         let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
                                         self.present(moveTo!, animated: true, completion: nil)

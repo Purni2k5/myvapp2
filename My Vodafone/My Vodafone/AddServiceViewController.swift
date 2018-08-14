@@ -46,6 +46,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDataSource, UIPick
         changeMenuIconColour()
         //code to change image colours
         self.perform(#selector(changeMenuIconsToWhite), with: nil, afterDelay: 0)
+        self.hideKeyboardWhenTappedAround()
     }
 
     override func didReceiveMemoryWarning() {
