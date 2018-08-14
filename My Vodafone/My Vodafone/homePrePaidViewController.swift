@@ -54,13 +54,13 @@ class homePrePaidViewController: UIViewController {
         
         //get any user default value
         let food = ["Rice", "Yam", "Coffee"]
-        let loginStat = preference.object(forKey: "loginStatus")
-        let responseData = preference.object(forKey: "responseData")
+//        let loginStat = preference.object(forKey: "loginStatus")
+//        let responseData = preference.object(forKey: "responseData")
         
         
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         preference.set(food, forKey: "food")
-        let sell = preference.object(forKey: "food")
+//        let sell = preference.object(forKey: "food")
         let defaultService = UserData["DefaultService"] as! String
         
         let Services = preference.object(forKey: "ServiceList")

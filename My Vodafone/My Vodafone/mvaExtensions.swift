@@ -47,4 +47,5 @@ extension String {
     static let offers = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/DBEnpoints"
     static let buyPackage = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
     static let userSVC = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc"
+    static let userURL = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
 }

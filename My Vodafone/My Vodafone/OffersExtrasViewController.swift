@@ -27,6 +27,9 @@ class OffersExtrasViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    let asycURL = URL(string: String.userURL)
+    let preferences = UserDefaults.standard
+    
     //Offers UIVIEWS
     @IBOutlet weak var planCard: CardView!
     @IBOutlet weak var dataBundlesCard: CardView!
@@ -36,6 +39,13 @@ class OffersExtrasViewController: UIViewController {
     @IBOutlet weak var fixedBBCard: CardView!
     @IBOutlet weak var servicesCard: CardView!
     @IBOutlet weak var planDesc: UITextView!
+    @IBOutlet weak var darkView: UIView!
+    
+    var offerContent: String?
+    var offerImage: String?
+    var offerTitle: String?
+    var suggestionLabel:String?
+    var suggestionScreen: String?
     
     //create a closure for error view
     let errorView: UIView = {
@@ -81,8 +91,76 @@ class OffersExtrasViewController: UIViewController {
         changeImageToWhite()
         //Call gestures on all cards
         addGesturesToCards()
+        let responseData = preferences.object(forKey: "responseData") as! NSDictionary
+        let username = responseData["Username"] as! String
+        let msisdn = responseData["Contact"] as! String
         
 //        setUpViews()
+        //Download offer details
+        let request = NSMutableURLRequest(url: asycURL!)
+        request.httpMethod = "POST"
+        
+        let postParameters: Dictionary<String, Any> = [
+            "action":"offers",
+            "msisdn":msisdn,
+            "username":username
+        ]
+        
+        //convert post parameters to json
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            //create a task to send reques
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    return;
+                }
+                //parsing the response
+                do {
+                    // converting response to NSDictionary
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    DispatchQueue.main.async {
+                        if let parseJSON = myJSON{
+                            var responseCode: Int!
+                            var responseMessage: NSArray!
+                            
+                            //getting the json response
+                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
+                            
+                            if responseCode == 0 {
+                                for obj in responseMessage{
+                                    if let dict = obj as? NSDictionary{
+                                        self.offerContent = dict.value(forKey: "CONTENT") as? String
+                                        self.offerTitle = dict.value(forKey: "TITLE") as? String
+                                        self.suggestionLabel = dict.value(forKey: "SUGGESTION_LABEL") as? String
+                                        self.suggestionScreen = dict.value(forKey: "SUGGESTION_SCREEN") as? String
+                                        self.offerImage = dict.value(forKey: "IMAGE") as? String
+//                                        print("image:: \(self.offerImage!)")
+                                        
+                                        
+                                    }
+                                }
+                            }
+                            
+                            print(parseJSON)
+                        }
+                        }
+                }catch{
+                    print("catch:: \(error.localizedDescription)")
+                }
+                
+            }
+            task.resume()
+        }
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
