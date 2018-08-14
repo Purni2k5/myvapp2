@@ -40,6 +40,9 @@ class OffersExtrasViewController: UIViewController {
     @IBOutlet weak var servicesCard: CardView!
     @IBOutlet weak var planDesc: UITextView!
     @IBOutlet weak var darkView: UIView!
+    let headIconImage = UIImageView(image: #imageLiteral(resourceName: "ic_mobile"))
+    let headImage = UIImageView(image: #imageLiteral(resourceName: "head_bg"))
+    let bottomImage = UIImageView(image: #imageLiteral(resourceName: "bottom_bg"))
     
     var offerContent: String?
     var offerImage: String?
@@ -95,6 +98,40 @@ class OffersExtrasViewController: UIViewController {
         let username = responseData["Username"] as! String
         let msisdn = responseData["Contact"] as! String
         
+        let whiteUIView = UIView()
+        scrollView.addSubview(whiteUIView)
+        whiteUIView.translatesAutoresizingMaskIntoConstraints = false
+        whiteUIView.backgroundColor = UIColor.white
+        whiteUIView.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        whiteUIView.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
+        whiteUIView.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 0).isActive = true
+        whiteUIView.bottomAnchor.constraint(equalTo: darkView.bottomAnchor, constant: -30).isActive = true
+        
+        whiteUIView.addSubview(headImage)
+        headImage.translatesAutoresizingMaskIntoConstraints = false
+        headImage.leadingAnchor.constraint(equalTo: whiteUIView.leadingAnchor).isActive = true
+        headImage.trailingAnchor.constraint(equalTo: whiteUIView.trailingAnchor).isActive = true
+        headImage.topAnchor.constraint(equalTo: whiteUIView.topAnchor).isActive = true
+        headImage.contentMode = .scaleAspectFill
+        
+        
+        whiteUIView.addSubview(headIconImage)
+        headIconImage.translatesAutoresizingMaskIntoConstraints = false
+        headIconImage.image = headIconImage.image?.withRenderingMode(.alwaysTemplate)
+        headIconImage.tintColor = UIColor.white
+        headIconImage.centerXAnchor.constraint(equalTo: headImage.centerXAnchor).isActive = true
+        headIconImage.topAnchor.constraint(equalTo: headImage.topAnchor, constant: 5).isActive = true
+        headIconImage.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        headIconImage.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
+        whiteUIView.addSubview(bottomImage)
+        bottomImage.translatesAutoresizingMaskIntoConstraints = false
+        bottomImage.leadingAnchor.constraint(equalTo: whiteUIView.leadingAnchor).isActive = true
+        bottomImage.trailingAnchor.constraint(equalTo: whiteUIView.trailingAnchor).isActive = true
+        bottomImage.bottomAnchor.constraint(equalTo: whiteUIView.bottomAnchor).isActive = true
+        bottomImage.contentMode = .scaleAspectFill
+        
 //        setUpViews()
         //Download offer details
         let request = NSMutableURLRequest(url: asycURL!)
@@ -141,8 +178,36 @@ class OffersExtrasViewController: UIViewController {
                                         self.suggestionLabel = dict.value(forKey: "SUGGESTION_LABEL") as? String
                                         self.suggestionScreen = dict.value(forKey: "SUGGESTION_SCREEN") as? String
                                         self.offerImage = dict.value(forKey: "IMAGE") as? String
-//                                        print("image:: \(self.offerImage!)")
+                                        print("image:: \(self.offerImage!)")
                                         
+                                        let lblTitle = UILabel()
+                                        self.scrollView.addSubview(lblTitle)
+                                        lblTitle.translatesAutoresizingMaskIntoConstraints = false
+                                        lblTitle.textColor = UIColor.white
+                                        lblTitle.text = self.offerTitle
+                                        lblTitle.font = UIFont(name: String.defaultFontR, size: 20)
+                                        lblTitle.topAnchor.constraint(equalTo: self.headIconImage.bottomAnchor, constant: 15).isActive = true
+                                        lblTitle.centerXAnchor.constraint(equalTo: self.headImage.centerXAnchor).isActive = true
+                                        
+                                        let lblContent = UILabel()
+                                        self.scrollView.addSubview(lblContent)
+                                        lblContent.translatesAutoresizingMaskIntoConstraints = false
+                                        lblContent.textColor = UIColor.white
+                                        lblContent.text = self.offerContent
+                                        lblContent.font = UIFont(name: String.defaultFontR, size: 15)
+                                        lblContent.topAnchor.constraint(equalTo: self.bottomImage.topAnchor, constant: 15).isActive = true
+                                        lblContent.leadingAnchor.constraint(equalTo: self.bottomImage.leadingAnchor, constant: 20).isActive = true
+                                        lblContent.trailingAnchor.constraint(equalTo: self.bottomImage.trailingAnchor, constant: -20).isActive = true
+                                        lblContent.numberOfLines = 0
+                                        lblContent.lineBreakMode = .byWordWrapping
+//                                        headImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                                        /*let offerImageView = UIImageView()
+                                        self.scrollView.addSubview(offerImageView)
+                                        offerImageView.translatesAutoresizingMaskIntoConstraints = false
+                                        offerImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+                                        offerImageView.widthAnchor.constraint(equalTo: self.darkView.widthAnchor).isActive = true
+                                        offerImageView.topAnchor.constraint(equalTo: self.darkView.topAnchor, constant: 40).isActive = true
+                                        offerImageView.sd_setImage(with: URL(string: "https://pixel.nymag.com/imgs/daily/vulture/2018/08/13/13-sabrina2.w432.h288.2x.jpg"), placeholderImage: UIImage(named: "ic_close"), options: [.continueInBackground, .progressiveDownload])*/
                                         
                                     }
                                 }
