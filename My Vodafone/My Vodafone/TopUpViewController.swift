@@ -46,7 +46,11 @@ class TopUpViewController: UIViewController {
     
     @objc func showTopUp(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "toppingUpViewController")
-        present(moveTo!, animated: true, completion: nil)
+//        present(moveTo!, animated: true, completion: nil)
+        self.addChildViewController(moveTo!)
+        moveTo!.view.frame = self.view.frame
+        self.view.addSubview(moveTo!.view)
+        moveTo!.didMove(toParentViewController: self)
     }
     
     
