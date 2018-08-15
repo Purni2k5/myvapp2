@@ -98,24 +98,25 @@ class OffersExtrasViewController: UIViewController {
         let username = responseData["Username"] as! String
         let msisdn = responseData["Contact"] as! String
         
+        
         let whiteUIView = UIView()
         scrollView.addSubview(whiteUIView)
         whiteUIView.translatesAutoresizingMaskIntoConstraints = false
         whiteUIView.backgroundColor = UIColor.white
+        whiteUIView.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 100).isActive = true
         whiteUIView.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
         whiteUIView.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
-        whiteUIView.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 0).isActive = true
-        whiteUIView.bottomAnchor.constraint(equalTo: darkView.bottomAnchor, constant: -30).isActive = true
+        whiteUIView.heightAnchor.constraint(equalToConstant: 230).isActive = true
         
-        whiteUIView.addSubview(headImage)
+        scrollView.addSubview(headImage)
         headImage.translatesAutoresizingMaskIntoConstraints = false
-        headImage.leadingAnchor.constraint(equalTo: whiteUIView.leadingAnchor).isActive = true
-        headImage.trailingAnchor.constraint(equalTo: whiteUIView.trailingAnchor).isActive = true
-        headImage.topAnchor.constraint(equalTo: whiteUIView.topAnchor).isActive = true
+        headImage.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        headImage.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
+        headImage.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 40).isActive = true
+        headImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
         headImage.contentMode = .scaleAspectFill
         
-        
-        whiteUIView.addSubview(headIconImage)
+        scrollView.addSubview(headIconImage)
         headIconImage.translatesAutoresizingMaskIntoConstraints = false
         headIconImage.image = headIconImage.image?.withRenderingMode(.alwaysTemplate)
         headIconImage.tintColor = UIColor.white
@@ -125,11 +126,14 @@ class OffersExtrasViewController: UIViewController {
         headIconImage.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         
-        whiteUIView.addSubview(bottomImage)
+        
+        scrollView.addSubview(bottomImage)
         bottomImage.translatesAutoresizingMaskIntoConstraints = false
-        bottomImage.leadingAnchor.constraint(equalTo: whiteUIView.leadingAnchor).isActive = true
-        bottomImage.trailingAnchor.constraint(equalTo: whiteUIView.trailingAnchor).isActive = true
-        bottomImage.bottomAnchor.constraint(equalTo: whiteUIView.bottomAnchor).isActive = true
+        
+        bottomImage.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        bottomImage.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
+        bottomImage.bottomAnchor.constraint(equalTo: darkView.bottomAnchor, constant: -70).isActive = true
+        
         bottomImage.contentMode = .scaleAspectFill
         
 //        setUpViews()

@@ -136,8 +136,8 @@ class ProductsServicesViewController: UIViewController {
                     image_arrow.translatesAutoresizingMaskIntoConstraints = false
                     image_arrow.trailingAnchor.constraint(equalTo: onlyService.trailingAnchor, constant: -10).isActive = true
                     image_arrow.topAnchor.constraint(equalTo: onlyService.topAnchor, constant: 50).isActive = true
-                    image_arrow.widthAnchor.constraint(equalToConstant: 15).isActive = true
-                    image_arrow.heightAnchor.constraint(equalToConstant: 15).isActive = true
+                    image_arrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                    image_arrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
                     
                     //Service Number
                     let txtServiceNumber = UILabel()
