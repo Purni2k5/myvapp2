@@ -747,17 +747,20 @@
             <objects>
                 <viewController storyboardIdentifier="AddServiceViewController" id="iYc-ZY-rtM" customClass="AddServiceViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gna-8N-6ck">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWH-Re-2Ww">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="660"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe5-g1-trh">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="gF3-g6-XeP">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="140" id="5JL-DO-3hY"/>
+                                                </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6R-Nf-wXv">
                                                 <rect key="frame" x="5" y="5" width="40" height="40"/>
@@ -783,7 +786,6 @@
                                             <constraint firstItem="gF3-g6-XeP" firstAttribute="top" secondItem="Qe5-g1-trh" secondAttribute="top" id="C3h-qv-TVh"/>
                                             <constraint firstItem="F6R-Nf-wXv" firstAttribute="top" secondItem="Qe5-g1-trh" secondAttribute="top" constant="5" id="Gn9-we-uNL"/>
                                             <constraint firstItem="gF3-g6-XeP" firstAttribute="leading" secondItem="Qe5-g1-trh" secondAttribute="leading" id="V5w-sc-ooK"/>
-                                            <constraint firstAttribute="bottom" secondItem="gF3-g6-XeP" secondAttribute="bottom" constant="552" id="YqM-ka-MfI"/>
                                             <constraint firstAttribute="trailing" secondItem="AVZ-a8-s98" secondAttribute="trailing" constant="20" id="eSD-zt-6Nf"/>
                                             <constraint firstAttribute="height" constant="680" id="fqm-01-vdJ"/>
                                             <constraint firstItem="AVZ-a8-s98" firstAttribute="top" secondItem="Qe5-g1-trh" secondAttribute="top" constant="54" id="o5J-G7-WBx"/>
@@ -810,8 +812,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PPD-1Z-ZTL"/>
                     </view>
+                    <size key="freeformSize" width="375" height="680"/>
                     <connections>
                         <outlet property="btnBack" destination="F6R-Nf-wXv" id="tOH-rH-60M"/>
+                        <outlet property="moView" destination="Qe5-g1-trh" id="3q6-18-eyp"/>
+                        <outlet property="scrollView" destination="WWH-Re-2Ww" id="cMO-HD-CwI"/>
+                        <outlet property="top_bg" destination="gF3-g6-XeP" id="tE4-J6-Zzi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZa-h1-SqZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
