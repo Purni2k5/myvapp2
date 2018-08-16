@@ -262,7 +262,7 @@ class AccountConfViewController: UIViewController {
             "activationCode":activationCode!
         ]
         //Check if txt field is empty
-        if txtOTP.text == ""{
+        if txtOTP.text == "" {
             lblMessage.text = "Activation pin cannot be blank"
         }else{
             //Now check for internet connection

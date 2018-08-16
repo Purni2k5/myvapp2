@@ -334,6 +334,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         if selectedType == "Mobile" {
             broadbandID = ""
+            selectedType = "PHONE_MOBILE"
         }else{
             selectedType = "BB_FIXED"
         }
@@ -387,23 +388,68 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     "username":username!
                 ]
                 
+                
                 let asyn_call = URL(string: String.userSVC)
                 let request = NSMutableURLRequest(url: asyn_call!)
                 request.httpMethod = "POST"
                 
-                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Service unavailable try again later.")
                 
                 //Convert to json
-                /*if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    
                     request.httpBody = postData
                     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                     request.addValue("application/json", forHTTPHeaderField: "Accept")
                     
                     //creating a task to send request
                     let task = URLSession.shared.dataTask(with: request as URLRequest){
-                        data, response, error in 
+                        data, response, error in
+                        if error != nil {
+                            print("error is:: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.stop_activity_loader()
+                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                            }
+                            return;
+                        }
+                        
+                        //parsing the response
+                        do{
+                            //converting response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            if let parseJSON = myJSON {
+                                var responseCode: Int!
+                                var responseMessage: String!
+                                var serviceID: String!
+                                var responseData: NSDictionary!
+                                
+                                responseCode = parseJSON["RESPONSECODE"] as! Int
+                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                                print(parseJSON)
+                                DispatchQueue.main.async {
+                                    if responseCode == 1 {
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                    }else{
+                                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
+                                        serviceID = responseData["ServiceID"] as! String
+                                        let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceConfViewController") as! AddServiceConfViewController
+                                        moveTo.responseMessage = responseMessage
+                                        moveTo.serviceID = serviceID
+                                        self.present(moveTo, animated: true, completion: nil)
+                                    }
+                                }
+                                
+                            }
+                        }catch{
+                            print(error.localizedDescription)
+                            DispatchQueue.main.async {
+                                self.stop_activity_loader()
+                            }
+                        }
                     }
-                }*/
+                    task.resume()
+                }
             }
         }
         

@@ -91,10 +91,13 @@ extension UIViewController {
             self.view.addSubview(warningMessage)
             warningMessage.translatesAutoresizingMaskIntoConstraints = false
             warningMessage.textColor = UIColor.white
-            warningMessage.font = UIFont(name: String.defaultFontR, size: 14)
+            warningMessage.font = UIFont(name: String.defaultFontR, size: 17)
             warningMessage.text = toast_message
             warningMessage.leadingAnchor.constraint(equalTo: toast_img.trailingAnchor, constant: 20).isActive = true
+            warningMessage.trailingAnchor.constraint(equalTo: messageUIView.trailingAnchor, constant: -10).isActive = true
             warningMessage.topAnchor.constraint(equalTo: messageUIView.topAnchor, constant: 40).isActive = true
+            warningMessage.numberOfLines = 0
+            warningMessage.lineBreakMode = .byWordWrapping
             warningMessage.alpha = 1
         }, completion: { (true) in
             UIView.animate(withDuration: 3, delay: 3, animations: {
