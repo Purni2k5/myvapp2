@@ -59,6 +59,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let cardView = UIView()
     let lblServiceType = UILabel()
     
+    
     var selectedType: String?
     var broadbandID: String?
     var accNum: String?
@@ -82,6 +83,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         txtServiceType.text = list[0]
         let responseData = preferences.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -389,6 +391,8 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 let request = NSMutableURLRequest(url: asyn_call!)
                 request.httpMethod = "POST"
                 
+                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Service unavailable try again later.")
+                
                 //Convert to json
                 /*if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                     request.httpBody = postData
@@ -406,5 +410,6 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         
     }
+    
 
 }

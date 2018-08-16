@@ -54,5 +54,55 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    
+    
+    func toast(toast_img: UIImageView, toast_message: String){
+        let messageUIView = UIView()
+        let warningMessage = UILabel()
+        messageUIView.alpha = 0
+        warningMessage.alpha = 0
+        toast_img.alpha = 0
+        
+        UIView.animate(withDuration: 2, animations: {
+            //View to hold message
+            
+            self.view.addSubview(messageUIView)
+            messageUIView.alpha = 0.85
+            messageUIView.translatesAutoresizingMaskIntoConstraints = false
+            messageUIView.backgroundColor = UIColor.black
+            messageUIView.isOpaque = false
+            messageUIView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+            messageUIView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+            messageUIView.heightAnchor.constraint(equalToConstant: 110).isActive = true
+            
+            // warning icon
+            
+            self.view.addSubview(toast_img)
+            toast_img.translatesAutoresizingMaskIntoConstraints = false
+            toast_img.leadingAnchor.constraint(equalTo: messageUIView.leadingAnchor, constant: 30).isActive = true
+            toast_img.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            toast_img.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            toast_img.topAnchor.constraint(equalTo: messageUIView.topAnchor, constant: 40).isActive = true
+            toast_img.alpha = 1
+            
+            //warning message
+            
+            self.view.addSubview(warningMessage)
+            warningMessage.translatesAutoresizingMaskIntoConstraints = false
+            warningMessage.textColor = UIColor.white
+            warningMessage.font = UIFont(name: String.defaultFontR, size: 14)
+            warningMessage.text = toast_message
+            warningMessage.leadingAnchor.constraint(equalTo: toast_img.trailingAnchor, constant: 20).isActive = true
+            warningMessage.topAnchor.constraint(equalTo: messageUIView.topAnchor, constant: 40).isActive = true
+            warningMessage.alpha = 1
+        }, completion: { (true) in
+            UIView.animate(withDuration: 3, delay: 3, animations: {
+                messageUIView.alpha = 0
+                warningMessage.alpha = 0
+                toast_img.alpha = 0
+            }, completion: nil)
+        })
+    }
 }
 
