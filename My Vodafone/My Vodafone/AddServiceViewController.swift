@@ -69,7 +69,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpViews()
         // change button colour.
         changeBackColour()
@@ -430,7 +430,11 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                     if responseCode == 1 {
                                         self.stop_activity_loader()
                                         self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
-                                    }else{
+                                    }else if responseCode == 2 {
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                    }
+                                    else{
                                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
                                         serviceID = responseData["ServiceID"] as! String
                                         let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceConfViewController") as! AddServiceConfViewController

@@ -249,8 +249,13 @@ class AddServiceConfViewController: UIViewController {
                                 
                                 DispatchQueue.main.async {
                                     if responseCode == 1 {
+                                        self.stop_activity_loader()
                                         self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
-                                    }else{
+                                    }else if responseCode == 2 {
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                    }
+                                    else{
                                         self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage)
                                         UIView.animate(withDuration: 1, delay: 3, animations: {
                                             let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "ProductsServicesViewController")
