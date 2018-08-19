@@ -57,7 +57,7 @@ class ViewController: UIViewController {
                     //if loginStatus exist check if it is yes take user to preferred home screen
                     print("is login: \(loginStatus)")
                     if loginStatus == "Yes" {
-                        let moveTo = storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
+                        let moveTo = storyboard?.instantiateViewController(withIdentifier: "homeVC")
                         present(moveTo!, animated: true, completion: nil)
                     }else{
                         //if it is no move to login screen

@@ -72,6 +72,7 @@
 		01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1A8162107A01300D4CDDC /* mvaURLS.swift */; };
 		01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5044F2125D28000359657 /* AddServiceConfViewController.swift */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
+		285A1D072129C37600EBA1EC /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A1D062129C37600EBA1EC /* homeVC.swift */; };
 		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
 		5C678538021AB6C93B3B8EED /* Pods_My_Vodafone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */; };
@@ -147,6 +148,7 @@
 		01F5044F2125D28000359657 /* AddServiceConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceConfViewController.swift; sourceTree = "<group>"; };
 		04E81B81CBD9B8057781B417 /* Pods-My Vodafone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.debug.xcconfig"; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
+		285A1D062129C37600EBA1EC /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 		5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Vodafone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 				016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */,
 				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
 				01F5044F2125D28000359657 /* AddServiceConfViewController.swift */,
+				285A1D062129C37600EBA1EC /* homeVC.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
+				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */,
 				0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */,

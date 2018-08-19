@@ -1038,7 +1038,7 @@ extension UIView {
     
     var safeTopAnchor: NSLayoutYAxisAnchor {
         if #available(iOS 11.0, *){
-            print("yes 11")
+//            print("yes 11")
         return safeAreaLayoutGuide.topAnchor
         }
         return topAnchor
