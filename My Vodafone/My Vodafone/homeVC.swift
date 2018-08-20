@@ -11,6 +11,7 @@ import UIKit
 class homeVC: UIViewController {
     
     var defaultImageUrl: String?
+    var defaultAccName: String?
     let preference = UserDefaults.standard
     
     let defaultAccImage = UIImageView()
@@ -22,6 +23,11 @@ class homeVC: UIViewController {
     let twoFourSeven = UIImageView()
     let updateIcon = UIImageView()
     let lblLastUpdatedStatus = UILabel()
+    let lblShakeHeader = UILabel()
+    let btnTopUp = UIButton()
+    let shakeImage = UIImageView(image: #imageLiteral(resourceName: "shake_bubble"))
+    let lblShakeDesc = UILabel()
+    let shakeButton = UIButton()
     //create a closure for background image
     let vcHomeImage: UIImageView = {
         let view = UIImageView()
@@ -55,6 +61,7 @@ class homeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        zeroAlpha()
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         let defaultService = UserData["DefaultService"] as! String
         print("yo:: \(defaultService)")
@@ -78,6 +85,7 @@ class homeVC: UIViewController {
                         }else{
                             print("fbb")
                         }
+                        defaultAccName = dict.value(forKey: "DisplayName") as! String?
                     }
                 }
             }
@@ -88,7 +96,8 @@ class homeVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        super.viewDidAppear(animated)
+        self.showSlider()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,8 +106,70 @@ class homeVC: UIViewController {
         defaultAccImage.clipsToBounds = true
         defaultAccImage.layer.borderColor = UIColor.white.cgColor
         defaultAccImage.layer.borderWidth = 2
+        
+        //topup button
+        btnTopUp.layer.cornerRadius = btnTopUp.frame.size.width / 2
+        btnTopUp.clipsToBounds = true
     }
     
+    func showSlider(){
+        UIView.animate(withDuration: 1, animations: {
+            self.shakeImage.alpha = 1
+            self.lblShakeHeader.alpha = 1
+            self.lblShakeDesc.alpha = 1
+            self.shakeButton.alpha = 1
+        }) { (true) in
+            self.showCredit()
+        }
+    }
+    
+    func showCredit(){
+        UIView.animate(withDuration: 1, animations: {
+            self.defaultCallCreditView.alpha = 1
+            self.lblCreditTitle.alpha = 1
+            self.lblCreditRem.alpha = 1
+            self.btnTopUp.alpha = 1
+        }) { (true) in
+            self.showDefaultImage()
+        }
+    }
+    
+    func showDefaultImage(){
+        UIView.animate(withDuration: 0.5, animations: {
+            self.defaultAccImage.alpha = 1
+            self.defaultAccDisName.alpha = 1
+        }) { (true) in
+            self.showTwoFourSeven()
+        }
+    }
+    func showTwoFourSeven(){
+        UIView.animate(withDuration: 1, animations: {
+            self.twoFourSeven.alpha = 1
+        }) { (true) in
+            self.showLastUpdate()
+        }
+    }
+    
+    func showLastUpdate() {
+        UIView.animate(withDuration: 1, animations: {
+            self.lblLastUpdatedStatus.alpha = 1
+            self.updateIcon.alpha = 1
+        }) { (true) in
+            self.showYendiAgoro()
+        }
+    }
+    
+    func showYendiAgoro(){
+        UIView.animate(withDuration: 1, animations: {
+            self.yendiagoro.alpha = 1
+        }) { (true) in
+            UIView.animate(withDuration: 1, animations: {
+                self.yendiagoro.alpha = 0
+            }, completion: { (true) in
+                self.yendiagoro.alpha = 1
+            })
+        }
+    }
     func setUpViews(){
         let bgImage = vcHomeImage
         view.addSubview(bgImage)
@@ -134,8 +205,8 @@ class homeVC: UIViewController {
         vcHamburger.image = UIImage(named: "hamburger")
         vcHamburger.image = vcHamburger.image?.withRenderingMode(.alwaysTemplate)
         vcHamburger.tintColor = UIColor.white
-        vcHamburger.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        vcHamburger.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        vcHamburger.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        vcHamburger.heightAnchor.constraint(equalToConstant: 30).isActive = true
         vcHamburger.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         vcHamburger.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
         
@@ -144,13 +215,12 @@ class homeVC: UIViewController {
         scrollView.addSubview(lblMenu)
         lblMenu.translatesAutoresizingMaskIntoConstraints = false
         lblMenu.textColor = UIColor.white
-        lblMenu.text = "Menu"
-        lblMenu.font = UIFont(name: String.defaultFontR, size: 17)
+        lblMenu.text = "MENU"
+        lblMenu.font = UIFont(name: String.defaultFontR, size: 13)
         lblMenu.topAnchor.constraint(equalTo: vcHamburger.bottomAnchor, constant: 1).isActive = true
-        lblMenu.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
+        lblMenu.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -8).isActive = true
         
         //sake image
-        let shakeImage = UIImageView(image: #imageLiteral(resourceName: "shake_bubble"))
         scrollView.addSubview(shakeImage)
         shakeImage.translatesAutoresizingMaskIntoConstraints = false
         shakeImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
@@ -160,7 +230,6 @@ class homeVC: UIViewController {
 //        shakeImage.contentMode = .scaleAspectFit
         
         //shake header
-        let lblShakeHeader = UILabel()
         scrollView.addSubview(lblShakeHeader)
         lblShakeHeader.translatesAutoresizingMaskIntoConstraints = false
         lblShakeHeader.textColor = UIColor.white
@@ -174,7 +243,6 @@ class homeVC: UIViewController {
         lblShakeHeader.trailingAnchor.constraint(equalTo: shakeImage.trailingAnchor, constant: -20).isActive = true
         
         //Shake Description
-        let lblShakeDesc = UILabel()
         scrollView.addSubview(lblShakeDesc)
         lblShakeDesc.translatesAutoresizingMaskIntoConstraints = false
         lblShakeDesc.textColor = UIColor.white
@@ -188,7 +256,6 @@ class homeVC: UIViewController {
         lblShakeDesc.trailingAnchor.constraint(equalTo: shakeImage.trailingAnchor, constant: -40).isActive = true
         
         //shake button
-        let shakeButton = UIButton()
         scrollView.addSubview(shakeButton)
         shakeButton.translatesAutoresizingMaskIntoConstraints = false
         shakeButton.backgroundColor = UIColor.white
@@ -215,7 +282,11 @@ class homeVC: UIViewController {
         defaultAccDisName.translatesAutoresizingMaskIntoConstraints = false
         defaultAccDisName.textColor = UIColor.white
         defaultAccDisName.font = UIFont(name: String.defaultFontR, size: 20)
-        defaultAccDisName.text = "HANNAH's \nphone"
+        let defaultAccNameArr = defaultAccName?.components(separatedBy: " ")
+        defaultAccName = defaultAccNameArr?[0]
+        let phoneTextIndex = defaultAccNameArr!.count - 1
+        let phoneText = defaultAccNameArr?[phoneTextIndex]
+        defaultAccDisName.text = "\(defaultAccName!) \n\(phoneText!)"
         defaultAccDisName.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         defaultAccDisName.topAnchor.constraint(equalTo: defaultAccImage.bottomAnchor, constant: 10).isActive = true
         defaultAccDisName.numberOfLines = 0
@@ -224,13 +295,26 @@ class homeVC: UIViewController {
         //Call credit view
         scrollView.addSubview(defaultCallCreditView)
         defaultCallCreditView.translatesAutoresizingMaskIntoConstraints = false
-        defaultCallCreditView.backgroundColor = UIColor.gray
+        defaultCallCreditView.backgroundColor = UIColor.white.withAlphaComponent(0.50)
+        defaultCallCreditView.isOpaque = false
         defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -30).isActive = true
         defaultCallCreditView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
         defaultCallCreditView.layer.cornerRadius = 40
         defaultCallCreditView.clipsToBounds = true
+        
+        //top up button in call credit view
+        scrollView.addSubview(btnTopUp)
+        btnTopUp.translatesAutoresizingMaskIntoConstraints = false
+        btnTopUp.backgroundColor = UIColor.white
+        btnTopUp.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        btnTopUp.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        btnTopUp.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
+//        btnTopUp.bottomAnchor.constraint(equalTo: defaultCallCreditView.bottomAnchor).isActive = true
+        btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor).isActive = true
+        let topupImage = UIImage(named: "top_up")
+        btnTopUp.setImage(topupImage, for: .normal)
         
         //label for credit title
         scrollView.addSubview(lblCreditTitle)
@@ -263,10 +347,14 @@ class homeVC: UIViewController {
         scrollView.addSubview(twoFourSeven)
         twoFourSeven.translatesAutoresizingMaskIntoConstraints = false
         twoFourSeven.image = UIImage(named: "support")
-        twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150).isActive = true
+        twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 140).isActive = true
         twoFourSeven.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -3).isActive = true
-        twoFourSeven.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        twoFourSeven.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        twoFourSeven.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        twoFourSeven.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        twoFourSeven.isUserInteractionEnabled = true
+        
+        let twoFourSevenRec = UITapGestureRecognizer(target: self, action: #selector(goToSupport))
+        twoFourSeven.addGestureRecognizer(twoFourSevenRec)
         
         //update icon
         scrollView.addSubview(updateIcon)
@@ -287,5 +375,26 @@ class homeVC: UIViewController {
         lblLastUpdatedStatus.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 105).isActive = true
         
         scrollView.contentSize.height = 900
+    }
+    
+    @objc func goToSupport(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportVC")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    func zeroAlpha(){
+        shakeImage.alpha = 0
+        lblShakeHeader.alpha = 0
+        lblShakeDesc.alpha = 0
+        shakeButton.alpha = 0
+        defaultCallCreditView.alpha = 0
+        btnTopUp.alpha = 0
+        lblCreditTitle.alpha = 0
+        lblCreditRem.alpha = 0
+        defaultAccImage.alpha = 0
+        defaultAccDisName.alpha = 0
+        twoFourSeven.alpha = 0
+        updateIcon.alpha = 0
+        lblLastUpdatedStatus.alpha = 0
+        yendiagoro.alpha = 0
     }
 }

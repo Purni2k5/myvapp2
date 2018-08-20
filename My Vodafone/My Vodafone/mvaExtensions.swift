@@ -19,6 +19,8 @@ extension UIColor {
     static let colour_red_voilet = UIColor().colourFromHex("9C2AA0")
     static let colour_red_voilet_30 = UIColor().colourFromHex("4D9C2AA0")
     static let dark_background = UIColor().colourFromHex("333333")
+    static let support_white1 = UIColor().colourFromHex("F4F4F4")
+    static let support_light_gray = UIColor().colourFromHex("CCCCCC")
     
     func colourFromHex(_ hex: String) -> UIColor {
         //make sure nor spaces and new lines in our hex string

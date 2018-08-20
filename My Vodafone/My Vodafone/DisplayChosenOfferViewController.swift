@@ -1044,4 +1044,11 @@ extension UIView {
         return topAnchor
     }
     
+    var safeBottomAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *){
+            return safeAreaLayoutGuide.bottomAnchor
+        }
+        return bottomAnchor
+    }
+    
 }

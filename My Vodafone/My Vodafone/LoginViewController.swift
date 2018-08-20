@@ -190,7 +190,7 @@ class LoginViewController: UIViewController {
                                 self.preference.set("Yes", forKey: "loginStatus")
                                 self.preference.set(responseData, forKey: "responseData")
                                 //go to home screen
-                                let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
+                                let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homeVC")
                                 self.present(moveTo!, animated: true, completion: nil)
                             }else{
                                 self.stopAsyncLoader()
