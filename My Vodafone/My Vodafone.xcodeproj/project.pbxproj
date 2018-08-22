@@ -41,6 +41,7 @@
 		019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538622108C5EB00E492A7 /* mvaConfig.swift */; };
 		019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */; };
 		0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* LoginViewController.swift */; };
+		019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */; };
 		01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A95808212ADCD200F4D7C9 /* supportVC.swift */; };
 		01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A9580A212B28C200F4D7C9 /* supportModalVc.swift */; };
 		01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */; };
@@ -116,6 +117,7 @@
 		019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayChosenOfferViewController.swift; sourceTree = "<group>"; };
 		0198E74D20DAB4B9000820F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Vodafone-Bridging-Header.h"; sourceTree = "<group>"; };
+		019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reportFaultVc.swift; sourceTree = "<group>"; };
 		01A95808212ADCD200F4D7C9 /* supportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportVC.swift; sourceTree = "<group>"; };
 		01A9580A212B28C200F4D7C9 /* supportModalVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportModalVc.swift; sourceTree = "<group>"; };
 		01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				285A1D062129C37600EBA1EC /* homeVC.swift */,
 				01A95808212ADCD200F4D7C9 /* supportVC.swift */,
 				01A9580A212B28C200F4D7C9 /* supportModalVc.swift */,
+				019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
 				01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */,
+				019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */,
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */,
 				0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */,

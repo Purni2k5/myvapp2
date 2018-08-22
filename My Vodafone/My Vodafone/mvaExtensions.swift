@@ -50,4 +50,21 @@ extension String {
     static let buyPackage = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
     static let userSVC = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc"
     static let userURL = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
+    
+    /*Support URLs*/
+    static let MVA_CUSTOMER_CENTER = "100";
+    static let MVA_BUSINESS_SOLUTIONS = "080010000";
+    static let MVA_WHATSAPP = "233501000300";
+    static let MVA_SUPPORT = "http://support.vodafone.com.gh";
+    static let MVA_FACEBOOK = "https://www.facebook.com/vodafoneghana";
+    static let MVA_YOUTUBE = "https://www.youtube.com/playlist?list=PLmSKS7hb1xaTPBGcQ9DGgPxUdrcI8JVmP";
+    static let MVA_TWITTER = "https://twitter.com/Askvodafonegh";
+    static let MVA_SHOPURL = "http://vodafone.com.gh/vodafone-shop";
+    static let MVA_BOOKINGURL = "http://appointmentbooking.vodafone.com.gh";
+    static let MVA_FBBURL = "http://fbb.vodafone.com.gh/residential.php";
+    static let MVA_FBBRELOCATIONURL = "http://fbb.vodafone.com.gh/relocation.php";
+    static let MVA_PROFILEUPLOAD = "https://myvodafoneapp.vodafone.com.gh/voda_port/myvodafone/ProfilePic.php";
+    static let MVA_SERVICEPICUPLOAD = "https://myvodafoneapp.vodafone.com.gh/voda_port/myvodafone/ServicePic.php";
+    static let MVA_SPINGAME = "https://myvodafoneappmw.vodafone.com.gh/SpinAPI/index.jsp";
+    static let MVA_SUPPPORT_EMAIL = "info.gh@vodafone.com";
 }

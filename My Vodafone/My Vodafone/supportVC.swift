@@ -57,6 +57,7 @@ class supportVC: UIViewController {
         super.viewDidLoad()
 
         setUpViews()
+        checkConnection()
     }
 
     func setUpViews(){
@@ -142,6 +143,9 @@ class supportVC: UIViewController {
         talkToAgent.topAnchor.constraint(equalTo: darkGrayCard.topAnchor, constant: 20).isActive = true
         talkToAgent.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        let talkRec = UITapGestureRecognizer(target: self, action: #selector(self.talkToAgent))
+        talkToAgent.addGestureRecognizer(talkRec)
+        
         // icon
         let talkToAgentIcon = UIImageView(image: #imageLiteral(resourceName: "ic_headset"))
         scrollView.addSubview(talkToAgentIcon)
@@ -179,6 +183,9 @@ class supportVC: UIViewController {
         businessSoln.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
         businessSoln.topAnchor.constraint(equalTo: talkToAgent.bottomAnchor, constant: 20).isActive = true
         businessSoln.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        
+        let businessRec = UITapGestureRecognizer(target: self, action: #selector(self.businessSolution(_sender:)))
+        businessSoln.addGestureRecognizer(businessRec)
         
         // icon
         let businessSolnIcon = UIImageView(image: #imageLiteral(resourceName: "ic_transfer"))
@@ -221,6 +228,9 @@ class supportVC: UIViewController {
         sendMail.topAnchor.constraint(equalTo: businessSoln.bottomAnchor, constant: 20).isActive = true
         sendMail.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        let sendMailRec = UITapGestureRecognizer(target: self, action: #selector(self.sendEmail(_sender:)))
+        sendMail.addGestureRecognizer(sendMailRec)
+        
         // icon
         let sendMailIcon = UIImageView(image: #imageLiteral(resourceName: "ic_email"))
         scrollView.addSubview(sendMailIcon)
@@ -258,6 +268,9 @@ class supportVC: UIViewController {
         facebook.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
         facebook.topAnchor.constraint(equalTo: sendMail.bottomAnchor, constant: 20).isActive = true
         facebook.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        
+        let facebookRec = UITapGestureRecognizer(target: self, action: #selector(self.openFacebook(_sender:)))
+        facebook.addGestureRecognizer(facebookRec)
         
         // icon
         let facebookIcon = UIImageView(image: #imageLiteral(resourceName: "ic_facebook"))
@@ -297,6 +310,9 @@ class supportVC: UIViewController {
         twitter.topAnchor.constraint(equalTo: facebook.bottomAnchor, constant: 20).isActive = true
         twitter.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        let twitterRec = UITapGestureRecognizer(target: self, action: #selector(self.openTwitter(_sender:)))
+        twitter.addGestureRecognizer(twitterRec)
+        
         // icon
         let twitterIcon = UIImageView(image: #imageLiteral(resourceName: "ic_twitter"))
         scrollView.addSubview(twitterIcon)
@@ -334,6 +350,9 @@ class supportVC: UIViewController {
         youtube.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
         youtube.topAnchor.constraint(equalTo: twitter.bottomAnchor, constant: 20).isActive = true
         youtube.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        
+        let youtubeRec = UITapGestureRecognizer(target: self, action: #selector(self.openYoutube(_sender:)))
+        youtube.addGestureRecognizer(youtubeRec)
         
         // icon
         let youtubeIcon = UIImageView(image: #imageLiteral(resourceName: "ic_youtube"))
@@ -373,6 +392,9 @@ class supportVC: UIViewController {
         onlineSupport.topAnchor.constraint(equalTo: twitter.bottomAnchor, constant: 20).isActive = true
         onlineSupport.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        let onlineSupportRec = UITapGestureRecognizer(target: self, action: #selector(self.openSupport(_sender:)))
+        onlineSupport.addGestureRecognizer(onlineSupportRec)
+        
         // icon
         let onlineIcon = UIImageView(image: #imageLiteral(resourceName: "ic_online_support"))
         scrollView.addSubview(onlineIcon)
@@ -411,6 +433,9 @@ class supportVC: UIViewController {
         whatsapp.topAnchor.constraint(equalTo: onlineSupport.bottomAnchor, constant: 20).isActive = true
         whatsapp.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        let whatsppRec = UITapGestureRecognizer(target: self, action: #selector(self.openWhatsapp(_sender:)))
+        whatsapp.addGestureRecognizer(whatsppRec)
+        
         // icon
         let whatsAppcon = UIImageView(image: #imageLiteral(resourceName: "ic_whatsapp"))
         scrollView.addSubview(whatsAppcon)
@@ -448,6 +473,9 @@ class supportVC: UIViewController {
         faultRep.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
         faultRep.topAnchor.constraint(equalTo: whatsapp.bottomAnchor, constant: 20).isActive = true
         faultRep.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        
+        let faultRec = UITapGestureRecognizer(target: self, action: #selector(self.reportFault(_sender:)))
+        faultRep.addGestureRecognizer(faultRec)
         
         // icon
         let faultIcon = UIImageView(image: #imageLiteral(resourceName: "ic_action_edit"))
@@ -525,4 +553,117 @@ class supportVC: UIViewController {
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "homeVC")
         present(moveTo!, animated: true, completion: nil)
     }
+    
+    @objc func talkToAgent(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Talk to an agent"
+        moveTo.desc = "This will call 100"
+        moveTo.code = String.MVA_CUSTOMER_CENTER
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func businessSolution(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Business Solutions"
+        moveTo.desc = "This will call 080010000"
+        moveTo.code = String.MVA_BUSINESS_SOLUTIONS
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func sendEmail(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Send us an email"
+        moveTo.desc = "This will open an email client"
+        moveTo.code = String.MVA_SUPPPORT_EMAIL
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func openFacebook(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Facebook"
+        moveTo.desc = "This will open facebook"
+        moveTo.code = String.MVA_FACEBOOK
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func openTwitter(_sender: UITapGestureRecognizer){
+        print("here")
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Twitter"
+        moveTo.desc = "This will open twitter"
+        moveTo.code = String.MVA_TWITTER
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func openYoutube(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Youtube"
+        moveTo.desc = "This will open youtube"
+        moveTo.code = String.MVA_YOUTUBE
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func openSupport(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Online Support"
+        moveTo.desc = "This will open Online Support"
+        moveTo.code = String.MVA_SUPPORT
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func openWhatsapp(_sender: UITapGestureRecognizer){
+        if let appURL = URL(string: "whatsapp://"){
+            let canOpen = UIApplication.shared.canOpenURL(appURL)
+            
+            let appName = "whatsapp"
+            let appScheme = "\(appName)://send?phone=\(String.MVA_WHATSAPP)"
+            let appSchemeURL = URL(string: appScheme)
+            
+            if UIApplication.shared.canOpenURL(appSchemeURL! as URL){
+                UIApplication.shared.open(appSchemeURL!, options: [:], completionHandler: nil)
+            }else{
+                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Please install whatsapp on your phone")
+            }
+        }
+    }
+    
+    @objc func reportFault(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "reportFaultVc")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    @objc func faultsRequests(_sender: UITapGestureRecognizer){
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportModalVc") as? supportModalVc else {return}
+        moveTo.supportSelected = "Online Support"
+        moveTo.desc = "This will open Online Support"
+        moveTo.code = "+233501000300"
+    }
+    
 }

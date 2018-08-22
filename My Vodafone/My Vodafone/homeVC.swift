@@ -13,6 +13,11 @@ class homeVC: UIViewController {
     var defaultImageUrl: String?
     var defaultAccName: String?
     let preference = UserDefaults.standard
+    var altDisplayName: String?
+    var altServiceID: String?
+    var altAcctType: String?
+    var ServiceID: String?
+    var AcctType: String?
     
     let defaultAccImage = UIImageView()
     let defaultCallCreditView = UIView()
@@ -66,14 +71,15 @@ class homeVC: UIViewController {
         let defaultService = UserData["DefaultService"] as! String
         print("yo:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
-        print(Services)
+//        print(Services)
         if let array = Services as? NSArray {
+            
             for obj in array {
                 if let dict = obj as? NSDictionary {
                     // Now reference the data you need using:
-                    let id = dict.value(forKey: "DisplayName")
-                    let ServiceID = dict.value(forKey: "ID") as! String
-                    let AcctType = dict.value(forKey: "Type") as! String
+                    
+                    ServiceID = dict.value(forKey: "ID") as! String?
+                    AcctType = dict.value(forKey: "Type") as! String?
                     
                     if(ServiceID == defaultService){
                         if(AcctType == "PHONE_MOBILE_PRE_P"){
@@ -86,6 +92,11 @@ class homeVC: UIViewController {
                             print("fbb")
                         }
                         defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                    }else{
+                        //Just pick one to display
+                        defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                        ServiceID = dict.value(forKey: "ID") as! String?
+                        AcctType = dict.value(forKey: "Type") as! String?
                     }
                 }
             }
@@ -286,7 +297,7 @@ class homeVC: UIViewController {
         defaultAccName = defaultAccNameArr?[0]
         let phoneTextIndex = defaultAccNameArr!.count - 1
         let phoneText = defaultAccNameArr?[phoneTextIndex]
-        defaultAccDisName.text = "\(defaultAccName!) \n\(phoneText!)"
+        defaultAccDisName.text = "\(defaultAccName!) \n\(phoneText!)" //
         defaultAccDisName.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         defaultAccDisName.topAnchor.constraint(equalTo: defaultAccImage.bottomAnchor, constant: 10).isActive = true
         defaultAccDisName.numberOfLines = 0
