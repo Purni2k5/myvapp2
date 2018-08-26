@@ -66,15 +66,18 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         checkConnection()
+        let responseData = preferences.object(forKey: "responseData") as! NSDictionary
+        msisdn = responseData["Contact"] as? String
         setUpViews()
         
         self.hideKeyboardWhenTappedAround()
         createPickerView()
+        createCatPicker()
         createToolBar()
         //Select first index for service type
         txtReportType.text = reportTypeList[0]
-        let responseData = preferences.object(forKey: "responseData") as! NSDictionary
-        msisdn = responseData["Contact"] as? String
+        
+        
     }
     
     func setUpViews(){
@@ -166,6 +169,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtMSISDN.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         txtMSISDN.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 50).isActive = true
         txtMSISDN.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        txtMSISDN.text = msisdn!
         
         // label for report type
         let lblReportType = UILabel()
@@ -214,7 +218,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtReportCat.topAnchor.constraint(equalTo: lblReportCat.bottomAnchor, constant: 10).isActive = true
         txtReportCat.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
-        // label for report type
+        // label for report comment
         let lblReportCom = UILabel()
         scrollView.addSubview(lblReportCom)
         lblReportCom.translatesAutoresizingMaskIntoConstraints = false
@@ -225,7 +229,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         lblReportCom.topAnchor.constraint(equalTo: txtReportCat.bottomAnchor, constant: 30).isActive = true
         lblReportCom.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
-        //txt report Type
+        //txt report comments
         
         scrollView.addSubview(txtReportCom)
         txtReportCom.translatesAutoresizingMaskIntoConstraints = false
@@ -283,7 +287,13 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return reportTypeList.count
+        if txtReportType.isTouchInside {
+            return reportTypeList.count
+        }else if txtReportCat.isTouchInside{
+            return categoryList.count
+        }else{
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -302,6 +312,12 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtReportType.inputView = accountPicker
     }
     
+    //Function to create picker view for report categories
+    func createCatPicker(){
+        let catPicker = UIPickerView()
+        catPicker.delegate = self
+        txtReportCat.inputView = catPicker
+    }
     //Function to create a tool bar
     func createToolBar(){
         let toolBar = UIToolbar()

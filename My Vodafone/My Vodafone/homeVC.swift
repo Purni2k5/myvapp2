@@ -33,6 +33,8 @@ class homeVC: UIViewController {
     let shakeImage = UIImageView(image: #imageLiteral(resourceName: "shake_bubble"))
     let lblShakeDesc = UILabel()
     let shakeButton = UIButton()
+    let lblPromotion = UILabel()
+    let lblPromotionExpire = UILabel()
     //create a closure for background image
     let vcHomeImage: UIImageView = {
         let view = UIImageView()
@@ -63,12 +65,21 @@ class homeVC: UIViewController {
         return view
     }()
 
+    //Dark view to display offer usage
+    let bottomDarkView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.60)
+        view.isOpaque = false
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         zeroAlpha()
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         let defaultService = UserData["DefaultService"] as! String
+        
         print("yo:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
 //        print(Services)
@@ -200,7 +211,7 @@ class homeVC: UIViewController {
         scrollView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: motherView.safeTopAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: motherView.bottomAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: motherView.safeBottomAnchor).isActive = true
         
         //app logo
         let app_logo = UIImageView(image: #imageLiteral(resourceName: "voda_logo"))
@@ -235,7 +246,7 @@ class homeVC: UIViewController {
         scrollView.addSubview(shakeImage)
         shakeImage.translatesAutoresizingMaskIntoConstraints = false
         shakeImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
-        shakeImage.topAnchor.constraint(equalTo: app_logo.bottomAnchor, constant: 12).isActive = true
+        shakeImage.topAnchor.constraint(equalTo: app_logo.bottomAnchor, constant: 20).isActive = true
         shakeImage.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
         shakeImage.heightAnchor.constraint(equalToConstant: 170).isActive = true
 //        shakeImage.contentMode = .scaleAspectFit
@@ -285,8 +296,8 @@ class homeVC: UIViewController {
         
         defaultAccImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         defaultAccImage.topAnchor.constraint(equalTo: shakeImage.bottomAnchor, constant: 20).isActive = true
-        defaultAccImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        defaultAccImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        defaultAccImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        defaultAccImage.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
         //account name
         scrollView.addSubview(defaultAccDisName)
@@ -298,7 +309,7 @@ class homeVC: UIViewController {
         let phoneTextIndex = defaultAccNameArr!.count - 1
         let phoneText = defaultAccNameArr?[phoneTextIndex]
         defaultAccDisName.text = "\(defaultAccName!) \n\(phoneText!)" //
-        defaultAccDisName.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
+        defaultAccDisName.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 40).isActive = true
         defaultAccDisName.topAnchor.constraint(equalTo: defaultAccImage.bottomAnchor, constant: 10).isActive = true
         defaultAccDisName.numberOfLines = 0
         defaultAccDisName.lineBreakMode = .byWordWrapping
@@ -308,8 +319,8 @@ class homeVC: UIViewController {
         defaultCallCreditView.translatesAutoresizingMaskIntoConstraints = false
         defaultCallCreditView.backgroundColor = UIColor.white.withAlphaComponent(0.50)
         defaultCallCreditView.isOpaque = false
-        defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -30).isActive = true
+        defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 40).isActive = true
+        defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -40).isActive = true
         defaultCallCreditView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
         defaultCallCreditView.layer.cornerRadius = 40
@@ -326,13 +337,14 @@ class homeVC: UIViewController {
         btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor).isActive = true
         let topupImage = UIImage(named: "top_up")
         btnTopUp.setImage(topupImage, for: .normal)
+        btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
         
         //label for credit title
         scrollView.addSubview(lblCreditTitle)
         lblCreditTitle.translatesAutoresizingMaskIntoConstraints = false
         lblCreditTitle.text = "Credit remaining"
         lblCreditTitle.textColor = UIColor.black
-        lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 16)
+        lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 19)
         lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 30).isActive = true
         lblCreditTitle.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor, constant: 20).isActive = true
         
@@ -341,7 +353,7 @@ class homeVC: UIViewController {
         lblCreditRem.translatesAutoresizingMaskIntoConstraints = false
         lblCreditRem.text = "GHS 2,000"
         lblCreditRem.textColor = UIColor.black
-        lblCreditRem.font = UIFont(name: String.defaultFontB, size: 19)
+        lblCreditRem.font = UIFont(name: String.defaultFontB, size: 30)
         lblCreditRem.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 30).isActive = true
         lblCreditRem.topAnchor.constraint(equalTo: lblCreditTitle.bottomAnchor, constant: 8).isActive = true
         
@@ -351,8 +363,8 @@ class homeVC: UIViewController {
         yendiagoro.image = UIImage(named: "spinlogo")
         yendiagoro.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150).isActive = true
-        yendiagoro.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        yendiagoro.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        yendiagoro.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        yendiagoro.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         //24/7
         scrollView.addSubview(twoFourSeven)
@@ -373,8 +385,8 @@ class homeVC: UIViewController {
         updateIcon.image = UIImage(named: "progressarrow")
         updateIcon.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 100).isActive = true
         updateIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 60).isActive = true
-        updateIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        updateIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        updateIcon.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        updateIcon.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         //Last updated label
         scrollView.addSubview(lblLastUpdatedStatus)
@@ -385,7 +397,50 @@ class homeVC: UIViewController {
         lblLastUpdatedStatus.leadingAnchor.constraint(equalTo: updateIcon.trailingAnchor, constant: 10).isActive = true
         lblLastUpdatedStatus.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 105).isActive = true
         
-        scrollView.contentSize.height = 900
+        
+        //Bottom view to show data offer
+        scrollView.addSubview(bottomDarkView)
+        bottomDarkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
+        bottomDarkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
+        bottomDarkView.topAnchor.constraint(equalTo: updateIcon.bottomAnchor, constant: 40).isActive = true
+        bottomDarkView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+//        bottomDarkView.isHidden = true
+        
+        //Red image on offer view
+        let redImageView = UIImageView()
+        bottomDarkView.addSubview(redImageView)
+        redImageView.translatesAutoresizingMaskIntoConstraints = false
+        redImageView.backgroundColor = UIColor.vodaRed
+        redImageView.widthAnchor.constraint(equalToConstant: 8).isActive = true
+        redImageView.topAnchor.constraint(equalTo: bottomDarkView.topAnchor, constant: 8).isActive = true
+        redImageView.bottomAnchor.constraint(equalTo: bottomDarkView.bottomAnchor, constant: -8).isActive = true
+        redImageView.leadingAnchor.constraint(equalTo: bottomDarkView.leadingAnchor, constant: 20).isActive = true
+        
+        // Promotion label
+        bottomDarkView.addSubview(lblPromotion)
+        lblPromotion.translatesAutoresizingMaskIntoConstraints = false
+        lblPromotion.text = "Promotion"
+        lblPromotion.textColor = UIColor.white
+        lblPromotion.font = UIFont(name: String.defaultFontR, size: 17)
+        lblPromotion.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
+        lblPromotion.topAnchor.constraint(equalTo: bottomDarkView.topAnchor, constant: 20).isActive = true
+        lblPromotion.trailingAnchor.constraint(equalTo: bottomDarkView.trailingAnchor, constant: -10).isActive = true
+        lblPromotion.numberOfLines = 0
+        lblPromotion.lineBreakMode = .byWordWrapping
+        
+        //Promotion expiration date
+        bottomDarkView.addSubview(lblPromotionExpire)
+        lblPromotionExpire.translatesAutoresizingMaskIntoConstraints = false
+        lblPromotionExpire.textColor = UIColor.white
+        lblPromotionExpire.text = "Expires on ............"
+        lblPromotionExpire.font = UIFont(name: String.defaultFontR, size: 17)
+        lblPromotionExpire.leadingAnchor.constraint(equalTo: redImageView.leadingAnchor, constant: 20).isActive = true
+        lblPromotionExpire.bottomAnchor.constraint(equalTo: bottomDarkView.bottomAnchor, constant: -20).isActive = true
+        lblPromotionExpire.trailingAnchor.constraint(equalTo: bottomDarkView.trailingAnchor, constant: -10).isActive = true
+        lblPromotionExpire.numberOfLines = 0
+        lblPromotionExpire.lineBreakMode = .byWordWrapping
+        
+        scrollView.contentSize.height = 950
     }
     
     @objc func goToSupport(_sender: UITapGestureRecognizer){

@@ -82,7 +82,7 @@ extension UIViewController {
             messageUIView.backgroundColor = UIColor.black
             messageUIView.isOpaque = false
             messageUIView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-            messageUIView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+            messageUIView.bottomAnchor.constraint(equalTo: self.view.safeBottomAnchor, constant: 0).isActive = true
             messageUIView.heightAnchor.constraint(equalToConstant: 110).isActive = true
             
             // warning icon
