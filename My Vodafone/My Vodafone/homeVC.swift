@@ -18,6 +18,7 @@ class homeVC: UIViewController {
     var altAcctType: String?
     var ServiceID: String?
     var AcctType: String?
+    var fontSizeForCredit: CGFloat = 30
     
     let defaultAccImage = UIImageView()
     let defaultCallCreditView = UIView()
@@ -319,8 +320,8 @@ class homeVC: UIViewController {
         defaultCallCreditView.translatesAutoresizingMaskIntoConstraints = false
         defaultCallCreditView.backgroundColor = UIColor.white.withAlphaComponent(0.50)
         defaultCallCreditView.isOpaque = false
-        defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 40).isActive = true
-        defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -40).isActive = true
+        defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 45).isActive = true
+        defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -45).isActive = true
         defaultCallCreditView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
         defaultCallCreditView.layer.cornerRadius = 40
@@ -345,16 +346,20 @@ class homeVC: UIViewController {
         lblCreditTitle.text = "Credit remaining"
         lblCreditTitle.textColor = UIColor.black
         lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 19)
-        lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 30).isActive = true
+        lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 25).isActive = true
         lblCreditTitle.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor, constant: 20).isActive = true
         
         //label for actual credit
         scrollView.addSubview(lblCreditRem)
         lblCreditRem.translatesAutoresizingMaskIntoConstraints = false
-        lblCreditRem.text = "GHS 2,000"
+        lblCreditRem.text = "GHS 2,800,000"
         lblCreditRem.textColor = UIColor.black
-        lblCreditRem.font = UIFont(name: String.defaultFontB, size: 30)
-        lblCreditRem.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 30).isActive = true
+        let credit = lblCreditRem.text?.count
+        if credit! > 5 {
+            fontSizeForCredit = 20
+        }
+        lblCreditRem.font = UIFont(name: String.defaultFontB, size: fontSizeForCredit)
+        lblCreditRem.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 25).isActive = true
         lblCreditRem.topAnchor.constraint(equalTo: lblCreditTitle.bottomAnchor, constant: 8).isActive = true
         
         //yendi agoro
@@ -363,8 +368,8 @@ class homeVC: UIViewController {
         yendiagoro.image = UIImage(named: "spinlogo")
         yendiagoro.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150).isActive = true
-        yendiagoro.heightAnchor.constraint(equalToConstant: 90).isActive = true
-        yendiagoro.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        yendiagoro.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        yendiagoro.widthAnchor.constraint(equalToConstant: 140).isActive = true
         
         //24/7
         scrollView.addSubview(twoFourSeven)
@@ -400,8 +405,8 @@ class homeVC: UIViewController {
         
         //Bottom view to show data offer
         scrollView.addSubview(bottomDarkView)
-        bottomDarkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
-        bottomDarkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
+        bottomDarkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 10).isActive = true
+        bottomDarkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
         bottomDarkView.topAnchor.constraint(equalTo: updateIcon.bottomAnchor, constant: 40).isActive = true
         bottomDarkView.heightAnchor.constraint(equalToConstant: 130).isActive = true
 //        bottomDarkView.isHidden = true
@@ -411,10 +416,10 @@ class homeVC: UIViewController {
         bottomDarkView.addSubview(redImageView)
         redImageView.translatesAutoresizingMaskIntoConstraints = false
         redImageView.backgroundColor = UIColor.vodaRed
-        redImageView.widthAnchor.constraint(equalToConstant: 8).isActive = true
+        redImageView.widthAnchor.constraint(equalToConstant: 5).isActive = true
         redImageView.topAnchor.constraint(equalTo: bottomDarkView.topAnchor, constant: 8).isActive = true
         redImageView.bottomAnchor.constraint(equalTo: bottomDarkView.bottomAnchor, constant: -8).isActive = true
-        redImageView.leadingAnchor.constraint(equalTo: bottomDarkView.leadingAnchor, constant: 20).isActive = true
+        redImageView.leadingAnchor.constraint(equalTo: bottomDarkView.leadingAnchor, constant: 10).isActive = true
         
         // Promotion label
         bottomDarkView.addSubview(lblPromotion)

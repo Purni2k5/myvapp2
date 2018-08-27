@@ -61,6 +61,8 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     var reportCat: String?
     var reportCom: String?
     var altNum: String?
+    var listToReturn: Int?
+    var returnTypeString: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -287,22 +289,36 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if txtReportType.isTouchInside {
-            return reportTypeList.count
-        }else if txtReportCat.isTouchInside{
-            return categoryList.count
-        }else{
-            return 0
+        let countReportType = reportTypeList.count
+        let countReportCat = categoryList.count
+        if txtReportType.isEditing{
+            listToReturn = countReportType
+        }else if txtReportCat.isEditing{
+            listToReturn = countReportCat
         }
+        return listToReturn!
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return reportTypeList[row]
+        if txtReportType.isEditing {
+            let rType = reportTypeList[row]
+            returnTypeString = rType
+        }else if txtReportCat.isEditing{
+            let catType = categoryList[row]
+            returnTypeString = catType
+        }
+        return returnTypeString
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        reportType = reportTypeList[row]
-        txtReportType.text = reportType
+        if txtReportType.isEditing {
+            reportType = reportTypeList[row]
+            txtReportType.text = reportType
+        }else if txtReportCat.isEditing{
+            reportType = categoryList[row]
+            txtReportCat.text = reportType
+        }
+        
     }
     
     //Function to create picker view for accounts
@@ -328,6 +344,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         txtReportType.inputAccessoryView =  toolBar
+        txtReportCat.inputAccessoryView = toolBar
     }
     
     //Go back
