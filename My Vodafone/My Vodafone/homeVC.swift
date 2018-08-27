@@ -339,6 +339,7 @@ class homeVC: UIViewController {
         let topupImage = UIImage(named: "top_up")
         btnTopUp.setImage(topupImage, for: .normal)
         btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
+        btnTopUp.addTarget(self, action: #selector(goToTopUp), for: .touchUpInside)
         
         //label for credit title
         scrollView.addSubview(lblCreditTitle)
@@ -370,6 +371,10 @@ class homeVC: UIViewController {
         yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150).isActive = true
         yendiagoro.heightAnchor.constraint(equalToConstant: 80).isActive = true
         yendiagoro.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        yendiagoro.isUserInteractionEnabled = true
+        
+        let yendiAgoroRec = UITapGestureRecognizer(target: self, action: #selector(goToYendiAgoro))
+        yendiagoro.addGestureRecognizer(yendiAgoroRec)
         
         //24/7
         scrollView.addSubview(twoFourSeven)
@@ -451,6 +456,19 @@ class homeVC: UIViewController {
     @objc func goToSupport(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportVC")
         present(moveTo!, animated: true, completion: nil)
+    }
+    
+    @objc func goToYendiAgoro(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "yendiAgoroVc")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    @objc func goToTopUp(){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "toppingUpViewController")
+        self.addChildViewController(moveTo!)
+        moveTo!.view.frame = self.view.frame
+        self.view.addSubview(moveTo!.view)
+        moveTo!.didMove(toParentViewController: self)
     }
     func zeroAlpha(){
         shakeImage.alpha = 0

@@ -55,7 +55,11 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     let txtAltNumber = UITextField()
 
     let reportTypeList = ["Mobile", "Fixed Line", "IP Services", "Fixed Broadband", "Vodafone Cash"]
-    let categoryList = ["Select your report category", "Cannot Bundle", "Bundle Refunds", "Cannot Recharge", "Over Scratched Card", "Recharge Not Reflecting", "SMS Issues", "Cannot Send SMS", "Cannot Make Calls", "Cannot Receive Calls", "Roaming Issues"]
+    let iPServiceList = ["Select you report category","Fixed IP removal", "Fixed IP request", "Fixed IP not working"]
+    let FBBList = ["Select you report category","Link is down", "FBB Data refund", "Create E-Mail", "Cannot access Web selfcare portal", "Cannot send and recive E-Mail", "Connection is slow"]
+    let mobileList = ["Select your report category","Cannot Bundle", "Bundle Refunds", "Cannot Recharge", "Over Scratched Card", "Recharge Not Reflecting", "SMS Issues", "Cannot Send SMS", "Cannot Make Calls", "Cannot Receive Calls", "Roaming Issues"]
+    let vodaCashList = ["Select your report category","Cash Not Dispense-ATM", "Request for account suspension", "Account Balance Challenges", "Change Account Details", "Request To close Account", "Account Reactivate", "Request to Freeze Account", "Airtime Purchase complaints", "Bill payment issues", "Online payment issues", "Fraudulent issue", "Request For Reversal", "Cannot Receive SMS Notification", "First time PIN Activation", "Customer Voucher complaints", "Customer Voucher complaints", "PIN Management"]
+    let fixedLineList = ["Select your report category","Noise on Fixedline", "Cannot make calls", "Call forwarding request", "Call hunting request", "Caller ID presentation request", "Password request", "Call baring request", "IDD/International call request", "Cannot recharge", "Cannot receive calls", "No dial tone"]
     var msisdn: String?
     var reportType: String?
     var reportCat: String?
@@ -80,6 +84,13 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtReportType.text = reportTypeList[0]
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        txtMSISDN.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+//        txtReportType.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+//        txtReportCat.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+        txtAltNumber.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
     }
     
     func setUpViews(){
@@ -280,8 +291,23 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         btnSend.topAnchor.constraint(equalTo: txtAltNumber.bottomAnchor, constant: 30).isActive = true
         btnSend.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         btnSend.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnSend.addTarget(self, action: #selector(sendFault), for: .touchUpInside)
         scrollView.contentSize.height = 920
         
+    }
+    
+    @objc func checkInputs(){
+        msisdn = txtMSISDN.text
+        reportType = txtReportType.text
+        reportCat = txtReportCat.text
+        reportCom = txtReportCom.text
+        altNum = txtAltNumber.text
+        print(altNum!.count)
+        if msisdn == "" || msisdn!.count < 10 || reportType == "" || reportCom == "" || altNum == "" || altNum!.count < 10 {
+            btnSend.backgroundColor = UIColor.grayButton
+        }else{
+            btnSend.backgroundColor = UIColor.vodaRed
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -290,7 +316,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         let countReportType = reportTypeList.count
-        let countReportCat = categoryList.count
+        let countReportCat = mobileList.count
         if txtReportType.isEditing{
             listToReturn = countReportType
         }else if txtReportCat.isEditing{
@@ -304,20 +330,32 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             let rType = reportTypeList[row]
             returnTypeString = rType
         }else if txtReportCat.isEditing{
-            let catType = categoryList[row]
-            returnTypeString = catType
+            if txtReportType.text == "Fixed Line" {
+                let catType = fixedLineList[row]
+                returnTypeString = catType
+            }
+            
         }
         return returnTypeString
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("here")
         if txtReportType.isEditing {
             reportType = reportTypeList[row]
             txtReportType.text = reportType
-        }else if txtReportCat.isEditing{
-            reportType = categoryList[row]
-            txtReportCat.text = reportType
+            if txtReportType.text == "Fixed Line" {
+                reportType = fixedLineList[row]
+                txtReportCat.text = reportType
+            }
         }
+        
+        /*
+         else if txtReportCat.isEditing{
+         reportType = mobileList[row]
+         txtReportCat.text = reportType
+         }
+         */
         
     }
     
@@ -345,6 +383,49 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         toolBar.isUserInteractionEnabled = true
         txtReportType.inputAccessoryView =  toolBar
         txtReportCat.inputAccessoryView = toolBar
+    }
+    
+    //Report fault
+    @objc func sendFault(){
+        msisdn = txtMSISDN.text
+        reportType = txtReportType.text
+        reportCat = txtReportCat.text
+        reportCom = txtReportCom.text
+        altNum = txtAltNumber.text
+        if msisdn == "" || msisdn!.count < 10{
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Provide phone number or a valid phone number")
+        }else{
+            if reportType == "" {
+                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Choose report type")
+            }else{
+                if reportCat == "" {
+                    toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Choose report category")
+                }else{
+                    if reportCom == "" {
+                        toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Provide description of the fault")
+                    }else{
+                        if altNum == "" {
+                            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Provide alternative phone number")
+                        }else{
+                            if altNum!.count < 10 {
+                                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Please alternative number is invalid")
+                            }else{
+                                //check for internet connectivity
+                                if !CheckInternet.Connection(){
+                                    let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController")
+                                    self.addChildViewController(moveTo!)
+                                    moveTo!.view.frame = self.view.frame
+                                    self.view.addSubview(moveTo!.view)
+                                    moveTo!.didMove(toParentViewController: self)
+                                }else{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     //Go back

@@ -51,14 +51,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func checkConnection(){
-        if !CheckInternet.Connection(){
-            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "You're offline")
-            print("You dont have internet")
-        }else{
-            print("You have internet")
-        }
-    }
+   
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -115,6 +108,15 @@ extension UIViewController {
                 toast_img.alpha = 0
             }, completion: nil)
         })
+    }
+    
+    func checkConnection(){
+        if !CheckInternet.Connection(){
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "You're offline")
+            print("You dont have internet")
+        }else{
+            print("You have internet")
+        }
     }
 }
 
