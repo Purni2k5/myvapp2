@@ -9,8 +9,9 @@
 import UIKit
 import WebKit
 
-class yendiAgoroVc: UIViewController {
+class yendiAgoroVc: UIViewController, WKNavigationDelegate {
 
+    let preference = UserDefaults.standard
     //create a closure for hamburger
     let btnMenu: UIButton = {
         let view = UIButton()
@@ -29,23 +30,57 @@ class yendiAgoroVc: UIViewController {
     let yendiWebView: WKWebView = {
         let view = WKWebView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    //create activity loader closure
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
         return view
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         setUpViews()
-        let param = "https://myvodafoneappmw.vodafone.com.gh/SpinAPI/index.jsp?user=0202005321|0202005321"
-//        let escapedParam = param.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        if let url = URL(string: param){
+        let userData = preference.object(forKey: "responseData") as! NSDictionary
+        let defaultNumber = userData["Contact"] as! String
+        let param = "?user=\(defaultNumber)|\(defaultNumber)"
+        let escapedParam = param.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) //https://www.youtube.com/watch?v=OuG3K8vLWXg&pbjreload=10
+        let fullURLString = "\(String.MVA_SPINGAME)\(escapedParam!)"
+        start_activity_loader()
+        yendiWebView.navigationDelegate = self
+        if let url = URL(string: fullURLString){
             print(url)
             yendiWebView.load(URLRequest(url: url))
+            
         }else{
-            print("still error")
+            print("still error \(fullURLString)")
         }
         
     }
+    
+    func webView(_ webView: WKWebView,
+        didFinish navigation: WKNavigation!) {
+        stop_activity_loader()
+    }
 
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+    }
+    
     func setUpViews(){
         view.addSubview(btnMenu)
         let menu_image = UIImage(named: "menu")
@@ -73,9 +108,16 @@ class yendiAgoroVc: UIViewController {
         btnRefresh.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 10).isActive = true
         
         view.addSubview(yendiWebView)
+        yendiWebView.isOpaque = false
         yendiWebView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        yendiWebView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        yendiWebView.topAnchor.constraint(equalTo: lblMenu.bottomAnchor).isActive = true
         yendiWebView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        yendiWebView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
+        yendiWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        
+        //activity loader
+        view.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }

@@ -6391,7 +6391,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f64-xl-iQ8">
-                                                <rect key="frame" x="375" y="0.0" width="320" height="800"/>
+                                                <rect key="frame" x="55" y="0.0" width="320" height="800"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2m-Bt-ue5">
                                                         <rect key="frame" x="270" y="10" width="40" height="40"/>
@@ -6735,7 +6735,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="O1e-Vb-a7B" secondAttribute="trailing" constant="10" id="15f-fH-7fh"/>
                                             <constraint firstAttribute="trailing" secondItem="VUd-xF-Ci3" secondAttribute="trailing" id="5KZ-V2-dr5"/>
-                                            <constraint firstAttribute="trailing" secondItem="f64-xl-iQ8" secondAttribute="trailing" constant="-320" id="5Lh-IS-jg6"/>
+                                            <constraint firstAttribute="trailing" secondItem="f64-xl-iQ8" secondAttribute="trailing" id="5Lh-IS-jg6"/>
                                             <constraint firstAttribute="height" constant="800" id="NFT-YT-2Ra"/>
                                             <constraint firstItem="f64-xl-iQ8" firstAttribute="top" secondItem="HOG-9c-dCn" secondAttribute="top" id="ZaQ-6W-XI4"/>
                                             <constraint firstItem="O1e-Vb-a7B" firstAttribute="top" secondItem="HOG-9c-dCn" secondAttribute="top" constant="10" id="ZtT-w6-zLn"/>
@@ -7283,7 +7283,7 @@
         <segue reference="dWe-yQ-gnn"/>
         <segue reference="kQz-F6-oNk"/>
         <segue reference="VZQ-Lo-Af0"/>
-        <segue reference="mU6-9O-k6a"/>
+        <segue reference="5Yx-Aa-kBB"/>
         <segue reference="aQQ-rC-mCe"/>
         <segue reference="kEk-um-KRT"/>
     </inferredMetricsTieBreakers>
