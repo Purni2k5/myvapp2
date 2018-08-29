@@ -43,7 +43,7 @@ class baseViewControllerM: UIViewController {
     }()
     
     //create a closure for scrollView
-    let scrollView: UIScrollView = {
+    let scrollViewBase: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.clear
@@ -125,7 +125,7 @@ class baseViewControllerM: UIViewController {
         
         
         
-        scrollView.contentSize.height = 950
+        scrollViewBase.contentSize.height = 950
     }
     
     func prePaidMenu(){
@@ -143,53 +143,53 @@ class baseViewControllerM: UIViewController {
         motherView.isOpaque = false
         
         //Scroll View
-        let scrollView = UIScrollView()
-        motherView.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = UIColor.clear
-        scrollView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: motherView.topAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: motherView.bottomAnchor).isActive = true
-        scrollView.contentSize.height = 750
+        let scrollViewBase = UIScrollView()
+        motherView.addSubview(scrollViewBase)
+        scrollViewBase.translatesAutoresizingMaskIntoConstraints = false
+        scrollViewBase.backgroundColor = UIColor.clear
+        scrollViewBase.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
+        scrollViewBase.topAnchor.constraint(equalTo: motherView.topAnchor).isActive = true
+        scrollViewBase.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
+        scrollViewBase.bottomAnchor.constraint(equalTo: motherView.bottomAnchor).isActive = true
+        scrollViewBase.contentSize.height = 750
         
         //close button
         let btnClose = UIButton()
-        scrollView.addSubview(btnClose)
+        scrollViewBase.addSubview(btnClose)
         btnClose.translatesAutoresizingMaskIntoConstraints = false
         let close_image = UIImage(named: "ic_close")
         btnClose.setImage(close_image, for: .normal)
         btnClose.widthAnchor.constraint(equalToConstant: 40).isActive = true
         btnClose.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        btnClose.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
+        btnClose.topAnchor.constraint(equalTo: scrollViewBase.topAnchor, constant: 10).isActive = true
         btnClose.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
         btnClose.addTarget(self, action: #selector(closeMenu), for: .touchUpInside)
         
         //home icon
         let homeIcon = UIImageView(image: #imageLiteral(resourceName: "ic_home"))
-        scrollView.addSubview(homeIcon)
+        scrollViewBase.addSubview(homeIcon)
         homeIcon.image = homeIcon.image?.withRenderingMode(.alwaysTemplate)
         homeIcon.tintColor = UIColor.white
         homeIcon.translatesAutoresizingMaskIntoConstraints = false
         homeIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         homeIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
-        homeIcon.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 50).isActive = true
+        homeIcon.topAnchor.constraint(equalTo: scrollViewBase.topAnchor, constant: 50).isActive = true
         homeIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
 //        btnHome.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
         //home button
         let btnHome = UIButton()
-        scrollView.addSubview(btnHome)
+        scrollViewBase.addSubview(btnHome)
         btnHome.translatesAutoresizingMaskIntoConstraints = false
         btnHome.setTitle("Home", for: .normal)
         btnHome.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnHome.setTitleColor(UIColor.white, for: .normal)
         btnHome.leadingAnchor.constraint(equalTo: homeIcon.trailingAnchor, constant: 16).isActive = true
-        btnHome.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 55).isActive = true
+        btnHome.topAnchor.constraint(equalTo: scrollViewBase.topAnchor, constant: 55).isActive = true
         btnHome.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
         
         //Mobile icon
         let mobileIcon = UIButton()
-        scrollView.addSubview(mobileIcon)
+        scrollViewBase.addSubview(mobileIcon)
         mobileIcon.translatesAutoresizingMaskIntoConstraints = false
         let mobileImage = UIImage(named: "ic_mobile")
         let mobileTintColor = mobileImage?.withRenderingMode(.alwaysTemplate)
@@ -202,7 +202,7 @@ class baseViewControllerM: UIViewController {
         mobileIcon.addTarget(self, action: #selector(goToProducts), for: .touchUpInside)
         //My products and services
         let btnPdt = UIButton()
-        scrollView.addSubview(btnPdt)
+        scrollViewBase.addSubview(btnPdt)
         btnPdt.translatesAutoresizingMaskIntoConstraints = false
         btnPdt.setTitle("My products and services", for: .normal)
         btnPdt.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
@@ -213,7 +213,7 @@ class baseViewControllerM: UIViewController {
         
         //Offers and extras
         let extraIcon = UIButton()
-        scrollView.addSubview(extraIcon)
+        scrollViewBase.addSubview(extraIcon)
         extraIcon.translatesAutoresizingMaskIntoConstraints = false
         let extrasImage = UIImage(named: "ic_ratings")
         let extraTint = extrasImage?.withRenderingMode(.alwaysTemplate)
@@ -223,19 +223,21 @@ class baseViewControllerM: UIViewController {
         extraIcon.topAnchor.constraint(equalTo: mobileIcon.bottomAnchor, constant: 20).isActive = true
         extraIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         extraIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        extraIcon.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
         //My products and services
         let btnExtras = UIButton()
-        scrollView.addSubview(btnExtras)
+        scrollViewBase.addSubview(btnExtras)
         btnExtras.translatesAutoresizingMaskIntoConstraints = false
         btnExtras.setTitle("Offers and Extras for you", for: .normal)
         btnExtras.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnExtras.setTitleColor(UIColor.white, for: .normal)
         btnExtras.leadingAnchor.constraint(equalTo: extraIcon.trailingAnchor, constant: 16).isActive = true
         btnExtras.topAnchor.constraint(equalTo: btnPdt.bottomAnchor, constant: 23).isActive = true
+        btnExtras.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
         
         //Top up
         let topUpIcon = UIButton()
-        scrollView.addSubview(topUpIcon)
+        scrollViewBase.addSubview(topUpIcon)
         topUpIcon.translatesAutoresizingMaskIntoConstraints = false
         let topUpImage = UIImage(named: "ic_top_up")
         let topUpTint = topUpImage?.withRenderingMode(.alwaysTemplate)
@@ -245,19 +247,21 @@ class baseViewControllerM: UIViewController {
         topUpIcon.topAnchor.constraint(equalTo: extraIcon.bottomAnchor, constant: 20).isActive = true
         topUpIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         topUpIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        topUpIcon.addTarget(self, action: #selector(goToTopUpM), for: .touchUpInside)
         //Top up
         let btnTopUp = UIButton()
-        scrollView.addSubview(btnTopUp)
+        scrollViewBase.addSubview(btnTopUp)
         btnTopUp.translatesAutoresizingMaskIntoConstraints = false
         btnTopUp.setTitle("Top up", for: .normal)
         btnTopUp.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnTopUp.setTitleColor(UIColor.white, for: .normal)
         btnTopUp.leadingAnchor.constraint(equalTo: topUpIcon.trailingAnchor, constant: 16).isActive = true
         btnTopUp.topAnchor.constraint(equalTo: btnExtras.bottomAnchor, constant: 25).isActive = true
+        btnTopUp.addTarget(self, action: #selector(goToTopUpM), for: .touchUpInside)
         
         //Travelling abroad
         let travellingIcon = UIButton()
-        scrollView.addSubview(travellingIcon)
+        scrollViewBase.addSubview(travellingIcon)
         travellingIcon.translatesAutoresizingMaskIntoConstraints = false
         let travellingImage = UIImage(named: "ic_roaming")
         let travTint = travellingImage?.withRenderingMode(.alwaysTemplate)
@@ -267,19 +271,21 @@ class baseViewControllerM: UIViewController {
         travellingIcon.topAnchor.constraint(equalTo: topUpIcon.bottomAnchor, constant: 20).isActive = true
         travellingIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         travellingIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        travellingIcon.addTarget(self, action: #selector(goToTravelling), for: .touchUpInside)
         //Travelling abroad
         let btnTravel = UIButton()
-        scrollView.addSubview(btnTravel)
+        scrollViewBase.addSubview(btnTravel)
         btnTravel.translatesAutoresizingMaskIntoConstraints = false
         btnTravel.setTitle("Travelling abroad", for: .normal)
         btnTravel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnTravel.setTitleColor(UIColor.white, for: .normal)
         btnTravel.leadingAnchor.constraint(equalTo: travellingIcon.trailingAnchor, constant: 16).isActive = true
         btnTravel.topAnchor.constraint(equalTo: btnTopUp.bottomAnchor, constant: 25).isActive = true
+        btnTravel.addTarget(self, action: #selector(goToTravelling), for: .touchUpInside)
         
         //24/7
         let twoFourSevenIcon = UIButton()
-        scrollView.addSubview(twoFourSevenIcon)
+        scrollViewBase.addSubview(twoFourSevenIcon)
         twoFourSevenIcon.translatesAutoresizingMaskIntoConstraints = false
         let twoFourImage = UIImage(named: "ic_online_support")
         let twoFourTint = twoFourImage?.withRenderingMode(.alwaysTemplate)
@@ -289,19 +295,21 @@ class baseViewControllerM: UIViewController {
         twoFourSevenIcon.topAnchor.constraint(equalTo: travellingIcon.bottomAnchor, constant: 20).isActive = true
         twoFourSevenIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         twoFourSevenIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        twoFourSevenIcon.addTarget(self, action: #selector(goToTwoFour), for: .touchUpInside)
         //24/7
         let btnTwoFour = UIButton()
-        scrollView.addSubview(btnTwoFour)
+        scrollViewBase.addSubview(btnTwoFour)
         btnTwoFour.translatesAutoresizingMaskIntoConstraints = false
         btnTwoFour.setTitle("24/7 support", for: .normal)
         btnTwoFour.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnTwoFour.setTitleColor(UIColor.white, for: .normal)
         btnTwoFour.leadingAnchor.constraint(equalTo: twoFourSevenIcon.trailingAnchor, constant: 16).isActive = true
         btnTwoFour.topAnchor.constraint(equalTo: btnTravel.bottomAnchor, constant: 25).isActive = true
+        btnTwoFour.addTarget(self, action: #selector(goToTwoFour), for: .touchUpInside)
         
         //Store locator
         let locatorIcon = UIButton()
-        scrollView.addSubview(locatorIcon)
+        scrollViewBase.addSubview(locatorIcon)
         locatorIcon.translatesAutoresizingMaskIntoConstraints = false
         let locatorImage = UIImage(named: "ic_location_marker")
         let locatorTint = locatorImage?.withRenderingMode(.alwaysTemplate)
@@ -311,19 +319,21 @@ class baseViewControllerM: UIViewController {
         locatorIcon.topAnchor.constraint(equalTo: twoFourSevenIcon.bottomAnchor, constant: 20).isActive = true
         locatorIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         locatorIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        locatorIcon.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
         //Store Locator
         let btnLocator = UIButton()
-        scrollView.addSubview(btnLocator)
+        scrollViewBase.addSubview(btnLocator)
         btnLocator.translatesAutoresizingMaskIntoConstraints = false
         btnLocator.setTitle("Store Locator", for: .normal)
         btnLocator.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnLocator.setTitleColor(UIColor.white, for: .normal)
         btnLocator.leadingAnchor.constraint(equalTo: twoFourSevenIcon.trailingAnchor, constant: 16).isActive = true
         btnLocator.topAnchor.constraint(equalTo: btnTwoFour.bottomAnchor, constant: 24).isActive = true
+        btnLocator.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
         
         //Network
         let networkIcon = UIButton()
-        scrollView.addSubview(networkIcon)
+        scrollViewBase.addSubview(networkIcon)
         networkIcon.translatesAutoresizingMaskIntoConstraints = false
         let networkImage = UIImage(named: "ic_network")
         let networkTint = networkImage?.withRenderingMode(.alwaysTemplate)
@@ -333,18 +343,20 @@ class baseViewControllerM: UIViewController {
         networkIcon.topAnchor.constraint(equalTo: locatorIcon.bottomAnchor, constant: 20).isActive = true
         networkIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         networkIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+//        networkIcon.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
         //Network
         let btnNetwork = UIButton()
-        scrollView.addSubview(btnNetwork)
+        scrollViewBase.addSubview(btnNetwork)
         btnNetwork.translatesAutoresizingMaskIntoConstraints = false
         btnNetwork.setTitle("Network", for: .normal)
         btnNetwork.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnNetwork.setTitleColor(UIColor.white, for: .normal)
         btnNetwork.leadingAnchor.constraint(equalTo: networkIcon.trailingAnchor, constant: 16).isActive = true
         btnNetwork.topAnchor.constraint(equalTo: btnLocator.bottomAnchor, constant: 24).isActive = true
+//        networkIcon.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
         //Arrow down
         let chevron = UIButton()
-        scrollView.addSubview(chevron)
+        scrollViewBase.addSubview(chevron)
         chevron.translatesAutoresizingMaskIntoConstraints = false
         let chevImage = UIImage(named: "dropdown")
         let chevTint = chevImage?.withRenderingMode(.alwaysTemplate)
@@ -358,7 +370,7 @@ class baseViewControllerM: UIViewController {
         
         //btn speed checker
         let btnSpeedChecker = UIButton()
-        scrollView.addSubview(btnSpeedChecker)
+        scrollViewBase.addSubview(btnSpeedChecker)
         btnSpeedChecker.translatesAutoresizingMaskIntoConstraints = false
         btnSpeedChecker.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnSpeedChecker.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 13).isActive = true
@@ -369,7 +381,7 @@ class baseViewControllerM: UIViewController {
         
         //btn network usage
         let btnNetworkUsage = UIButton()
-        scrollView.addSubview(btnNetworkUsage)
+        scrollViewBase.addSubview(btnNetworkUsage)
         btnNetworkUsage.translatesAutoresizingMaskIntoConstraints = false
         btnNetworkUsage.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnNetworkUsage.topAnchor.constraint(equalTo: btnSpeedChecker.bottomAnchor, constant: 13).isActive = true
@@ -380,7 +392,7 @@ class baseViewControllerM: UIViewController {
         
         //btn Broadband finder
         let btnBBFinder = UIButton()
-        scrollView.addSubview(btnBBFinder)
+        scrollViewBase.addSubview(btnBBFinder)
         btnBBFinder.translatesAutoresizingMaskIntoConstraints = false
         btnBBFinder.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnBBFinder.topAnchor.constraint(equalTo: btnNetworkUsage.bottomAnchor, constant: 13).isActive = true
@@ -391,7 +403,7 @@ class baseViewControllerM: UIViewController {
         
         //btn Network Coverage
         let btnNetworkCov = UIButton()
-        scrollView.addSubview(btnNetworkCov)
+        scrollViewBase.addSubview(btnNetworkCov)
         btnNetworkCov.translatesAutoresizingMaskIntoConstraints = false
         btnNetworkCov.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnNetworkCov.topAnchor.constraint(equalTo: btnBBFinder.bottomAnchor, constant: 13).isActive = true
@@ -402,7 +414,7 @@ class baseViewControllerM: UIViewController {
         
         //Messages
         let mssgIcon = UIButton()
-        scrollView.addSubview(mssgIcon)
+        scrollViewBase.addSubview(mssgIcon)
         mssgIcon.translatesAutoresizingMaskIntoConstraints = false
         let mssgImage = UIImage(named: "ic_mail")
         let mssTint = mssgImage?.withRenderingMode(.alwaysTemplate)
@@ -414,8 +426,9 @@ class baseViewControllerM: UIViewController {
         mssgIconTop1?.isActive = true
         mssgIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         mssgIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        mssgIcon.addTarget(self, action: #selector(goToMessages), for: .touchUpInside)
         let btnMessage = UIButton()
-        scrollView.addSubview(btnMessage)
+        scrollViewBase.addSubview(btnMessage)
         btnMessage.translatesAutoresizingMaskIntoConstraints = false
         btnMessage.setTitle("My Messages", for: .normal)
         btnMessage.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
@@ -424,10 +437,11 @@ class baseViewControllerM: UIViewController {
         mssgTopConstraint1 = btnMessage.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 24)
         mssgTopConstraint2 = btnMessage.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 94)
         mssgTopConstraint1?.isActive = true
+        btnMessage.addTarget(self, action: #selector(goToMessages), for: .touchUpInside)
         
         //Profile
         let profileIcon = UIButton()
-        scrollView.addSubview(profileIcon)
+        scrollViewBase.addSubview(profileIcon)
         profileIcon.translatesAutoresizingMaskIntoConstraints = false
         let profileImage = UIImage(named: "ic_profile")
         let profileTint = profileImage?.withRenderingMode(.alwaysTemplate)
@@ -437,19 +451,21 @@ class baseViewControllerM: UIViewController {
         profileIcon.topAnchor.constraint(equalTo: mssgIcon.bottomAnchor, constant: 20).isActive = true
         profileIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         profileIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        profileIcon.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
         //Top up
         let btnProfile = UIButton()
-        scrollView.addSubview(btnProfile)
+        scrollViewBase.addSubview(btnProfile)
         btnProfile.translatesAutoresizingMaskIntoConstraints = false
         btnProfile.setTitle("My profile", for: .normal)
         btnProfile.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnProfile.setTitleColor(UIColor.white, for: .normal)
         btnProfile.leadingAnchor.constraint(equalTo: profileIcon.trailingAnchor, constant: 16).isActive = true
         btnProfile.topAnchor.constraint(equalTo: btnMessage.bottomAnchor, constant: 25).isActive = true
+        btnProfile.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
         
         //Settings
         let settingsIcon = UIButton()
-        scrollView.addSubview(settingsIcon)
+        scrollViewBase.addSubview(settingsIcon)
         settingsIcon.translatesAutoresizingMaskIntoConstraints = false
         let settingsImage = UIImage(named: "ic_settings")
         let settingsTint = settingsImage?.withRenderingMode(.alwaysTemplate)
@@ -459,19 +475,21 @@ class baseViewControllerM: UIViewController {
         settingsIcon.topAnchor.constraint(equalTo: profileIcon.bottomAnchor, constant: 20).isActive = true
         settingsIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         settingsIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        settingsIcon.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
         //Settings
         let btnSettings = UIButton()
-        scrollView.addSubview(btnSettings)
+        scrollViewBase.addSubview(btnSettings)
         btnSettings.translatesAutoresizingMaskIntoConstraints = false
         btnSettings.setTitle("Settings", for: .normal)
         btnSettings.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnSettings.setTitleColor(UIColor.white, for: .normal)
         btnSettings.leadingAnchor.constraint(equalTo: settingsIcon.trailingAnchor, constant: 16).isActive = true
         btnSettings.topAnchor.constraint(equalTo: btnProfile.bottomAnchor, constant: 25).isActive = true
+        btnSettings.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
         
         //About
         let aboutIcon = UIButton()
-        scrollView.addSubview(aboutIcon)
+        scrollViewBase.addSubview(aboutIcon)
         aboutIcon.translatesAutoresizingMaskIntoConstraints = false
         let aboutImage = UIImage(named: "ic_info")
         let aboutTint = aboutImage?.withRenderingMode(.alwaysTemplate)
@@ -481,19 +499,21 @@ class baseViewControllerM: UIViewController {
         aboutIcon.topAnchor.constraint(equalTo: settingsIcon.bottomAnchor, constant: 20).isActive = true
         aboutIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         aboutIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        aboutIcon.addTarget(self, action: #selector(goToAbout), for: .touchUpInside)
         //About
         let btnAbout = UIButton()
-        scrollView.addSubview(btnAbout)
+        scrollViewBase.addSubview(btnAbout)
         btnAbout.translatesAutoresizingMaskIntoConstraints = false
         btnAbout.setTitle("About", for: .normal)
         btnAbout.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnAbout.setTitleColor(UIColor.white, for: .normal)
         btnAbout.leadingAnchor.constraint(equalTo: aboutIcon.trailingAnchor, constant: 16).isActive = true
         btnAbout.topAnchor.constraint(equalTo: btnSettings.bottomAnchor, constant: 25).isActive = true
+        btnAbout.addTarget(self, action: #selector(goToAbout), for: .touchUpInside)
         
         //Logout
         let logoutIcon = UIButton()
-        scrollView.addSubview(logoutIcon)
+        scrollViewBase.addSubview(logoutIcon)
         logoutIcon.translatesAutoresizingMaskIntoConstraints = false
         let logoutImage = UIImage(named: "ic_log_out")
         let logoutint = logoutImage?.withRenderingMode(.alwaysTemplate)
@@ -503,15 +523,17 @@ class baseViewControllerM: UIViewController {
         logoutIcon.topAnchor.constraint(equalTo: aboutIcon.bottomAnchor, constant: 20).isActive = true
         logoutIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         logoutIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        logoutIcon.addTarget(self, action: #selector(goToLogout), for: .touchUpInside)
         //Logout
         let btnLogout = UIButton()
-        scrollView.addSubview(btnLogout)
+        scrollViewBase.addSubview(btnLogout)
         btnLogout.translatesAutoresizingMaskIntoConstraints = false
         btnLogout.setTitle("Logout", for: .normal)
         btnLogout.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnLogout.setTitleColor(UIColor.white, for: .normal)
         btnLogout.leadingAnchor.constraint(equalTo: logoutIcon.trailingAnchor, constant: 16).isActive = true
         btnLogout.topAnchor.constraint(equalTo: btnAbout.bottomAnchor, constant: 25).isActive = true
+        btnLogout.addTarget(self, action: #selector(goToLogout), for: .touchUpInside)
     }
     
     @objc func closeMenu(){
@@ -526,6 +548,15 @@ class baseViewControllerM: UIViewController {
     @objc func goToHome(){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "homeVC")
         present(moveTo!, animated: true, completion: nil)
+    }
+    
+    @objc func goToLogout(){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "LogoutViewController") as! LogoutViewController
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToProducts(){

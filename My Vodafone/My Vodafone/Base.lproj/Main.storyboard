@@ -541,9 +541,6 @@
                                                     <constraint firstAttribute="height" constant="40" id="ec2-KA-Jcr"/>
                                                 </constraints>
                                                 <state key="normal" image="leftArrow"/>
-                                                <connections>
-                                                    <segue destination="Cu8-dm-JAb" kind="show" id="cRl-NU-k2c"/>
-                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your products and services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iay-ob-JfN">
                                                 <rect key="frame" x="20" y="48" width="335" height="21.5"/>
@@ -6128,7 +6125,7 @@
         <!--Logout View Controller-->
         <scene sceneID="lB7-g3-HGB">
             <objects>
-                <viewController id="2ou-0d-Xcb" customClass="LogoutViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogoutViewController" id="2ou-0d-Xcb" customClass="LogoutViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gFB-PE-3nb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6181,11 +6178,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Cu8-dm-JAb" kind="show" id="8jf-JN-F0J"/>
+                                    <action selector="closeModal:" destination="2ou-0d-Xcb" eventType="touchUpInside" id="zG9-QT-JFW"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.97999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eZ9-8d-k8Y" firstAttribute="trailing" secondItem="nEf-FW-rep" secondAttribute="trailing" constant="20" id="AwF-Ex-uLf"/>
                             <constraint firstItem="eZ9-8d-k8Y" firstAttribute="trailing" secondItem="wnd-cU-am8" secondAttribute="trailing" constant="20" id="Db8-bF-V30"/>
@@ -7294,7 +7291,8 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cRl-NU-k2c"/>
+        <segue reference="BnA-9Z-WhR"/>
+        <segue reference="MJt-lR-CCb"/>
         <segue reference="dWe-yQ-gnn"/>
         <segue reference="kQz-F6-oNk"/>
         <segue reference="VZQ-Lo-Af0"/>

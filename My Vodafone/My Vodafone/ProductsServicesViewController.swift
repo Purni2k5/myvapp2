@@ -41,6 +41,7 @@ class ProductsServicesViewController: UIViewController {
         let tintedImage = backButton?.withRenderingMode(.alwaysTemplate)
         btnBack.setImage(tintedImage, for: .normal)
         btnBack.tintColor = UIColor.white
+        btnBack.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
         
         //add gesture
         let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.goToAddServices))
@@ -291,15 +292,10 @@ class ProductsServicesViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func goToHome(){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "homeVC")
+        present(moveTo!, animated: true, completion: nil)
     }
-    */
 
 }
 extension UIColor {

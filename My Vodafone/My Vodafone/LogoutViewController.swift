@@ -49,8 +49,11 @@ class LogoutViewController: UIViewController {
     }
     
     @IBAction func closeModal(_ sender: Any) {
-        let move = storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
-        present(move!, animated: true, completion: nil)
+        self.view.removeFromSuperview()
+    }
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
     }
     
 }
