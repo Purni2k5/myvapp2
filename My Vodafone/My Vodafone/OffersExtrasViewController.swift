@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OffersExtrasViewController: UIViewController {
+class OffersExtrasViewController: baseViewControllerM {
     
     @IBOutlet weak var lblOffersHeader: UILabel!
     @IBOutlet weak var btnClose: UIButton!
@@ -71,7 +71,7 @@ class OffersExtrasViewController: UIViewController {
         return label
     }()
     
-    var menuShowing = false
+//    var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -90,6 +90,8 @@ class OffersExtrasViewController: UIViewController {
         makeImageRound(image: imgFBB)
         makeImageRound(image: imgSettings)
         
+        btnBack.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
+        hamburger.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         //change images to white
         changeImageToWhite()
         //Call gestures on all cards
@@ -228,7 +230,7 @@ class OffersExtrasViewController: UIViewController {
             task.resume()
         }
         
-        
+        print("Acchere:: \(AcctType)")
         
     }
 
@@ -236,20 +238,6 @@ class OffersExtrasViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    //show menu
-    @IBAction func showMenu(_ sender: Any) {
-        if (menuShowing){
-            menuViewTrailingConstraint.constant = -280
-        }else{
-            menuViewTrailingConstraint.constant = 0
-        }
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-            })
-        menuShowing = !menuShowing
-    }
-    
-    
 
     //Function to change header text
     func changeHeader(){
@@ -274,16 +262,15 @@ class OffersExtrasViewController: UIViewController {
         hamburger.setImage(tintedImageH, for: .normal)
         hamburger.tintColor = UIColor.white
         
-        
     }
     
-    func setUpViews(){
+    /*func setUpViews(){
         errorView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         errorView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         errorView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         errorView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         errorView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-    }
+    }*/
     
     //Function to make images round
     func makeImageRound(image:UIImageView){

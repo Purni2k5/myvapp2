@@ -454,7 +454,7 @@ class homeVC: baseViewControllerM {
         moveTo!.didMove(toParentViewController: self)
     }
     
-    @objc func showMenu(){
+    @objc func showMenuh(){
         if menuShowing {
             self.motherViewTrailing1?.isActive = true
             self.motherViewTrailing2?.isActive = false

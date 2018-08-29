@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DisplayChosenOfferViewController: UIViewController {
+class DisplayChosenOfferViewController: baseViewControllerM {
 
     @IBOutlet var superView: UIView!
     
@@ -43,6 +43,7 @@ class DisplayChosenOfferViewController: UIViewController {
     let hamburgerButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
         return button
     }()
     
@@ -50,9 +51,10 @@ class DisplayChosenOfferViewController: UIViewController {
     let menuLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Menu"
+        label.text = "MENU"
         label.textColor = UIColor.white
-        label.font = UIFont(name: String.defaultFontR, size: 12)
+        label.font = UIFont(name: String.defaultFontR, size: 13)
+        label.isHidden = true
         return label
     }()
     
@@ -106,7 +108,7 @@ class DisplayChosenOfferViewController: UIViewController {
         view.backgroundColor = UIColor.grayBackground
         view.addSubview(scrollView)
         
-        setUpViews()
+        setUpViewsDisplay()
         
         print("transfered:: \(selectedOffer)")
        
@@ -941,7 +943,7 @@ class DisplayChosenOfferViewController: UIViewController {
     }
     
 
-    func setUpViews(){
+    func setUpViewsDisplay(){
         //Scroll view
         scrollView.topAnchor.constraint(equalTo: superView.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: superView.trailingAnchor).isActive = true
@@ -976,7 +978,7 @@ class DisplayChosenOfferViewController: UIViewController {
         
         //hamburger
         
-        let hamburger_image = UIImage(named: "hamburger")
+        let hamburger_image = UIImage(named: "menu")
         let tintHamImage = hamburger_image?.withRenderingMode(.alwaysTemplate)
         hamburgerButton.setImage(tintHamImage, for: .normal)
         hamburgerButton.tintColor = UIColor.white
@@ -985,13 +987,13 @@ class DisplayChosenOfferViewController: UIViewController {
         hamburgerButton.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -8).isActive = true
         hamburgerButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         hamburgerButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
+        hamburgerButton.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //Menu Label
         
-        menuLabel.topAnchor.constraint(equalTo: hamburgerButton.bottomAnchor, constant: -6).isActive = true
+        menuLabel.topAnchor.constraint(equalTo: hamburgerButton.bottomAnchor, constant: -3).isActive = true
 //        menuLabel.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 100).isActive = true
-        menuLabel.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -15).isActive = true
+        menuLabel.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -13).isActive = true
         
         
         //Selected Offer type Label

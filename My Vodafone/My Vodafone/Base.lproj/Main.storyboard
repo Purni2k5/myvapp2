@@ -2024,9 +2024,6 @@
                                                     <constraint firstAttribute="height" constant="40" id="UtN-cK-awR"/>
                                                 </constraints>
                                                 <state key="normal" image="leftArrow"/>
-                                                <connections>
-                                                    <segue destination="Cu8-dm-JAb" kind="show" id="wWO-lO-NA1"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u8i-eR-aKQ">
                                                 <rect key="frame" x="330" y="5" width="40" height="40"/>
@@ -2035,9 +2032,6 @@
                                                     <constraint firstAttribute="height" constant="40" id="zbk-Qx-8Hk"/>
                                                 </constraints>
                                                 <state key="normal" image="hamburger"/>
-                                                <connections>
-                                                    <action selector="showMenu:" destination="sz7-cC-Npl" eventType="touchUpInside" id="rEG-0G-BWI"/>
-                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUT-2q-JVt">
                                                 <rect key="frame" x="337" y="40" width="27" height="10.5"/>
@@ -7291,8 +7285,8 @@
         <image name="new_logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BnA-9Z-WhR"/>
-        <segue reference="MJt-lR-CCb"/>
+        <segue reference="y0Y-JN-qjS"/>
+        <segue reference="GXG-iW-vQN"/>
         <segue reference="dWe-yQ-gnn"/>
         <segue reference="kQz-F6-oNk"/>
         <segue reference="VZQ-Lo-Af0"/>

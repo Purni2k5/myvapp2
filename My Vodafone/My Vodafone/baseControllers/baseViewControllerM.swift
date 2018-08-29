@@ -106,9 +106,9 @@ class baseViewControllerM: UIViewController {
         setUpViews()
         // Check for internet connection
         checkConnection()
-        /*if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
-        }*/
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -126,6 +126,21 @@ class baseViewControllerM: UIViewController {
         
         
         scrollViewBase.contentSize.height = 950
+    }
+    
+    @objc func showMenu(){
+        if menuShowing {
+            self.motherViewTrailing1?.isActive = true
+            self.motherViewTrailing2?.isActive = false
+        }else{
+            self.motherViewTrailing1?.isActive = false
+            self.motherViewTrailing2?.isActive = true
+            print("Showing")
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        menuShowing = !menuShowing
     }
     
     func prePaidMenu(){
