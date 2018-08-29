@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TopUpViewController: UIViewController {
+class TopUpViewController: baseViewControllerM {
     
     
     @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet weak var hamburger: UIButton!
     @IBOutlet weak var goTopUp: CardView!
+    @IBOutlet weak var bg2View: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,11 +37,28 @@ class TopUpViewController: UIViewController {
         let tintedImage = btnImageBack?.withRenderingMode(.alwaysTemplate)
         btnBack.setImage(tintedImage, for: .normal)
         btnBack.tintColor = UIColor.white
+        btnBack.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
         
-        let btnMenu = UIImage(named: "hamburger")
-        let tintedImageH = btnMenu?.withRenderingMode(.alwaysTemplate)
-        hamburger.setImage(tintedImageH, for: .normal)
-        hamburger.tintColor = UIColor.white
+        let btnMenu = UIButton()
+        view.addSubview(btnMenu)
+        btnMenu.translatesAutoresizingMaskIntoConstraints = false
+        let menuImage = UIImage(named: "menu")
+        btnMenu.setImage(menuImage, for: .normal)
+        btnMenu.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnMenu.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnMenu.topAnchor.constraint(equalTo: bg2View.topAnchor, constant: 25).isActive = true
+        btnMenu.trailingAnchor.constraint(equalTo: bg2View.trailingAnchor, constant: -10).isActive = true
+        btnMenu.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        
+        //Menu label
+        let lblMenu = UILabel()
+        view.addSubview(lblMenu)
+        lblMenu.translatesAutoresizingMaskIntoConstraints = false
+        lblMenu.textColor = UIColor.white
+        lblMenu.text = "MENU"
+        lblMenu.font = UIFont(name: String.defaultFontR, size: 13)
+        lblMenu.topAnchor.constraint(equalTo: btnMenu.bottomAnchor, constant: -3).isActive = true
+        lblMenu.trailingAnchor.constraint(equalTo: bg2View.trailingAnchor, constant: -14).isActive = true
     }
     
     @objc func showTopUp(_sender: UITapGestureRecognizer){
@@ -52,16 +69,4 @@ class TopUpViewController: UIViewController {
         self.view.addSubview(moveTo!.view)
         moveTo!.didMove(toParentViewController: self)
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

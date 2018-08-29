@@ -135,7 +135,7 @@ class baseViewControllerM: UIViewController {
         }else{
             self.motherViewTrailing1?.isActive = false
             self.motherViewTrailing2?.isActive = true
-            print("Showing")
+            
         }
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -144,7 +144,7 @@ class baseViewControllerM: UIViewController {
     }
     
     func prePaidMenu(){
-        print("called")
+        
         let motherView = UIView()
         self.view.addSubview(motherView)
         motherView.translatesAutoresizingMaskIntoConstraints = false
