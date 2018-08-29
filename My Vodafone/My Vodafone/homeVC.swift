@@ -8,16 +8,16 @@
 
 import UIKit
 
-class homeVC: UIViewController {
+class homeVC: baseViewControllerM {
     
     var defaultImageUrl: String?
     var defaultAccName: String?
-    let preference = UserDefaults.standard
-    var altDisplayName: String?
-    var altServiceID: String?
-    var altAcctType: String?
-    var ServiceID: String?
-    var AcctType: String?
+//    let preference = UserDefaults.standard
+//    var altDisplayName: String?
+//    var altServiceID: String?
+//    var altAcctType: String?
+//    var ServiceID: String?
+//    var AcctType: String?
     var fontSizeForCredit: CGFloat = 30
     
     let defaultAccImage = UIImageView()
@@ -36,52 +36,17 @@ class homeVC: UIViewController {
     let shakeButton = UIButton()
     let lblPromotion = UILabel()
     let lblPromotionExpire = UILabel()
-    //create a closure for background image
-    let vcHomeImage: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    // create closure for mother view
-    let motherView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
-    
-    //create a closure for scrollView
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
-    
-    //create a closure for hamburger
-    let vcHamburger: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
-    //Dark view to display offer usage
-    let bottomDarkView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.60)
-        view.isOpaque = false
-        return view
-    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         zeroAlpha()
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        print(UserData)
         let defaultService = UserData["DefaultService"] as! String
         
-        print("yo:: \(defaultService)")
+        print("yos:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
 //        print(Services)
         if let array = Services as? NSArray {
@@ -113,7 +78,7 @@ class homeVC: UIViewController {
                 }
             }
         }
-        setUpViews()
+        setUpViews1()
         // Check for internet connection
         checkConnection()
         if AcctType == "PHONE_MOBILE_PRE_P" {
@@ -196,8 +161,10 @@ class homeVC: UIViewController {
             })
         }
     }
-    func setUpViews(){
-        let bgImage = vcHomeImage
+    func setUpViews1(){
+        
+        let bgImage = UIImageView()
+        bgImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bgImage)
         bgImage.image = UIImage(named: "morning_bg_")
         bgImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -205,12 +172,18 @@ class homeVC: UIViewController {
         bgImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         bgImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
+        let motherView = UIView()
+        motherView.translatesAutoresizingMaskIntoConstraints = false
+        motherView.backgroundColor = UIColor.clear
         view.addSubview(motherView)
         motherView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         motherView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         motherView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         motherView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = UIColor.clear
         motherView.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
@@ -227,14 +200,16 @@ class homeVC: UIViewController {
         app_logo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         
         //Menu image
+        let vcHamburger = UIButton()
+        vcHamburger.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(vcHamburger)
-        vcHamburger.image = UIImage(named: "hamburger")
-        vcHamburger.image = vcHamburger.image?.withRenderingMode(.alwaysTemplate)
-        vcHamburger.tintColor = UIColor.white
-        vcHamburger.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        vcHamburger.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        let hamburgerImage = UIImage(named: "menu")
+        vcHamburger.setImage(hamburgerImage, for: .normal)
+        vcHamburger.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        vcHamburger.heightAnchor.constraint(equalToConstant: 40).isActive = true
         vcHamburger.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         vcHamburger.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
+        vcHamburger.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //Menu label
         let lblMenu = UILabel()
@@ -243,8 +218,8 @@ class homeVC: UIViewController {
         lblMenu.textColor = UIColor.white
         lblMenu.text = "MENU"
         lblMenu.font = UIFont(name: String.defaultFontR, size: 13)
-        lblMenu.topAnchor.constraint(equalTo: vcHamburger.bottomAnchor, constant: 1).isActive = true
-        lblMenu.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -8).isActive = true
+        lblMenu.topAnchor.constraint(equalTo: vcHamburger.bottomAnchor, constant: -3).isActive = true
+        lblMenu.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -14).isActive = true
         
         //sake image
         scrollView.addSubview(shakeImage)
@@ -309,6 +284,7 @@ class homeVC: UIViewController {
         defaultAccDisName.textColor = UIColor.white
         defaultAccDisName.font = UIFont(name: String.defaultFontR, size: 20)
         let defaultAccNameArr = defaultAccName?.components(separatedBy: " ")
+        
         defaultAccName = defaultAccNameArr?[0]
         let phoneTextIndex = defaultAccNameArr!.count - 1
         let phoneText = defaultAccNameArr?[phoneTextIndex]
@@ -412,6 +388,10 @@ class homeVC: UIViewController {
         
         
         //Bottom view to show data offer
+        let bottomDarkView = UIView()
+        bottomDarkView.translatesAutoresizingMaskIntoConstraints = false
+        bottomDarkView.backgroundColor = UIColor.black.withAlphaComponent(0.60)
+        bottomDarkView.isOpaque = false
         scrollView.addSubview(bottomDarkView)
         bottomDarkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 10).isActive = true
         bottomDarkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
@@ -472,6 +452,20 @@ class homeVC: UIViewController {
         moveTo!.view.frame = self.view.frame
         self.view.addSubview(moveTo!.view)
         moveTo!.didMove(toParentViewController: self)
+    }
+    
+    @objc func showMenu(){
+        if menuShowing {
+            self.motherViewTrailing1?.isActive = true
+            self.motherViewTrailing2?.isActive = false
+        }else{
+            self.motherViewTrailing1?.isActive = false
+            self.motherViewTrailing2?.isActive = true
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        menuShowing = !menuShowing
     }
     func zeroAlpha(){
         shakeImage.alpha = 0
