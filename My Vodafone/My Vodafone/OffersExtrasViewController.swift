@@ -328,7 +328,7 @@ class OffersExtrasViewController: baseViewControllerM {
     
     //Function to go to plans view controller
     @objc func goToPlans(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "Plan"
 //        let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController")
         present(moveTo, animated: true, completion: nil)
@@ -336,14 +336,14 @@ class OffersExtrasViewController: baseViewControllerM {
     
     //Function to go to data bundles controller
     @objc func goToDataBundles(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "Data"
         present(moveTo, animated: true, completion: nil)
     }
     
     //Function to go to Vodafone X controller
     @objc func goToVodafoneX(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {
             return
         }
         moveTo.selectedOffer = "Vodafone X"
@@ -352,34 +352,31 @@ class OffersExtrasViewController: baseViewControllerM {
     
     //Function to go to IDD Bundles
     @objc func goToIDDBundles(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "IDD Bundles"
         present(moveTo, animated: true, completion: nil)
     }
     
     //Function to go to vodafone Cash
     @objc func goToVodafoneCash(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "Vodafone Cash"
         present(moveTo, animated: true, completion: nil)
     }
     
     //Function to go to fbb
     @objc func goToFBB(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "FBB"
         present(moveTo, animated: true, completion: nil)
     }
     
     //Function to go to Services
     @objc func goToServices(_sender: UITapGestureRecognizer){
-        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "DisplayChosenOfferViewController") as? DisplayChosenOfferViewController else {return}
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
         moveTo.selectedOffer = "Services"
         present(moveTo, animated: true, completion: nil)
     }
-    
-    
-    
     
     
 }

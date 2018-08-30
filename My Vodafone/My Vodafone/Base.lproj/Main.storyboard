@@ -6361,6 +6361,21 @@
             </objects>
             <point key="canvasLocation" x="14737" y="1878"/>
         </scene>
+        <!--CheckFBB Balance-->
+        <scene sceneID="CMO-Je-Ucc">
+            <objects>
+                <viewController storyboardIdentifier="checkFBBBalance" id="sQJ-ey-ZB3" customClass="checkFBBBalance" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bEw-mY-CdE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GF7-6k-RbT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F8V-Zq-U5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15450" y="1878"/>
+        </scene>
         <!--Home Pre Paid View Controller-->
         <scene sceneID="I7o-yl-Ahg">
             <objects>
