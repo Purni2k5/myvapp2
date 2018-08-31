@@ -571,6 +571,9 @@ class displayChosenOfferVc: baseViewControllerM {
             bookAppoimentCard.layer.shadowColor = UIColor.black.cgColor
             bookAppoimentCard.layer.shadowOpacity = 0.2
             
+            let bookAppoimentCardRec = UITapGestureRecognizer(target: self, action: #selector(goToFBBMove))
+            bookAppoimentCard.addGestureRecognizer(bookAppoimentCardRec)
+            
             //left image with colour
             let leftImageApp = UIImageView()
             bookAppoimentCard.addSubview(leftImageApp)
@@ -1120,6 +1123,12 @@ class displayChosenOfferVc: baseViewControllerM {
     //broadband balance
     @objc func goToCheckFBB(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "checkFBBBalance")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //FBB Move
+    @objc func goToFBBMove(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbMove")
         present(moveTo!, animated: true, completion: nil)
     }
 
