@@ -322,7 +322,7 @@ class AccountConfViewController: UIViewController {
                                         self.preference.set(responseData, forKey: "responseData")
                                         self.stop_activity_loader()
                                         //go to home screen
-                                        let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homePrePaidViewController")
+                                        let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "homeVC")
                                         self.present(moveTo!, animated: true, completion: nil)
                                     }
                                 }
