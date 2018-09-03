@@ -9,9 +9,9 @@
 import UIKit
 import WebKit
 
-class yendiAgoroVc: UIViewController, WKNavigationDelegate {
+class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
 
-    let preference = UserDefaults.standard
+//    let preference = UserDefaults.standard
     //create a closure for hamburger
     let btnMenu: UIButton = {
         let view = UIButton()
@@ -46,7 +46,7 @@ class yendiAgoroVc: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
-        setUpViews()
+        setUpViewsYen()
         let userData = preference.object(forKey: "responseData") as! NSDictionary
         let defaultNumber = userData["Contact"] as! String
         let param = "?user=\(defaultNumber)|\(defaultNumber)"
@@ -60,6 +60,10 @@ class yendiAgoroVc: UIViewController, WKNavigationDelegate {
             
         }else{
             print("still error \(fullURLString)")
+        }
+        
+        if AcctType == "PHONE_MOBILE_PRE_P" {
+            prePaidMenu()
         }
         
     }
@@ -81,7 +85,7 @@ class yendiAgoroVc: UIViewController, WKNavigationDelegate {
         activity_loader.stopAnimating()
     }
     
-    func setUpViews(){
+    func setUpViewsYen(){
         view.addSubview(btnMenu)
         let menu_image = UIImage(named: "menu")
         btnMenu.setImage(menu_image, for: .normal)
@@ -90,6 +94,7 @@ class yendiAgoroVc: UIViewController, WKNavigationDelegate {
         
         btnMenu.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         btnMenu.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 10).isActive = true
+        btnMenu.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //Menu label
         let lblMenu = UILabel()

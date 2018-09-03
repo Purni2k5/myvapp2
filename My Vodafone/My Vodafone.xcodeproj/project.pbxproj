@@ -34,6 +34,8 @@
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
 		0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0188912720EE76290080697F /* OneGHPlanViewController.swift */; };
 		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
+		018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7ACE213D48C9002753B7 /* linkFBBVc.swift */; };
+		018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */; };
 		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
 		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
 		01941D9B2119B2E300B7D207 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9A2119B2E300B7D207 /* AppExtensions.swift */; };
@@ -115,6 +117,8 @@
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
 		0188912720EE76290080697F /* OneGHPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGHPlanViewController.swift; sourceTree = "<group>"; };
 		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
+		018B7ACE213D48C9002753B7 /* linkFBBVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBVc.swift; sourceTree = "<group>"; };
+		018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBMove.swift; sourceTree = "<group>"; };
 		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
 		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
 		01941D9A2119B2E300B7D207 /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 				01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */,
 				0199F5EE21396DB400906580 /* displayFBBBalance.swift */,
 				0199F5F021398FA000906580 /* fbbMove.swift */,
+				018B7ACE213D48C9002753B7 /* linkFBBVc.swift */,
+				018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */,
 				0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */,
+				018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */,
 				0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
@@ -534,6 +541,7 @@
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,
+				018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */,
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
