@@ -171,12 +171,13 @@ class OffersExtrasViewController: baseViewControllerM {
                         if let parseJSON = myJSON{
                             var responseCode: Int!
                             var responseMessage: NSArray!
-                            
+                            print(parseJSON)
                             //getting the json response
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
-                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
+                            
                             
                             if responseCode == 0 {
+                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
                                 for obj in responseMessage{
                                     if let dict = obj as? NSDictionary{
                                         self.offerContent = dict.value(forKey: "CONTENT") as? String
@@ -219,7 +220,6 @@ class OffersExtrasViewController: baseViewControllerM {
                                 }
                             }
                             
-                            print(parseJSON)
                         }
                         }
                 }catch{

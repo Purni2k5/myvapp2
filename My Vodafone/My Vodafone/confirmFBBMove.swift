@@ -126,7 +126,7 @@ class confirmFBBMove: UIViewController {
         
         view.addSubview(btnConfirm)
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
-        btnConfirm.backgroundColor = UIColor.vodaRed
+        btnConfirm.backgroundColor = UIColor.grayButton
         btnConfirm.setTitle("Confirm", for: .normal)
         btnConfirm.setTitleColor(UIColor.white, for: .normal)
         btnConfirm.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
@@ -134,12 +134,17 @@ class confirmFBBMove: UIViewController {
         btnConfirm.topAnchor.constraint(equalTo: txtPin.bottomAnchor, constant: 40).isActive = true
         btnConfirm.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         btnConfirm.heightAnchor.constraint(equalToConstant: 55).isActive = true
-//        btnConfirm.addTarget(self, action: #selector(linkNumber), for: .touchUpInside)
+        btnConfirm.addTarget(self, action: #selector(goToFBBShare), for: .touchUpInside)
         
     }
 
     @objc func goBack(){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "linkFBBVc")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    @objc func goToFBBShare(){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbShareVc")
         present(moveTo!, animated: true, completion: nil)
     }
 }
