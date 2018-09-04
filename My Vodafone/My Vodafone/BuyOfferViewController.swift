@@ -101,6 +101,8 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var registeredAccounts = [String]()
     fileprivate var darkViewTopConstraint1: NSLayoutConstraint?
     fileprivate var darkViewTopConstraint2: NSLayoutConstraint?
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

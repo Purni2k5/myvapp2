@@ -8,11 +8,15 @@
 
 import UIKit
 
-class confirmFBBMove: UIViewController {
+class confirmFBBMove: baseViewControllerM {
 
     fileprivate var lblUserIDTop1: NSLayoutConstraint?
     fileprivate var lblUserIDTop2: NSLayoutConstraint?
-    var responseMessage: String?
+    var displayMessage: String?
+    
+    var msisdn: String?
+    var userID: String?
+    var actKey: String?
     
     // top Image for
     let topImage: UIImageView = {
@@ -56,11 +60,17 @@ class confirmFBBMove: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
-        setUpViews()
+        setUpViewsConfirm()
         hideKeyboardWhenTappedAround()
+        
+        toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: displayMessage!)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        txtPin.addTarget(self, action: #selector(checkInput), for: .editingChanged)
     }
 
-    func setUpViews(){
+    func setUpViewsConfirm(){
         view.addSubview(topImage)
         topImage.image = UIImage(named: "bg2")
         topImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -109,7 +119,7 @@ class confirmFBBMove: UIViewController {
         lblUserID.textColor = UIColor.black
         lblUserID.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblUserIDTop1 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20)
-        lblUserIDTop2 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40)
+        lblUserIDTop2 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 80)
         lblUserIDTop1?.isActive = true
         
         
@@ -136,6 +146,10 @@ class confirmFBBMove: UIViewController {
         btnConfirm.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnConfirm.addTarget(self, action: #selector(goToFBBShare), for: .touchUpInside)
         
+        //activity loader
+        view.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: txtPin.bottomAnchor, constant: 40).isActive = true
     }
 
     @objc func goBack(){
@@ -143,8 +157,197 @@ class confirmFBBMove: UIViewController {
         present(moveTo!, animated: true, completion: nil)
     }
     
+    @objc func checkInput(){
+        let pinCount = txtPin.text
+        if pinCount?.count != 5 {
+            btnConfirm.backgroundColor = UIColor.grayButton
+            btnConfirm.isEnabled = false
+        }else{
+            btnConfirm.backgroundColor = UIColor.vodaRed
+            btnConfirm.isEnabled = true
+        }
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnConfirm.isHidden = true
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnConfirm.isHidden = false
+    }
+    
     @objc func goToFBBShare(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbShareVc")
-        present(moveTo!, animated: true, completion: nil)
+        let code = txtPin.text
+        if !CheckInternet.Connection(){
+            let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
+            
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }else{
+            start_activity_loader()
+            let postParameters: Dictionary<String, Any> = [
+                "action":"FbbShareBucketPairConfirm",
+                "msisdn":msisdn!,
+                "code":code!,
+                "actKey":actKey!,
+                "userID":userID!
+            ]
+            
+            let async_call = URL(string: String.MVA_FBBMOVE)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
+            
+            //convert post parameters to json
+            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                //creating a task to send request
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is:: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                            self.lblUserIDTop1?.isActive = false
+                            self.lblUserIDTop2?.isActive = true
+                            
+                            let errorView = UIView()
+                            self.view.addSubview(errorView)
+                            errorView.translatesAutoresizingMaskIntoConstraints = false
+                            errorView.backgroundColor = UIColor.darkGray
+                            errorView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                            errorView.leadingAnchor.constraint(equalTo: self.cardView.leadingAnchor, constant: 20).isActive = true
+                            errorView.topAnchor.constraint(equalTo: self.cardView.topAnchor, constant: 10).isActive = true
+                            errorView.trailingAnchor.constraint(equalTo: self.cardView.trailingAnchor, constant: -20).isActive = true
+                            //image
+                            let errorImage = UIImageView(image: #imageLiteral(resourceName: "info"))
+                            errorView.addSubview(errorImage)
+                            errorImage.translatesAutoresizingMaskIntoConstraints = false
+                            errorImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                            errorImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                            errorImage.leadingAnchor.constraint(equalTo: errorView.leadingAnchor, constant: 10).isActive = true
+                            errorImage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                        
+                            //error message
+                            let errorMessage = UILabel()
+                            errorView.addSubview(errorMessage)
+                            errorMessage.translatesAutoresizingMaskIntoConstraints = false
+                            errorMessage.text = error!.localizedDescription
+                            errorMessage.textColor = UIColor.white
+                            errorMessage.font = UIFont(name: String.defaultFontR, size: 18)
+                            errorMessage.numberOfLines = 0
+                            errorMessage.lineBreakMode = .byWordWrapping
+                            errorMessage.leadingAnchor.constraint(equalTo: errorImage.trailingAnchor, constant: 10).isActive = true
+                            errorMessage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                            errorMessage.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -1).isActive = true
+                        }
+                        return;
+                    }
+                    //parsing the response
+                    do {
+                        //converting response
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseCode: Int?
+                            var responseMessage: String?
+                            
+                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            DispatchQueue.main.async {
+                                if responseCode == 1 || responseCode == 2 {
+                                    self.stop_activity_loader()
+                                    responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    
+                                    self.stop_activity_loader()
+                                    self.lblUserIDTop1?.isActive = false
+                                    self.lblUserIDTop2?.isActive = true
+                                    
+                                    let errorView = UIView()
+                                    self.view.addSubview(errorView)
+                                    errorView.translatesAutoresizingMaskIntoConstraints = false
+                                    errorView.backgroundColor = UIColor.darkGray
+                                    errorView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                                    errorView.leadingAnchor.constraint(equalTo: self.cardView.leadingAnchor, constant: 20).isActive = true
+                                    errorView.topAnchor.constraint(equalTo: self.cardView.topAnchor, constant: 10).isActive = true
+                                    errorView.trailingAnchor.constraint(equalTo: self.cardView.trailingAnchor, constant: -20).isActive = true
+                                    //image
+                                    let errorImage = UIImageView(image: #imageLiteral(resourceName: "info"))
+                                    errorView.addSubview(errorImage)
+                                    errorImage.translatesAutoresizingMaskIntoConstraints = false
+                                    errorImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                                    errorImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                                    errorImage.leadingAnchor.constraint(equalTo: errorView.leadingAnchor, constant: 10).isActive = true
+                                    errorImage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                                    
+                                    //error message
+                                    let errorMessage = UILabel()
+                                    errorView.addSubview(errorMessage)
+                                    errorMessage.translatesAutoresizingMaskIntoConstraints = false
+                                    errorMessage.text = responseMessage
+                                    errorMessage.textColor = UIColor.white
+                                    errorMessage.font = UIFont(name: String.defaultFontR, size: 18)
+                                    errorMessage.numberOfLines = 0
+                                    errorMessage.lineBreakMode = .byWordWrapping
+                                    errorMessage.leadingAnchor.constraint(equalTo: errorImage.trailingAnchor, constant: 10).isActive = true
+                                    errorMessage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                                    errorMessage.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -1).isActive = true
+                                }else{
+                                    self.preference.set(self.msisdn!, forKey: "FBBLINKEDNUMBER")
+                                    self.preference.set(self.actKey!, forKey: "FBBACTKEY")
+                                    self.preference.set(self.userID!, forKey: "FBBUSERID")
+                                    guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "fbbShareVc") as? fbbShareVc else {return}
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
+                            }
+                        }
+                    }catch {
+                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            let errorView = UIView()
+                            self.view.addSubview(errorView)
+                            errorView.translatesAutoresizingMaskIntoConstraints = false
+                            errorView.backgroundColor = UIColor.darkGray
+                            errorView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                            errorView.leadingAnchor.constraint(equalTo: self.cardView.leadingAnchor, constant: 20).isActive = true
+                            errorView.topAnchor.constraint(equalTo: self.cardView.topAnchor, constant: 10).isActive = true
+                            errorView.trailingAnchor.constraint(equalTo: self.cardView.trailingAnchor, constant: -20).isActive = true
+                            //image
+                            let errorImage = UIImageView(image: #imageLiteral(resourceName: "info"))
+                            errorView.addSubview(errorImage)
+                            errorImage.translatesAutoresizingMaskIntoConstraints = false
+                            errorImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                            errorImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                            errorImage.leadingAnchor.constraint(equalTo: errorView.leadingAnchor, constant: 10).isActive = true
+                            errorImage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                            
+                            //error message
+                            let errorMessage = UILabel()
+                            errorView.addSubview(errorMessage)
+                            errorMessage.translatesAutoresizingMaskIntoConstraints = false
+                            errorMessage.text = error.localizedDescription
+                            errorMessage.textColor = UIColor.white
+                            errorMessage.font = UIFont(name: String.defaultFontR, size: 18)
+                            errorMessage.numberOfLines = 0
+                            errorMessage.lineBreakMode = .byWordWrapping
+                            errorMessage.leadingAnchor.constraint(equalTo: errorImage.trailingAnchor, constant: 10).isActive = true
+                            errorMessage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 10).isActive = true
+                            errorMessage.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -1).isActive = true
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+//        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbShareVc")
+//        present(moveTo!, animated: true, completion: nil)
     }
 }

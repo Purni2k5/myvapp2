@@ -301,7 +301,7 @@ class linkFBBVc: baseViewControllerM {
                         request.httpMethod = "POST"
                         
                         //converting post parameters to json
-                        /*if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                             request.httpBody = postData
                             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -332,7 +332,10 @@ class linkFBBVc: baseViewControllerM {
                                         DispatchQueue.main.async {
                                             if responseCode == 0 {
                                                 guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "confirmFBBMove") as? confirmFBBMove else {return}
-                                                moveTo.responseMessage = responseMessage
+                                                moveTo.displayMessage = responseMessage
+                                                moveTo.msisdn = msisdn!
+                                                moveTo.actKey = actKey!
+                                                moveTo.userID = userID!
                                                 self.present(moveTo, animated: true, completion: nil)
                                             }else{
                                                 self.stop_activity_loader()
@@ -348,10 +351,10 @@ class linkFBBVc: baseViewControllerM {
                                 }
                             }
                             task.resume()
-                        }*/
-                        guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "confirmFBBMove") as? confirmFBBMove else {return}
-                        moveTo.responseMessage = "Kwaku"
-                        self.present(moveTo, animated: true, completion: nil)
+                        }
+                        /*guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "confirmFBBMove") as? confirmFBBMove else {return}
+                        moveTo.displayMessage = "Kwaku"
+                        self.present(moveTo, animated: true, completion: nil)*/
                     }
                 }
             }

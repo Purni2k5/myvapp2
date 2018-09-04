@@ -44,6 +44,9 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: "Plan")
         preference.removeObject(forKey: "Data")
         preference.removeObject(forKey: "RESPONSEMESSAGE")
+        preference.removeObject(forKey: "FBBLINKEDNUMBER")
+        preference.removeObject(forKey: "FBBACTKEY")
+        preference.removeObject(forKey: "FBBUSERID")
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }

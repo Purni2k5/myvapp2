@@ -657,6 +657,9 @@ class displayChosenOfferVc: baseViewControllerM {
             payRechargeVCard.layer.shadowColor = UIColor.black.cgColor
             payRechargeVCard.layer.shadowOpacity = 0.2
             
+            let payRechargeVRec = UITapGestureRecognizer(target: self, action: #selector(goToFBBPayV))
+            payRechargeVCard.addGestureRecognizer(payRechargeVRec)
+            
             //left image with colour
             let leftImagePayBill = UIImageView()
             payRechargeVCard.addSubview(leftImagePayBill)
@@ -1129,6 +1132,12 @@ class displayChosenOfferVc: baseViewControllerM {
     //FBB Move
     @objc func goToFBBMove(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbMove")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Pay FBB with Voucher
+    @objc func goToFBBPayV(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbPayVoucherVc")
         present(moveTo!, animated: true, completion: nil)
     }
 

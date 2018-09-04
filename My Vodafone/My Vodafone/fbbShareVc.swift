@@ -8,7 +8,10 @@
 
 import UIKit
 
-class fbbShareVc: baseViewControllerM {
+class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    
 
     fileprivate var lblTransferTop1: NSLayoutConstraint?
     fileprivate var lblTransferTop2: NSLayoutConstraint?
@@ -62,8 +65,76 @@ class fbbShareVc: baseViewControllerM {
         return view
     }()
     
+    //Create a picker view
+    func createPickerView(){
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.tag = 1
+        txtTransfer.inputView = picker
+    }
+    
+    func createPickerViewDataUnits(){
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.tag = 2
+        txtDataUnit.inputView = picker
+    }
+    
+    //Function to create a tool bar
+    func createToolBar(){
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(fbbShareVc.dismissKeyBoard))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        txtTransfer.inputAccessoryView =  toolBar
+        txtDataUnit.inputAccessoryView = toolBar
+    }
+    
+    //Function to dismiss keyboard
+    @objc func dismissKeyBoard(){
+        view.endEditing(true)
+    }
+    
+    let channelType = ["Fixed Broadband to Mobile", "Mobile to Fixed Broadband"]
+    let dataUnititem = ["MB", "GB"]
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 1 {
+            return channelType.count
+        }else{
+            return dataUnititem.count
+        }
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.tag == 1 {
+            return channelType[row]
+        }else{
+            return dataUnititem[row]
+        }
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 1 {
+            txtTransfer.text = channelType[row]
+        }else{
+            txtDataUnit.text = dataUnititem[row]
+        }
+        
+    }
+    
     var username: String?
     let txtTransfer = UITextField()
+    let txtDataUnit = UITextField()
     let cheviDown = UIImageView()
     let chevi2Down = UIImageView()
     let btnMoveData = UIButton()
@@ -75,6 +146,9 @@ class fbbShareVc: baseViewControllerM {
         view.backgroundColor = UIColor.grayBackground
         setUpViewsFbbShare()
         hideKeyboardWhenTappedAround()
+        createPickerView()
+        createPickerViewDataUnits()
+        createToolBar()
         
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
@@ -293,7 +367,7 @@ class fbbShareVc: baseViewControllerM {
         txtDataToMove.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtDataToMove.topAnchor.constraint(equalTo: lblDataToMove.bottomAnchor, constant: 10).isActive = true
         
-        let txtDataUnit = UITextField()
+        
         scrollView.addSubview(txtDataUnit)
         txtDataUnit.translatesAutoresizingMaskIntoConstraints = false
         txtDataUnit.font = UIFont(name: String.defaultFontR, size: 16)
@@ -329,6 +403,7 @@ class fbbShareVc: baseViewControllerM {
     }
     
     @objc func goToConfirm(){
-        
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbMove")
+        present(moveTo!, animated: true, completion: nil)
     }
 }
