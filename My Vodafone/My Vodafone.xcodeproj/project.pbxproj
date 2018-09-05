@@ -10,6 +10,8 @@
 		0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117A47D21148617003EBE09 /* BuyOfferViewController.swift */; };
 		0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7B213E9090009B71C8 /* fbbShareVc.swift */; };
 		0119AF7F213F08C3009B71C8 /* fbbPayVoucherVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */; };
+		013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */; };
+		013C52902140389F00A9E67C /* confirmFBBVoucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */; };
 		0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144B5DD20ED1D25007791C4 /* PlansViewController.swift */; };
 		0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */; };
 		0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */; };
@@ -95,6 +97,8 @@
 		0117A47D21148617003EBE09 /* BuyOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyOfferViewController.swift; sourceTree = "<group>"; };
 		0119AF7B213E9090009B71C8 /* fbbShareVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbShareVc.swift; sourceTree = "<group>"; };
 		0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbPayVoucherVc.swift; sourceTree = "<group>"; };
+		013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBUpdateVc.swift; sourceTree = "<group>"; };
+		013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBVoucher.swift; sourceTree = "<group>"; };
 		0144B5DD20ED1D25007791C4 /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
 		0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoGHViewController.swift; sourceTree = "<group>"; };
 		0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbleValueMonthlyViewController.swift; sourceTree = "<group>"; };
@@ -196,7 +200,15 @@
 		0119AF7D213F062C009B71C8 /* FBBMOVE */ = {
 			isa = PBXGroup;
 			children = (
+				01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */,
+				0199F5EE21396DB400906580 /* displayFBBBalance.swift */,
+				018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */,
+				0119AF7B213E9090009B71C8 /* fbbShareVc.swift */,
+				0199F5F021398FA000906580 /* fbbMove.swift */,
+				018B7ACE213D48C9002753B7 /* linkFBBVc.swift */,
 				0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */,
+				013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */,
+				013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */,
 			);
 			path = FBBMOVE;
 			sourceTree = "<group>";
@@ -289,12 +301,6 @@
 				019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */,
 				01C22A74213473530037B691 /* yendiAgoroVc.swift */,
 				01F738862137360600A30C1C /* displayChosenOfferVc.swift */,
-				01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */,
-				0199F5EE21396DB400906580 /* displayFBBBalance.swift */,
-				0199F5F021398FA000906580 /* fbbMove.swift */,
-				018B7ACE213D48C9002753B7 /* linkFBBVc.swift */,
-				018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */,
-				0119AF7B213E9090009B71C8 /* fbbShareVc.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -510,6 +516,7 @@
 			files = (
 				01C0230020C99304003E48CC /* ViewController.swift in Sources */,
 				01941D9B2119B2E300B7D207 /* AppExtensions.swift in Sources */,
+				013C52902140389F00A9E67C /* confirmFBBVoucher.swift in Sources */,
 				0160449F21187759008BD98F /* GestureView.swift in Sources */,
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
@@ -537,6 +544,7 @@
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
+				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
 				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,

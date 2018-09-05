@@ -12,6 +12,7 @@ class fbbMove: baseViewControllerM {
 
     fileprivate var lblUserIDTop1: NSLayoutConstraint?
     fileprivate var lblUserIDTop2: NSLayoutConstraint?
+    
     //closure for scroll view
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -73,9 +74,15 @@ class fbbMove: baseViewControllerM {
         
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
+        
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        txtFxLineNo.addTarget(self, action: #selector(checkTxtInputs), for: .editingChanged)
+        checkTxtInputs()
     }
     
     func setUpViewsFbbMove(){
@@ -168,6 +175,11 @@ class fbbMove: baseViewControllerM {
         txtUserID.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtUserID.topAnchor.constraint(equalTo: lblUserID.bottomAnchor, constant: 10).isActive = true
         txtUserID.addTarget(self, action: #selector(checkTxtInputs), for: .editingChanged)
+        let getUserID = preference.object(forKey: "FBBUSERID")
+        if let getPrefUserID = getUserID {
+            txtUserID.text = getPrefUserID as? String
+        }
+        
         
         let lblFxLineNo = UILabel()
         scrollView.addSubview(lblFxLineNo)
@@ -190,6 +202,10 @@ class fbbMove: baseViewControllerM {
         txtFxLineNo.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtFxLineNo.topAnchor.constraint(equalTo: lblFxLineNo.bottomAnchor, constant: 10).isActive = true
         txtFxLineNo.addTarget(self, action: #selector(checkTxtInputs), for: .editingChanged)
+        let getUserFxNo = preference.object(forKey: "FBBACTKEY")
+        if let getPrefUserFxNo = getUserFxNo {
+            txtFxLineNo.text = getPrefUserFxNo as? String
+        }
         
         //Button to check balance
         
@@ -292,6 +308,7 @@ class fbbMove: baseViewControllerM {
                                 var responseMessage:  String?
                                 var shareStatus: Int?
                                 var ssMessage: String?
+                                print(parseJSON)
                                 
                                 responseCode = parseJSON["RESPONSECODE"] as! Int?
                                 if responseCode == 1 || responseCode == 2 {
@@ -340,6 +357,16 @@ class fbbMove: baseViewControllerM {
                                             let subADSLShareDate = responseData!["C_SUB_ADSL_SHARE_DATE"] as! String?
                                             
                                             //Move to update linked number
+                                            guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "linkFBBUpdateVc") as? linkFBBUpdateVc else {return}
+                                            moveTo.shareStatusMessage = ssMessage
+                                            moveTo.shareStatus = shareStatus
+                                            moveTo.C_SUB_ADSL_SHARE_VALIDITY = subADSLShareValidity
+                                            moveTo.C_SUB_ADSL_SHARE_DATE = subADSLShareDate
+                                            moveTo.C_SUB_ADSL_SHARE = subADSLShare
+                                            moveTo.bbUserID = userID
+                                            moveTo.fixedLineNo = actKey
+                                            self.present(moveTo, animated: true, completion: nil)
+                                            
                                         }else{
                                             guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "linkFBBVc") as? linkFBBVc else {return}
                                             moveTo.bbUserID = self.txtUserID.text

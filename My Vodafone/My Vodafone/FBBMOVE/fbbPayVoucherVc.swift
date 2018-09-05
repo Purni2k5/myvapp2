@@ -64,6 +64,8 @@ class fbbPayVoucherVc: baseViewControllerM {
     let txtAccNo = UITextField()
     let txtVoucherCode = UITextField()
     let btnPay = UIButton()
+    
+    var username: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +73,8 @@ class fbbPayVoucherVc: baseViewControllerM {
         setUpViewsFbbPayV()
         hideKeyboardWhenTappedAround()
         
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
         
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
@@ -159,7 +163,7 @@ class fbbPayVoucherVc: baseViewControllerM {
         lblUserID.textColor = UIColor.black
         lblUserID.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblUserIDTop1 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20)
-        lblUserIDTop2 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 70)
+        lblUserIDTop2 = lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 80)
         lblUserIDTop1?.isActive = true
         
         scrollView.addSubview(txtUserID)
@@ -222,7 +226,7 @@ class fbbPayVoucherVc: baseViewControllerM {
         btnPay.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         btnPay.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnPay.isEnabled = false
-//        btnPay.addTarget(self, action: #selector(linkNumber), for: .touchUpInside)
+        btnPay.addTarget(self, action: #selector(checkBalance), for: .touchUpInside)
         
         //activity loader
         scrollView.addSubview(activity_loader)
@@ -238,6 +242,117 @@ class fbbPayVoucherVc: baseViewControllerM {
         present(moveTo, animated: true, completion: nil)
     }
     
+    @objc func checkBalance(){
+        let userID = txtUserID.text
+        let accNo = txtAccNo.text
+        let voucher = txtVoucherCode.text
+        //check for internet connectivity
+        if !CheckInternet.Connection(){
+            let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
+            
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }else{
+            // validate
+            if userID == ""{
+                lblUserIDTop1?.isActive = false
+                lblUserIDTop2?.isActive = true
+                errorDialog(errorMssg: "User ID is required")
+            }else if accNo == "" {
+                lblUserIDTop1?.isActive = false
+                lblUserIDTop2?.isActive = true
+                errorDialog(errorMssg: "Account Number is required")
+            }else if voucher == "" {
+                lblUserIDTop1?.isActive = false
+                lblUserIDTop2?.isActive = true
+                errorDialog(errorMssg: "Voucher code is required")
+            }else{
+                start_activity_loader()
+                let postParameters: Dictionary<String, Any> = [
+                    "action":"fbbBalance",
+                    "userid":userID!,
+                    "accountnumber":accNo!,
+                    "username":username!
+                ]
+                
+                let async_call = URL(string: String.userURL)
+                let request = NSMutableURLRequest(url: async_call!)
+                request.httpMethod = "POST"
+                
+                // convert post parameters to json
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    
+                    //create a task to send request
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
+                            print("error is:: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.errorDialog(errorMssg: error!.localizedDescription)
+                                self.stop_activity_loader()
+                            }
+                            return;
+                        }
+                            //parsing the response
+                            do {
+                                //converting response to NSDictionary
+                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                if let parseJSON = myJSON {
+                                    var responseCode: Int?
+                                    var responseMessage: NSDictionary!
+                                    print(parseJSON)
+                                    responseCode = parseJSON["RESPONSECODE"] as! Int?
+                                    DispatchQueue.main.async {
+                                        if responseCode == 1 || responseCode == 2 {
+                                            self.lblUserIDTop1?.isActive = false
+                                            self.lblUserIDTop2?.isActive = true
+                                            var responseMessage: String?
+                                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                            self.stop_activity_loader()
+                                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage!)
+                                            self.errorDialog(errorMssg: responseMessage!)
+                                        }else{
+                                            self.stop_activity_loader()
+                                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSDictionary?
+                                            
+                                            
+                                            let P_PHONENO = responseMessage["P_PHONENO"] as! String?
+                                            let P_ADVANCEPAYMENT = responseMessage["P_ADVANCEPAYMENT"] as! String?
+                                            
+                                            guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "confirmFBBVoucher") as? confirmFBBVoucher else {return}
+                                            moveTo.P_PHONENO = P_PHONENO
+                                            moveTo.accNo = accNo!
+                                            moveTo.currentBal = P_ADVANCEPAYMENT
+                                            moveTo.vouchercode = voucher!
+                                            moveTo.userID = userID
+                                            
+                                            self.addChildViewController(moveTo)
+                                            moveTo.view.frame = self.view.frame
+                                            self.view.addSubview(moveTo.view)
+                                            moveTo.didMove(toParentViewController: self)
+                                        }
+                                    }
+                                }
+                            }catch{
+                                print(error.localizedDescription)
+                                DispatchQueue.main.async {
+                                    self.errorDialog(errorMssg: error.localizedDescription)
+                                    self.stop_activity_loader()
+                                }
+                            }
+                        
+                    }
+                    task.resume()
+                }
+            }
+        }
+    }
+    
     @objc func checkInputs(){
         let userID = txtUserID.text
         let accNo = txtAccNo.text
@@ -246,20 +361,65 @@ class fbbPayVoucherVc: baseViewControllerM {
         if userID == "" || accNo == "" || voucher == ""{
             btnPay.backgroundColor = UIColor.grayButton
             btnPay.isEnabled = false
-        }else if userID != "" && accNo != "" && voucher == "" {
+        }else if userID != "" && (accNo == "" || voucher == ""){
             btnPay.backgroundColor = UIColor.grayButton
             btnPay.isEnabled = false
-        }else if userID != "" && accNo == "" && voucher == ""{
+        }else if accNo != "" && (userID == "" || voucher == ""){
             btnPay.backgroundColor = UIColor.grayButton
             btnPay.isEnabled = false
-        }else if userID != "" && accNo == "" && voucher != ""{
+        }else if voucher != "" && (userID == "" || accNo == ""){
             btnPay.backgroundColor = UIColor.grayButton
             btnPay.isEnabled = false
-        }
-        else{
+        }else{
             btnPay.backgroundColor = UIColor.vodaRed
             btnPay.isEnabled = true
         }
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnPay.isHidden = true
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnPay.isHidden = false
+    }
+    
+    func errorDialog(errorMssg: String){
+        let errorView = UIView()
+        self.view.addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        errorView.backgroundColor = UIColor.darkGray
+        errorView.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        errorView.leadingAnchor.constraint(equalTo: self.cardView.leadingAnchor, constant: 20).isActive = true
+        errorView.topAnchor.constraint(equalTo: self.cardView.topAnchor, constant: 10).isActive = true
+        errorView.trailingAnchor.constraint(equalTo: self.cardView.trailingAnchor, constant: -20).isActive = true
+        //image
+        let errorImage = UIImageView(image: #imageLiteral(resourceName: "info"))
+        errorView.addSubview(errorImage)
+        errorImage.translatesAutoresizingMaskIntoConstraints = false
+        errorImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        errorImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        errorImage.leadingAnchor.constraint(equalTo: errorView.leadingAnchor, constant: 10).isActive = true
+        errorImage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 20).isActive = true
+        
+        //error message
+        let errorMessage = UILabel()
+        errorView.addSubview(errorMessage)
+        errorMessage.translatesAutoresizingMaskIntoConstraints = false
+        errorMessage.text = errorMssg
+        errorMessage.textColor = UIColor.white
+        errorMessage.font = UIFont(name: String.defaultFontR, size: 18)
+        errorMessage.numberOfLines = 0
+        errorMessage.lineBreakMode = .byWordWrapping
+        errorMessage.leadingAnchor.constraint(equalTo: errorImage.trailingAnchor, constant: 10).isActive = true
+        errorMessage.topAnchor.constraint(equalTo: errorView.topAnchor, constant: 20).isActive = true
+        errorMessage.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -1).isActive = true
     }
 
 }
