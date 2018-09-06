@@ -21,7 +21,10 @@ extension UIColor {
     static let dark_background = UIColor().colourFromHex("333333")
     static let support_white1 = UIColor().colourFromHex("F4F4F4")
     static let support_light_gray = UIColor().colourFromHex("CCCCCC")
-    static let support_voilet = UIColor().colourFromHex("#9C2AA0")
+    static let support_voilet = UIColor().colourFromHex("9C2AA0")
+    static let support_dark_voilet = UIColor().colourFromHex("5E2750")
+    static let support_dark_gray1 = UIColor().colourFromHex("999999")
+    static let support_dark_gray2 = UIColor().colourFromHex("666666")
     static let dark_gray_60 = UIColor().colourFromHex("99333333")
     
     func colourFromHex(_ hex: String) -> UIColor {

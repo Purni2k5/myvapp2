@@ -487,39 +487,42 @@ class displayChosenOfferVc: baseViewControllerM {
             cashRightArrow.topAnchor.constraint(equalTo: creditTransferCard.topAnchor, constant: 57).isActive = true
             cashRightArrow.trailingAnchor.constraint(equalTo: creditTransferCard.trailingAnchor, constant: -9).isActive = true
             
-            /*Swap Sim*/
-            let simSwapCard = UIView()
-            scrollView.addSubview(simSwapCard)
-            simSwapCard.translatesAutoresizingMaskIntoConstraints = false
-            simSwapCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            simSwapCard.topAnchor.constraint(equalTo: creditTransferCard.bottomAnchor, constant: 20).isActive = true
-            simSwapCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-            simSwapCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
-            simSwapCard.backgroundColor = UIColor.white
+            /*Broadband Packages*/
+            let BBPackagesCard = UIView()
+            scrollView.addSubview(BBPackagesCard)
+            BBPackagesCard.translatesAutoresizingMaskIntoConstraints = false
+            BBPackagesCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            BBPackagesCard.topAnchor.constraint(equalTo: creditTransferCard.bottomAnchor, constant: 20).isActive = true
+            BBPackagesCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            BBPackagesCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            BBPackagesCard.backgroundColor = UIColor.white
             //transforming it a card
-            simSwapCard.layer.cornerRadius = 2
-            simSwapCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-            simSwapCard.layer.shadowColor = UIColor.black.cgColor
-            simSwapCard.layer.shadowOpacity = 0.2
+            BBPackagesCard.layer.cornerRadius = 2
+            BBPackagesCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            BBPackagesCard.layer.shadowColor = UIColor.black.cgColor
+            BBPackagesCard.layer.shadowOpacity = 0.2
+            
+            let bBBPackagestCardRec = UITapGestureRecognizer(target: self, action: #selector(goToBBPackages))
+            BBPackagesCard.addGestureRecognizer(bBBPackagestCardRec)
             
             //left image with colour
             let leftImageColourAgent = UIImageView()
-            simSwapCard.addSubview(leftImageColourAgent)
+            BBPackagesCard.addSubview(leftImageColourAgent)
             leftImageColourAgent.translatesAutoresizingMaskIntoConstraints = false
             leftImageColourAgent.backgroundColor = UIColor.cardImageColour
-            leftImageColourAgent.leadingAnchor.constraint(equalTo: simSwapCard.leadingAnchor).isActive = true
-            leftImageColourAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor).isActive = true
+            leftImageColourAgent.leadingAnchor.constraint(equalTo: BBPackagesCard.leadingAnchor).isActive = true
+            leftImageColourAgent.topAnchor.constraint(equalTo: BBPackagesCard.topAnchor).isActive = true
             leftImageColourAgent.widthAnchor.constraint(equalToConstant: 12).isActive = true
-            leftImageColourAgent.bottomAnchor.constraint(equalTo: simSwapCard.bottomAnchor).isActive = true
+            leftImageColourAgent.bottomAnchor.constraint(equalTo: BBPackagesCard.bottomAnchor).isActive = true
             
             //round image with icon
             let roundImageAgent = UIImageView(image: #imageLiteral(resourceName: "ic_wifi"))
             roundImageAgent.image = roundImageAgent.image!.withRenderingMode(.alwaysTemplate)
-            simSwapCard.addSubview(roundImageAgent)
+            BBPackagesCard.addSubview(roundImageAgent)
             roundImageAgent.tintColor = UIColor.white
             roundImageAgent.backgroundColor = UIColor.vodaIconColour
             roundImageAgent.translatesAutoresizingMaskIntoConstraints = false
-            roundImageAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 30).isActive = true
+            roundImageAgent.topAnchor.constraint(equalTo: BBPackagesCard.topAnchor, constant: 30).isActive = true
             roundImageAgent.leadingAnchor.constraint(equalTo: leftImageColourAgent.trailingAnchor, constant: 19).isActive = true
             roundImageAgent.widthAnchor.constraint(equalToConstant: 60).isActive = true
             roundImageAgent.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -528,40 +531,40 @@ class displayChosenOfferVc: baseViewControllerM {
             
             //adding request label
             let requestLabel = UILabel()
-            simSwapCard.addSubview(requestLabel)
+            BBPackagesCard.addSubview(requestLabel)
             requestLabel.translatesAutoresizingMaskIntoConstraints = false
             requestLabel.text = "Broadband Packages"
             requestLabel.numberOfLines = 0
             requestLabel.font = UIFont(name: String.defaultFontB, size: 20)
             requestLabel.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 8).isActive = true
-            requestLabel.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 40).isActive = true
-            requestLabel.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: 1).isActive = true
+            requestLabel.topAnchor.constraint(equalTo: BBPackagesCard.topAnchor, constant: 40).isActive = true
+            requestLabel.trailingAnchor.constraint(equalTo: BBPackagesCard.trailingAnchor, constant: 1).isActive = true
             
             //adding menu description
             let swapLabelDesc = UILabel()
-            simSwapCard.addSubview(swapLabelDesc)
+            BBPackagesCard.addSubview(swapLabelDesc)
             swapLabelDesc.translatesAutoresizingMaskIntoConstraints = false
             swapLabelDesc.text = "Broadband Packages"
             swapLabelDesc.font = UIFont(name: String.defaultFontR, size: 13)
             swapLabelDesc.leadingAnchor.constraint(equalTo: roundImageAgent.trailingAnchor, constant: 12).isActive = true
             swapLabelDesc.topAnchor.constraint(equalTo: requestLabel.bottomAnchor, constant: 5).isActive = true
-            swapLabelDesc.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: -10).isActive = true
+            swapLabelDesc.trailingAnchor.constraint(equalTo: BBPackagesCard.trailingAnchor, constant: -10).isActive = true
             
             //adding right arrow
             let cashRightArrowAgent = UIImageView(image: #imageLiteral(resourceName: "arrow"))
-            simSwapCard.addSubview(cashRightArrowAgent)
+            BBPackagesCard.addSubview(cashRightArrowAgent)
             cashRightArrowAgent.translatesAutoresizingMaskIntoConstraints = false
             cashRightArrowAgent.widthAnchor.constraint(equalToConstant: 10).isActive = true
             cashRightArrowAgent.heightAnchor.constraint(equalToConstant: 25).isActive = true
-            cashRightArrowAgent.topAnchor.constraint(equalTo: simSwapCard.topAnchor, constant: 57).isActive = true
-            cashRightArrowAgent.trailingAnchor.constraint(equalTo: simSwapCard.trailingAnchor, constant: -9).isActive = true
+            cashRightArrowAgent.topAnchor.constraint(equalTo: BBPackagesCard.topAnchor, constant: 57).isActive = true
+            cashRightArrowAgent.trailingAnchor.constraint(equalTo: BBPackagesCard.trailingAnchor, constant: -9).isActive = true
             
             /* Book Appointment */
             let bookAppoimentCard = UIView()
             scrollView.addSubview(bookAppoimentCard)
             bookAppoimentCard.translatesAutoresizingMaskIntoConstraints = false
             bookAppoimentCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-            bookAppoimentCard.topAnchor.constraint(equalTo: simSwapCard.bottomAnchor, constant: 20).isActive = true
+            bookAppoimentCard.topAnchor.constraint(equalTo: BBPackagesCard.bottomAnchor, constant: 20).isActive = true
             bookAppoimentCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
             bookAppoimentCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
             bookAppoimentCard.backgroundColor = UIColor.white
@@ -1138,6 +1141,12 @@ class displayChosenOfferVc: baseViewControllerM {
     //Pay FBB with Voucher
     @objc func goToFBBPayV(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbPayVoucherVc")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Broadband Packages
+    @objc func goToBBPackages(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "FBBPackages")
         present(moveTo!, animated: true, completion: nil)
     }
 

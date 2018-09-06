@@ -16,3 +16,11 @@ class GesturesView: UIView {
     var offerPID: String?
     var offerUSSD: String?
 }
+
+class ChangeFBBPlan: UIView {
+    var planName: String?
+    var planPID: String?
+    var planID: String?
+    var planPrice: String?
+    var planUSSDURL: String?
+}

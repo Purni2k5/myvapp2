@@ -50,6 +50,8 @@
 		0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5EE21396DB400906580 /* displayFBBBalance.swift */; };
 		0199F5F121398FA000906580 /* fbbMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5F021398FA000906580 /* fbbMove.swift */; };
 		019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */; };
+		01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FF521413BC900F86A65 /* FBBPackages.swift */; };
+		01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FFA2141810500F86A65 /* confirmChangePlan.swift */; };
 		01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A95808212ADCD200F4D7C9 /* supportVC.swift */; };
 		01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A9580A212B28C200F4D7C9 /* supportModalVc.swift */; };
 		01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */; };
@@ -138,6 +140,8 @@
 		0199F5EE21396DB400906580 /* displayFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayFBBBalance.swift; sourceTree = "<group>"; };
 		0199F5F021398FA000906580 /* fbbMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbMove.swift; sourceTree = "<group>"; };
 		019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reportFaultVc.swift; sourceTree = "<group>"; };
+		01A74FF521413BC900F86A65 /* FBBPackages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBPackages.swift; sourceTree = "<group>"; };
+		01A74FFA2141810500F86A65 /* confirmChangePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmChangePlan.swift; sourceTree = "<group>"; };
 		01A95808212ADCD200F4D7C9 /* supportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportVC.swift; sourceTree = "<group>"; };
 		01A9580A212B28C200F4D7C9 /* supportModalVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportModalVc.swift; sourceTree = "<group>"; };
 		01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 				0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */,
 				013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */,
 				013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */,
+				01A74FF521413BC900F86A65 /* FBBPackages.swift */,
+				01A74FFA2141810500F86A65 /* confirmChangePlan.swift */,
 			);
 			path = FBBMOVE;
 			sourceTree = "<group>";
@@ -219,6 +225,14 @@
 				01941D9A2119B2E300B7D207 /* AppExtensions.swift */,
 			);
 			path = mvaExtensions;
+			sourceTree = "<group>";
+		};
+		01A74FF72141783000F86A65 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				0160449E21187759008BD98F /* GestureView.swift */,
+			);
+			path = CustomClasses;
 			sourceTree = "<group>";
 		};
 		01C022F120C99304003E48CC = {
@@ -242,6 +256,7 @@
 		01C022FC20C99304003E48CC /* My Vodafone */ = {
 			isa = PBXGroup;
 			children = (
+				01A74FF72141783000F86A65 /* CustomClasses */,
 				0119AF7D213F062C009B71C8 /* FBBMOVE */,
 				01F7388321369B4900A30C1C /* baseControllers */,
 				01941D992119B2A600B7D207 /* mvaExtensions */,
@@ -288,7 +303,6 @@
 				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
 				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
 				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
-				0160449E21187759008BD98F /* GestureView.swift */,
 				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
 				016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */,
 				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
@@ -519,6 +533,7 @@
 				013C52902140389F00A9E67C /* confirmFBBVoucher.swift in Sources */,
 				0160449F21187759008BD98F /* GestureView.swift in Sources */,
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
+				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
 				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
@@ -562,6 +577,7 @@
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0199F5F121398FA000906580 /* fbbMove.swift in Sources */,
 				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
+				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,

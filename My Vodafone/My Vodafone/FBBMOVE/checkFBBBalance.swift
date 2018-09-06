@@ -65,7 +65,7 @@ class checkFBBBalance: baseViewControllerM {
     let btnCheck = UIButton()
     let checkBox = UIButton()
     
-    var isChecked: Bool = false
+    var isChecked: Bool = true
     var username: String?
     
     override func viewDidLoad() {
@@ -187,6 +187,9 @@ class checkFBBBalance: baseViewControllerM {
         txtUserID.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtUserID.topAnchor.constraint(equalTo: lblUserID.bottomAnchor, constant: 10).isActive = true
         txtUserID.addTarget(self, action: #selector(checkTxtInputs), for: .editingChanged)
+        if let prefUserID = preference.object(forKey: "FBBUSERID"){
+            txtUserID.text = prefUserID as? String
+        }
         
         let lblAccNo = UILabel()
         scrollView.addSubview(lblAccNo)
@@ -209,6 +212,9 @@ class checkFBBBalance: baseViewControllerM {
         txtAccNo.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtAccNo.topAnchor.constraint(equalTo: lblAccNo.bottomAnchor, constant: 10).isActive = true
         txtAccNo.addTarget(self, action: #selector(checkTxtInputs), for: .editingChanged)
+        if let prefAccNo = preference.object(forKey: "FBBUSERACCOUNT"){
+            txtAccNo.text = prefAccNo as? String
+        }
         
         //check box
         
@@ -287,6 +293,13 @@ class checkFBBBalance: baseViewControllerM {
                 self.stop_activity_loader()
                 toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are required")
             }else{
+                if isChecked{
+                    print("Do this")
+                    preference.set(userID!, forKey: "FBBUSERID")
+                    preference.set(accountNumber!, forKey: "FBBUSERACCOUNT")
+                }else{
+                    print("Don't do this")
+                }
                 let async_api = URL(string: String.userURL)
                 let request = NSMutableURLRequest(url: async_api!)
                 
@@ -339,8 +352,7 @@ class checkFBBBalance: baseViewControllerM {
                                         let unusedData = responseMessage["P_CURRENTVOL"] as! String?
                                         let cashInAccount = responseMessage["P_CURRENTBAL"] as! String?
                                         let plan = responseMessage["P_PLANNAME"] as! String?
-                                        self.txtUserID.text = ""
-                                        self.txtAccNo.text = ""
+                                        
                                         self.stop_activity_loader()
                                         
                                         guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "displayFBBBalance") as? displayFBBBalance else {return}
@@ -385,6 +397,7 @@ class checkFBBBalance: baseViewControllerM {
                     self.checkBox.setImage(UIImage(named: "Checkbox"), for: .normal)
                 }else{
                     self.checkBox.setImage(UIImage(named: "UnCheckbox"), for: .normal)
+                    
                 }
                 self.isChecked = !self.isChecked
             }, completion: nil)
