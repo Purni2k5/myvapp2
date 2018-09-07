@@ -83,6 +83,10 @@ class checkFBBBalance: baseViewControllerM {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        checkTxtInputs()
+    }
+    
     //Function to startIndicator
     func start_activity_loader(){
         activity_loader.isHidden = false
@@ -294,11 +298,11 @@ class checkFBBBalance: baseViewControllerM {
                 toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are required")
             }else{
                 if isChecked{
-                    print("Do this")
+                   
                     preference.set(userID!, forKey: "FBBUSERID")
                     preference.set(accountNumber!, forKey: "FBBUSERACCOUNT")
                 }else{
-                    print("Don't do this")
+                    
                 }
                 let async_api = URL(string: String.userURL)
                 let request = NSMutableURLRequest(url: async_api!)
@@ -392,14 +396,16 @@ class checkFBBBalance: baseViewControllerM {
             sender.isSelected = !sender.isSelected
             UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveLinear, animations: {
                 sender.transform = .identity
-                if self.isChecked {
-                    
-                    self.checkBox.setImage(UIImage(named: "Checkbox"), for: .normal)
-                }else{
+                if self.isChecked == true {
                     self.checkBox.setImage(UIImage(named: "UnCheckbox"), for: .normal)
                     
+                    
+                }else{
+                    
+                    self.checkBox.setImage(UIImage(named: "Checkbox"), for: .normal)
                 }
                 self.isChecked = !self.isChecked
+                print(self.isChecked)
             }, completion: nil)
         }
     }
