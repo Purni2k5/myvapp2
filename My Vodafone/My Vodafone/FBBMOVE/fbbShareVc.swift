@@ -10,9 +10,10 @@ import UIKit
 
 class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var userID: String?
+    var bbNo: String?
+    var linkedNo: String?
     
-    
-
     fileprivate var lblTransferTop1: NSLayoutConstraint?
     fileprivate var lblTransferTop2: NSLayoutConstraint?
     
@@ -138,6 +139,10 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
     let cheviDown = UIImageView()
     let chevi2Down = UIImageView()
     let btnMoveData = UIButton()
+    let txtInitialBB = UITextField()
+    let txtCurrentBB = UITextField()
+    let txtRemDays = UITextField()
+    let txtBBRemMobile = UITextField()
     var cardViewSize: CGFloat?
     
     override func viewDidLoad() {
@@ -149,6 +154,8 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         createPickerView()
         createPickerViewDataUnits()
         createToolBar()
+        
+        getMoveDetails()
         
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
@@ -276,7 +283,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         lblInitialBB.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblInitialBB.topAnchor.constraint(equalTo: txtTransfer.bottomAnchor, constant: 25).isActive = true
         
-        let txtInitialBB = UITextField()
+        
         scrollView.addSubview(txtInitialBB)
         txtInitialBB.translatesAutoresizingMaskIntoConstraints = false
         txtInitialBB.font = UIFont(name: String.defaultFontR, size: 16)
@@ -296,7 +303,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         lblCurrentBB.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblCurrentBB.topAnchor.constraint(equalTo: txtInitialBB.bottomAnchor, constant: 25).isActive = true
         
-        let txtCurrentBB = UITextField()
+        
         scrollView.addSubview(txtCurrentBB)
         txtCurrentBB.translatesAutoresizingMaskIntoConstraints = false
         txtCurrentBB.font = UIFont(name: String.defaultFontR, size: 16)
@@ -316,7 +323,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         lblRemDays.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblRemDays.topAnchor.constraint(equalTo: txtCurrentBB.bottomAnchor, constant: 25).isActive = true
         
-        let txtRemDays = UITextField()
+        
         scrollView.addSubview(txtRemDays)
         txtRemDays.translatesAutoresizingMaskIntoConstraints = false
         txtRemDays.font = UIFont(name: String.defaultFontR, size: 16)
@@ -336,7 +343,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         lblBBRemMobile.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         lblBBRemMobile.topAnchor.constraint(equalTo: txtRemDays.bottomAnchor, constant: 25).isActive = true
         
-        let txtBBRemMobile = UITextField()
+        
         scrollView.addSubview(txtBBRemMobile)
         txtBBRemMobile.translatesAutoresizingMaskIntoConstraints = false
         txtBBRemMobile.font = UIFont(name: String.defaultFontR, size: 16)
@@ -400,6 +407,63 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
 //        btnMoveData.addTarget(self, action: #selector(checkFBBMove), for: .touchUpInside)
         
         scrollView.contentSize.height = view.frame.size.height + 100
+    }
+    
+    //sync for move details
+    func getMoveDetails(){
+        
+        let postParameters: Dictionary<String, Any> = [
+            "action":"FbbShareBucketData",
+            "userID":userID!,
+            "actKey":bbNo!
+        ]
+        
+        let asyc_call = URL(string: String.MVA_FBBMOVE)
+        let request = NSMutableURLRequest(url: asyc_call!)
+        request.httpMethod = "POST"
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                    }
+                    return;
+                }
+                
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON{
+                        var responseCode: Int?
+                        
+                        
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        DispatchQueue.main.async {
+                            if responseCode == 1 || responseCode == 2 {
+                                var responseMessage: String?
+                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage!)
+                            }else{
+                                var responseMessage: String?
+                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                
+                            }
+                        }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
+                    }
+                }
+            }
+            task.resume()
+        }
     }
     
     @objc func goToConfirm(){

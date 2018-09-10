@@ -83,6 +83,10 @@ class linkFBBUpdateVc: baseViewControllerM {
         setUpViewsFBBLUpdate()
         hideKeyboardWhenTappedAround()
         
+        if AcctType == "PHONE_MOBILE_PRE_P" {
+            prePaidMenu()
+        }
+        
     }
 
     func setUpViewsFBBLUpdate(){
@@ -329,7 +333,30 @@ class linkFBBUpdateVc: baseViewControllerM {
     }
     
     @objc func proceed(){
+        let userID = txtUserID.text
+        let bbNo = txtFxLineNo.text
+        let linkedNo = txtFxLineNo.text
         
+        //check if internet exist
+        if !CheckInternet.Connection(){
+            let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
+            
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }else{
+            if userID == "" || bbNo == "" || linkedNo == "" {
+                errorDialog(errorMssg: "All fields are required")
+            }else{
+                // move to sharing screen
+                guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "fbbShareVc") as? fbbShareVc else{return}
+                moveTo.userID = userID
+                moveTo.bbNo = bbNo
+                moveTo.linkedNo = linkedNo
+                present(moveTo, animated: true, completion: nil)
+            }
+        }
     }
     
     func errorDialog(errorMssg: String){
