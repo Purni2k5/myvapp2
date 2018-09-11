@@ -217,6 +217,9 @@ class displayChosenOfferVc: baseViewControllerM {
             creditTransferCard.layer.shadowColor = UIColor.black.cgColor
             creditTransferCard.layer.shadowOpacity = 0.2
             
+            let servicesRec = UITapGestureRecognizer(target: self, action: #selector(goToCreditTrans))
+            creditTransferCard.addGestureRecognizer(servicesRec)
+            
             //left image with colour
             let leftImageColour = UIImageView()
             creditTransferCard.addSubview(leftImageColour)
@@ -1147,6 +1150,12 @@ class displayChosenOfferVc: baseViewControllerM {
     //Broadband Packages
     @objc func goToBBPackages(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "FBBPackages")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Credit Transfer
+    @objc func goToCreditTrans(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "creditTransferVc")
         present(moveTo!, animated: true, completion: nil)
     }
 

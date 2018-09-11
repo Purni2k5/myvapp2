@@ -266,17 +266,22 @@ class fbbMove: baseViewControllerM {
             moveTo.didMove(toParentViewController: self)
         }else{
             start_activity_loader()
-            let userID = txtUserID.text
-            let  actKey = txtFxLineNo.text
+            var userID = txtUserID.text
+            userID = userID?.trimmingCharacters(in: .whitespacesAndNewlines)
+            var  actKey = txtFxLineNo.text
+            actKey = actKey?.trimmingCharacters(in: .whitespacesAndNewlines)
             if userID == "" || actKey == "" {
                 stop_activity_loader()
                 toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are required")
             }else{
+                
                 let postParameters: Dictionary<String, Any> = [
                     "action":"FbbShareBucketCheck",
-                    "actKey": actKey!,
+                    "actKey":actKey!,
                     "userID":userID!
                 ]
+                
+                print(postParameters)
                 let asyn_call = URL(string: String.MVA_FBBMOVE)
                 let request = NSMutableURLRequest(url: asyn_call!)
                 request.httpMethod = "POST"
@@ -377,8 +382,9 @@ class fbbMove: baseViewControllerM {
                                 }
                             }
                         }catch{
-                            print(error.localizedDescription)
+                            print(error)
                             DispatchQueue.main.async {
+                                print("error nie:: \(error.localizedDescription)")
                                 self.stop_activity_loader()
                                 self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
                             }

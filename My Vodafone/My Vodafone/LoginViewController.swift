@@ -204,6 +204,14 @@ class LoginViewController: UIViewController {
                         }
                     }
                 } catch {
+                    DispatchQueue.main.async {
+                        self.stopAsyncLoader()
+                        self.errorMessage.isHidden = false
+                        self.img_info.isHidden = false
+                        self.error_dialog_bg.isHidden = false
+                        self.errorMessage.text = error.localizedDescription
+                        self.usernameTopConstraint.constant = 90
+                    }
                     print(error)
                 }
             }
