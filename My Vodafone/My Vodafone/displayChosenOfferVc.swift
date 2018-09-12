@@ -10,7 +10,7 @@ import UIKit
 
 class displayChosenOfferVc: baseViewControllerM {
 
-    var selectedOffer: String?
+    var selectedOffer = ""
     let preferences = UserDefaults.standard
     var totalOffers:Int?
     var offerName: String?
@@ -57,14 +57,33 @@ class displayChosenOfferVc: baseViewControllerM {
         return view
     }()
     
+    //create activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let activity_loader = UIActivityIndicatorView()
+        activity_loader.translatesAutoresizingMaskIntoConstraints = false
+        activity_loader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activity_loader.color = UIColor.vodaRed
+        //        activity_loader.backgroundColor = UIColor.cardImageColour
+        activity_loader.startAnimating()
+        activity_loader.hidesWhenStopped = true
+        activity_loader.isHidden = false
+        return activity_loader
+        
+    }()
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         setUpViewDisp()
         checkConnection()
-        if let sOffer = selectedOffer{
-            let vodafonePdts = preferences.object(forKey: sOffer)
-        }
+        let vodafonePdts = preferences.object(forKey: selectedOffer)
+        
         let UserData = preferences.object(forKey: "responseData") as! NSDictionary
         let defaultNumber = UserData["Contact"] as! String
         
@@ -1022,6 +1041,278 @@ class displayChosenOfferVc: baseViewControllerM {
             rRArrow.topAnchor.constraint(equalTo: requestFBBRPCard.topAnchor, constant: 57).isActive = true
             rRArrow.trailingAnchor.constraint(equalTo: requestFBBRPCard.trailingAnchor, constant: -9).isActive = true
             scrollView.contentSize.height = 1550
+        }else {
+            if vodafonePdts == nil {
+                print("Was empty")
+                scrollView.addSubview(activity_loader)
+                let horizontalConstraint = NSLayoutConstraint(item: activity_loader, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+                let verticalConstraint = NSLayoutConstraint(item: activity_loader, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0)
+                NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint])
+                
+                //Now make async call to fetch data
+                let asyncAPI = URL(string: String.offers)
+                let request = NSMutableURLRequest(url: asyncAPI!)
+                request.httpMethod = "POST"
+                //            selectedOffer = selectedOffer.uppercased()
+                //declare parameters
+                let postParameters: Dictionary<String, Any> = [
+                    "action":"products",
+                    "option":"byType",
+                    "msisdn":defaultNumber,
+                    "productType":selectedOffer.uppercased()
+                ]
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    
+                    //creating a task to send post request
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
+                            print("error is: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                                self.stop_activity_loader()
+                            }
+                            return;
+                        }
+                        //passing the response
+                        do {
+                            //converting response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            //parsing the json
+                            if let parseJSON = myJSON {
+                                var responseCode: Int!
+                                var responseMessage: NSArray!
+                                responseCode = parseJSON["RESPONSECODE"] as! Int
+                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
+                                
+                                //Now store in user defaults for quick retrieval next time
+                                print("This is the key:: \(self.selectedOffer)")
+                                self.preferences.set(responseMessage, forKey: self.selectedOffer)
+                                print(responseCode)
+                                print(responseMessage)
+                                print("****************************************************")
+                                let getOffers = self.preferences.object(forKey: self.selectedOffer)
+                                print(getOffers)
+                                DispatchQueue.main.async {
+                                    self.activity_loader.stopAnimating()
+                                    if let array = getOffers as! NSArray?{
+                                        let totalOffers = array.count
+                                        let castTotalOffers = CGFloat(totalOffers)
+                                        var topAnchorConstraint: CGFloat = 170
+                                        var cardHeight: CGFloat = 145
+                                        for obj in array {
+                                            if let dict = obj as? NSDictionary{
+                                                self.offerName = dict.value(forKey: "NAME") as! String?
+                                                self.offerPrice = dict.value(forKey: "PRICE") as! String?
+                                                self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String?
+                                                self.offerPID = dict.value(forKey: "PID") as! String?
+                                                self.offerUSSD = dict.value(forKey: "USSD") as! String?
+                                                
+                                                
+                                                //creating the uiview
+                                                let offerView = GesturesView()
+                                                offerView.offerVariable = self.offerName
+                                                offerView.offerPrice = self.offerPrice
+                                                offerView.offerDescription = self.offerDescription
+                                                offerView.offerPID = self.offerPID
+                                                offerView.offerUSSD = self.offerUSSD
+                                                self.scrollView.addSubview(offerView)
+                                                offerView.translatesAutoresizingMaskIntoConstraints = false
+                                                offerView.topAnchor.constraint(equalTo: self.backButton.bottomAnchor, constant: topAnchorConstraint).isActive = true
+                                                offerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20.0).isActive = true
+                                                offerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20.0).isActive = true
+                                                offerView.backgroundColor = UIColor.white
+                                                offerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                                                //transforming to cards
+                                                offerView.layer.cornerRadius = 2
+                                                offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+                                                offerView.layer.shadowColor = UIColor.black.cgColor
+                                                offerView.layer.shadowOpacity = 0.1
+                                                
+                                                //add left image view
+                                                let cardImage = UIImageView()
+                                                offerView.addSubview(cardImage)
+                                                cardImage.backgroundColor = UIColor.cardImageColour
+                                                cardImage.translatesAutoresizingMaskIntoConstraints = false
+                                                cardImage.leadingAnchor.constraint(equalTo: offerView.leadingAnchor, constant: 0).isActive = true
+                                                cardImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
+                                                cardImage.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 0).isActive = true
+                                                cardImage.bottomAnchor.constraint(equalTo: offerView.bottomAnchor, constant: 0).isActive = true
+                                                
+                                                //Adding display images
+                                                let offerIcon = UIImageView(image: #imageLiteral(resourceName: "call_icon"))
+                                                offerIcon.translatesAutoresizingMaskIntoConstraints = false
+                                                offerView.addSubview(offerIcon)
+                                                offerIcon.backgroundColor = UIColor.vodaIconColour
+                                                offerIcon.widthAnchor.constraint(equalToConstant: 60).isActive = true
+                                                offerIcon.heightAnchor.constraint(equalToConstant: 60).isActive = true
+                                                offerIcon.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 30).isActive = true
+                                                offerIcon.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 19).isActive = true
+                                                //make image round
+                                                offerIcon.layer.cornerRadius = offerIcon.frame.size.width / 2
+                                                offerIcon.clipsToBounds = true
+                                                
+                                                //add Name of offer
+                                                let offerNameLbl = UILabel()
+                                                self.scrollView.addSubview(offerNameLbl)
+                                                offerNameLbl.translatesAutoresizingMaskIntoConstraints = false
+                                                offerNameLbl.text = self.offerName
+                                                offerNameLbl.font = UIFont(name: String.defaultFontB, size: 20)
+                                                offerNameLbl.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 38).isActive = true
+                                                offerNameLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                                                offerNameLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                                                
+                                                //add price of offer
+                                                let offerPriceLbl = UILabel()
+                                                self.scrollView.addSubview(offerPriceLbl)
+                                                offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
+                                                offerPriceLbl.text = "Price GHS \(self.offerPrice!)"
+                                                offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
+                                                offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
+                                                offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                                                offerPriceLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                                                
+                                                //Adding right arrow
+                                                let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                                                self.scrollView.addSubview(rightArrow)
+                                                rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                                                rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                                                rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                                                rightArrow.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 57).isActive = true
+                                                rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
+                                                
+                                                
+                                                topAnchorConstraint = topAnchorConstraint + 165
+                                                //(cardHeight * castTotalOffers) + 620
+                                                self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
+                                                
+                                                //Adding gesture
+                                                let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToBuyBundle))
+                                                offerView.addGestureRecognizer(touchRec)
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                
+                            }
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    task.resume()
+                }
+            }else{
+                print("here naa")
+                if let array = vodafonePdts as! NSArray?{
+                    totalOffers = array.count
+                    let castTotalOffers = CGFloat(totalOffers!)
+                    var topAnchorConstraint: CGFloat = 170
+                    var cardHeight: CGFloat = 145
+                    for (index, obj) in array.enumerated() {
+                        if let dict = obj as? NSDictionary{
+                            offerName = dict.value(forKey: "NAME") as! String
+                            offerPrice = dict.value(forKey: "PRICE") as! String
+                            offerDescription = dict.value(forKey: "DESCRIPTION") as! String
+                            offerPID = dict.value(forKey: "PID") as! String
+                            offerUSSD = dict.value(forKey: "USSD") as! String
+                            
+                            //creating the uiview
+                            let offerView = GesturesView()
+                            offerView.offerVariable = offerName
+                            offerView.offerPrice = offerPrice
+                            offerView.offerDescription = offerDescription
+                            offerView.offerPID = offerPID
+                            offerView.offerUSSD = offerUSSD
+                            self.scrollView.addSubview(offerView)
+                            offerView.translatesAutoresizingMaskIntoConstraints = false
+                            offerView.topAnchor.constraint(equalTo: self.backButton.bottomAnchor, constant: topAnchorConstraint).isActive = true
+                            offerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20.0).isActive = true
+                            offerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20.0).isActive = true
+                            offerView.backgroundColor = UIColor.white
+                            offerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                            //transforming to cards
+                            offerView.layer.cornerRadius = 2
+                            offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+                            offerView.layer.shadowColor = UIColor.black.cgColor
+                            offerView.layer.shadowOpacity = 0.1
+                            offerView.tag = index
+                            
+                            //add left image view
+                            let cardImage = UIImageView()
+                            offerView.addSubview(cardImage)
+                            cardImage.backgroundColor = UIColor.cardImageColour
+                            cardImage.translatesAutoresizingMaskIntoConstraints = false
+                            cardImage.leadingAnchor.constraint(equalTo: offerView.leadingAnchor, constant: 0).isActive = true
+                            cardImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
+                            cardImage.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 0).isActive = true
+                            cardImage.bottomAnchor.constraint(equalTo: offerView.bottomAnchor, constant: 0).isActive = true
+                            
+                            //Adding display images
+                            let offerIcon = UIImageView(image: #imageLiteral(resourceName: "call_icon"))
+                            offerIcon.translatesAutoresizingMaskIntoConstraints = false
+                            offerView.addSubview(offerIcon)
+                            offerIcon.backgroundColor = UIColor.vodaIconColour
+                            offerIcon.widthAnchor.constraint(equalToConstant: 60).isActive = true
+                            offerIcon.heightAnchor.constraint(equalToConstant: 60).isActive = true
+                            offerIcon.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 30).isActive = true
+                            offerIcon.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 19).isActive = true
+                            //make image round
+                            offerIcon.layer.cornerRadius = offerIcon.frame.size.width / 2
+                            offerIcon.clipsToBounds = true
+                            
+                            //add Name of offer
+                            let offerNameLbl = UILabel()
+                            self.scrollView.addSubview(offerNameLbl)
+                            offerNameLbl.translatesAutoresizingMaskIntoConstraints = false
+                            offerNameLbl.text = offerName
+                            offerNameLbl.font = UIFont(name: String.defaultFontB, size: 20)
+                            offerNameLbl.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 38).isActive = true
+                            offerNameLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                            offerNameLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                            
+                            //add price of offer
+                            let offerPriceLbl = UILabel()
+                            self.scrollView.addSubview(offerPriceLbl)
+                            offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
+                            offerPriceLbl.text = "Price GHS " + offerPrice!
+                            offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
+                            offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
+                            offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                            offerPriceLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                            
+                            //Adding right arrow
+                            let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                            self.scrollView.addSubview(rightArrow)
+                            rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                            rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                            rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                            rightArrow.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 57).isActive = true
+                            rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
+                            
+                            topAnchorConstraint = topAnchorConstraint + 165
+                            //(cardHeight * castTotalOffers) + 620
+                            self.scrollView.contentSize.height = CGFloat(totalOffers!) + topAnchorConstraint + 70
+                            
+                            
+                            //Adding gesture
+                            let touchRec = UITapGestureRecognizer.init(target: self, action: #selector(goToBuyBundle(_sender:)))
+                            offerView.addGestureRecognizer(touchRec)
+                            
+                            
+                        }
+                    }
+                }
+                //No do some background check again
+                if CheckInternet.Connection() {
+                    makeAsync(offer: selectedOffer, msisdn: defaultNumber)
+                }else{
+                    print("No internet")
+                }
+            }
         }
         
         if AcctType == "PHONE_MOBILE_PRE_P" {
@@ -1092,14 +1383,16 @@ class displayChosenOfferVc: baseViewControllerM {
         lblSelectedOffer.textColor = UIColor.white
         lblSelectedOffer.textAlignment = .center
         lblSelectedOffer.font = UIFont(name: String.defaultFontR, size: 31)
-        if let selOffer = selectedOffer {
-            if selOffer == "FBB"{
-                lblSelectedOffer.text = "Fixed Broadband"
-            }else{
-                lblSelectedOffer.text = selOffer
+        if selectedOffer == "FBB" {
+            lblSelectedOffer.text = "Fixed Broadband"
+        }else if selectedOffer == "Data" {
+            lblSelectedOffer.text = "Data Bundles"
+        }
+        else{
+                lblSelectedOffer.text = selectedOffer
             }
             
-        }
+        
         lblSelectedOffer.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 20).isActive = true
         lblSelectedOffer.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 70).isActive = true
         lblSelectedOffer.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -20).isActive = true
@@ -1157,6 +1450,177 @@ class displayChosenOfferVc: baseViewControllerM {
     @objc func goToCreditTrans(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "creditTransferVc")
         present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to go to buy offer
+    @objc func goToBuyBundle(_sender: UITapGestureRecognizer){
+        //        print(array[sender.view!.tag])
+        guard let moveTo = storyboard?.instantiateViewController(withIdentifier: "BuyOfferViewController") as? BuyOfferViewController else {return}
+        guard let gestureVariables = _sender.view as? GesturesView else {return}
+        moveTo.selectedOffer = gestureVariables.offerVariable!
+        moveTo.selectedOfferPrice = gestureVariables.offerPrice!
+        moveTo.selectedOfferDesc = gestureVariables.offerDescription!
+        moveTo.selectedOfferPID = gestureVariables.offerPID!
+        moveTo.selectedUSSD = gestureVariables.offerUSSD!
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    func makeAsync(offer:String, msisdn:String){
+        let request_api = URL(string: String.offers)
+        let request = NSMutableURLRequest(url: request_api!)
+        request.httpMethod = "POST"
+        
+        let postParameters:Dictionary<String, Any> = [
+            "action":"products",
+            "option":"byType",
+            "msisdn":msisdn,
+            "productType":offer.uppercased()
+        ]
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            //creating a task to send request
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!)")
+                    return;
+                }
+                //parsing the response
+                do {
+                    //converting the response to NSDictionary
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    //parsing the json
+                    if let parseJSON = myJSON{
+                        var responseCode: Int!
+                        var responseMessage: NSArray!
+                        
+                        responseCode = parseJSON["RESPONSECODE"] as! Int
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
+                        
+                        let newTotalOffers = responseMessage.count
+                        print("new count \(newTotalOffers)")
+                        
+                        DispatchQueue.main.async {
+                            //Populate again
+                            //Clean existing particular userdefaults
+                            self.preferences.removeObject(forKey: self.selectedOffer)
+                            //now add to user defaults new offers
+                            self.preferences.set(responseMessage, forKey: self.selectedOffer)
+                            let getOffers = self.preferences.object(forKey: self.selectedOffer)
+                            if let array = getOffers as! NSArray?{
+                                let totalOffers = array.count
+                                let castTotalOffers = CGFloat(totalOffers)
+                                var topAnchorConstraint: CGFloat = 170
+                                var cardHeight: CGFloat = 145
+                                for obj in array {
+                                    if let dict = obj as? NSDictionary{
+                                        self.offerName = dict.value(forKey: "NAME") as? String
+                                        self.offerPrice = dict.value(forKey: "PRICE") as! String
+                                        self.offerDescription = dict.value(forKey: "DESCRIPTION") as! String
+                                        self.offerPID = dict.value(forKey: "PID") as! String
+                                        self.offerUSSD = dict.value(forKey: "USSD") as! String
+                                        
+                                        //creating the uiview
+                                        let offerView = GesturesView()
+                                        offerView.offerVariable = self.offerName
+                                        offerView.offerPrice = self.offerPrice
+                                        offerView.offerDescription = self.offerDescription
+                                        offerView.offerPID = self.offerPID
+                                        offerView.offerUSSD = self.offerUSSD
+                                        self.scrollView.addSubview(offerView)
+                                        offerView.translatesAutoresizingMaskIntoConstraints = false
+                                        offerView.topAnchor.constraint(equalTo: self.backButton.bottomAnchor, constant: topAnchorConstraint).isActive = true
+                                        offerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20.0).isActive = true
+                                        offerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20.0).isActive = true
+                                        offerView.backgroundColor = UIColor.white
+                                        offerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                                        //transforming to cards
+                                        offerView.layer.cornerRadius = 2
+                                        offerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+                                        offerView.layer.shadowColor = UIColor.black.cgColor
+                                        offerView.layer.shadowOpacity = 0.1
+                                        
+                                        //add left image view
+                                        let cardImage = UIImageView()
+                                        offerView.addSubview(cardImage)
+                                        cardImage.backgroundColor = UIColor.cardImageColour
+                                        cardImage.translatesAutoresizingMaskIntoConstraints = false
+                                        cardImage.leadingAnchor.constraint(equalTo: offerView.leadingAnchor, constant: 0).isActive = true
+                                        cardImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
+                                        cardImage.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 0).isActive = true
+                                        cardImage.bottomAnchor.constraint(equalTo: offerView.bottomAnchor, constant: 0).isActive = true
+                                        
+                                        //Adding display images
+                                        let offerIcon = UIImageView(image: #imageLiteral(resourceName: "call_icon"))
+                                        offerIcon.translatesAutoresizingMaskIntoConstraints = false
+                                        offerView.addSubview(offerIcon)
+                                        offerIcon.backgroundColor = UIColor.vodaIconColour
+                                        offerIcon.widthAnchor.constraint(equalToConstant: 60).isActive = true
+                                        offerIcon.heightAnchor.constraint(equalToConstant: 60).isActive = true
+                                        offerIcon.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 30).isActive = true
+                                        offerIcon.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 19).isActive = true
+                                        //make image round
+                                        offerIcon.layer.cornerRadius = offerIcon.frame.size.width / 2
+                                        offerIcon.clipsToBounds = true
+                                        
+                                        //add Name of offer
+                                        let offerNameLbl = UILabel()
+                                        self.scrollView.addSubview(offerNameLbl)
+                                        offerNameLbl.translatesAutoresizingMaskIntoConstraints = false
+                                        offerNameLbl.text = self.offerName
+                                        offerNameLbl.font = UIFont(name: String.defaultFontB, size: 20)
+                                        offerNameLbl.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 38).isActive = true
+                                        offerNameLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                                        offerNameLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                                        
+                                        //add price of offer
+                                        let offerPriceLbl = UILabel()
+                                        self.scrollView.addSubview(offerPriceLbl)
+                                        offerPriceLbl.translatesAutoresizingMaskIntoConstraints = false
+                                        offerPriceLbl.text = "Price GHS \(self.offerPrice!)"
+                                        offerPriceLbl.font = UIFont(name: String.defaultFontR, size: 16)
+                                        offerPriceLbl.topAnchor.constraint(equalTo: offerNameLbl.bottomAnchor, constant: 10).isActive = true
+                                        offerPriceLbl.leadingAnchor.constraint(equalTo: offerIcon.trailingAnchor, constant: 8).isActive = true
+                                        offerPriceLbl.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -10).isActive = true
+                                        
+                                        //Adding right arrow
+                                        let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                                        self.scrollView.addSubview(rightArrow)
+                                        rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                                        rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                                        rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                                        rightArrow.topAnchor.constraint(equalTo: offerView.topAnchor, constant: 57).isActive = true
+                                        rightArrow.trailingAnchor.constraint(equalTo: offerView.trailingAnchor, constant: -9).isActive = true
+                                        
+                                        topAnchorConstraint = topAnchorConstraint + 165
+                                        //(cardHeight * castTotalOffers) + 620
+                                        self.scrollView.contentSize.height = CGFloat(totalOffers) + topAnchorConstraint + 70
+                                        
+                                        //Adding gesture
+                                        let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToBuyBundle))
+                                        offerView.addGestureRecognizer(touchRec)
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }catch {
+                    print(error)
+                }
+            }
+            // executing task
+            task.resume()
+        }
+        
     }
 
 }
