@@ -51,6 +51,7 @@
 		0199F5F121398FA000906580 /* fbbMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5F021398FA000906580 /* fbbMove.swift */; };
 		019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */; };
 		01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3434821496E1600B4A6A5 /* changePlanForm.swift */; };
+		01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3434A214A6C9400B4A6A5 /* FBBPayExpressPay.swift */; };
 		01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FF521413BC900F86A65 /* FBBPackages.swift */; };
 		01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FFA2141810500F86A65 /* confirmChangePlan.swift */; };
 		01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A95808212ADCD200F4D7C9 /* supportVC.swift */; };
@@ -143,6 +144,7 @@
 		0199F5F021398FA000906580 /* fbbMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbMove.swift; sourceTree = "<group>"; };
 		019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reportFaultVc.swift; sourceTree = "<group>"; };
 		01A3434821496E1600B4A6A5 /* changePlanForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changePlanForm.swift; sourceTree = "<group>"; };
+		01A3434A214A6C9400B4A6A5 /* FBBPayExpressPay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBPayExpressPay.swift; sourceTree = "<group>"; };
 		01A74FF521413BC900F86A65 /* FBBPackages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBPackages.swift; sourceTree = "<group>"; };
 		01A74FFA2141810500F86A65 /* confirmChangePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmChangePlan.swift; sourceTree = "<group>"; };
 		01A95808212ADCD200F4D7C9 /* supportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportVC.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				01A74FF521413BC900F86A65 /* FBBPackages.swift */,
 				01A74FFA2141810500F86A65 /* confirmChangePlan.swift */,
 				01A3434821496E1600B4A6A5 /* changePlanForm.swift */,
+				01A3434A214A6C9400B4A6A5 /* FBBPayExpressPay.swift */,
 			);
 			path = FBBMOVE;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
+				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
 				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,

@@ -5546,6 +5546,21 @@
             </objects>
             <point key="canvasLocation" x="7846" y="1192"/>
         </scene>
+        <!--Pay Express Pay-->
+        <scene sceneID="pnR-wL-DvP">
+            <objects>
+                <viewController storyboardIdentifier="FBBPayExpressPay" id="vwG-Ck-TsQ" customClass="FBBPayExpressPay" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oMC-vu-njP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uwc-st-nrm"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0CA-ho-dwq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8505" y="1192"/>
+        </scene>
         <!--Red Rush Data View Controller-->
         <scene sceneID="RFy-sx-QZe">
             <objects>

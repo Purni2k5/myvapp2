@@ -757,6 +757,9 @@ class displayChosenOfferVc: baseViewControllerM {
             payByExpressPCard.layer.shadowColor = UIColor.black.cgColor
             payByExpressPCard.layer.shadowOpacity = 0.2
             
+            let payViaExpressPayRec = UITapGestureRecognizer(target: self, action: #selector(goToExpressPay))
+            payByExpressPCard.addGestureRecognizer(payViaExpressPayRec)
+            
             //left image with colour
             let leftImageExpressPay = UIImageView()
             payByExpressPCard.addSubview(leftImageExpressPay)
@@ -1450,6 +1453,12 @@ class displayChosenOfferVc: baseViewControllerM {
     //Credit Transfer
     @objc func goToCreditTrans(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "creditTransferVc")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Credit Transfer
+    @objc func goToExpressPay(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "FBBPayExpressPay")
         present(moveTo!, animated: true, completion: nil)
     }
     
