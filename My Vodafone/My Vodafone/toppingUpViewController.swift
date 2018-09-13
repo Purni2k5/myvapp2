@@ -8,9 +8,9 @@
 
 import UIKit
 
-class toppingUpViewController: UIViewController {
+class toppingUpViewController: baseViewControllerM {
 
-    let preference = UserDefaults.standard
+//    let preference = UserDefaults.standard
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var txtTopUpNumber: UITextField!
     @IBOutlet weak var txtScratchNumber: UITextField!
@@ -87,7 +87,8 @@ class toppingUpViewController: UIViewController {
                     "action":"topUp",
                     "msisdn":numberTopUp!,
                     "pin":scratchNumber!,
-                    "username":username
+                    "username":username,
+                    "os":getAppVersion()
                 ]
                 if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                     request.httpBody = postData

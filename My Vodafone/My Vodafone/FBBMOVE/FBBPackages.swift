@@ -307,7 +307,8 @@ class FBBPackages: baseViewControllerM {
                 let postParameters: Dictionary<String, Any> = [
                     "action":"products",
                     "option":"byType",
-                    "productType":"FBB"
+                    "productType":"FBB",
+                    "os":getAppVersion()
                 ]
                 request.httpMethod = "POST"
                 
@@ -507,7 +508,8 @@ class FBBPackages: baseViewControllerM {
                 let postParameters: Dictionary<String, Any> = [
                     "action":"products",
                     "option":"byType",
-                    "productType":"FBB"
+                    "productType":"FBB",
+                    "os":getAppVersion()
                 ]
                 request.httpMethod = "POST"
                 

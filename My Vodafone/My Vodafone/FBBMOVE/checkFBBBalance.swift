@@ -311,8 +311,10 @@ class checkFBBBalance: baseViewControllerM {
                     "action":"fbbBalance",
                     "userid":userID!,
                     "accountnumber":accountNumber!,
-                    "username":username!
+                    "username":username!,
+                    "os":getAppVersion()
                 ]
+                
                 print(postParameters)
                 request.httpMethod = "POST"
                 //convert post parameters to json

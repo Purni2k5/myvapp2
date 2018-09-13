@@ -8,9 +8,9 @@
 
 import UIKit
 
-class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    let preferences = UserDefaults.standard
+//    let preferences = UserDefaults.standard
     var selectedOffer: String = ""
     var selectedOfferPrice: String = ""
     var selectedOfferDesc: String = ""
@@ -110,9 +110,9 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         view.addSubview(vcScrollView)
         view.backgroundColor = UIColor.dark_background
-        setUpViews()
-        let Services = preferences.object(forKey: "ServiceList")
-        let responseData = preferences.object(forKey: "responseData") as! NSDictionary
+        setUpViewsBuyOffer()
+        let Services = preference.object(forKey: "ServiceList")
+        let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
 //        print("username \(username!)")
         if let array = Services as? NSArray{
@@ -156,7 +156,8 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Dispose of any resources that can be recreated.
     }
     
-    func setUpViews(){
+    func setUpViewsBuyOffer(){
+        
         //scrollView
         vcScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         vcScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -379,7 +380,8 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 "action":"buyPackageCheck",
                 "msisdn":msisdn!,
                 "username":username!,
-                "bundleid":selectedOfferPID
+                "bundleid":selectedOfferPID,
+                "os":getAppVersion()
             ]
             if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                 request.httpBody = postData
@@ -514,8 +516,9 @@ class BuyOfferViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             "action":"buyPackage",
             "msisdn":msisdn!,
             "username":username!,
-            "bundleid":"rt \(selectedOfferPID)",
-            "bundletoremove":bundleToRemove
+            "bundleid":selectedOfferPID,
+            "bundletoremove":bundleToRemove,
+            "os":getAppVersion()
         ]
         
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){

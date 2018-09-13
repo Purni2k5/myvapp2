@@ -274,7 +274,8 @@ class fbbPayVoucherVc: baseViewControllerM {
                     "action":"fbbBalance",
                     "userid":userID!,
                     "accountnumber":accNo!,
-                    "username":username!
+                    "username":username!,
+                    "os":getAppVersion()
                 ]
                 
                 let async_call = URL(string: String.userURL)

@@ -146,7 +146,8 @@ class OffersExtrasViewController: baseViewControllerM {
         let postParameters: Dictionary<String, Any> = [
             "action":"offers",
             "msisdn":msisdn,
-            "username":username
+            "username":username,
+            "os":getAppVersion()
         ]
         
         //convert post parameters to json

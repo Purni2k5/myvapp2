@@ -442,7 +442,8 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
         let postParameters: Dictionary<String, Any> = [
             "action":"FbbShareBucketData",
             "userID":userID!,
-            "actKey":bbNo!
+            "actKey":bbNo!,
+            "os":getAppVersion()
         ]
         
         let asyc_call = URL(string: String.MVA_FBBMOVE)

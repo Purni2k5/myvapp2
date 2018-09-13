@@ -45,6 +45,8 @@ extension UITextField {
 
 extension UIViewController {
     
+    
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -57,7 +59,11 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    
+    func getDeviceOS() -> String {
+        let systemVersion = UIDevice.current.systemVersion
+        
+        return systemVersion
+    }
     
     func toast(toast_img: UIImageView, toast_message: String){
         let messageUIView = UIView()

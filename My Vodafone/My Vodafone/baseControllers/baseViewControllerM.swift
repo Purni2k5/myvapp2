@@ -17,6 +17,11 @@ class baseViewControllerM: UIViewController {
     var altAcctType: String?
     var ServiceID: String?
     var AcctType: String?
+    var deviceOs: String?
+    var defaultService: String?
+    
+    let kVersion = "CFBundleShortVersionString"
+    
     
     var mssgTopConstraint1: NSLayoutConstraint?
     var mssgTopConstraint2: NSLayoutConstraint?
@@ -68,9 +73,12 @@ class baseViewControllerM: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        deviceOs = getDeviceOS()
         
-        let UserData = preference.object(forKey: "responseData") as! NSDictionary
-        let defaultService = UserData["DefaultService"] as! String
+        if let UserData = preference.object(forKey: "responseData") as! NSDictionary?{
+            defaultService = UserData["DefaultService"] as! String
+        }
+        
         
         print("yo:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
@@ -119,6 +127,12 @@ class baseViewControllerM: UIViewController {
     override func viewDidLayoutSubviews() {
         
        
+    }
+    
+    func getAppVersion() -> String {
+        let dictionary = Bundle.main.infoDictionary!
+        let appVersion = dictionary[kVersion] as! String
+        return "IOS \(appVersion)"
     }
     func setUpViews(){
         

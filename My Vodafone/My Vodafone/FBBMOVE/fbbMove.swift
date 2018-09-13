@@ -278,7 +278,8 @@ class fbbMove: baseViewControllerM {
                 let postParameters: Dictionary<String, Any> = [
                     "action":"FbbShareBucketCheck",
                     "actKey":actKey!,
-                    "userID":userID!
+                    "userID":userID!,
+                    "os":getAppVersion()
                 ]
                 
                 print(postParameters)

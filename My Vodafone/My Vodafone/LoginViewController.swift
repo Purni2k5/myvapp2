@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: baseViewControllerM {
 
     @IBOutlet weak var loginHeader: UILabel!
     
@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     //http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc
     let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
-    let preference = UserDefaults.standard
+//    let preference = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,16 +91,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     //Function to start Indicator or loader
     func startAsyncLoader(){
         indicator.isHidden = false
@@ -136,7 +126,8 @@ class LoginViewController: UIViewController {
         let postParameters:Dictionary<String, Any> = [
             "username":username,
             "password":hashPass,
-            "action":"loginToAccount"
+            "action":"loginToAccount",
+            "os":getAppVersion()
         ]
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
             request.httpBody = postData

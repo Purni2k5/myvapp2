@@ -198,7 +198,8 @@ class confirmFBBMove: baseViewControllerM {
                 "msisdn":msisdn!,
                 "code":code!,
                 "actKey":actKey!,
-                "userID":userID!
+                "userID":userID!,
+                "os":getAppVersion()
             ]
             
             let async_call = URL(string: String.MVA_FBBMOVE)

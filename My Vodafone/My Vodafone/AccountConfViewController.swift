@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountConfViewController: UIViewController {
+class AccountConfViewController: baseViewControllerM {
     
     var responseMessage:String?
     var username: String?
@@ -19,7 +19,7 @@ class AccountConfViewController: UIViewController {
     let confirmButton = UIButton()
     let lblMessage = UILabel()
     
-    let preference = UserDefaults.standard
+//    let preference = UserDefaults.standard
     
     //create closure for image view
     let closureImage: UIImageView = {
@@ -29,7 +29,7 @@ class AccountConfViewController: UIViewController {
     }()
     
     //create closure for motherView
-    let motherView: UIView = {
+    let motherViewAcc: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.clear
@@ -61,12 +61,12 @@ class AccountConfViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        setUpViewsAccC()
         self.hideKeyboardWhenTappedAround()
     }
 
     //Setup views
-    func setUpViews(){
+    func setUpViewsAccC(){
         //background Image
         let backgroundImage = closureImage
         view.addSubview(backgroundImage)
@@ -77,18 +77,18 @@ class AccountConfViewController: UIViewController {
         backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         //mother view
-        view.addSubview(motherView)
-        motherView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        motherView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
-        motherView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        motherView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        view.addSubview(motherViewAcc)
+        motherViewAcc.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        motherViewAcc.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        motherViewAcc.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        motherViewAcc.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         //scrollview
-        motherView.addSubview(scrollView)
-        scrollView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: motherView.safeTopAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: motherView.bottomAnchor).isActive = true
+        motherViewAcc.addSubview(scrollView)
+        scrollView.leadingAnchor.constraint(equalTo: motherViewAcc.leadingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: motherViewAcc.safeTopAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: motherViewAcc.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: motherViewAcc.bottomAnchor).isActive = true
         
         
         //app logo
@@ -108,9 +108,9 @@ class AccountConfViewController: UIViewController {
         accountLbl.textColor = UIColor.white
         accountLbl.textAlignment = .center
         accountLbl.font = UIFont(name: String.defaultFontB, size: 32)
-        accountLbl.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
+        accountLbl.leadingAnchor.constraint(equalTo: motherViewAcc.leadingAnchor, constant: 20).isActive = true
         accountLbl.topAnchor.constraint(equalTo: app_logo.bottomAnchor, constant: 10).isActive = true
-        accountLbl.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -30).isActive = true
+        accountLbl.trailingAnchor.constraint(equalTo: motherViewAcc.trailingAnchor, constant: -30).isActive = true
         accountLbl.numberOfLines = 0
         accountLbl.lineBreakMode = .byWordWrapping
         
@@ -122,8 +122,8 @@ class AccountConfViewController: UIViewController {
         actDesc.textColor = UIColor.white
         actDesc.text = "Kindly enter the activation pin sent to your phone below"
         actDesc.font = UIFont(name: String.defaultFontR, size: 22)
-        actDesc.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        actDesc.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -30).isActive = true
+        actDesc.leadingAnchor.constraint(equalTo: motherViewAcc.leadingAnchor, constant: 30).isActive = true
+        actDesc.trailingAnchor.constraint(equalTo: motherViewAcc.trailingAnchor, constant: -30).isActive = true
         actDesc.topAnchor.constraint(equalTo: accountLbl.bottomAnchor, constant: 10).isActive = true
         actDesc.numberOfLines = 0
         actDesc.lineBreakMode = .byWordWrapping
@@ -135,8 +135,8 @@ class AccountConfViewController: UIViewController {
         darkView.backgroundColor = UIColor.black.withAlphaComponent(0.70)
         darkView.isOpaque = false
         darkView.heightAnchor.constraint(equalToConstant: 320).isActive = true
-        darkView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
-        darkView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
+        darkView.leadingAnchor.constraint(equalTo: motherViewAcc.leadingAnchor, constant: 20).isActive = true
+        darkView.trailingAnchor.constraint(equalTo: motherViewAcc.trailingAnchor, constant: -20).isActive = true
         darkView.topAnchor.constraint(equalTo: actDesc.bottomAnchor, constant: 30).isActive = true
         
         //confirm pin
@@ -197,8 +197,8 @@ class AccountConfViewController: UIViewController {
         messageUIView.translatesAutoresizingMaskIntoConstraints = false
         messageUIView.backgroundColor = UIColor.black.withAlphaComponent(0.80)
         messageUIView.isOpaque = false
-        messageUIView.widthAnchor.constraint(equalTo: motherView.widthAnchor).isActive = true
-        messageUIView.bottomAnchor.constraint(equalTo: motherView.bottomAnchor, constant: 0).isActive = true
+        messageUIView.widthAnchor.constraint(equalTo: motherViewAcc.widthAnchor).isActive = true
+        messageUIView.bottomAnchor.constraint(equalTo: motherViewAcc.bottomAnchor, constant: 0).isActive = true
         messageUIView.heightAnchor.constraint(equalToConstant: 110).isActive = true
         
         //label to hold message to user
@@ -218,7 +218,7 @@ class AccountConfViewController: UIViewController {
         
         scrollView.addSubview(activity_loader)
         activity_loader.topAnchor.constraint(equalTo: txtOTP.bottomAnchor, constant: 30).isActive = true
-        activity_loader.centerXAnchor.constraint(equalTo: motherView.centerXAnchor).isActive = true
+        activity_loader.centerXAnchor.constraint(equalTo: motherViewAcc.centerXAnchor).isActive = true
     }
     
     
@@ -259,7 +259,8 @@ class AccountConfViewController: UIViewController {
         let postParameters:Dictionary<String, Any> = [
             "action":"activateAccount",
             "username":username!,
-            "activationCode":activationCode!
+            "activationCode":activationCode!,
+            "os":getAppVersion()
         ]
         //Check if txt field is empty
         if txtOTP.text == "" {

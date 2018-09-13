@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: baseViewControllerM {
     
     @IBOutlet weak var errorDialogBg: UIImageView!
     @IBOutlet weak var info: UIImageView!
@@ -43,7 +43,7 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        setUpViewsReg()
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -89,7 +89,8 @@ class RegisterViewController: UIViewController {
                         "contact":msisdn!,
                         "username":username!,
                         "password":password!,
-                        "passClone":passClone!
+                        "passClone":passClone!,
+                        "os":getAppVersion()
                     ]
                     let async_api = URL(string: String.userSVC)
                     let request = NSMutableURLRequest(url: async_api!)
@@ -165,7 +166,7 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func setUpViews(){
+    func setUpViewsReg(){
         view.addSubview(activity_loader)
         activity_loader.topAnchor.constraint(equalTo: txtPhoneNumber.bottomAnchor, constant: 30).isActive = true
         activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

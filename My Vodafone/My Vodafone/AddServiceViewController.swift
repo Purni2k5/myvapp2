@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
 
@@ -66,11 +66,11 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var username: String?
     
     var list = ["Fixed Broadband", "Mobile"]
-    var menuShowing = false
+//    var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpViews()
+        setUpViewsAddService()
         // change button colour.
         changeBackColour()
         changeMenuIconColour()
@@ -83,6 +83,10 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         txtServiceType.text = list[0]
         let responseData = preferences.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
+        
+        if AcctType == "PHONE_MOBILE_PRE_P" {
+            prePaidMenu()
+        }
        
     }
     
@@ -108,7 +112,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     //Function to set up views
-    func setUpViews(){
+    func setUpViewsAddService(){
         
         //hamburger
         let btnHamburger = vcButton
@@ -121,6 +125,7 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         btnHamburger.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btnHamburger.topAnchor.constraint(equalTo: moView.safeTopAnchor, constant: 10).isActive = true
         btnHamburger.trailingAnchor.constraint(equalTo: moView.trailingAnchor, constant: -10).isActive = true
+        btnHamburger.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //menu label
         let menuLabel = vcLabel
@@ -385,7 +390,8 @@ class AddServiceViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     "serviceType": selectedType!,
                     "primaryID": accNum!,
                     "secondaryID": broadbandID!,
-                    "username":username!
+                    "username":username!,
+                    "os":getAppVersion()
                 ]
                 
                 

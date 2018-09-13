@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddServiceConfViewController: UIViewController {
+class AddServiceConfViewController: baseViewControllerM {
 
     var responseMessage: String?
     var serviceID: String?
@@ -16,7 +16,7 @@ class AddServiceConfViewController: UIViewController {
     var countCode: Int?
     var username:  String?
     
-    let preference = UserDefaults.standard
+//    let preference = UserDefaults.standard
     
     //create a closure for
     let topImage: UIImageView = {
@@ -93,7 +93,7 @@ class AddServiceConfViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
-        setUpViews()
+        setUpViewsAddS()
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
     }
@@ -105,7 +105,7 @@ class AddServiceConfViewController: UIViewController {
         txtCode.addTarget(self, action: #selector(checkOTPSize), for: .editingChanged)
     }
 
-    func setUpViews(){
+    func setUpViewsAddS(){
         //top image
         view.addSubview(topImage)
         topImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -213,7 +213,8 @@ class AddServiceConfViewController: UIViewController {
                     "action":"activateService",
                     "activationCode":activationCode!,
                     "serviceID":serviceID!,
-                    "username":username!
+                    "username":username!,
+                    "os":getAppVersion()
                 ]
                 let async_call = URL(string: String.userSVC)
                 let request = NSMutableURLRequest(url: async_call!)

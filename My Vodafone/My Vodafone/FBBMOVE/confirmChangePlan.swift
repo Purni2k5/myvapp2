@@ -14,6 +14,7 @@ class confirmChangePlan: baseViewControllerM {
     var planPrice: String?
     var USSDURL: String?
     var planPID: String?
+    var username: String?
     
     fileprivate var lblUserIDTop1: NSLayoutConstraint?
     fileprivate var lblUserIDTop2: NSLayoutConstraint?
@@ -80,7 +81,8 @@ class confirmChangePlan: baseViewControllerM {
         hideKeyboardWhenTappedAround()
         
        
-        
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
         
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
@@ -90,6 +92,20 @@ class confirmChangePlan: baseViewControllerM {
     
     override func viewDidAppear(_ animated: Bool) {
         checkTxtInputs()
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnNext.isHidden = true
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnNext.isHidden = false
     }
 
     func setUpViewConfirmChange() {
@@ -243,10 +259,108 @@ class confirmChangePlan: baseViewControllerM {
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "FBBPackages")
         present(moveTo!, animated: true, completion: nil)
     }
+
     
     @objc func clickNext(){
-        let userID = txtUserID.text
-        let accNo = txtAccNo.text
+        if !CheckInternet.Connection(){
+            let moveTo = storyboard?.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
+            
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }else{
+            self.start_activity_loader()
+            let userID = txtUserID.text
+            let accNo = txtAccNo.text
+            if userID == "" || accNo == "" {
+                self.stop_activity_loader()
+                toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are required")
+            }else{
+                let async_api = URL(string: String.userURL)
+                let request = NSMutableURLRequest(url: async_api!)
+                
+                let postParameters: Dictionary<String, Any> = [
+                    "action":"fbbBalance",
+                    "userid":userID!,
+                    "accountnumber":accNo!,
+                    "username":username!,
+                    "os":getAppVersion()
+                ]
+                
+                print(postParameters)
+                request.httpMethod = "POST"
+                //convert post parameters to json
+                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    
+                    //creating a task to send request
+                    let task = URLSession.shared.dataTask(with: request as URLRequest) {
+                        data, response, error in
+                        if error != nil {
+                            print("error is:: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.stop_activity_loader()
+                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                            }
+                            return;
+                        }
+                        //passing the response
+                        do {
+                            //converting response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            if let parseJSON = myJSON {
+                                var responseCode: Int?
+                                var responseMessage: NSDictionary!
+                                
+                                responseCode = parseJSON["RESPONSECODE"] as! Int?
+                                DispatchQueue.main.async {
+                                    if responseCode == 1 || responseCode == 2 {
+                                        var responseMessage: String?
+                                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage!)
+                                    }else{
+                                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSDictionary?
+                                        let accNo = responseMessage["P_ACCOUNTNO"] as! String?
+                                        let phoneNo = responseMessage["P_PHONENO"] as! String?
+                                        let serviceNo = responseMessage["P_SERVICENO"] as! String?
+                                        let status = responseMessage["P_STATUS"] as! String?
+                                        let unusedData = responseMessage["P_CURRENTVOL"] as! String?
+                                        let cashInAccount = responseMessage["P_CURRENTBAL"] as! String?
+                                        let plan = responseMessage["P_PLANNAME"] as! String?
+                                        
+                                        self.stop_activity_loader()
+                                        
+                                        guard let moveTo = self.storyboard?.instantiateViewController(withIdentifier: "changePlanForm") as? changePlanForm else {return}
+                                        moveTo.accNo = accNo
+                                        moveTo.phoneNo = phoneNo
+                                        moveTo.serviceNo = serviceNo
+                                        moveTo.status = status
+                                        moveTo.unusedData = unusedData
+                                        moveTo.cashInAccount = cashInAccount
+                                        moveTo.plan = plan
+                                        moveTo.userID = userID
+                                        
+                                        self.present(moveTo, animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        }catch {
+                            print(error.localizedDescription)
+                            DispatchQueue.main.async {
+                                self.stop_activity_loader()
+                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
+                            }
+                        }
+                    }
+                    task.resume()
+                }
+            }
+            
+        }
     }
 
 }

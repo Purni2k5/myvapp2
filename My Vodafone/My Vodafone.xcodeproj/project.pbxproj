@@ -50,6 +50,7 @@
 		0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5EE21396DB400906580 /* displayFBBBalance.swift */; };
 		0199F5F121398FA000906580 /* fbbMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5F021398FA000906580 /* fbbMove.swift */; };
 		019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */; };
+		01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3434821496E1600B4A6A5 /* changePlanForm.swift */; };
 		01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FF521413BC900F86A65 /* FBBPackages.swift */; };
 		01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A74FFA2141810500F86A65 /* confirmChangePlan.swift */; };
 		01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A95808212ADCD200F4D7C9 /* supportVC.swift */; };
@@ -141,6 +142,7 @@
 		0199F5EE21396DB400906580 /* displayFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayFBBBalance.swift; sourceTree = "<group>"; };
 		0199F5F021398FA000906580 /* fbbMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbMove.swift; sourceTree = "<group>"; };
 		019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reportFaultVc.swift; sourceTree = "<group>"; };
+		01A3434821496E1600B4A6A5 /* changePlanForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changePlanForm.swift; sourceTree = "<group>"; };
 		01A74FF521413BC900F86A65 /* FBBPackages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBPackages.swift; sourceTree = "<group>"; };
 		01A74FFA2141810500F86A65 /* confirmChangePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmChangePlan.swift; sourceTree = "<group>"; };
 		01A95808212ADCD200F4D7C9 /* supportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = supportVC.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */,
 				01A74FF521413BC900F86A65 /* FBBPackages.swift */,
 				01A74FFA2141810500F86A65 /* confirmChangePlan.swift */,
+				01A3434821496E1600B4A6A5 /* changePlanForm.swift */,
 			);
 			path = FBBMOVE;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
 				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
+				01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,
 				018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */,

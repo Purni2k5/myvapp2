@@ -294,7 +294,8 @@ class linkFBBVc: baseViewControllerM {
                             "action":"FbbShareBucketPairCheck",
                             "msisdn": msisdn!,
                             "actKey": actKey!,
-                            "userID": userID!
+                            "userID": userID!,
+                            "os":getAppVersion()
                         ]
                         let asyn_call = URL(string: String.MVA_FBBMOVE)
                         let request = NSMutableURLRequest(url: asyn_call!)

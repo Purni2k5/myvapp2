@@ -1059,7 +1059,8 @@ class displayChosenOfferVc: baseViewControllerM {
                     "action":"products",
                     "option":"byType",
                     "msisdn":defaultNumber,
-                    "productType":selectedOffer.uppercased()
+                    "productType":selectedOffer.uppercased(),
+                    "os":getAppVersion()
                 ]
                 if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
                     request.httpBody = postData
@@ -1477,7 +1478,8 @@ class displayChosenOfferVc: baseViewControllerM {
             "action":"products",
             "option":"byType",
             "msisdn":msisdn,
-            "productType":offer.uppercased()
+            "productType":offer.uppercased(),
+            "os":getAppVersion()
         ]
         
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
