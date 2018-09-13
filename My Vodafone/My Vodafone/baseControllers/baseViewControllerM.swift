@@ -638,4 +638,7 @@ class baseViewControllerM: UIViewController {
         present(moveTo!, animated: true, completion: nil)
     }
 
+    @objc func closeModalB(){
+        self.view.removeFromSuperview()
+    }
 }

@@ -307,6 +307,9 @@ class displayChosenOfferVc: baseViewControllerM {
             simSwapCard.layer.shadowColor = UIColor.black.cgColor
             simSwapCard.layer.shadowOpacity = 0.2
             
+            let simSwapRec = UITapGestureRecognizer(target: self, action: #selector(showSimSwapModal))
+            simSwapCard.addGestureRecognizer(simSwapRec)
+            
             //left image with colour
             let leftImageColourAgent = UIImageView()
             simSwapCard.addSubview(leftImageColourAgent)
@@ -375,6 +378,9 @@ class displayChosenOfferVc: baseViewControllerM {
             bookAppoimentCard.layer.shadowOffset = CGSize(width: 0, height: 5)
             bookAppoimentCard.layer.shadowColor = UIColor.black.cgColor
             bookAppoimentCard.layer.shadowOpacity = 0.2
+            
+            let bookAppoimentRec = UITapGestureRecognizer(target: self, action: #selector(goToAppointment(_sender:)))
+            bookAppoimentCard.addGestureRecognizer(bookAppoimentRec)
             
             //left image with colour
             let leftImageApp = UIImageView()
@@ -1459,6 +1465,21 @@ class displayChosenOfferVc: baseViewControllerM {
     //Credit Transfer
     @objc func goToExpressPay(_sender: UITapGestureRecognizer){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "FBBPayExpressPay")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Sim Swap
+    @objc func showSimSwapModal(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "simSwapModal")
+        self.addChildViewController(moveTo!)
+        moveTo!.view.frame = self.view.frame
+        self.view.addSubview(moveTo!.view)
+        moveTo!.didMove(toParentViewController: self)
+    }
+    
+    //Book Appointment
+    @objc func goToAppointment(_sender: UITapGestureRecognizer){
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "appointmentsVc")
         present(moveTo!, animated: true, completion: nil)
     }
     

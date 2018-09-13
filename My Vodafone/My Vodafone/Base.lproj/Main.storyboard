@@ -5561,6 +5561,51 @@
             </objects>
             <point key="canvasLocation" x="8505" y="1192"/>
         </scene>
+        <!--Sim Swap Modal-->
+        <scene sceneID="zWD-HB-sl7">
+            <objects>
+                <viewController storyboardIdentifier="simSwapModal" id="ijp-Nz-A72" customClass="simSwapModal" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qvM-aH-ctC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5Cy-cT-QQE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nch-M7-uJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9261" y="1204"/>
+        </scene>
+        <!--Sim Swap Form-->
+        <scene sceneID="HKa-bn-3zN">
+            <objects>
+                <viewController storyboardIdentifier="simSwapForm" id="Eoc-gI-SWS" customClass="simSwapForm" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BAH-Vr-ead">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="d80-h9-E2l"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NGO-IM-laW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9905" y="1204"/>
+        </scene>
+        <!--Appointments Vc-->
+        <scene sceneID="u6q-VE-CPN">
+            <objects>
+                <viewController storyboardIdentifier="appointmentsVc" id="uPu-kB-FNu" customClass="appointmentsVc" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sl6-lJ-0E0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="unY-nC-3Re"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UVw-EO-pHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10700" y="1217"/>
+        </scene>
         <!--Red Rush Data View Controller-->
         <scene sceneID="RFy-sx-QZe">
             <objects>

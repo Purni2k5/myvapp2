@@ -263,12 +263,13 @@ class creditTransferVc: baseViewControllerM {
         btnTransfer.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         btnTransfer.topAnchor.constraint(equalTo: txtPin.bottomAnchor, constant: 30).isActive = true
         btnTransfer.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        btnTransfer.addTarget(self, action: #selector(transfer), for: .touchUpInside)
         
-        scrollView.contentSize.height = view.frame.size.height + topImage.frame.size.height + (txtRecipient.frame.size.height * 3)
+        scrollView.contentSize.height = view.frame.size.height * 2
     }
     
     @objc func checkTxtInputs(){
-        if txtRecipient.text != "" && txtAmt.text != "" && txtConfAmt.text != "" && txtPin.text != "" {
+        if txtRecipient.text != "" && txtAmt.text != "" && txtConfAmt.text != "" && txtPin.text != "" && txtAmt.text == txtConfAmt.text {
             btnTransfer.isEnabled = true
             btnTransfer.backgroundColor = UIColor.vodaRed
             
@@ -311,6 +312,16 @@ class creditTransferVc: baseViewControllerM {
         errorMessage.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -1).isActive = true
     }
     
+    @objc func transfer(){
+        let recipient = txtRecipient.text
+        let amt = txtAmt.text
+        let pin = txtPin.text
+        
+        let ussd = "*116*" + recipient! + "*" + amt! + "*" + pin! + "#"
+        print("ussd \(ussd)")
+        let url = URL(string: "telprompt://\(ussd)")
+        UIApplication.shared.open(url!)
+    }
     
     
     @objc func goToServices(){
