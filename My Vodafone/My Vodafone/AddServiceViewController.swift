@@ -431,9 +431,9 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
                                 
                                 responseCode = parseJSON["RESPONSECODE"] as! Int
                                 responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                                print(parseJSON)
+                                print("parse:: \(parseJSON)")
                                 DispatchQueue.main.async {
-                                    if responseCode == 1 {
+                                    if responseCode == 1{
                                         self.stop_activity_loader()
                                         self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
                                     }else if responseCode == 2 {
