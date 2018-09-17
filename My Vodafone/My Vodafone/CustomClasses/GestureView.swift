@@ -24,3 +24,8 @@ class ChangeFBBPlan: UIView {
     var planPrice: String?
     var planUSSDURL: String?
 }
+
+class StaffDataAllocation: UIView {
+    var msisdn: String?
+    var displayAmt: String?
+}

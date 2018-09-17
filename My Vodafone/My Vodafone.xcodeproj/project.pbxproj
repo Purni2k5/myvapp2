@@ -31,6 +31,7 @@
 		016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */; };
 		016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */; };
 		016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */; };
+		016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -126,6 +127,7 @@
 		016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NointernetViewController.swift; sourceTree = "<group>"; };
 		016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfViewController.swift; sourceTree = "<group>"; };
+		016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffCreditRedeeming.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +235,16 @@
 			path = FBBMOVE;
 			sourceTree = "<group>";
 		};
+		016DE603214FE1D000BEB882 /* TopUp */ = {
+			isa = PBXGroup;
+			children = (
+				28E4B19020E966BF00336B1B /* TopUpViewController.swift */,
+				014E311620ECCD03004ACE9A /* toppingUpViewController.swift */,
+				016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */,
+			);
+			path = TopUp;
+			sourceTree = "<group>";
+		};
 		01941D992119B2A600B7D207 /* mvaExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +282,7 @@
 		01C022FC20C99304003E48CC /* My Vodafone */ = {
 			isa = PBXGroup;
 			children = (
+				016DE603214FE1D000BEB882 /* TopUp */,
 				281F8FC12146CC1A000B39A3 /* Services */,
 				01A74FF72141783000F86A65 /* CustomClasses */,
 				0119AF7D213F062C009B71C8 /* FBBMOVE */,
@@ -300,8 +313,6 @@
 				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
 				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
-				28E4B19020E966BF00336B1B /* TopUpViewController.swift */,
-				014E311620ECCD03004ACE9A /* toppingUpViewController.swift */,
 				0144B5DD20ED1D25007791C4 /* PlansViewController.swift */,
 				0188912720EE76290080697F /* OneGHPlanViewController.swift */,
 				0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */,
@@ -575,6 +586,7 @@
 				0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
+				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
 				019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */,
 				01C22A75213473530037B691 /* yendiAgoroVc.swift in Sources */,

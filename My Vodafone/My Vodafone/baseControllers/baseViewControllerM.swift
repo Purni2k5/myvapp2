@@ -395,7 +395,7 @@ class baseViewControllerM: UIViewController {
         chevron.topAnchor.constraint(equalTo: btnLocator.bottomAnchor, constant: 28).isActive = true
         chevron.widthAnchor.constraint(equalToConstant: 25).isActive = true
         chevron.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        chevron.addTarget(self, action: #selector(dropDown), for: .touchUpInside)
+//        chevron.addTarget(self, action: #selector(dropDown), for: .touchUpInside)
         
         //btn speed checker
         let btnSpeedChecker = UIButton()

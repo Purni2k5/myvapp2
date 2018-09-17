@@ -21,6 +21,7 @@ class ProductsServicesViewController: UIViewController {
     var displayImage = ""
     var displayName = ""
     var displayNumber = ""
+    var username = ""
     
     @IBOutlet weak var motherView: UIView!
     
@@ -42,6 +43,9 @@ class ProductsServicesViewController: UIViewController {
         btnBack.setImage(tintedImage, for: .normal)
         btnBack.tintColor = UIColor.white
         btnBack.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
+        
+        let userData = preference.object(forKey: "responseData") as! NSDictionary
+        username = userData["Username"] as! String
         
         //add gesture
         let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.goToAddServices))
@@ -268,7 +272,12 @@ class ProductsServicesViewController: UIViewController {
                 }
             }
         }
-        
+        if !CheckInternet.Connection(){
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "You're offline")
+            
+        }else{
+            updateUserServices()
+        }
         
     }
     
@@ -295,6 +304,152 @@ class ProductsServicesViewController: UIViewController {
     @objc func goToHome(){
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "homeVC")
         present(moveTo!, animated: true, completion: nil)
+    }
+    
+    func appVersion() -> String {
+        let systemVersion = UIDevice.current.systemVersion
+        
+        return systemVersion
+    }
+    
+    //Function to update services
+    func updateUserServices(){
+        let postParameters: Dictionary<String, Any> = [
+            "action":"getAccountServices",
+            "username":username,
+            "os":appVersion()
+        ]
+        let async_call = URL(string: String.userSVC)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    return;
+                }
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON{
+                        var responseCode: Int?
+                        
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        if responseCode == 0 {
+                            let responseData: NSDictionary?
+                            let serviceList: NSArray?
+                            responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                            serviceList = responseData!["ServiceList"] as! NSArray?
+                            self.preference.removeObject(forKey: "ServiceList")
+                            self.preference.set(serviceList!, forKey: "ServiceList")
+                            
+                            DispatchQueue.main.async {
+                                if let array = serviceList {
+                                    var countView = 0
+                                    var topAnchorConstraint: CGFloat = 22
+                                    for obj in array {
+                                        print("Doing this")
+                                        if let dict = obj as? NSDictionary {
+                                            countView = countView + 1
+                                            // Now reference the data you need using:
+                                            let serviceName = dict.value(forKey: "DisplayName") as! String
+                                            var ServiceID = dict.value(forKey: "primaryID") as! String
+                                            let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
+                                            
+                                            
+                    
+                                            //                            print("int to string \(stringCountView)")
+                                            let service = UIView()
+                                            self.view.addSubview(service)
+                                            self.scroller.addSubview(service)
+                                            service.translatesAutoresizingMaskIntoConstraints = false
+                                            
+                                            service.topAnchor.constraint(equalTo: self.addService.bottomAnchor, constant: topAnchorConstraint).isActive = true
+                                            service.leadingAnchor.constraint(equalTo: self.motherView.leadingAnchor, constant: 20.0).isActive = true
+                                            service.trailingAnchor.constraint(equalTo: self.motherView.trailingAnchor, constant: -20.0).isActive = true
+                                            service.backgroundColor = UIColor.white
+                                            service.heightAnchor.constraint(equalToConstant: 145).isActive = true
+                                            //transforming to cards
+                                            service.layer.cornerRadius = 2
+                                            service.layer.shadowOffset = CGSize(width: 0, height: 5)
+                                            service.layer.shadowColor = UIColor.black.cgColor
+                                            service.layer.shadowOpacity = 0.1
+                                            
+                                            //add left image view
+                                            let cardImage = UIImageView()
+                                            service.addSubview(cardImage)
+                                            cardImage.backgroundColor = UIColor.cardImageColour
+                                            cardImage.translatesAutoresizingMaskIntoConstraints = false
+                                            cardImage.leadingAnchor.constraint(equalTo: service.leadingAnchor, constant: 0).isActive = true
+                                            cardImage.widthAnchor.constraint(equalToConstant: 12).isActive = true
+                                            cardImage.topAnchor.constraint(equalTo: service.topAnchor, constant: 0).isActive = true
+                                            cardImage.bottomAnchor.constraint(equalTo: service.bottomAnchor, constant: 0).isActive = true
+                                            //Adding display images
+                                            let dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                                            service.addSubview(dp)
+                                            dp.translatesAutoresizingMaskIntoConstraints = false
+                                            dp.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
+                                            dp.topAnchor.constraint(equalTo: service.topAnchor, constant: 25).isActive = true
+                                            dp.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                            dp.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                                            
+                                            //make image round
+                                            dp.layer.cornerRadius = dp.frame.size.width / 2
+                                            dp.clipsToBounds = true
+                                            dp.layer.borderWidth = 2
+                                            dp.layer.borderColor = UIColor.white.cgColor
+                                            
+                                            //Adding display name
+                                            let displayLblName = UILabel()
+                                            service.addSubview(displayLblName)
+                                            displayLblName.translatesAutoresizingMaskIntoConstraints = false
+                                            displayLblName.text = serviceName
+                                            displayLblName.font = UIFont(name: String.defaultFontR, size: 21)
+                                            displayLblName.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
+                                            displayLblName.topAnchor.constraint(equalTo: service.topAnchor, constant: 50).isActive = true
+                                            
+                                            //Adding service ID
+                                            let serviceLblID = UILabel()
+                                            service.addSubview(serviceLblID)
+                                            serviceLblID.translatesAutoresizingMaskIntoConstraints = false
+                                            let sNum = ServiceID.dropFirst(3)
+                                            ServiceID = "0\(sNum)"
+                                            serviceLblID.text = ServiceID
+                                            serviceLblID.font = UIFont(name: String.defaultFontR, size: 16)
+                                            serviceLblID.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
+                                            serviceLblID.topAnchor.constraint(equalTo: displayLblName.bottomAnchor, constant: 8).isActive = true
+                                            
+                                            //Adding right arrow
+                                            let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                                            service.addSubview(rightArrow)
+                                            rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                                            rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                                            rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                                            rightArrow.trailingAnchor.constraint(equalTo: service.trailingAnchor, constant: -25).isActive = true
+                                            rightArrow.topAnchor.constraint(equalTo: service.topAnchor, constant: 50).isActive = true
+                                            /*print("view:: \(countView)")
+                                             print(id)
+                                             print(ServiceID)
+                                             print("image is:: \(DisplayImageUrl)")*/
+                                            topAnchorConstraint = topAnchorConstraint + 165
+                                            self.scrollHeight.constant = topAnchorConstraint - 300
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+        }
     }
 
 }

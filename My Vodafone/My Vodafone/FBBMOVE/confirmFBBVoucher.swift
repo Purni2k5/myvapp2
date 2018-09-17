@@ -221,7 +221,8 @@ class confirmFBBVoucher: baseViewControllerM {
                 "vouchercode": vouchercode!,
                 "accountnumber":accNo!,
                 "userid":userID!,
-                "username":username!
+                "username":username!,
+                "os":getAppVersion()
             ]
             
             let async_call = URL(string: String.userURL)

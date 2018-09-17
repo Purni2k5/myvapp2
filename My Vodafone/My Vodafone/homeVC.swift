@@ -12,6 +12,8 @@ class homeVC: baseViewControllerM {
     
     var defaultImageUrl: String?
     var defaultAccName: String?
+    var msisdn: String?
+    var username: String?
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
 //    var altServiceID: String?
@@ -45,6 +47,8 @@ class homeVC: baseViewControllerM {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
         let defaultService = UserData["DefaultService"] as! String
+        username = UserData["Username"] as! String?
+        msisdn = UserData["Contact"] as! String?
         
         print("yos:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
@@ -79,6 +83,7 @@ class homeVC: baseViewControllerM {
             }
         }
         setUpViews1()
+        backgroundCalls()
         // Check for internet connection
         checkConnection()
         if AcctType == "PHONE_MOBILE_PRE_P" {
@@ -434,6 +439,68 @@ class homeVC: baseViewControllerM {
         lblPromotionExpire.lineBreakMode = .byWordWrapping
         
         scrollView.contentSize.height = 950
+    }
+    
+    func backgroundCalls(){
+        checkStaff()
+    }
+    
+    //Function to check for staff Number
+    func checkStaff(){
+        let postParameters: Dictionary<String, Any> = [
+            "action":"checkStaffNumber",
+            "msisdn":msisdn!,
+            "username":username!
+        ]
+        let async_call = URL(string: String.offers)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("check staff error:: \(error!.localizedDescription)")
+                    return;
+                }
+                
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON {
+                        var responseCode: Int?
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        if responseCode == 0 {
+                            let staffCreditData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                            let checkIfStaff = self.preference.object(forKey: "staffNumber")
+                            if (checkIfStaff != nil) {
+                                
+                                self.preference.removeObject(forKey: "staffNumber")
+                                self.preference.removeObject(forKey: "staffCreditData")
+                                // populate with fresh values
+                                self.preference.set(true, forKey: "staffNumber")
+                                self.preference.set(staffCreditData, forKey: "staffCreditData")
+                            }else{
+                                self.preference.set(true, forKey: "staffNumber")
+                                self.preference.set(staffCreditData, forKey: "staffCreditData")
+                                
+                            }
+                            
+                        }else{
+                            
+                        }
+                        
+                    }
+                    
+                }catch{
+                    print("check staff catch error:: \(error.localizedDescription)")
+                }
+            }
+            task.resume()
+        }
     }
     
     @objc func goToSupport(_sender: UITapGestureRecognizer){

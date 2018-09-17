@@ -41,6 +41,8 @@ class LogoutViewController: UIViewController {
     @IBAction func btnYes(_ sender: Any) {
         preference.removeObject(forKey: "loginStatus")
         preference.removeObject(forKey: "responseData")
+        preference.removeObject(forKey: "staffNumber")
+        preference.removeObject(forKey: "staffCreditData")
         preference.removeObject(forKey: "Plan")
         preference.removeObject(forKey: "Data")
         preference.removeObject(forKey: "RESPONSEMESSAGE")

@@ -45,15 +45,11 @@ extension UITextField {
 
 extension UIViewController {
     
-    
-    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
-   
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -114,10 +110,6 @@ extension UIViewController {
                 toast_img.alpha = 0
             }, completion: nil)
         })
-    }
-    
-    @objc func dropDown(){
-        
     }
     
     func checkConnection(){
