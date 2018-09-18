@@ -12,17 +12,6 @@
 		0119AF7F213F08C3009B71C8 /* fbbPayVoucherVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */; };
 		013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */; };
 		013C52902140389F00A9E67C /* confirmFBBVoucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */; };
-		0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144B5DD20ED1D25007791C4 /* PlansViewController.swift */; };
-		0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */; };
-		0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */; };
-		0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */; };
-		0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */; };
-		0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */; };
-		0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */; };
-		0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */; };
-		0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */; };
-		0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */; };
-		0146FD9E20F5106A00AFEE82 /* RedRushVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */; };
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
@@ -37,11 +26,9 @@
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
-		0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0188912720EE76290080697F /* OneGHPlanViewController.swift */; };
 		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
 		018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7ACE213D48C9002753B7 /* linkFBBVc.swift */; };
 		018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */; };
-		018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */; };
 		018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB2DB21009B490004D697 /* mvaExtensions.swift */; };
 		01941D9B2119B2E300B7D207 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9A2119B2E300B7D207 /* AppExtensions.swift */; };
 		01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9C2119F34B00B7D207 /* CheckInternet.swift */; };
@@ -91,6 +78,15 @@
 		01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1A8162107A01300D4CDDC /* mvaURLS.swift */; };
 		01C22A75213473530037B691 /* yendiAgoroVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C22A74213473530037B691 /* yendiAgoroVc.swift */; };
 		01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5044F2125D28000359657 /* AddServiceConfViewController.swift */; };
+		01F57B412150356C005F5F0C /* FBB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B402150356C005F5F0C /* FBB.storyboard */; };
+		01F57B432150FC49005F5F0C /* Services.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B422150FC49005F5F0C /* Services.storyboard */; };
+		01F57B452150FC87005F5F0C /* TopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B442150FC87005F5F0C /* TopUp.storyboard */; };
+		01F57B472150FE13005F5F0C /* ProductsServices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B462150FE13005F5F0C /* ProductsServices.storyboard */; };
+		01F57B492151011E005F5F0C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B482151011E005F5F0C /* Settings.storyboard */; };
+		01F57B4B2151029F005F5F0C /* OffersExtras.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B4A2151029F005F5F0C /* OffersExtras.storyboard */; };
+		01F57B4D2151041C005F5F0C /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B4C2151041C005F5F0C /* About.storyboard */; };
+		01F57B4F21510558005F5F0C /* Support.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B4E21510558005F5F0C /* Support.storyboard */; };
+		01F57B5121510693005F5F0C /* Games.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B5021510693005F5F0C /* Games.storyboard */; };
 		01F7388521369BBE00A30C1C /* baseViewControllerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7388421369BBE00A30C1C /* baseViewControllerM.swift */; };
 		01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F738862137360600A30C1C /* displayChosenOfferVc.swift */; };
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
@@ -108,17 +104,6 @@
 		0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbPayVoucherVc.swift; sourceTree = "<group>"; };
 		013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBUpdateVc.swift; sourceTree = "<group>"; };
 		013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBVoucher.swift; sourceTree = "<group>"; };
-		0144B5DD20ED1D25007791C4 /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
-		0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoGHViewController.swift; sourceTree = "<group>"; };
-		0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbleValueMonthlyViewController.swift; sourceTree = "<group>"; };
-		0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedClassicDataViewController.swift; sourceTree = "<group>"; };
-		0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedClassicFreedomViewController.swift; sourceTree = "<group>"; };
-		0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotDataViewController.swift; sourceTree = "<group>"; };
-		0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotFreedomViewController.swift; sourceTree = "<group>"; };
-		0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHotVoiceViewController.swift; sourceTree = "<group>"; };
-		0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushDataViewController.swift; sourceTree = "<group>"; };
-		0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushFreedomViewController.swift; sourceTree = "<group>"; };
-		0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedRushVoiceViewController.swift; sourceTree = "<group>"; };
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
@@ -133,11 +118,9 @@
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
-		0188912720EE76290080697F /* OneGHPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGHPlanViewController.swift; sourceTree = "<group>"; };
 		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
 		018B7ACE213D48C9002753B7 /* linkFBBVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBVc.swift; sourceTree = "<group>"; };
 		018B7AD0213D98BE002753B7 /* confirmFBBMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBMove.swift; sourceTree = "<group>"; };
-		018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesOneViewController.swift; sourceTree = "<group>"; };
 		018BB2DB21009B490004D697 /* mvaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaExtensions.swift; sourceTree = "<group>"; };
 		01941D9A2119B2E300B7D207 /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
 		01941D9C2119F34B00B7D207 /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
@@ -190,6 +173,15 @@
 		01C1A8162107A01300D4CDDC /* mvaURLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaURLS.swift; sourceTree = "<group>"; };
 		01C22A74213473530037B691 /* yendiAgoroVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yendiAgoroVc.swift; sourceTree = "<group>"; };
 		01F5044F2125D28000359657 /* AddServiceConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceConfViewController.swift; sourceTree = "<group>"; };
+		01F57B402150356C005F5F0C /* FBB.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FBB.storyboard; sourceTree = "<group>"; };
+		01F57B422150FC49005F5F0C /* Services.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Services.storyboard; sourceTree = "<group>"; };
+		01F57B442150FC87005F5F0C /* TopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TopUp.storyboard; sourceTree = "<group>"; };
+		01F57B462150FE13005F5F0C /* ProductsServices.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProductsServices.storyboard; sourceTree = "<group>"; };
+		01F57B482151011E005F5F0C /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		01F57B4A2151029F005F5F0C /* OffersExtras.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OffersExtras.storyboard; sourceTree = "<group>"; };
+		01F57B4C2151041C005F5F0C /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
+		01F57B4E21510558005F5F0C /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
+		01F57B5021510693005F5F0C /* Games.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Games.storyboard; sourceTree = "<group>"; };
 		01F7388421369BBE00A30C1C /* baseViewControllerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseViewControllerM.swift; sourceTree = "<group>"; };
 		01F738862137360600A30C1C /* displayChosenOfferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayChosenOfferVc.swift; sourceTree = "<group>"; };
 		01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkFBBBalance.swift; sourceTree = "<group>"; };
@@ -257,6 +249,9 @@
 			isa = PBXGroup;
 			children = (
 				0160449E21187759008BD98F /* GestureView.swift */,
+				28937EE520EF96D20061F82B /* RoundView.swift */,
+				01853EB920CFD81E002DEB7D /* CardView.swift */,
+				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -282,65 +277,21 @@
 		01C022FC20C99304003E48CC /* My Vodafone */ = {
 			isa = PBXGroup;
 			children = (
-				016DE603214FE1D000BEB882 /* TopUp */,
-				281F8FC12146CC1A000B39A3 /* Services */,
+				01F57B3F21503472005F5F0C /* Storyboards */,
+				01F57B5721510CCE005F5F0C /* VCs */,
 				01A74FF72141783000F86A65 /* CustomClasses */,
-				0119AF7D213F062C009B71C8 /* FBBMOVE */,
-				01F7388321369B4900A30C1C /* baseControllers */,
 				01941D992119B2A600B7D207 /* mvaExtensions */,
 				01C0233220C9C907003E48CC /* htmls */,
 				01C0233120C9C8F9003E48CC /* fonts */,
 				01C022FD20C99304003E48CC /* AppDelegate.swift */,
 				018BB2DB21009B490004D697 /* mvaExtensions.swift */,
 				01C1A8162107A01300D4CDDC /* mvaURLS.swift */,
-				01C022FF20C99304003E48CC /* ViewController.swift */,
-				01C0230120C99304003E48CC /* Main.storyboard */,
 				01C0230420C99304003E48CC /* Assets.xcassets */,
 				01C0230620C99304003E48CC /* LaunchScreen.storyboard */,
 				01C0230920C99304003E48CC /* Info.plist */,
-				018BB2D921008A5B0004D697 /* ProductsServicesOneViewController.swift */,
 				01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */,
-				01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */,
-				01853EB920CFD81E002DEB7D /* CardView.swift */,
-				28937EE520EF96D20061F82B /* RoundView.swift */,
-				01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */,
-				01853EBD20D05957002DEB7D /* UserProductsViewController.swift */,
-				01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */,
-				01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */,
-				01AC079320D814320034B6B8 /* PrivacyPolicyViewController.swift */,
-				0148E06220D915E9003D3F54 /* LogoutViewController.swift */,
-				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
-				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
-				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
-				0144B5DD20ED1D25007791C4 /* PlansViewController.swift */,
-				0188912720EE76290080697F /* OneGHPlanViewController.swift */,
-				0146FD8B20F4B7E900AFEE82 /* TwoGHViewController.swift */,
-				0146FD8D20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift */,
-				0146FD8F20F4C99200AFEE82 /* RedClassicDataViewController.swift */,
-				0146FD9120F4CEF500AFEE82 /* RedClassicFreedomViewController.swift */,
-				0146FD9320F4D6D200AFEE82 /* RedHotDataViewController.swift */,
-				0146FD9520F4F46D00AFEE82 /* RedHotFreedomViewController.swift */,
-				0146FD9720F4FAC800AFEE82 /* RedHotVoiceViewController.swift */,
-				0146FD9920F4FE9A00AFEE82 /* RedRushDataViewController.swift */,
-				0146FD9B20F5048900AFEE82 /* RedRushFreedomViewController.swift */,
-				0146FD9D20F5106A00AFEE82 /* RedRushVoiceViewController.swift */,
 				019538622108C5EB00E492A7 /* mvaConfig.swift */,
-				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
-				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
-				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
-				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
-				016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */,
-				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
-				016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */,
-				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
-				01F5044F2125D28000359657 /* AddServiceConfViewController.swift */,
-				285A1D062129C37600EBA1EC /* homeVC.swift */,
-				01A95808212ADCD200F4D7C9 /* supportVC.swift */,
-				01A9580A212B28C200F4D7C9 /* supportModalVc.swift */,
-				019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */,
-				01C22A74213473530037B691 /* yendiAgoroVc.swift */,
-				01F738862137360600A30C1C /* displayChosenOfferVc.swift */,
 			);
 			path = "My Vodafone";
 			sourceTree = "<group>";
@@ -379,6 +330,102 @@
 			path = htmls;
 			sourceTree = "<group>";
 		};
+		01F57B3F21503472005F5F0C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				01C0230120C99304003E48CC /* Main.storyboard */,
+				01F57B402150356C005F5F0C /* FBB.storyboard */,
+				01F57B422150FC49005F5F0C /* Services.storyboard */,
+				01F57B442150FC87005F5F0C /* TopUp.storyboard */,
+				01F57B462150FE13005F5F0C /* ProductsServices.storyboard */,
+				01F57B482151011E005F5F0C /* Settings.storyboard */,
+				01F57B4A2151029F005F5F0C /* OffersExtras.storyboard */,
+				01F57B4C2151041C005F5F0C /* About.storyboard */,
+				01F57B4E21510558005F5F0C /* Support.storyboard */,
+				01F57B5021510693005F5F0C /* Games.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		01F57B5221510899005F5F0C /* About */ = {
+			isa = PBXGroup;
+			children = (
+				01AC078F20D7F2DD0034B6B8 /* AboutViewController.swift */,
+				01AC079120D80CDC0034B6B8 /* TermsConditionsViewController.swift */,
+				01AC079320D814320034B6B8 /* PrivacyPolicyViewController.swift */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
+		01F57B5321510A42005F5F0C /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */,
+				016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */,
+				01A95808212ADCD200F4D7C9 /* supportVC.swift */,
+				01A9580A212B28C200F4D7C9 /* supportModalVc.swift */,
+				019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		01F57B5421510ABE005F5F0C /* Gaming */ = {
+			isa = PBXGroup;
+			children = (
+				01C22A74213473530037B691 /* yendiAgoroVc.swift */,
+			);
+			path = Gaming;
+			sourceTree = "<group>";
+		};
+		01F57B5521510B77005F5F0C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		01F57B5621510BC3005F5F0C /* OffersExtras */ = {
+			isa = PBXGroup;
+			children = (
+				281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */,
+				0117A47D21148617003EBE09 /* BuyOfferViewController.swift */,
+				01F738862137360600A30C1C /* displayChosenOfferVc.swift */,
+				019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */,
+			);
+			path = OffersExtras;
+			sourceTree = "<group>";
+		};
+		01F57B5721510CCE005F5F0C /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				285A1D062129C37600EBA1EC /* homeVC.swift */,
+				01C022FF20C99304003E48CC /* ViewController.swift */,
+				01F57B5821510D4D005F5F0C /* Account */,
+				01F57B5621510BC3005F5F0C /* OffersExtras */,
+				01F57B5521510B77005F5F0C /* Settings */,
+				01F57B5421510ABE005F5F0C /* Gaming */,
+				01F57B5321510A42005F5F0C /* Support */,
+				01F57B5221510899005F5F0C /* About */,
+				016DE603214FE1D000BEB882 /* TopUp */,
+				281F8FC12146CC1A000B39A3 /* Services */,
+				0119AF7D213F062C009B71C8 /* FBBMOVE */,
+				01F7388321369B4900A30C1C /* baseControllers */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		01F57B5821510D4D005F5F0C /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				0148E06220D915E9003D3F54 /* LogoutViewController.swift */,
+				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
+				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
+				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		01F7388321369B4900A30C1C /* baseControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +450,11 @@
 				01A3434C214A89F700B4A6A5 /* simSwapModal.swift */,
 				01A3434E214A932E00B4A6A5 /* simSwapForm.swift */,
 				01A34350214AF40900B4A6A5 /* appointmentsVc.swift */,
+				018AC081211208E1002691E4 /* DialVodaCashViewController.swift */,
+				01F5044F2125D28000359657 /* AddServiceConfViewController.swift */,
+				01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */,
+				01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */,
+				01853EBD20D05957002DEB7D /* UserProductsViewController.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -482,25 +534,34 @@
 				01C0233D20C9C940003E48CC /* VodafoneRg_Bd.ttf in Resources */,
 				01C0235220C9C957003E48CC /* terms_netperform.html in Resources */,
 				01C0234020C9C940003E48CC /* Roboto-Light.ttf in Resources */,
+				01F57B4F21510558005F5F0C /* Support.storyboard in Resources */,
 				01C0235020C9C957003E48CC /* terms.css in Resources */,
 				01C0233C20C9C940003E48CC /* Roboto-Regular.ttf in Resources */,
 				01C0235120C9C957003E48CC /* icon2.png in Resources */,
+				01F57B412150356C005F5F0C /* FBB.storyboard in Resources */,
 				01C0233A20C9C940003E48CC /* Roboto-Medium.ttf in Resources */,
+				01F57B452150FC87005F5F0C /* TopUp.storyboard in Resources */,
 				01C0235520C9C957003E48CC /* icon1.png in Resources */,
 				01C0235920C9C957003E48CC /* roaming_faq.html in Resources */,
 				01C0230820C99304003E48CC /* LaunchScreen.storyboard in Resources */,
 				01C0234E20C9C957003E48CC /* custom.css in Resources */,
 				01C0235720C9C957003E48CC /* slidebars.min.css in Resources */,
+				01F57B432150FC49005F5F0C /* Services.storyboard in Resources */,
 				01C0235420C9C957003E48CC /* font.css in Resources */,
 				01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */,
+				01F57B472150FE13005F5F0C /* ProductsServices.storyboard in Resources */,
+				01F57B5121510693005F5F0C /* Games.storyboard in Resources */,
 				01C0234F20C9C957003E48CC /* simswap.html in Resources */,
 				01C0233B20C9C940003E48CC /* VodafoneLt.ttf in Resources */,
 				01C0233F20C9C940003E48CC /* VodafoneRg.ttf in Resources */,
+				01F57B4B2151029F005F5F0C /* OffersExtras.storyboard in Resources */,
 				01C0235320C9C957003E48CC /* data_permissions.html in Resources */,
 				01C0235620C9C957003E48CC /* app.v2.css in Resources */,
 				01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */,
+				01F57B4D2151041C005F5F0C /* About.storyboard in Resources */,
 				01C0230520C99304003E48CC /* Assets.xcassets in Resources */,
 				01C0230320C99304003E48CC /* Main.storyboard in Resources */,
+				01F57B492151011E005F5F0C /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,19 +632,13 @@
 				0160449F21187759008BD98F /* GestureView.swift in Sources */,
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
-				0146FD8E20F4BF3F00AFEE82 /* DbleValueMonthlyViewController.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
-				0146FD9C20F5048900AFEE82 /* RedRushFreedomViewController.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */,
 				016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */,
-				0146FD9220F4CEF500AFEE82 /* RedClassicFreedomViewController.swift in Sources */,
-				0146FD9A20F4FE9A00AFEE82 /* RedRushDataViewController.swift in Sources */,
 				016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */,
-				0146FD9E20F5106A00AFEE82 /* RedRushVoiceViewController.swift in Sources */,
-				0188912820EE76290080697F /* OneGHPlanViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
@@ -594,14 +649,11 @@
 				0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */,
 				0119AF7F213F08C3009B71C8 /* fbbPayVoucherVc.swift in Sources */,
 				01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */,
-				0146FD8C20F4B7E900AFEE82 /* TwoGHViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				01A34351214AF40900B4A6A5 /* appointmentsVc.swift in Sources */,
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
-				018BB2DA21008A5B0004D697 /* ProductsServicesOneViewController.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
-				0146FD9020F4C99200AFEE82 /* RedClassicDataViewController.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,
 				01AC079220D80CDC0034B6B8 /* TermsConditionsViewController.swift in Sources */,
@@ -613,13 +665,10 @@
 				01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */,
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */,
-				0146FD9620F4F46D00AFEE82 /* RedHotFreedomViewController.swift in Sources */,
 				018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */,
-				0146FD9420F4D6D200AFEE82 /* RedHotDataViewController.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0199F5F121398FA000906580 /* fbbMove.swift in Sources */,
-				0144B5DE20ED1D25007791C4 /* PlansViewController.swift in Sources */,
 				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */,
@@ -629,7 +678,6 @@
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
-				0146FD9820F4FAC800AFEE82 /* RedHotVoiceViewController.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,

@@ -10,5 +10,5 @@ import Foundation
 
 extension String {
     
-    static let app_version = "Version: 3.0.6"
+    static let app_version = "Version: 3.0.7"
 }
