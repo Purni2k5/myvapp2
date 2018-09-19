@@ -56,30 +56,33 @@ class homeVC: baseViewControllerM {
         let Services = preference.object(forKey: "ServiceList")
 //        print(Services)
         if let array = Services as? NSArray {
-            
+            var foundDefault = false
+            print(foundDefault)
             for obj in array {
-                if let dict = obj as? NSDictionary {
-                    // Now reference the data you need using:
-                    
-                    ServiceID = dict.value(forKey: "ID") as! String?
-                    AcctType = dict.value(forKey: "Type") as! String?
-                    
-                    if(ServiceID == defaultService){
-                        defaultAccName = dict.value(forKey: "DisplayName") as! String?
-                        primaryID = dict.value(forKey: "primaryID") as! String?
-                        AcctType = dict.value(forKey: "Type") as! String?
-                        print("Got it")
-                        break
-                    }else{
-                        //Just pick one to display
-                        defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                if foundDefault == false{
+                    if let dict = obj as? NSDictionary {
+                        // Now reference the data you need using:
                         ServiceID = dict.value(forKey: "ID") as! String?
                         AcctType = dict.value(forKey: "Type") as! String?
-                        primaryID = dict.value(forKey: "primaryID") as! String?
-                        break
+                        
+                        if(ServiceID == defaultService){
+                            defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                            primaryID = dict.value(forKey: "primaryID") as! String?
+                            AcctType = dict.value(forKey: "Type") as! String?
+                            foundDefault = true
+                            print("Got it")
+                            
+                        }else{
+                            //Just pick one to display
+                            defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                            ServiceID = dict.value(forKey: "ID") as! String?
+                            AcctType = dict.value(forKey: "Type") as! String?
+                            primaryID = dict.value(forKey: "primaryID") as! String?
+//                            foundDefault = true
+                        }
                     }
-                    
                 }
+                
             }
         }
         print("Primary ID:: \(primaryID!)")
