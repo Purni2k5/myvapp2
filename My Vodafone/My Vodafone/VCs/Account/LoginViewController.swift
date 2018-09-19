@@ -10,6 +10,11 @@ import UIKit
 
 class LoginViewController: baseViewControllerM {
 
+    var primaryID: String?
+    var defaultAccName: String?
+    var defaultMSISDN: String?
+    
+    
     @IBOutlet weak var loginHeader: UILabel!
     
     @IBOutlet weak var error_dialog_bg: UIImageView!
@@ -168,6 +173,45 @@ class LoginViewController: baseViewControllerM {
                         if responseData != nil {
                             self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
                             let obj = responseData["AccountStatus"] as! String
+                            let Services = self.preference.object(forKey: "ServiceList")
+                            let default_service = responseData["DefaultService"] as! String
+                            self.preference.set(default_service, forKey: "DefaultService")
+                            let defaultService = self.preference.object(forKey: "DefaultService") as! String
+                            if let array = Services as? NSArray {
+                                var foundDefault = false
+                                
+                                for obj in array {
+                                    if foundDefault == false{
+                                        if let dict = obj as? NSDictionary {
+                                            // Now reference the data you need using:
+                                            self.ServiceID = dict.value(forKey: "ID") as! String?
+                                            self.AcctType = dict.value(forKey: "Type") as! String?
+                                            
+                                            if(self.ServiceID == defaultService){
+                                                self.defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                                                self.primaryID = dict.value(forKey: "primaryID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                foundDefault = true
+                                                print("Got it")
+                                                
+                                            }else{
+                                                //Just pick one to display
+                                                self.defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                                                self.ServiceID = dict.value(forKey: "ID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                self.primaryID = dict.value(forKey: "primaryID") as! String?
+                                                //                            foundDefault = true
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            print("Primary ID:: \(self.primaryID!)")
+                            print("Display Name:: \(self.defaultAccName!)")
+                            let defaultNum = self.primaryID?.dropFirst(3)
+                            self.primaryID = "0\(defaultNum!)"
+                            self.preference.set(self.primaryID, forKey: "defaultMSISDN")
                             print("Account stat: \(obj)")
                         }
                         

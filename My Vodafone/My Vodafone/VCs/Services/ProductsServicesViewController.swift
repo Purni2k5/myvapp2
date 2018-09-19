@@ -36,6 +36,7 @@ class ProductsServicesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Change the back button colour.
         let backButton = UIImage(named: "leftArrow")
@@ -85,7 +86,7 @@ class ProductsServicesViewController: UIViewController {
                         print("display Image:: \(displayImage)")
                     }
                 }
-                let onlyService = UIView()
+                let onlyService = UserDetailsCard()
 //                let margins = view.layoutMarginsGuide
                 view.addSubview(onlyService)
                 onlyService.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +99,10 @@ class ProductsServicesViewController: UIViewController {
                 onlyService.layer.shadowOffset = CGSize(width: 0, height: 5)
                 onlyService.layer.shadowColor = UIColor.black.cgColor
                 onlyService.layer.shadowOpacity = 0.1
+                onlyService.msisdn = displayNumber
+                onlyService.displayName = displayName
+                let touchRec = UITapGestureRecognizer(target: self, action: #selector(goToDetails(_sender:)))
+                onlyService.addGestureRecognizer(touchRec)
                 //image on left of uiview
                 let colorImage = UIImageView()
                 onlyService.addSubview(colorImage)
@@ -192,7 +197,7 @@ class ProductsServicesViewController: UIViewController {
                             
                                 let stringCountView = String(countView)
 //                            print("int to string \(stringCountView)")
-                                let service = UIView()
+                                let service = UserDetailsCard()
                                 view.addSubview(service)
                                 scroller.addSubview(service)
                                 service.translatesAutoresizingMaskIntoConstraints = false
@@ -207,6 +212,10 @@ class ProductsServicesViewController: UIViewController {
                                 service.layer.shadowOffset = CGSize(width: 0, height: 5)
                                 service.layer.shadowColor = UIColor.black.cgColor
                                 service.layer.shadowOpacity = 0.1
+                            service.msisdn = ServiceID
+                            service.displayName = serviceName
+                            let touchRec = UITapGestureRecognizer(target: self, action: #selector(goToDetails(_sender:)))
+                            service.addGestureRecognizer(touchRec)
                             
                             //add left image view
                             let cardImage = UIImageView()
@@ -355,7 +364,7 @@ class ProductsServicesViewController: UIViewController {
                                     var countView = 0
                                     var topAnchorConstraint: CGFloat = 22
                                     for obj in array {
-                                        print("Doing this")
+                                        
                                         if let dict = obj as? NSDictionary {
                                             countView = countView + 1
                                             // Now reference the data you need using:
@@ -366,7 +375,7 @@ class ProductsServicesViewController: UIViewController {
                                             
                     
                                             //                            print("int to string \(stringCountView)")
-                                            let service = UIView()
+                                            let service = UserDetailsCard()
                                             self.view.addSubview(service)
                                             self.scroller.addSubview(service)
                                             service.translatesAutoresizingMaskIntoConstraints = false
@@ -381,6 +390,11 @@ class ProductsServicesViewController: UIViewController {
                                             service.layer.shadowOffset = CGSize(width: 0, height: 5)
                                             service.layer.shadowColor = UIColor.black.cgColor
                                             service.layer.shadowOpacity = 0.1
+                                            service.msisdn = ServiceID
+                                            service.displayName = serviceName
+                                            
+                                            let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToDetails(_sender:)))
+                                            service.addGestureRecognizer(touchRec)
                                             
                                             //add left image view
                                             let cardImage = UIImageView()
@@ -453,6 +467,15 @@ class ProductsServicesViewController: UIViewController {
             }
             task.resume()
         }
+    }
+    
+    @objc func goToDetails(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "userServiceDetails") as? userServiceDetails else {return}
+        guard let gestureVariables = _sender.view as? UserDetailsCard else {return}
+        moveTo.msisdn = gestureVariables.msisdn
+        moveTo.displayName = gestureVariables.displayName
+        present(moveTo, animated: true, completion: nil)
     }
 
 }

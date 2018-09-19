@@ -95,7 +95,7 @@ class checkFBBBalance: baseViewControllerM {
         btnCheck.isHidden = true
     }
     
-    //Function to startIndicator
+    //Function to stopIndicator
     func stop_activity_loader(){
         activity_loader.stopAnimating()
         btnCheck.isHidden = false

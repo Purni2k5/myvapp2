@@ -29,3 +29,8 @@ class StaffDataAllocation: UIView {
     var msisdn: String?
     var displayAmt: String?
 }
+
+class UserDetailsCard: UIView {
+    var msisdn: String?
+    var displayName: String?
+}

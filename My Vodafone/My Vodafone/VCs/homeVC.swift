@@ -16,6 +16,9 @@ class homeVC: baseViewControllerM {
     var username: String?
     var defaultMSISDN: String?
     var primaryID: String?
+    var accountBalance: String?
+    var balanceLabel: String?
+    var accountBalanceLabel: String?
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
 //    var altServiceID: String?
@@ -50,9 +53,11 @@ class homeVC: baseViewControllerM {
         print(UserData)
         let defaultService = UserData["DefaultService"] as! String
         username = UserData["Username"] as! String?
-        msisdn = UserData["Contact"] as! String?
+        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
+        balanceLabel = preference.object(forKey: "balanceLabel") as! String?
+        accountBalanceLabel = preference.object(forKey: "accBalanceLabel") as! String?
         
-        print("yos:: \(defaultService)")
+//        print("yos:: \(defaultService)")
         let Services = preference.object(forKey: "ServiceList")
 //        print(Services)
         if let array = Services as? NSArray {
@@ -85,11 +90,7 @@ class homeVC: baseViewControllerM {
                 
             }
         }
-        print("Primary ID:: \(primaryID!)")
-        print("Display Name:: \(defaultAccName!)")
-        let defaultNum = primaryID?.dropFirst(3)
-        primaryID = "0\(defaultNum!)"
-        preference.set(primaryID, forKey: "defaultMSISDN")
+        
         setUpViews1()
         backgroundCalls()
         // Check for internet connection
@@ -336,7 +337,12 @@ class homeVC: baseViewControllerM {
         //label for credit title
         scrollView.addSubview(lblCreditTitle)
         lblCreditTitle.translatesAutoresizingMaskIntoConstraints = false
-        lblCreditTitle.text = "Credit remaining"
+        if let creditTitle = balanceLabel {
+            lblCreditTitle.text = creditTitle
+        }else{
+            lblCreditTitle.text = "Credit remaining"
+        }
+        
         lblCreditTitle.textColor = UIColor.black
         lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 19)
         lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 25).isActive = true
@@ -345,7 +351,12 @@ class homeVC: baseViewControllerM {
         //label for actual credit
         scrollView.addSubview(lblCreditRem)
         lblCreditRem.translatesAutoresizingMaskIntoConstraints = false
-        lblCreditRem.text = "GHS 2,800,000"
+        if let creditRem = accountBalanceLabel {
+            lblCreditRem.text = creditRem
+        }else{
+            lblCreditRem.text = "GHS -- --"
+        }
+        
         lblCreditRem.textColor = UIColor.black
         let credit = lblCreditRem.text?.count
         if credit! > 5 {
@@ -451,6 +462,7 @@ class homeVC: baseViewControllerM {
     
     func backgroundCalls(){
         checkStaff()
+        getMobileBalances()
     }
     
     //Function to check for staff Number
@@ -458,7 +470,8 @@ class homeVC: baseViewControllerM {
         let postParameters: Dictionary<String, Any> = [
             "action":"checkStaffNumber",
             "msisdn":msisdn!,
-            "username":username!
+            "username":username!,
+            "os":getAppVersion()
         ]
         let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
@@ -505,6 +518,70 @@ class homeVC: baseViewControllerM {
                     
                 }catch{
                     print("check staff catch error:: \(error.localizedDescription)")
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    //Function to call balances
+    func getMobileBalances() {
+        let postParameters: Dictionary<String, Any> = [
+            "action":"subscriberSummary",
+            "msisdn":msisdn!,
+            "username":username!,
+            "os":getAppVersion()
+        ]
+        let async_call = URL(string: String.userURL)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("Balance retriving error:: \(error!.localizedDescription)")
+                    return;
+                }
+                
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON {
+                        var responseCode: Int?
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        DispatchQueue.main.async {
+                            if responseCode == 0 {
+                                let promotions = parseJSON["PROMOTIONS"] as! NSArray?
+                                let balance = parseJSON["BALANCE"] as! NSDictionary?
+                                print("promos \(promotions!)")
+                                print("balance \(balance!)")
+                                if let accBalance = balance!["AccountBalance"] as! String? {
+                                    self.accountBalance = accBalance
+                                    self.preference.set(self.accountBalance!, forKey: "accountBalance")
+                                }
+                                if let accBalanceLabel = balance!["AccountBalanceLabel"] as! String? {
+                                    self.accountBalanceLabel = accBalanceLabel
+                                    self.preference.set(self.accountBalanceLabel!, forKey: "accBalanceLabel")
+                                    self.lblCreditRem.text = self.accountBalanceLabel!
+                                }
+                                if let balLabel = balance!["BalanceLabel"] as! String? {
+                                    self.balanceLabel = balLabel
+                                    self.preference.set(self.balanceLabel!, forKey: "balanceLabel")
+                                    self.lblCreditTitle.text = self.balanceLabel!
+                                }
+                                
+                                
+                                
+                                
+                            }
+                        }
+                    }
+                }catch{
+                    print("Balance retriving error:: \(error.localizedDescription)")
                 }
             }
             task.resume()
