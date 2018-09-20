@@ -88,6 +88,11 @@
 		01F57B4F21510558005F5F0C /* Support.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B4E21510558005F5F0C /* Support.storyboard */; };
 		01F57B5121510693005F5F0C /* Games.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B5021510693005F5F0C /* Games.storyboard */; };
 		01F57B5A215295C9005F5F0C /* userServiceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B59215295C9005F5F0C /* userServiceDetails.swift */; };
+		01F57B5C2153C469005F5F0C /* Roaming.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B5B2153C469005F5F0C /* Roaming.storyboard */; };
+		01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B5E2153C5A2005F5F0C /* SmartTraveller.swift */; };
+		01F57B612153E1F0005F5F0C /* RoamingBundles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B602153E1F0005F5F0C /* RoamingBundles.swift */; };
+		01F57B63215408CC005F5F0C /* RoamingTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B62215408CC005F5F0C /* RoamingTips.swift */; };
+		01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B6421540CA7005F5F0C /* RoamingPartners.swift */; };
 		01F7388521369BBE00A30C1C /* baseViewControllerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7388421369BBE00A30C1C /* baseViewControllerM.swift */; };
 		01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F738862137360600A30C1C /* displayChosenOfferVc.swift */; };
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
@@ -184,6 +189,11 @@
 		01F57B4E21510558005F5F0C /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
 		01F57B5021510693005F5F0C /* Games.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Games.storyboard; sourceTree = "<group>"; };
 		01F57B59215295C9005F5F0C /* userServiceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userServiceDetails.swift; sourceTree = "<group>"; };
+		01F57B5B2153C469005F5F0C /* Roaming.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Roaming.storyboard; sourceTree = "<group>"; };
+		01F57B5E2153C5A2005F5F0C /* SmartTraveller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartTraveller.swift; sourceTree = "<group>"; };
+		01F57B602153E1F0005F5F0C /* RoamingBundles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingBundles.swift; sourceTree = "<group>"; };
+		01F57B62215408CC005F5F0C /* RoamingTips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingTips.swift; sourceTree = "<group>"; };
+		01F57B6421540CA7005F5F0C /* RoamingPartners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingPartners.swift; sourceTree = "<group>"; };
 		01F7388421369BBE00A30C1C /* baseViewControllerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseViewControllerM.swift; sourceTree = "<group>"; };
 		01F738862137360600A30C1C /* displayChosenOfferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayChosenOfferVc.swift; sourceTree = "<group>"; };
 		01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkFBBBalance.swift; sourceTree = "<group>"; };
@@ -345,6 +355,7 @@
 				01F57B4C2151041C005F5F0C /* About.storyboard */,
 				01F57B4E21510558005F5F0C /* Support.storyboard */,
 				01F57B5021510693005F5F0C /* Games.storyboard */,
+				01F57B5B2153C469005F5F0C /* Roaming.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -401,6 +412,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				01F57B5D2153C503005F5F0C /* Roaming */,
 				285A1D062129C37600EBA1EC /* homeVC.swift */,
 				01C022FF20C99304003E48CC /* ViewController.swift */,
 				01F57B5821510D4D005F5F0C /* Account */,
@@ -426,6 +438,17 @@
 				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		01F57B5D2153C503005F5F0C /* Roaming */ = {
+			isa = PBXGroup;
+			children = (
+				01F57B5E2153C5A2005F5F0C /* SmartTraveller.swift */,
+				01F57B602153E1F0005F5F0C /* RoamingBundles.swift */,
+				01F57B62215408CC005F5F0C /* RoamingTips.swift */,
+				01F57B6421540CA7005F5F0C /* RoamingPartners.swift */,
+			);
+			path = Roaming;
 			sourceTree = "<group>";
 		};
 		01F7388321369B4900A30C1C /* baseControllers */ = {
@@ -542,6 +565,7 @@
 				01C0233C20C9C940003E48CC /* Roboto-Regular.ttf in Resources */,
 				01C0235120C9C957003E48CC /* icon2.png in Resources */,
 				01F57B412150356C005F5F0C /* FBB.storyboard in Resources */,
+				01F57B5C2153C469005F5F0C /* Roaming.storyboard in Resources */,
 				01C0233A20C9C940003E48CC /* Roboto-Medium.ttf in Resources */,
 				01F57B452150FC87005F5F0C /* TopUp.storyboard in Resources */,
 				01C0235520C9C957003E48CC /* icon1.png in Resources */,
@@ -636,7 +660,9 @@
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
+				01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
+				01F57B63215408CC005F5F0C /* RoamingTips.swift in Sources */,
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */,
@@ -646,6 +672,7 @@
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
+				01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */,
 				019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */,
 				01C22A75213473530037B691 /* yendiAgoroVc.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
@@ -670,6 +697,7 @@
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */,
 				018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */,
+				01F57B612153E1F0005F5F0C /* RoamingBundles.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				0199F5F121398FA000906580 /* fbbMove.swift in Sources */,

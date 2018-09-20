@@ -305,7 +305,7 @@ class baseViewControllerM: UIViewController {
         let btnTravel = UIButton()
         scrollViewBase.addSubview(btnTravel)
         btnTravel.translatesAutoresizingMaskIntoConstraints = false
-        btnTravel.setTitle("Travelling abroad", for: .normal)
+        btnTravel.setTitle("Smart Traveller", for: .normal)
         btnTravel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnTravel.setTitleColor(UIColor.white, for: .normal)
         btnTravel.leadingAnchor.constraint(equalTo: travellingIcon.trailingAnchor, constant: 16).isActive = true
@@ -609,8 +609,9 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToTravelling(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "SmartTraveller")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToTwoFour(){

@@ -56,6 +56,7 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: "accountBalance")
         preference.removeObject(forKey: "accBalanceLabel")
         preference.removeObject(forKey: "balanceLabel")
+        preference.removeObject(forKey: "ROAMINGS")
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }

@@ -1,19 +1,33 @@
 //
-//  userServiceDetails.swift
+//  RoamingPartners.swift
 //  My Vodafone
 //
-//  Created by Chef Dennis Barimah on 19/09/2018.
+//  Created by Chef Dennis Barimah on 20/09/2018.
 //  Copyright © 2018 Chef Dennis Barimah. All rights reserved.
 //
 
 import UIKit
 
-class userServiceDetails: baseViewControllerM {
-
-    var msisdn: String?
-    var displayName: String?
-    var username: String?
+class RoamingPartners: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return countries.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return countries[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let country = countries[row]
+        txtCountry.text = country
+    }
+    
+    var countries: [String] = []
     //closure for scroll view
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -52,54 +66,36 @@ class userServiceDetails: baseViewControllerM {
         return view
     }()
     
-    // Dark View
-    let darkView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    
+    let txtCountry = UITextField()
+    let cheviDown = UIImageView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
-        setUpViewsServiceeDet()
-        let UserData = preference.object(forKey: "responseData") as! NSDictionary
-        username = UserData["Username"] as? String
+        createPickerView()
+        createToolBar()
         
-        if CheckInternet.Connection(){
-            getAccountBalance()
-        }else{
-            
-        }
+        
+        setUpViewTips()
+        loadRoamingPartners()
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
     }
-
-    //Function to startIndicator
-    func start_activity_loader(){
-        activity_loader.isHidden = false
-        activity_loader.hidesWhenStopped = true
-        activity_loader.startAnimating()
-    }
     
-    //Function to stopIndicator
-    func stop_activity_loader(){
-        activity_loader.stopAnimating()
-    }
-    
-    func setUpViewsServiceeDet(){
+    func setUpViewTips(){
+        view.addSubview(scrollView)
+        
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
-        scrollView.contentSize.height = 1500
+        
         
         scrollView.addSubview(topImage)
         topImage.image = UIImage(named: "bg2")
-        topImage.heightAnchor.constraint(equalToConstant: 330).isActive = true
+        topImage.heightAnchor.constraint(equalToConstant: 240).isActive = true
         topImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topImage.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         topImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -113,7 +109,7 @@ class userServiceDetails: baseViewControllerM {
         backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         backButton.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 10).isActive = true
         backButton.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 10).isActive = true
-        backButton.addTarget(self, action: #selector(goToProducts), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(goToTips), for: .touchUpInside)
         
         scrollView.addSubview(btnMenu)
         let menuImage = UIImage(named: "menu")
@@ -141,72 +137,51 @@ class userServiceDetails: baseViewControllerM {
         lblSelectedOffer.textColor = UIColor.white
         lblSelectedOffer.textAlignment = .center
         lblSelectedOffer.font = UIFont(name: String.defaultFontR, size: 31)
-        lblSelectedOffer.text = "Your Products and services"
+        lblSelectedOffer.text = "Roaming Partners"
         lblSelectedOffer.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 20).isActive = true
-        lblSelectedOffer.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 70).isActive = true
+        lblSelectedOffer.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 60).isActive = true
         lblSelectedOffer.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -20).isActive = true
         lblSelectedOffer.numberOfLines = 0
         lblSelectedOffer.lineBreakMode = .byWordWrapping
         
-        topImage.addSubview(darkView)
-        darkView.backgroundColor = UIColor.black.withAlphaComponent(0.70)
-        darkView.isOpaque = false
-        darkView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        let darkView = UIView()
+        scrollView.addSubview(darkView)
+        darkView.translatesAutoresizingMaskIntoConstraints = false
+        darkView.backgroundColor = UIColor.black.withAlphaComponent(0.50)
         darkView.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 20).isActive = true
+        darkView.topAnchor.constraint(equalTo: lblSelectedOffer.bottomAnchor, constant: 20).isActive = true
         darkView.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -20).isActive = true
-        darkView.bottomAnchor.constraint(equalTo: topImage.bottomAnchor, constant: -20).isActive = true
+        darkView.heightAnchor.constraint(equalToConstant: 106).isActive = true
         
-        let displayImage = UIImageView()
-        darkView.addSubview(displayImage)
-        displayImage.translatesAutoresizingMaskIntoConstraints = false
-        displayImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        displayImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        displayImage.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
-        displayImage.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 20).isActive = true
-        displayImage.image = UIImage(named: "default_profile")
-        displayImage.layer.cornerRadius = 50
-        displayImage.layer.borderColor = UIColor.white.cgColor
-        displayImage.clipsToBounds = true
-        displayImage.layer.borderWidth = 2
+        darkView.addSubview(txtCountry)
+        txtCountry.translatesAutoresizingMaskIntoConstraints = false
+        txtCountry.backgroundColor = UIColor.white
+        txtCountry.font = UIFont(name: String.defaultFontR, size: 20)
+        txtCountry.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        txtCountry.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
+        txtCountry.centerYAnchor.constraint(equalTo: darkView.centerYAnchor).isActive = true
+        txtCountry.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        loadCountries()
+        txtCountry.text = countries[3]
         
-        darkView.addSubview(activity_loader)
-        activity_loader.centerYAnchor.constraint(equalTo: darkView.centerYAnchor).isActive = true
-        activity_loader.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
-        start_activity_loader()
+        txtCountry.addSubview(cheviDown)
+        cheviDown.translatesAutoresizingMaskIntoConstraints = false
+        cheviDown.image = UIImage(named: "chevDown")
+        cheviDown.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        cheviDown.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        cheviDown.topAnchor.constraint(equalTo: txtCountry.topAnchor, constant: 10).isActive = true
+        cheviDown.trailingAnchor.constraint(equalTo: txtCountry.trailingAnchor, constant: -10).isActive = true
         
-        let lblDisplayName = UILabel()
-        darkView.addSubview(lblDisplayName)
-        lblDisplayName.translatesAutoresizingMaskIntoConstraints = false
-        lblDisplayName.text = displayName!
-        lblDisplayName.textColor = UIColor.white
-        lblDisplayName.font = UIFont(name: String.defaultFontR, size: 20)
-        lblDisplayName.textAlignment = .center
-        lblDisplayName.topAnchor.constraint(equalTo: displayImage.bottomAnchor, constant: 20).isActive = true
-        lblDisplayName.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 30).isActive = true
-        lblDisplayName.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -30).isActive = true
-        lblDisplayName.numberOfLines = 0
-        lblDisplayName.lineBreakMode = .byWordWrapping
-        
-        let lblMSISDN = UILabel()
-        darkView.addSubview(lblMSISDN)
-        lblMSISDN.translatesAutoresizingMaskIntoConstraints = false
-        lblMSISDN.textAlignment = .center
-        lblMSISDN.textColor = UIColor.white
-        lblMSISDN.text = msisdn!
-        lblMSISDN.font = UIFont(name: String.defaultFontR, size: 15)
-        lblMSISDN.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 30).isActive = true
-        lblMSISDN.topAnchor.constraint(equalTo: lblDisplayName.bottomAnchor, constant: 5).isActive = true
-        lblMSISDN.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -30).isActive = true
     }
     
-    func getAccountBalance(){
+    
+    func loadRoamingPartners(){
         let postParameters: Dictionary<String, Any> = [
-            "action":"subscriberSummary",
-            "msisdn":msisdn!,
-            "username":username!,
+            "action":"roamingPartners",
             "os":getAppVersion()
         ]
-        let async_call = URL(string: String.userURL)
+        
+        let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         
@@ -219,9 +194,6 @@ class userServiceDetails: baseViewControllerM {
                 data, response, error in
                 if error != nil {
                     print("error is:: \(error!.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self.stop_activity_loader()
-                    }
                     return;
                 }
                 do {
@@ -231,29 +203,77 @@ class userServiceDetails: baseViewControllerM {
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         DispatchQueue.main.async {
                             if responseCode == 0 {
-                                self.stop_activity_loader()
-//                                print(parseJSON)
-                                let promotions = parseJSON["PROMOTIONS"] as! NSArray?
-                                print(promotions!)
-                                for promo in promotions! {
-                                    print(promo)
-                                }
-                                
+                                let responseMessage = parseJSON["RESPONSECODE"]
+                                print(responseMessage!)
                             }else{
-                                self.stop_activity_loader()
-                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry try again..")
+                                
                             }
+                            self.stop_activity_loader()
                         }
                     }
                 }catch{
-                    print(error.localizedDescription)
                     DispatchQueue.main.async {
                         self.stop_activity_loader()
+                        print(error.localizedDescription)
                     }
                 }
             }
             task.resume()
         }
+    }
+    //Create a picker view
+    func createPickerView(){
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.tag = 1
+        txtCountry.inputView = picker
+    }
+    
+    func loadCountries(){
+        for code in NSLocale.isoCountryCodes as [String] {
+            let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let name = NSLocale(localeIdentifier: "en_UK").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+            if name == "Ghana" {
+                
+            }else{
+                countries.append(name)
+            }
+        }
+    }
+    
+    //Function to create a tool bar
+    func createToolBar(){
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(RoamingPartners.dismissKeyBoard))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        txtCountry.inputAccessoryView =  toolBar
+    }
+    
+    //Function to dismiss keyboard
+    @objc func dismissKeyBoard(){
+        view.endEditing(true)
+    }
+    
+    @objc func goToTips(){
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingTips")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
     }
 
 }
