@@ -615,8 +615,9 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToTwoFour(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "supportVC")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Support", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToLocator(){
