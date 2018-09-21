@@ -1,19 +1,18 @@
 //
-//  reportFaultVc.swift
+//  RoamingFaultReporting.swift
 //  My Vodafone
 //
-//  Created by Chef Dennis Barimah on 22/08/2018.
+//  Created by Chef Dennis Barimah on 21/09/2018.
 //  Copyright © 2018 Chef Dennis Barimah. All rights reserved.
 //
 
 import UIKit
 
-class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    
-    let preferences = UserDefaults.standard
+class RoamingFaultReporting: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var username: String?
     //create a closure for motherView
-    let motherView: UIView = {
+    let motherViewR: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.grayBackground
@@ -47,6 +46,16 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         return view
     }()
     
+    //create a closure for activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
+        return view
+    }()
+    
     let btnSend = UIButton()
     let txtMSISDN = UITextField()
     let txtReportType = UITextField()
@@ -54,13 +63,10 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     let txtReportCom = UITextView()
     let txtAltNumber = UITextField()
     let cheviDown = UIImageView()
+    
+    let reportTypeList = ["Mobile"]
+    let reportCatList = ["Select your report category","Cannot Bundle", "Bundle Refunds", "Cannot Recharge", "Over Scratched Card", "Recharge Not Reflecting", "SMS Issues", "Cannot Send SMS", "Cannot Receive SMS", "Cannot Make Calls", "Cannot Receive Calls", "Roaming Issues", "Cannot Browse", "Other"]
 
-    let reportTypeList = ["Mobile", "Fixed Line", "IP Services", "Fixed Broadband", "Vodafone Cash"]
-    let iPServiceList = ["Select you report category","Fixed IP removal", "Fixed IP request", "Fixed IP not working"]
-    let FBBList = ["Select you report category","Link is down", "FBB Data refund", "Create E-Mail", "Cannot access Web selfcare portal", "Cannot send and recive E-Mail", "Connection is slow"]
-    let mobileList = ["Select your report category","Cannot Bundle", "Bundle Refunds", "Cannot Recharge", "Over Scratched Card", "Recharge Not Reflecting", "SMS Issues", "Cannot Send SMS", "Cannot Make Calls", "Cannot Receive Calls", "Roaming Issues"]
-    let vodaCashList = ["Select your report category","Cash Not Dispense-ATM", "Request for account suspension", "Account Balance Challenges", "Change Account Details", "Request To close Account", "Account Reactivate", "Request to Freeze Account", "Airtime Purchase complaints", "Bill payment issues", "Online payment issues", "Fraudulent issue", "Request For Reversal", "Cannot Receive SMS Notification", "First time PIN Activation", "Customer Voucher complaints", "Customer Voucher complaints", "PIN Management"]
-    let fixedLineList = ["Select your report category","Noise on Fixedline", "Cannot make calls", "Call forwarding request", "Call hunting request", "Caller ID presentation request", "Password request", "Call baring request", "IDD/International call request", "Cannot recharge", "Cannot receive calls", "No dial tone"]
     var msisdn: String?
     var reportType: String?
     var reportCat: String?
@@ -74,8 +80,10 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         view.backgroundColor = UIColor.grayBackground
         checkConnection()
         
-        msisdn = preferences.object(forKey: "defaultMSISDN") as! String?
-        setUpViews()
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
+        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
+        setUpViewsRoamingFault()
         
         self.hideKeyboardWhenTappedAround()
         createPickerView()
@@ -85,16 +93,20 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtReportType.text = reportTypeList[0]
         
         
+        if AcctType == "PHONE_MOBILE_PRE_P" {
+            prePaidMenu()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        txtMSISDN.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
-//        txtReportType.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
-//        txtReportCat.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+        //        txtMSISDN.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+        //        txtReportType.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+        //        txtReportCat.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
         txtAltNumber.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
     }
     
-    func setUpViews(){
+    func setUpViewsRoamingFault(){
         view.addSubview(motherView)
         motherView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         motherView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
@@ -125,7 +137,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         btnBack.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 10).isActive = true
         btnBack.widthAnchor.constraint(equalToConstant: 40).isActive = true
         btnBack.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        btnBack.addTarget(self, action: #selector(goToTravelling), for: .touchUpInside)
         
         //Menu
         scrollView.addSubview(btnMenu)
@@ -135,6 +147,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         btnMenu.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btnMenu.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 10).isActive = true
         btnMenu.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -10).isActive = true
+        btnMenu.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //Menu label
         let lblMenu = UILabel()
@@ -228,7 +241,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         lblReportCat.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
         //txt report Type
-       
+        
         scrollView.addSubview(txtReportCat)
         txtReportCat.translatesAutoresizingMaskIntoConstraints = false
         txtReportCat.backgroundColor = UIColor.white
@@ -265,13 +278,15 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         scrollView.addSubview(txtReportCom)
         txtReportCom.translatesAutoresizingMaskIntoConstraints = false
         txtReportCom.backgroundColor = UIColor.white
-        txtReportCom.layer.borderColor = UIColor.lightGray.cgColor
-        txtReportCom.layer.borderWidth = 0.2
+        txtReportCom.layer.borderColor = UIColor.gray.withAlphaComponent(0.60).cgColor
+        txtReportCom.layer.borderWidth = 0.8
         txtReportCom.font = UIFont(name: String.defaultFontR, size: 17)
         txtReportCom.heightAnchor.constraint(equalToConstant: 110).isActive = true
         txtReportCom.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
         txtReportCom.topAnchor.constraint(equalTo: lblReportCom.bottomAnchor, constant: 10).isActive = true
         txtReportCom.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        txtReportCom.isScrollEnabled = false
+        
         
         // label for report type
         let lblAltNum = UILabel()
@@ -312,6 +327,10 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         btnSend.addTarget(self, action: #selector(sendFault), for: .touchUpInside)
         scrollView.contentSize.height = 920
         
+        view.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: txtAltNumber.bottomAnchor, constant: 30).isActive = true
+        
     }
     
     @objc func checkInputs(){
@@ -333,47 +352,28 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let countReportType = reportTypeList.count
-        let countReportCat = mobileList.count
-        if txtReportType.isEditing{
-            listToReturn = countReportType
-        }else if txtReportCat.isEditing{
-            listToReturn = countReportCat
+        if pickerView.tag == 1 {
+            return reportTypeList.count
+        }else{
+            return reportCatList.count
         }
-        return listToReturn!
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if txtReportType.isEditing {
-            let rType = reportTypeList[row]
-            returnTypeString = rType
-        }else if txtReportCat.isEditing{
-            if txtReportType.text == "Fixed Line" {
-                let catType = fixedLineList[row]
-                returnTypeString = catType
-            }
-            
+        if pickerView.tag == 1 {
+            return reportTypeList[row]
+        }else{
+            return reportCatList[row]
         }
-        return returnTypeString
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("here")
-        if txtReportType.isEditing {
-            reportType = reportTypeList[row]
-            txtReportType.text = reportType
-            if txtReportType.text == "Fixed Line" {
-                reportType = fixedLineList[row]
-                txtReportCat.text = reportType
-            }
+        if pickerView.tag == 1 {
+            txtReportType.text = reportTypeList[row]
+        }else{
+            txtReportCat.text = reportCatList[row]
         }
-        
-        /*
-         else if txtReportCat.isEditing{
-         reportType = mobileList[row]
-         txtReportCat.text = reportType
-         }
-         */
         
     }
     
@@ -381,6 +381,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     func createPickerView(){
         let accountPicker = UIPickerView()
         accountPicker.delegate = self
+        accountPicker.tag = 1
         txtReportType.inputView = accountPicker
     }
     
@@ -388,6 +389,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     func createCatPicker(){
         let catPicker = UIPickerView()
         catPicker.delegate = self
+        catPicker.tag = 2
         txtReportCat.inputView = catPicker
     }
     //Function to create a tool bar
@@ -437,7 +439,54 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
                                     self.view.addSubview(moveTo.view)
                                     moveTo.didMove(toParentViewController: self)
                                 }else{
+                                    start_activity_loader()
+                                    let async_call = URL(string: String.userURL)
+                                    let request = NSMutableURLRequest(url: async_call!)
+                                    request.httpMethod = "POST"
+                                    let postParameters: Dictionary<String, Any> = [
+                                        "action":"faultReporting",
+                                        "alternativecontact":altNum!,
+                                        "reporttype":reportType!,
+                                        "reportcategory":reportCat!,
+                                        "comment":reportCom!,
+                                        "username":username!,
+                                        "msisdn":msisdn!,
+                                        "type":"roamingfaultreporting"
+                                    ]
                                     
+                                    if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                                        request.httpBody = postData
+                                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                                        
+                                        let task = URLSession.shared.dataTask(with: request as URLRequest){
+                                            data, response, error in
+                                            
+                                            do {
+                                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                                if let parseJSON = myJSON {
+                                                    var responseCode: Int?
+                                                    responseCode = parseJSON["RESPONSECODE"] as! Int?
+                                                    DispatchQueue.main.async {
+                                                        if responseCode == 0{
+                                                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage!)
+                                                        }else{
+                                                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry try again...")
+                                                        }
+                                                        self.stop_activity_loader()
+                                                    }
+                                                }
+                                            }catch{
+                                                print(error.localizedDescription)
+                                                DispatchQueue.main.async {
+                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry request could not be processed")
+                                                    self.stop_activity_loader()
+                                                }
+                                            }
+                                        }
+                                        task.resume()
+                                    }
                                 }
                             }
                         }
@@ -446,11 +495,18 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             }
         }
     }
+
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnSend.isHidden = true
+    }
     
-    //Go back
-    @objc func goBack(){
-        let storyboard = UIStoryboard(name: "Support", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
-        present(moveTo, animated: true, completion: nil)
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnSend.isHidden = false
     }
 }

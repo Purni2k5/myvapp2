@@ -15,6 +15,8 @@
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
+		015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */; };
+		015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */; };
 		0160449F21187759008BD98F /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160449E21187759008BD98F /* GestureView.swift */; };
 		016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */; };
 		016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */; };
@@ -113,6 +115,8 @@
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
+		015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratesDiscounts.swift; sourceTree = "<group>"; };
+		015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingFaultReporting.swift; sourceTree = "<group>"; };
 		0160449E21187759008BD98F /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
 		016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = offlineNotifViewController.swift; sourceTree = "<group>"; };
 		016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -447,6 +451,8 @@
 				01F57B602153E1F0005F5F0C /* RoamingBundles.swift */,
 				01F57B62215408CC005F5F0C /* RoamingTips.swift */,
 				01F57B6421540CA7005F5F0C /* RoamingPartners.swift */,
+				015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */,
+				015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */,
 			);
 			path = Roaming;
 			sourceTree = "<group>";
@@ -710,9 +716,11 @@
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
+				015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,
+				015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

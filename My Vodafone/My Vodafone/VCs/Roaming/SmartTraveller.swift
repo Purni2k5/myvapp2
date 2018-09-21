@@ -236,6 +236,9 @@ class SmartTraveller: baseViewControllerM {
         faultReportCard.layer.shadowColor = UIColor.black.cgColor
         faultReportCard.layer.shadowOpacity = 0.2
         
+        let faultReportCardRec = UITapGestureRecognizer(target: self, action: #selector(gotToFaultReporting(_sender:)))
+        faultReportCard.addGestureRecognizer(faultReportCardRec)
+        
         let faultLeft = UIImageView()
         faultReportCard.addSubview(faultLeft)
         faultLeft.translatesAutoresizingMaskIntoConstraints = false
@@ -283,6 +286,12 @@ class SmartTraveller: baseViewControllerM {
     @objc func gotToRoamingTips(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingTips")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func gotToFaultReporting(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingFaultReporting")
         present(moveTo, animated: true, completion: nil)
     }
     

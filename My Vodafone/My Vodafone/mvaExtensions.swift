@@ -73,4 +73,6 @@ extension String {
     static let MVA_SPINGAME = "https://myvodafoneappmw.vodafone.com.gh/SpinAPI/index.jsp";
     static let MVA_SUPPPORT_EMAIL = "info.gh@vodafone.com";
     static let MVA_FBBMOVE = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/ProjectNkrumah";
+    static let MVA_ROAMINGDISCOUNTS = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roamingdiscounts.html";
+    static let MVA_ROAMINGFAQ = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roaming_faq.html";
 }

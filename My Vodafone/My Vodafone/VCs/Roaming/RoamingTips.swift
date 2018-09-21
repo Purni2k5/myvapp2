@@ -107,7 +107,7 @@ class RoamingTips: baseViewControllerM {
         lblSelectedOffer.numberOfLines = 0
         lblSelectedOffer.lineBreakMode = .byWordWrapping
         
-        //Roaming Bundles
+        //Roaming Partners
         let roamingBundlesCard = UIView()
         scrollView.addSubview(roamingBundlesCard)
         roamingBundlesCard.translatesAutoresizingMaskIntoConstraints = false
@@ -157,66 +157,71 @@ class RoamingTips: baseViewControllerM {
         roamingBDesc.numberOfLines = 0
         roamingBDesc.lineBreakMode = .byWordWrapping
         
-        //Roaming Tips
-        let roamingTipsCard = UIView()
-        scrollView.addSubview(roamingTipsCard)
-        roamingTipsCard.translatesAutoresizingMaskIntoConstraints = false
-        roamingTipsCard.backgroundColor = UIColor.white
-        roamingTipsCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
-        roamingTipsCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        roamingTipsCard.topAnchor.constraint(equalTo: roamingBundlesCard.bottomAnchor, constant: 20).isActive = true
-        roamingTipsCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        roamingTipsCard.layer.cornerRadius = 2
-        roamingTipsCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-        roamingTipsCard.layer.shadowColor = UIColor.black.cgColor
-        roamingTipsCard.layer.shadowOpacity = 0.2
+        //Rates & Discounts
+        let ratesDiscountsCard = SingleVariable()
+        scrollView.addSubview(ratesDiscountsCard)
+        ratesDiscountsCard.translatesAutoresizingMaskIntoConstraints = false
+        ratesDiscountsCard.backgroundColor = UIColor.white
+        ratesDiscountsCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        ratesDiscountsCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        ratesDiscountsCard.topAnchor.constraint(equalTo: roamingBundlesCard.bottomAnchor, constant: 20).isActive = true
+        ratesDiscountsCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        ratesDiscountsCard.layer.cornerRadius = 2
+        ratesDiscountsCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+        ratesDiscountsCard.layer.shadowColor = UIColor.black.cgColor
+        ratesDiscountsCard.layer.shadowOpacity = 0.2
+        ratesDiscountsCard.senderVariable = "Rates"
+        
+        let ratesDiscountsRec = UITapGestureRecognizer(target: self, action: #selector(gotToDiscounts(_sender:)))
+        ratesDiscountsCard.addGestureRecognizer(ratesDiscountsRec)
         
         let roamingTLeft = UIImageView()
-        roamingTipsCard.addSubview(roamingTLeft)
+        ratesDiscountsCard.addSubview(roamingTLeft)
         roamingTLeft.translatesAutoresizingMaskIntoConstraints = false
         roamingTLeft.backgroundColor = UIColor.cardImageColour
-        roamingTLeft.leadingAnchor.constraint(equalTo: roamingTipsCard.leadingAnchor).isActive = true
-        roamingTLeft.topAnchor.constraint(equalTo: roamingTipsCard.topAnchor).isActive = true
+        roamingTLeft.leadingAnchor.constraint(equalTo: ratesDiscountsCard.leadingAnchor).isActive = true
+        roamingTLeft.topAnchor.constraint(equalTo: ratesDiscountsCard.topAnchor).isActive = true
         roamingTLeft.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        roamingTLeft.bottomAnchor.constraint(equalTo: roamingTipsCard.bottomAnchor).isActive = true
+        roamingTLeft.bottomAnchor.constraint(equalTo: ratesDiscountsCard.bottomAnchor).isActive = true
         
         let roamingTLabel = UILabel()
-        roamingTipsCard.addSubview(roamingTLabel)
+        ratesDiscountsCard.addSubview(roamingTLabel)
         roamingTLabel.translatesAutoresizingMaskIntoConstraints = false
         roamingTLabel.text = "Rates & Discounts"
         roamingTLabel.textColor = UIColor.black
         roamingTLabel.font = UIFont(name: String.defaultFontR, size: 26)
         roamingTLabel.leadingAnchor.constraint(equalTo: roamingTLeft.trailingAnchor, constant: 10).isActive = true
-        roamingTLabel.topAnchor.constraint(equalTo: roamingTipsCard.topAnchor, constant: 30).isActive = true
-        roamingTLabel.trailingAnchor.constraint(equalTo: roamingTipsCard.trailingAnchor, constant: -5).isActive = true
+        roamingTLabel.topAnchor.constraint(equalTo: ratesDiscountsCard.topAnchor, constant: 30).isActive = true
+        roamingTLabel.trailingAnchor.constraint(equalTo: ratesDiscountsCard.trailingAnchor, constant: -5).isActive = true
         roamingTLabel.numberOfLines = 0
         roamingTLabel.lineBreakMode = .byWordWrapping
         
         let roamingTDesc = UILabel()
-        roamingTipsCard.addSubview(roamingTDesc)
+        ratesDiscountsCard.addSubview(roamingTDesc)
         roamingTDesc.translatesAutoresizingMaskIntoConstraints = false
         roamingTDesc.text = "Rates for supported countries"
         roamingTDesc.textColor = UIColor.black
         roamingTDesc.font = UIFont(name: String.defaultFontR, size: 15)
         roamingTDesc.leadingAnchor.constraint(equalTo: roamingRLeft.trailingAnchor, constant: 10).isActive = true
         roamingTDesc.topAnchor.constraint(equalTo: roamingTLabel.bottomAnchor, constant: 10).isActive = true
-        roamingTDesc.trailingAnchor.constraint(equalTo: roamingTipsCard.trailingAnchor, constant: -5).isActive = true
+        roamingTDesc.trailingAnchor.constraint(equalTo: ratesDiscountsCard.trailingAnchor, constant: -5).isActive = true
         roamingTDesc.numberOfLines = 0
         roamingTDesc.lineBreakMode = .byWordWrapping
         
         //Report Fault
-        let faultReportCard = UIView()
+        let faultReportCard = SingleVariable()
         scrollView.addSubview(faultReportCard)
         faultReportCard.translatesAutoresizingMaskIntoConstraints = false
         faultReportCard.backgroundColor = UIColor.white
         faultReportCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
         faultReportCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        faultReportCard.topAnchor.constraint(equalTo: roamingTipsCard.bottomAnchor, constant: 20).isActive = true
+        faultReportCard.topAnchor.constraint(equalTo: ratesDiscountsCard.bottomAnchor, constant: 20).isActive = true
         faultReportCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         faultReportCard.layer.cornerRadius = 2
         faultReportCard.layer.shadowOffset = CGSize(width: 0, height: 5)
         faultReportCard.layer.shadowColor = UIColor.black.cgColor
         faultReportCard.layer.shadowOpacity = 0.2
+        faultReportCard.senderVariable = "FAQ"
         
         let faultLeft = UIImageView()
         faultReportCard.addSubview(faultLeft)
@@ -239,6 +244,9 @@ class RoamingTips: baseViewControllerM {
         faultLabel.numberOfLines = 0
         faultLabel.lineBreakMode = .byWordWrapping
         
+        let faqRec = UITapGestureRecognizer(target: self, action: #selector(gotToDiscounts(_sender:)))
+        faultReportCard.addGestureRecognizer(faqRec)
+        
         let faultDesc = UILabel()
         faultReportCard.addSubview(faultDesc)
         faultDesc.translatesAutoresizingMaskIntoConstraints = false
@@ -259,6 +267,14 @@ class RoamingTips: baseViewControllerM {
     @objc func gotToRoamingPartners(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingPartners")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func gotToDiscounts(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ratesDiscounts") as? ratesDiscounts else {return}
+        guard let gestureVariables = _sender.view as? SingleVariable else {return}
+        moveTo.header = gestureVariables.senderVariable
         present(moveTo, animated: true, completion: nil)
     }
 

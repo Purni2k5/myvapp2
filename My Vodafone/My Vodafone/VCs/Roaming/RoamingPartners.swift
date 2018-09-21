@@ -203,8 +203,14 @@ class RoamingPartners: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDa
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         DispatchQueue.main.async {
                             if responseCode == 0 {
-                                let responseMessage = parseJSON["RESPONSECODE"]
-                                print(responseMessage!)
+                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                let stringToArray = [responseMessage]
+                                //print(stringToArray[0]!)
+                                if (stringToArray as NSArray?) != nil {
+                                    for obj in stringToArray{
+                                        print("objects: \(obj!)")
+                                    }
+                                }
                             }else{
                                 
                             }

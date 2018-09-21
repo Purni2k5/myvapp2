@@ -34,3 +34,7 @@ class UserDetailsCard: UIView {
     var msisdn: String?
     var displayName: String?
 }
+
+class SingleVariable: UIView {
+    var senderVariable: String?
+}
