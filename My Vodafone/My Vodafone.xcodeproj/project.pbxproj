@@ -17,6 +17,8 @@
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
 		015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */; };
 		015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */; };
+		015CEB03215572AC00341BA9 /* StoreLocator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 015CEB02215572AC00341BA9 /* StoreLocator.storyboard */; };
+		015CEB062155730300341BA9 /* StoreLocatorVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEB052155730300341BA9 /* StoreLocatorVc.swift */; };
 		0160449F21187759008BD98F /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160449E21187759008BD98F /* GestureView.swift */; };
 		016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */; };
 		016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */; };
@@ -117,6 +119,8 @@
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
 		015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratesDiscounts.swift; sourceTree = "<group>"; };
 		015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingFaultReporting.swift; sourceTree = "<group>"; };
+		015CEB02215572AC00341BA9 /* StoreLocator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoreLocator.storyboard; sourceTree = "<group>"; };
+		015CEB052155730300341BA9 /* StoreLocatorVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLocatorVc.swift; sourceTree = "<group>"; };
 		0160449E21187759008BD98F /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
 		016CC59C211C48A7002B37E5 /* offlineNotifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = offlineNotifViewController.swift; sourceTree = "<group>"; };
 		016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +247,14 @@
 			path = FBBMOVE;
 			sourceTree = "<group>";
 		};
+		015CEB04215572CD00341BA9 /* StoreLocator */ = {
+			isa = PBXGroup;
+			children = (
+				015CEB052155730300341BA9 /* StoreLocatorVc.swift */,
+			);
+			path = StoreLocator;
+			sourceTree = "<group>";
+		};
 		016DE603214FE1D000BEB882 /* TopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +372,7 @@
 				01F57B4E21510558005F5F0C /* Support.storyboard */,
 				01F57B5021510693005F5F0C /* Games.storyboard */,
 				01F57B5B2153C469005F5F0C /* Roaming.storyboard */,
+				015CEB02215572AC00341BA9 /* StoreLocator.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -416,6 +429,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				015CEB04215572CD00341BA9 /* StoreLocator */,
 				01F57B5D2153C503005F5F0C /* Roaming */,
 				285A1D062129C37600EBA1EC /* homeVC.swift */,
 				01C022FF20C99304003E48CC /* ViewController.swift */,
@@ -573,6 +587,7 @@
 				01F57B412150356C005F5F0C /* FBB.storyboard in Resources */,
 				01F57B5C2153C469005F5F0C /* Roaming.storyboard in Resources */,
 				01C0233A20C9C940003E48CC /* Roboto-Medium.ttf in Resources */,
+				015CEB03215572AC00341BA9 /* StoreLocator.storyboard in Resources */,
 				01F57B452150FC87005F5F0C /* TopUp.storyboard in Resources */,
 				01C0235520C9C957003E48CC /* icon1.png in Resources */,
 				01C0235920C9C957003E48CC /* roaming_faq.html in Resources */,
@@ -668,6 +683,7 @@
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
+				015CEB062155730300341BA9 /* StoreLocatorVc.swift in Sources */,
 				01F57B63215408CC005F5F0C /* RoamingTips.swift in Sources */,
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,

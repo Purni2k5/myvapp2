@@ -621,8 +621,9 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToLocator(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "StoreLocator", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "StoreLocatorVc")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToAbout(){
