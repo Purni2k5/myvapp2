@@ -26,7 +26,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2N-Ji-OOd">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2N-Ji-OOd">
                                 <rect key="frame" x="5" y="20" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Xrg-63-Wp0"/>
@@ -41,9 +41,6 @@
                                     <constraint firstAttribute="height" constant="40" id="qIm-iL-TBH"/>
                                 </constraints>
                                 <state key="normal" image="hamburger"/>
-                                <connections>
-                                    <action selector="showMenu:" destination="aM5-Ft-1VA" eventType="touchUpInside" id="lex-te-Oz9"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bsT-8e-Z7G">
                                 <rect key="frame" x="152" y="182" width="71" height="70"/>
@@ -57,26 +54,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 3.0.7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tah-Xy-YBZ">
-                                <rect key="frame" x="20" y="348" width="335" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tah-Xy-YBZ">
+                                <rect key="frame" x="20" y="348" width="335" height="0.0"/>
                                 <fontDescription key="fontDescription" name="VodafoneLt-Regular" family="Vodafone Lt" pointSize="16"/>
                                 <color key="textColor" red="0.68627450980000004" green="0.68627450980000004" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="\u{00A9} 2017 Vodafone Ghana." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMw-u1-pY0">
-                                <rect key="frame" x="20" y="395" width="335" height="13"/>
+                                <rect key="frame" x="20" y="381" width="335" height="13"/>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACE-yA-9Rf">
-                                <rect key="frame" x="20" y="411" width="335" height="12"/>
+                                <rect key="frame" x="20" y="397" width="335" height="12"/>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwm-KW-8Mu">
-                                <rect key="frame" x="20" y="503" width="335" height="24"/>
+                                <rect key="frame" x="20" y="489" width="335" height="24"/>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="13"/>
                                 <state key="normal" title="Terms &amp; Conditions">
                                     <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -88,7 +85,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHg-yx-VPi">
-                                <rect key="frame" x="20" y="532" width="335" height="24"/>
+                                <rect key="frame" x="20" y="518" width="335" height="24"/>
                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="13"/>
                                 <state key="normal" title="Privacy Policy">
                                     <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -475,6 +472,7 @@
                         <outlet property="ic_settings" destination="anp-3j-MaP" id="4qW-z6-dcZ"/>
                         <outlet property="ic_top_up" destination="SKE-xm-XAS" id="mUB-J4-pQN"/>
                         <outlet property="lblCopyRight" destination="oMw-u1-pY0" id="W9j-Ha-GQF"/>
+                        <outlet property="lblVersion" destination="tah-Xy-YBZ" id="PIl-uc-oRG"/>
                         <outlet property="menuTrailingConstraint" destination="pyC-9Y-vSe" id="5H9-7q-AnI"/>
                         <outlet property="menuViewHeightConstraint" destination="xIZ-5X-Zdt" id="GYh-q9-i6a"/>
                         <outlet property="networkCov" destination="vZP-vg-EaZ" id="zYN-Xh-sl4"/>

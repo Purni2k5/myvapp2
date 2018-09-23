@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutViewController: UIViewController {
+class AboutViewController: baseViewControllerM {
     
     @IBOutlet weak var hamburger: UIButton!
     @IBOutlet weak var btnBack: UIButton!
@@ -16,6 +16,7 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
      
+    @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var ic_home: UIImageView!
     @IBOutlet weak var ic_mobile: UIImageView!
     @IBOutlet weak var ic_ratings: UIImageView!
@@ -40,7 +41,7 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var menuViewHeightConstraint: NSLayoutConstraint!
     
     
-    var menuShowing = false
+    
     var dropDownShowing = false
     
     override func viewDidLoad() {
@@ -48,6 +49,7 @@ class AboutViewController: UIViewController {
         
         let currentYear = getCurrYear()
         lblCopyRight.text = "\u{00A9} \(currentYear) Vodafone Ghana."
+        lblVersion.text = "Version: \(onlyAppVersion())"
         
         // change hamburger colour.
         changeButtonColours()
@@ -56,22 +58,6 @@ class AboutViewController: UIViewController {
         self.perform(#selector(changeMenuIconsToWhite), with: nil, afterDelay: 0)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     //change back button colour
     func changeButtonColours(){
         let menu_image = UIImage(named: "hamburger")
@@ -96,19 +82,6 @@ class AboutViewController: UIViewController {
     }
     
     
-    @IBAction func showMenu(_ sender: Any) {
-        if(menuShowing){
-            menuTrailingConstraint.constant = 261
-            
-        }else{
-            menuTrailingConstraint.constant = 0
-        }
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-        })
-        menuShowing = !menuShowing
-    }
-    
     //function to get current year
     func getCurrYear()-> String {
         let now = Date()
@@ -121,6 +94,7 @@ class AboutViewController: UIViewController {
     
     //change menu images to white colour
     @objc func changeMenuIconsToWhite(){
+        hamburger.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         let templateImageHome = ic_home.image?.withRenderingMode(.alwaysTemplate)
         ic_home.image = templateImageHome
         ic_home.tintColor = UIColor.white

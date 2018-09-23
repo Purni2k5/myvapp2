@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class StoreLocatorVc: baseViewControllerM {
 
@@ -47,6 +48,8 @@ class StoreLocatorVc: baseViewControllerM {
     let btnListView = UIView()
     let btnMapView = UIView()
     let redView = UIView()
+    
+    let mapView = MKMapView()
     
     fileprivate var redViewLeft1: NSLayoutConstraint?
     fileprivate var redViewLeft2: NSLayoutConstraint?
@@ -234,6 +237,9 @@ class StoreLocatorVc: baseViewControllerM {
         btnListView.layer.shadowColor = UIColor.black.cgColor
         btnListView.layer.shadowOpacity = 0.2
         
+        let listViewRec = UITapGestureRecognizer(target: self, action: #selector(switchToTableView(_sender:)))
+        btnListView.addGestureRecognizer(listViewRec)
+        
         let lblListView = UILabel()
         btnListView.addSubview(lblListView)
         lblListView.translatesAutoresizingMaskIntoConstraints = false
@@ -255,6 +261,9 @@ class StoreLocatorVc: baseViewControllerM {
         btnMapView.layer.shadowOffset = CGSize(width: 0, height: 5)
         btnMapView.layer.shadowColor = UIColor.black.cgColor
         btnMapView.layer.shadowOpacity = 0.2
+        
+        let mapViewRec = UITapGestureRecognizer(target: self, action: #selector(switchToMap(_sender:)))
+        btnMapView.addGestureRecognizer(mapViewRec)
         
         let lblMapView = UILabel()
         btnMapView.addSubview(lblMapView)
@@ -280,5 +289,62 @@ class StoreLocatorVc: baseViewControllerM {
         redViewTop1?.isActive = true
         redViewRight1?.isActive = true
         
+        cardView.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: redView.bottomAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor).isActive = true
+        mapView.isHidden = true
+        
+        
     }
+    
+    @objc func switchToMap(_sender: UITapGestureRecognizer){
+        UIView.animate(withDuration: 1, animations: {
+            
+        }) { (true) in
+            self.constraintToMap()
+        }
+    }
+    
+    @objc func switchToTableView(_sender: UITapGestureRecognizer){
+        UIView.animate(withDuration: 1, animations: {
+            
+        }) { (true) in
+            self.constraintToTableView()
+        }
+    }
+    
+    func constraintToMap(){
+        self.mapView.isHidden = false
+        //TODO hide table view
+        self.redViewLeft1?.isActive = false
+        self.redViewLeft2?.isActive = true
+        self.redViewTop1?.isActive = false
+        self.redViewTop2?.isActive = true
+        self.redViewRight1?.isActive = false
+        self.redViewRight2?.isActive = true
+    }
+    
+    func constraintToTableView(){
+        //TODO show table view
+        self.mapView.isHidden = true
+        self.redViewLeft2?.isActive = false
+        self.redViewLeft1?.isActive = true
+        self.redViewTop2?.isActive = false
+        self.redViewTop1?.isActive = true
+        self.redViewRight2?.isActive = false
+        self.redViewRight1?.isActive = true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

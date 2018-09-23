@@ -134,6 +134,12 @@ class baseViewControllerM: UIViewController {
         let appVersion = dictionary[kVersion] as! String
         return "IOS \(appVersion)"
     }
+    
+    func onlyAppVersion() -> String {
+        let dictionary = Bundle.main.infoDictionary!
+        let appVersion = dictionary[kVersion] as! String
+        return appVersion
+    }
     func setUpViews(){
         
         
@@ -627,8 +633,9 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToAbout(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "AboutViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "About", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "AboutViewController")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToMessages(){
