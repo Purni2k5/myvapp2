@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class StoreLocatorVc: baseViewControllerM {
+class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
 
     //closure for scroll view
     let scrollView: UIScrollView = {
@@ -39,6 +40,12 @@ class StoreLocatorVc: baseViewControllerM {
         return view
     }()
     
+    //Store table
+    let storeTableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
+    
     let txtSearch = UITextField()
     let btnSrch = UIButton()
     let btnGetLocation = UIButton()
@@ -51,6 +58,10 @@ class StoreLocatorVc: baseViewControllerM {
     
     let mapView = MKMapView()
     
+    let locationManager = CLLocationManager()
+    let regionInMeters: Double = 20000
+    var previousLocation: CLLocation?
+    
     fileprivate var redViewLeft1: NSLayoutConstraint?
     fileprivate var redViewLeft2: NSLayoutConstraint?
     fileprivate var redViewTop1: NSLayoutConstraint?
@@ -58,10 +69,16 @@ class StoreLocatorVc: baseViewControllerM {
     fileprivate var redViewRight1: NSLayoutConstraint?
     fileprivate var redViewRight2: NSLayoutConstraint?
     
+    var animalArray: [String] = ["Dog", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey"]
+    var cellID = "cellID"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         setUpViewsLocator()
+        mapView.delegate = self
+        checkLocationServices()
+        hideKeyboardWhenTappedAround()
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
@@ -216,14 +233,14 @@ class StoreLocatorVc: baseViewControllerM {
         currLocView.addSubview(lblCurrLoc)
         lblCurrLoc.translatesAutoresizingMaskIntoConstraints = false
         lblCurrLoc.text = "Your location"
-        lblCurrLoc.font = UIFont(name: String.defaultFontR, size: 20)
+        lblCurrLoc.font = UIFont(name: String.defaultFontB, size: 20)
         lblCurrLoc.textColor = UIColor.white
         lblCurrLoc.textAlignment = .center
         lblCurrLoc.numberOfLines = 0
         lblCurrLoc.lineBreakMode = .byWordWrapping
-        lblCurrLoc.leadingAnchor.constraint(equalTo: currLocView.leadingAnchor, constant: 30).isActive = true
-        lblCurrLoc.topAnchor.constraint(equalTo: currLocView.topAnchor, constant: 20).isActive = true
-        lblCurrLoc.trailingAnchor.constraint(equalTo: currLocView.trailingAnchor, constant: -30).isActive = true
+        lblCurrLoc.leadingAnchor.constraint(equalTo: currLocView.leadingAnchor, constant: 5).isActive = true
+        lblCurrLoc.topAnchor.constraint(equalTo: currLocView.topAnchor, constant: 10).isActive = true
+        lblCurrLoc.trailingAnchor.constraint(equalTo: currLocView.trailingAnchor, constant: -5).isActive = true
         
         cardView.addSubview(btnListView)
         btnListView.translatesAutoresizingMaskIntoConstraints = false
@@ -289,6 +306,16 @@ class StoreLocatorVc: baseViewControllerM {
         redViewTop1?.isActive = true
         redViewRight1?.isActive = true
         
+        cardView.addSubview(storeTableView)
+        storeTableView.translatesAutoresizingMaskIntoConstraints = false
+        storeTableView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
+        storeTableView.topAnchor.constraint(equalTo: redView.bottomAnchor).isActive = true
+        storeTableView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
+        storeTableView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor).isActive = true
+        storeTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        storeTableView.delegate = self
+        storeTableView.dataSource = self
+        
         cardView.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
@@ -296,6 +323,15 @@ class StoreLocatorVc: baseViewControllerM {
         mapView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor).isActive = true
         mapView.isHidden = true
+        
+        let mapPin = UIImageView(image: #imageLiteral(resourceName: "mylocation"))
+        mapView.addSubview(mapPin)
+        mapPin.translatesAutoresizingMaskIntoConstraints = false
+        mapPin.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        mapPin.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        mapPin.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+        mapPin.centerYAnchor.constraint(equalTo: mapView.centerYAnchor, constant: -20).isActive = true
+        mapPin.contentMode = .scaleAspectFit
         
         
     }
@@ -336,15 +372,146 @@ class StoreLocatorVc: baseViewControllerM {
         self.redViewTop1?.isActive = true
         self.redViewRight2?.isActive = false
         self.redViewRight1?.isActive = true
+        self.storeTableView.isHidden = false
+    }
+    
+    func centerViewOnUserLocation(){
+        if let location = locationManager.location?.coordinate {
+            let region = MKCoordinateRegionMakeWithDistance(location, regionInMeters, regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
     }
     
     
     
+    func startTrackingUserLocation(){
+        mapView.showsUserLocation = true
+        centerViewOnUserLocation()
+        locationManager.startUpdatingLocation()
+        previousLocation = getCenterLocation(for: mapView)
+    }
     
+    func setUpLocationManager(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
     
+    func checkLocationServices(){
+        if CLLocationManager.locationServicesEnabled(){
+            //set up our location manager
+            setUpLocationManager()
+            checkLocationAuthorization()
+        }else{
+            //show alert
+            print("Location not enabled")
+        }
+    }
     
+    func checkLocationAuthorization(){
+        switch CLLocationManager.authorizationStatus(){
+        case .authorizedWhenInUse:
+            //Do Map Stuff
+            startTrackingUserLocation()
+        case .denied:
+            //show alert instucting them how to turn on permissions
+            break
+        case .notDetermined:
+            //request permission
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .restricted:
+            //show alert letting them know what's up
+            break
+        case .authorizedAlways:
+            break
+        }
+    }
     
+    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+        let latitude = mapView.centerCoordinate.latitude
+        let longitude = mapView.centerCoordinate.longitude
+        
+        return CLLocation(latitude: latitude, longitude: longitude)
+    }
+  
+}
+
+extension StoreLocatorVc: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegionMakeWithDistance(center, regionInMeters, regionInMeters)
+        let latitude = manager.location!.coordinate.latitude
+        let longitude = manager.location!.coordinate.longitude
+        print("latitude:: \(latitude) longitude:: \(longitude)")
+        mapView.setRegion(region, animated: true)
+    }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //
+        checkLocationAuthorization()
+    }
+}
+
+extension StoreLocatorVc {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let center = getCenterLocation(for: mapView)
+        
+        let geoCoder = CLGeocoder()
+        
+        guard center.distance(from: previousLocation!) > 50 else { return }
+        previousLocation = center
+        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
+            guard let strongSelf = self else { return }
+            
+            if let _ = error {
+                //Show an alert
+                return
+            }
+            
+            guard let placemark = placemarks?.first else {
+                //TODO Show alert informing the user
+                return
+            }
+            
+            let streetNumber = placemark.subLocality ?? ""
+            let streetName = placemark.thoroughfare ?? ""
+            let city = placemark.locality ?? ""
+            let country = placemark.country ?? ""
+            
+            DispatchQueue.main.async {
+                strongSelf.lblCurrLoc.text = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
+            }
+        }
+    }
+}
+
+extension StoreLocatorVc: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return animalArray.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = storeTableView.dequeueReusableCell(withIdentifier: cellID)
+        cell?.textLabel?.text = animalArray[indexPath.row]
+        cell?.textLabel?.font = UIFont(name: String.defaultFontB, size: 25)
+        cell?.separatorInset = UIEdgeInsets.zero
+        cell?.layoutMargins = UIEdgeInsets.zero
+        cell?.separatorInset.left = 30
+        cell?.separatorInset.right = 30
+        cell?.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        return cell!
+    }
+    
+    /*func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let verticalPadding: CGFloat = 8
+        
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 10    //if you want round edges
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
+    }*/
     
 }
