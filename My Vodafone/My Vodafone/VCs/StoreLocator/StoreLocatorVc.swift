@@ -10,6 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
+struct CellData {
+    let image: UIImage?
+    let name: String?
+    let distance: String?
+    let desc: String?
+}
+
 class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
 
     //closure for scroll view
@@ -71,6 +79,7 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
     
     var animalArray: [String] = ["Dog", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey"]
     var cellID = "cellID"
+    var locationData = [CellData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +88,9 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         mapView.delegate = self
         checkLocationServices()
         hideKeyboardWhenTappedAround()
+        
+//        locationData = [CellData.init(image: #imageLiteral(resourceName: "wifi"), name: "How", distance: "12km", desc: "Description")]
+        
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
@@ -312,7 +324,7 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         storeTableView.topAnchor.constraint(equalTo: redView.bottomAnchor).isActive = true
         storeTableView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
         storeTableView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor).isActive = true
-        storeTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        storeTableView.register(CustomCell.self, forCellReuseIdentifier: cellID)
         storeTableView.delegate = self
         storeTableView.dataSource = self
         
@@ -433,6 +445,69 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         
         return CLLocation(latitude: latitude, longitude: longitude)
     }
+    
+    func getStores(coordX: Double, coordY: Double){
+        let async_call = URL(string: String.offers)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        let postParameters: Dictionary<String, Any> = [
+            "action":"shops",
+            "option":"location",
+            "lat":String(coordX),
+            "long":String(coordY),
+            "searchValue":"",
+            "os":getAppVersion()
+        ]
+        
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    return;
+                }
+                
+                do {
+                    
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON {
+                        var responseCode: Int?
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        if responseCode == 0 {
+                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
+                            if let array = responseMessage {
+                                DispatchQueue.main.async {
+                                    for obj in array{
+                                        if let dict = obj as? NSDictionary {
+                                            if let shopName = dict.value(forKey: "NAME") as? String, let shopLandMark = dict.value(forKey: "LANDMARK") as! String?, var shopDistance = dict.value(forKey: "DISTANCE") as! String?{
+                                                shopDistance = "\(shopDistance) km"
+                                                let shopLocation = CellData(image: #imageLiteral(resourceName: "wifi"), name: shopName, distance: shopDistance, desc: shopLandMark)
+                                                self.locationData.append(shopLocation)
+                                            }
+                                            
+                                            
+                                        }
+                                    }
+                                    self.storeTableView.reloadData()
+                                }
+                            }
+                        }else{
+                            
+                        }
+                        print(parseJSON)
+                    }
+                    
+                }catch{
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+        }
+    }
   
 }
 
@@ -441,9 +516,8 @@ extension StoreLocatorVc: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegionMakeWithDistance(center, regionInMeters, regionInMeters)
-        let latitude = manager.location!.coordinate.latitude
-        let longitude = manager.location!.coordinate.longitude
-        print("latitude:: \(latitude) longitude:: \(longitude)")
+        
+        
         mapView.setRegion(region, animated: true)
     }
     
@@ -478,7 +552,9 @@ extension StoreLocatorVc {
             let streetName = placemark.thoroughfare ?? ""
             let city = placemark.locality ?? ""
             let country = placemark.country ?? ""
-            
+            let latitude = placemark.location?.coordinate.latitude ?? 0.0
+            let longitude = placemark.location?.coordinate.longitude ?? 0.0
+            strongSelf.getStores(coordX: latitude, coordY: longitude)
             DispatchQueue.main.async {
                 strongSelf.lblCurrLoc.text = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
             }
@@ -488,30 +564,25 @@ extension StoreLocatorVc {
 
 extension StoreLocatorVc: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return animalArray.count
+        return locationData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = storeTableView.dequeueReusableCell(withIdentifier: cellID)
-        cell?.textLabel?.text = animalArray[indexPath.row]
-        cell?.textLabel?.font = UIFont(name: String.defaultFontB, size: 25)
-        cell?.separatorInset = UIEdgeInsets.zero
-        cell?.layoutMargins = UIEdgeInsets.zero
-        cell?.separatorInset.left = 30
-        cell?.separatorInset.right = 30
-        cell?.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        let cell = storeTableView.dequeueReusableCell(withIdentifier: cellID) as! CustomCell
+        cell.mainImage = locationData[indexPath.row].image
+        cell.name = locationData[indexPath.row].name
+        cell.distance = locationData[indexPath.row].distance
+        cell.desc = locationData[indexPath.row].desc
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.separatorInset.left = 30
+        cell.separatorInset.right = 30
+        cell.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
-        return cell!
+        return cell
     }
     
-    /*func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let verticalPadding: CGFloat = 8
-        
-        let maskLayer = CALayer()
-        maskLayer.cornerRadius = 10    //if you want round edges
-        maskLayer.backgroundColor = UIColor.black.cgColor
-        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
-        cell.layer.mask = maskLayer
-    }*/
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("clicked")
+    }
 }

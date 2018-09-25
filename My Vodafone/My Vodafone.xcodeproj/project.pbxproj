@@ -29,6 +29,7 @@
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
+		0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F8F0215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
 		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
 		018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7ACE213D48C9002753B7 /* linkFBBVc.swift */; };
@@ -131,6 +132,7 @@
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
+		0185F8F0215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewForStoreLocator.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
 		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
 		018B7ACE213D48C9002753B7 /* linkFBBVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBVc.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				28937EE520EF96D20061F82B /* RoundView.swift */,
 				01853EB920CFD81E002DEB7D /* CardView.swift */,
 				01941D9C2119F34B00B7D207 /* CheckInternet.swift */,
+				0185F8F0215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				01A34351214AF40900B4A6A5 /* appointmentsVc.swift in Sources */,
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
+				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,
