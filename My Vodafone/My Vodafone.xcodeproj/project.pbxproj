@@ -82,6 +82,11 @@
 		01C0235A20C9C957003E48CC /* roamingdiscounts.html in Resources */ = {isa = PBXBuildFile; fileRef = 01C0234D20C9C957003E48CC /* roamingdiscounts.html */; };
 		01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1A8162107A01300D4CDDC /* mvaURLS.swift */; };
 		01C22A75213473530037B691 /* yendiAgoroVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C22A74213473530037B691 /* yendiAgoroVc.swift */; };
+		01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFCF93215B8FD70048D56E /* GetDirectionToStore.swift */; };
+		01CFCF96215B97800048D56E /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01CFCF95215B97800048D56E /* Messages.storyboard */; };
+		01CFCF99215B97A30048D56E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFCF98215B97A30048D56E /* Messages.swift */; };
+		01CFCF9B215BA99B0048D56E /* SettingsVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFCF9A215BA99B0048D56E /* SettingsVc.swift */; };
+		01CFCF9D215BFDA50048D56E /* ChangePasswordInApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */; };
 		01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5044F2125D28000359657 /* AddServiceConfViewController.swift */; };
 		01F57B412150356C005F5F0C /* FBB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B402150356C005F5F0C /* FBB.storyboard */; };
 		01F57B432150FC49005F5F0C /* Services.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B422150FC49005F5F0C /* Services.storyboard */; };
@@ -188,6 +193,11 @@
 		01C0234D20C9C957003E48CC /* roamingdiscounts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = roamingdiscounts.html; sourceTree = "<group>"; };
 		01C1A8162107A01300D4CDDC /* mvaURLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaURLS.swift; sourceTree = "<group>"; };
 		01C22A74213473530037B691 /* yendiAgoroVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yendiAgoroVc.swift; sourceTree = "<group>"; };
+		01CFCF93215B8FD70048D56E /* GetDirectionToStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDirectionToStore.swift; sourceTree = "<group>"; };
+		01CFCF95215B97800048D56E /* Messages.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Messages.storyboard; sourceTree = "<group>"; };
+		01CFCF98215B97A30048D56E /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		01CFCF9A215BA99B0048D56E /* SettingsVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVc.swift; sourceTree = "<group>"; };
+		01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInApp.swift; sourceTree = "<group>"; };
 		01F5044F2125D28000359657 /* AddServiceConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceConfViewController.swift; sourceTree = "<group>"; };
 		01F57B402150356C005F5F0C /* FBB.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FBB.storyboard; sourceTree = "<group>"; };
 		01F57B422150FC49005F5F0C /* Services.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Services.storyboard; sourceTree = "<group>"; };
@@ -253,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				015CEB052155730300341BA9 /* StoreLocatorVc.swift */,
+				01CFCF93215B8FD70048D56E /* GetDirectionToStore.swift */,
 			);
 			path = StoreLocator;
 			sourceTree = "<group>";
@@ -361,6 +372,14 @@
 			path = htmls;
 			sourceTree = "<group>";
 		};
+		01CFCF97215B97920048D56E /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				01CFCF98215B97A30048D56E /* Messages.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		01F57B3F21503472005F5F0C /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +395,7 @@
 				01F57B5021510693005F5F0C /* Games.storyboard */,
 				01F57B5B2153C469005F5F0C /* Roaming.storyboard */,
 				015CEB02215572AC00341BA9 /* StoreLocator.storyboard */,
+				01CFCF95215B97800048D56E /* Messages.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -414,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
+				01CFCF9A215BA99B0048D56E /* SettingsVc.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -432,6 +453,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				01CFCF97215B97920048D56E /* Messages */,
 				015CEB04215572CD00341BA9 /* StoreLocator */,
 				01F57B5D2153C503005F5F0C /* Roaming */,
 				285A1D062129C37600EBA1EC /* homeVC.swift */,
@@ -457,6 +479,7 @@
 				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
 				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
 				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
+				01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -597,6 +620,7 @@
 				01C0230820C99304003E48CC /* LaunchScreen.storyboard in Resources */,
 				01C0234E20C9C957003E48CC /* custom.css in Resources */,
 				01C0235720C9C957003E48CC /* slidebars.min.css in Resources */,
+				01CFCF96215B97800048D56E /* Messages.storyboard in Resources */,
 				01F57B432150FC49005F5F0C /* Services.storyboard in Resources */,
 				01C0235420C9C957003E48CC /* font.css in Resources */,
 				01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */,
@@ -684,6 +708,7 @@
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
+				01CFCF99215B97A30048D56E /* Messages.swift in Sources */,
 				01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
 				015CEB062155730300341BA9 /* StoreLocatorVc.swift in Sources */,
@@ -708,6 +733,7 @@
 				01A34351214AF40900B4A6A5 /* appointmentsVc.swift in Sources */,
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
+				01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */,
 				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
@@ -731,6 +757,7 @@
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
+				01CFCF9D215BFDA50048D56E /* ChangePasswordInApp.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,
 				018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */,
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
@@ -740,6 +767,7 @@
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,
+				01CFCF9B215BA99B0048D56E /* SettingsVc.swift in Sources */,
 				015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
 			);

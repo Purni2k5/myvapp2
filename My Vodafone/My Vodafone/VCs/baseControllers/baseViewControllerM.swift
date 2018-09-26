@@ -639,18 +639,21 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToMessages(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Messages", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "Messages")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToProfile(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ProductsServicesViewController")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToSettings(){
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "OffersExtrasViewController")
-        present(moveTo!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "SettingsVc")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToTipsB(){
@@ -658,8 +661,44 @@ class baseViewControllerM: UIViewController {
         let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingTips")
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func goToTC(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "About", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "TermsConditionsViewController")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToPrivacyPolicy(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "About", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "PrivacyPolicyViewController")
+        present(moveTo, animated: true, completion: nil)
+    }
 
     @objc func closeModalB(){
         self.view.removeFromSuperview()
+    }
+    
+    func clearLogout(){
+        preference.removeObject(forKey: "loginStatus")
+        preference.removeObject(forKey: "responseData")
+        preference.removeObject(forKey: "staffNumber")
+        preference.removeObject(forKey: "staffCreditData")
+        preference.removeObject(forKey: "Plan")
+        preference.removeObject(forKey: "Data")
+        preference.removeObject(forKey: "defaultMSISDN")
+        preference.removeObject(forKey: "RESPONSEMESSAGE")
+        preference.removeObject(forKey: "FBBLINKEDNUMBER")
+        preference.removeObject(forKey: "FBBACTKEY")
+        preference.removeObject(forKey: "FBBUSERID")
+        preference.removeObject(forKey: "BBPACKAGES")
+        preference.removeObject(forKey: "FBBUSERACCOUNT")
+        preference.removeObject(forKey: "DefaultService")
+        preference.removeObject(forKey: "accountBalance")
+        preference.removeObject(forKey: "accBalanceLabel")
+        preference.removeObject(forKey: "balanceLabel")
+        preference.removeObject(forKey: "ROAMINGS")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        present(moveTo, animated: true, completion: nil)
     }
 }

@@ -69,6 +69,9 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 20000
     var previousLocation: CLLocation?
+    var latitude: Double?
+    var longitude: Double?
+    var displayLocation: String?
     
     fileprivate var redViewLeft1: NSLayoutConstraint?
     fileprivate var redViewLeft2: NSLayoutConstraint?
@@ -217,13 +220,13 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         let getLocImage = UIImage(named: "ic_location_marker")
         let getLocTint = getLocImage?.withRenderingMode(.alwaysTemplate)
         btnGetLocation.setImage(getLocTint, for: .normal)
-        btnGetLocation.imageEdgeInsets = UIEdgeInsetsMake(50, 50, 50, 50)
+        btnGetLocation.imageEdgeInsets = UIEdgeInsetsMake(40, 40, 40, 40)
         btnGetLocation.tintColor = UIColor.white
-        btnGetLocation.isEnabled = false
         btnGetLocation.leadingAnchor.constraint(equalTo: btnSrch.trailingAnchor, constant: 20).isActive = true
         btnGetLocation.topAnchor.constraint(equalTo: lblDesc.bottomAnchor, constant: 30).isActive = true
         btnGetLocation.widthAnchor.constraint(equalToConstant: 50).isActive = true
         btnGetLocation.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btnGetLocation.addTarget(self, action: #selector(btnGetStores), for: .touchUpInside)
         
         scrollView.addSubview(currLocView)
         currLocView.translatesAutoresizingMaskIntoConstraints = false
@@ -446,7 +449,19 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         return CLLocation(latitude: latitude, longitude: longitude)
     }
     
+    @objc func btnGetStores(){
+        lblCurrLoc.text = ""
+        for _ in locationData {
+            locationData.remove(at: 0)
+            let indexPath = IndexPath(item: 0, section: 0)
+            storeTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        lblCurrLoc.text = displayLocation
+        getStores(coordX: latitude!, coordY: longitude!)
+    }
+    
     func getStores(coordX: Double, coordY: Double){
+        
         let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
@@ -552,9 +567,10 @@ extension StoreLocatorVc {
             let streetName = placemark.thoroughfare ?? ""
             let city = placemark.locality ?? ""
             let country = placemark.country ?? ""
-            let latitude = placemark.location?.coordinate.latitude ?? 0.0
-            let longitude = placemark.location?.coordinate.longitude ?? 0.0
-            strongSelf.getStores(coordX: latitude, coordY: longitude)
+            strongSelf.latitude = placemark.location?.coordinate.latitude ?? 0.0
+            strongSelf.longitude = placemark.location?.coordinate.longitude ?? 0.0
+            strongSelf.getStores(coordX: strongSelf.latitude!, coordY: strongSelf.longitude!)
+            strongSelf.displayLocation = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
             DispatchQueue.main.async {
                 strongSelf.lblCurrLoc.text = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
             }
@@ -583,6 +599,15 @@ extension StoreLocatorVc: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("clicked")
+        let storyboard = UIStoryboard(name: "StoreLocator", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "GetDirectionToStore")
+        present(moveTo, animated: true, completion: nil)
     }
+    
+    /*func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.locationData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }*/
 }

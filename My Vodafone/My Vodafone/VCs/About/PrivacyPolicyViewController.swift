@@ -17,7 +17,7 @@ class PrivacyPolicyViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let url = Bundle.main.url(forResource: "terms_and_conditions", withExtension: "html")
+        let url = Bundle.main.url(forResource: "terms_netperform", withExtension: "html")
         privacyWebView.load(URLRequest(url: url!))
         changeBackColour()
         

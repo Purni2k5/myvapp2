@@ -545,8 +545,9 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                         var responseMessage: String!
                         
                         responseCode = parseJSON["RESPONSECODE"] as! Int
+                        
+                        print("responseyy:: \(parseJSON)")
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                        print("response:: \(parseJSON)")
                         DispatchQueue.main.async {
                             self.stop_activity_loader()
                             //Now create a view to display response
