@@ -10,6 +10,7 @@
 		0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117A47D21148617003EBE09 /* BuyOfferViewController.swift */; };
 		0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7B213E9090009B71C8 /* fbbShareVc.swift */; };
 		0119AF7F213F08C3009B71C8 /* fbbPayVoucherVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */; };
+		013C34AD215CF4C300581379 /* TouchID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C34AC215CF4C300581379 /* TouchID.swift */; };
 		013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */; };
 		013C52902140389F00A9E67C /* confirmFBBVoucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */; };
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
@@ -118,6 +119,7 @@
 		0117A47D21148617003EBE09 /* BuyOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyOfferViewController.swift; sourceTree = "<group>"; };
 		0119AF7B213E9090009B71C8 /* fbbShareVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbShareVc.swift; sourceTree = "<group>"; };
 		0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbPayVoucherVc.swift; sourceTree = "<group>"; };
+		013C34AC215CF4C300581379 /* TouchID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchID.swift; sourceTree = "<group>"; };
 		013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBUpdateVc.swift; sourceTree = "<group>"; };
 		013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBVoucher.swift; sourceTree = "<group>"; };
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			children = (
 				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
 				01CFCF9A215BA99B0048D56E /* SettingsVc.swift */,
+				013C34AC215CF4C300581379 /* TouchID.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				01CFCF99215B97A30048D56E /* Messages.swift in Sources */,
 				01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
+				013C34AD215CF4C300581379 /* TouchID.swift in Sources */,
 				015CEB062155730300341BA9 /* StoreLocatorVc.swift in Sources */,
 				01F57B63215408CC005F5F0C /* RoamingTips.swift in Sources */,
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,

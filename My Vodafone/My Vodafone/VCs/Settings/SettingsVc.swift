@@ -354,6 +354,9 @@ class SettingsVc: baseViewControllerM {
         touchIDCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         touchIDCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
+        let touchIDRec = UITapGestureRecognizer(target: self, action: #selector(goToTouchID(_sender:)))
+        touchIDCard.addGestureRecognizer(touchIDRec)
+        
         //Left Image
         let touchIDLeftImage = UIImageView()
         touchIDCard.addSubview(touchIDLeftImage)
@@ -661,6 +664,12 @@ class SettingsVc: baseViewControllerM {
     @objc func goToChangePass(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "ChangePasswordInApp")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToTouchID(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "TouchID")
         present(moveTo, animated: true, completion: nil)
     }
 }

@@ -13,6 +13,8 @@ class LoginViewController: baseViewControllerM {
     var primaryID: String?
     var defaultAccName: String?
     var defaultMSISDN: String?
+    var username: String?
+    var password: String?
     
     
     @IBOutlet weak var loginHeader: UILabel!
@@ -56,8 +58,8 @@ class LoginViewController: baseViewControllerM {
     
     @IBAction func loginAction(_ sender: Any) {
         
-        let username = txtUsername.text
-        let password = txtPassword.text
+        username = txtUsername.text
+        password = txtPassword.text
         username?.trimmingCharacters(in: .whitespacesAndNewlines)
         password?.trimmingCharacters(in: .whitespacesAndNewlines)
         
