@@ -678,6 +678,32 @@ class baseViewControllerM: UIViewController {
         self.view.removeFromSuperview()
     }
     
+    func displayNoInternet() {
+        let storyboard = UIStoryboard(name: "Support", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    //Hashing of password
+    //Hashing function
+    func md5Base(_ string: String) -> String {
+        let context = UnsafeMutablePointer<CC_MD5_CTX>.allocate(capacity: 1)
+        var digest = Array<UInt8>(repeating:0, count:Int(CC_MD5_DIGEST_LENGTH))
+        CC_MD5_Init(context)
+        CC_MD5_Update(context, string, CC_LONG(string.lengthOfBytes(using: String.Encoding.utf8)))
+        CC_MD5_Final(&digest, context)
+        context.deallocate(capacity: 1)
+        var hexString = ""
+        for byte in digest {
+            hexString += String(format:"%02x", byte)
+        }
+        return hexString
+    }
+    
     func clearLogout(){
         preference.removeObject(forKey: "loginStatus")
         preference.removeObject(forKey: "responseData")

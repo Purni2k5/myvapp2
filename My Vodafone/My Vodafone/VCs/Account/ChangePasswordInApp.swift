@@ -14,6 +14,7 @@ class ChangePasswordInApp: baseViewControllerM {
     fileprivate var lblCurrentPassTop2: NSLayoutConstraint?
     fileprivate var cardHeight1: NSLayoutConstraint?
     fileprivate var cardHeight2: NSLayoutConstraint?
+    var username: String?
     // back button
     let backButton: UIButton = {
         let view = UIButton()
@@ -68,6 +69,16 @@ class ChangePasswordInApp: baseViewControllerM {
         return view
     }()
     
+    //create a closure for activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
+        return view
+    }()
+    
     let errorDialogBg = UIImageView(image: #imageLiteral(resourceName: "error_dialog_bg"))
     let lblErrorMessage = UILabel()
     let txtCurrPass = UITextField()
@@ -85,6 +96,8 @@ class ChangePasswordInApp: baseViewControllerM {
         setUpViewsChangePass()
         hideKeyboardWhenTappedAround()
         checkConnection()
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
@@ -162,7 +175,7 @@ class ChangePasswordInApp: baseViewControllerM {
         cardView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 140).isActive = true
         cardView.trailingAnchor.constraint(equalTo: motherViewC.trailingAnchor, constant: -25).isActive = true
         cardHeight1 = cardView.heightAnchor.constraint(equalToConstant: 430)
-        cardHeight2 = cardView.heightAnchor.constraint(equalToConstant: 800)
+        cardHeight2 = cardView.heightAnchor.constraint(equalToConstant: 530)
         cardHeight1?.isActive = true
         
         cardView.addSubview(errorDialogBg)
@@ -211,7 +224,7 @@ class ChangePasswordInApp: baseViewControllerM {
         txtCurrPass.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         txtCurrPass.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtCurrPass.isSecureTextEntry = true
-        txtCurrPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+//        txtCurrPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
         
         let lblNewPass = UILabel()
         cardView.addSubview(lblNewPass)
@@ -232,7 +245,7 @@ class ChangePasswordInApp: baseViewControllerM {
         txtNewPass.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         txtNewPass.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtNewPass.isSecureTextEntry = true
-        txtNewPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+//        txtNewPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
         
         let lblConfPass = UILabel()
         cardView.addSubview(lblConfPass)
@@ -253,11 +266,11 @@ class ChangePasswordInApp: baseViewControllerM {
         txtConfPass.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         txtConfPass.heightAnchor.constraint(equalToConstant: 45).isActive = true
         txtConfPass.isSecureTextEntry = true
-        txtCurrPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
+//        txtCurrPass.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
         
         cardView.addSubview(btnContinue)
         btnContinue.translatesAutoresizingMaskIntoConstraints = false
-        btnContinue.backgroundColor = UIColor.grayButton
+        btnContinue.backgroundColor = UIColor.vodaRed
         btnContinue.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
         btnContinue.setTitle("Continue", for: .normal)
         btnContinue.setTitleColor(UIColor.white, for: .normal)
@@ -265,6 +278,7 @@ class ChangePasswordInApp: baseViewControllerM {
         btnContinue.topAnchor.constraint(equalTo: txtConfPass.bottomAnchor, constant: 30).isActive = true
         btnContinue.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         btnContinue.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnContinue.addTarget(self, action: #selector(changePass), for: .touchUpInside)
         
         cardView.addSubview(btnGoBack)
         btnGoBack.translatesAutoresizingMaskIntoConstraints = false
@@ -278,19 +292,181 @@ class ChangePasswordInApp: baseViewControllerM {
         btnGoBack.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnGoBack.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
         
+        //activity loader
+        scrollView.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: txtConfPass.bottomAnchor, constant: 30).isActive = true
+        
+    }
+    
+    func showErrorMessage(errorMessage: String){
+        lblCurrentPassTop1?.isActive = false
+        lblCurrentPassTop2?.isActive = true
+        cardHeight1?.isActive = false
+        cardHeight2?.isActive = true
+        errorDialogBg.isHidden = false
+        lblErrorMessage.text = errorMessage
+    }
+    
+    func removeErrorMessage(){
+        lblCurrentPassTop2?.isActive = false
+        lblCurrentPassTop1?.isActive = true
+        cardHeight2?.isActive = false
+        cardHeight1?.isActive = true
+        errorDialogBg.isHidden = true
+        lblErrorMessage.text = ""
     }
     
     @objc func checkInputs(){
-        
-        let totalCurrPass = txtCurrPass.text!
-        let totalConfPass = txtConfPass.text!
-        if txtCurrPass.text == "" || txtNewPass.text == "" || txtConfPass.text == "" {
-            btnContinue.backgroundColor = UIColor.grayButton
-            print("can't")
+        if txtCurrPass.text != "" && txtNewPass.text != "" && txtConfPass.text != "" {
             
-        }else{
             btnContinue.backgroundColor = UIColor.vodaRed
-            print("doing")
+        }else{
+            btnContinue.backgroundColor = UIColor.grayButton
+            
+        }
+    }
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnContinue.isHidden = true
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnContinue.isHidden = false
+    }
+    
+    @objc func changePass(){
+        var currPass = txtCurrPass.text!
+        var newPass = txtNewPass.text!
+        let confPass = txtConfPass.text!
+        
+        if currPass.isEmpty || newPass.isEmpty || confPass.isEmpty{
+            showErrorMessage(errorMessage: "Fill the fields to continue")
+        }else{
+            errorDialogBg.isHidden = true
+            if newPass.count < 4 {
+                
+                showErrorMessage(errorMessage: "Password length must be at least four characters")
+            }else{
+                
+                if newPass != confPass {
+                    showErrorMessage(errorMessage: "Passwords do not match")
+                }else{
+                    removeErrorMessage()
+                    //Check for internet connectivity
+                    if !CheckInternet.Connection(){
+                        displayNoInternet()
+                    }else{
+                        start_activity_loader()
+                        currPass = md5Base(currPass).sha1()
+                        newPass = md5Base(newPass)
+                        newPass = newPass.sha1()
+                        let passClone = newPass
+                        let newPassClone = newPass
+                        
+                        let postParameters: Dictionary<String, Any> = [
+                            "action":"changeKnownPassword",
+                            "username":username!,
+                            "oldPassword":currPass,
+                            "newPassword":newPass,
+                            "PassClone":passClone,
+                            "newPassClone":newPassClone
+                        ]
+                        let async_call = URL(string: String.userSVC)
+                        let request = NSMutableURLRequest(url: async_call!)
+                        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                            request.httpBody = postData
+                            request.httpMethod = "POST"
+                            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                            request.addValue("application/json", forHTTPHeaderField: "Accept")
+                            
+                            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                                data, response, error in
+                                if error != nil {
+                                    print("error is: \(error!.localizedDescription)")
+                                    DispatchQueue.main.async {
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                                    }
+                                    return
+                                }
+                                
+                                do {
+                                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                    if let parseJSON = myJSON {
+                                        print(parseJSON)
+                                        var responseCode: Int?
+                                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                                        DispatchQueue.main.async {
+                                            if responseCode == 0 {
+                                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                                
+                                                if let successMessage = responseMessage {
+                                                    
+                                                    UIView.animate(withDuration: 0.5, delay: 2, options: .curveEaseIn, animations: {
+                                                        
+                                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: successMessage)
+                                                    }, completion: { (true) in
+                                                        
+                                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                                        self.present(moveTo, animated: true, completion: nil)
+                                                    })
+                                                }else{
+                                                    
+                                                }
+                                            }else{
+                                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                                if let failedMessage = responseMessage {
+                                                    self.showErrorMessage(errorMessage: failedMessage)
+                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: failedMessage)
+                                                }
+                                            }
+                                            self.stop_activity_loader()
+                                        }
+                                    }
+                                }catch{
+                                    DispatchQueue.main.async {
+                                        print(error.localizedDescription)
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
+                                    }
+                                }
+                                
+                            }
+                            task.resume()
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }
+                    }
+                }
+            }
         }
     }
    
