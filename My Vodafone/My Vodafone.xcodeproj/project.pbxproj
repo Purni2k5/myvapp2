@@ -120,6 +120,7 @@
 		0119AF7B213E9090009B71C8 /* fbbShareVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbShareVc.swift; sourceTree = "<group>"; };
 		0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbPayVoucherVc.swift; sourceTree = "<group>"; };
 		013C34AC215CF4C300581379 /* TouchID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchID.swift; sourceTree = "<group>"; };
+		013C34AE215D29B800581379 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		013C528D213FF79700A9E67C /* linkFBBUpdateVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBUpdateVc.swift; sourceTree = "<group>"; };
 		013C528F2140389F00A9E67C /* confirmFBBVoucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmFBBVoucher.swift; sourceTree = "<group>"; };
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
@@ -537,6 +538,7 @@
 		3E803F6E21EBB679FF7E8393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				013C34AE215D29B800581379 /* LocalAuthentication.framework */,
 				5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */,
 			);
 			name = Frameworks;

@@ -120,5 +120,26 @@ extension UIViewController {
             print("You have internet")
         }
     }
+    
+    enum UserDefaultsKeys: String {
+        case loginStatus
+        case responseData
+        case staffNumber
+        case staffCreditData
+        case Plan
+        case Data
+        case defaultMSISDN
+        case RESPONSEMESSAGE
+        case FBBLINKEDNUMBER
+        case FBBACTKEY
+        case FBBUSERID
+        case BBPACKAGES
+        case FBBUSERACCOUNT
+        case DefaultService
+        case accountBalance
+        case accBalanceLabel
+        case balanceLabel
+        case ROAMINGS
+    }
 }
 
