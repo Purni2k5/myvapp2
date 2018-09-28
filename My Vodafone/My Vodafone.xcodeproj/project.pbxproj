@@ -26,6 +26,7 @@
 		016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */; };
 		016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */; };
 		016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */; };
+		01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -136,6 +137,7 @@
 		016CC5A0211CFC48002B37E5 /* NointernetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NointernetViewController.swift; sourceTree = "<group>"; };
 		016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfViewController.swift; sourceTree = "<group>"; };
 		016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffCreditRedeeming.swift; sourceTree = "<group>"; };
+		01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -281,6 +283,14 @@
 			path = TopUp;
 			sourceTree = "<group>";
 		};
+		01709C5E215E2BB7008C8C3E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		01941D992119B2A600B7D207 /* mvaExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +332,7 @@
 		01C022FC20C99304003E48CC /* My Vodafone */ = {
 			isa = PBXGroup;
 			children = (
+				01709C5E215E2BB7008C8C3E /* Helpers */,
 				01F57B3F21503472005F5F0C /* Storyboards */,
 				01F57B5721510CCE005F5F0C /* VCs */,
 				01A74FF72141783000F86A65 /* CustomClasses */,
@@ -762,6 +773,7 @@
 				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */,
+				01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */,
 				019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */,
 				01CFCF9D215BFDA50048D56E /* ChangePasswordInApp.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,

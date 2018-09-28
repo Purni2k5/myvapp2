@@ -43,7 +43,7 @@ class homeVC: baseViewControllerM {
     let shakeButton = UIButton()
     let lblPromotion = UILabel()
     let lblPromotionExpire = UILabel()
-
+    let keyChain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +51,7 @@ class homeVC: baseViewControllerM {
         zeroAlpha()
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
+        
         let defaultService = UserData["DefaultService"] as! String
         username = UserData["Username"] as! String?
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?

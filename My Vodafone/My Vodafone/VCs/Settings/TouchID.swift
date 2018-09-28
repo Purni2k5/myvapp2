@@ -10,6 +10,7 @@ import UIKit
 
 class TouchID: baseViewControllerM {
 
+    var touchIDEnabled: Bool?
     //closure for scroll view
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -59,6 +60,9 @@ class TouchID: baseViewControllerM {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.grayBackground
+        touchIDEnabled = preference.object(forKey: UserDefaultsKeys.touchIDEnabled.rawValue) as? Bool
+        
+        
         setUpViewsTouchID()
     }
     
@@ -121,11 +125,25 @@ class TouchID: baseViewControllerM {
         
         cardView.addSubview(switchButton)
         switchButton.translatesAutoresizingMaskIntoConstraints = false
-        switchButton.isOn = false
+        
         switchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         switchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         switchButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30).isActive = true
         switchButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40).isActive = true
+        switchButton.addTarget(self, action: #selector(toggleSwitch), for: .touchUpInside)
+        
+        if let touchIDEnabled = touchIDEnabled {
+            print("touch Stats:: \(touchIDEnabled)")
+            let touchStatus = touchIDEnabled
+            if touchStatus == false{
+                switchButton.isOn = false
+                preference.set(false, forKey: UserDefaultsKeys.touchIDEnabled.rawValue)
+            }else{
+                switchButton.isOn = true
+                preference.set(true, forKey: UserDefaultsKeys.touchIDEnabled.rawValue)
+            }
+            
+        }
         
         let switchLabel = UILabel()
         cardView.addSubview(switchLabel)
@@ -211,6 +229,14 @@ class TouchID: baseViewControllerM {
         
         
         
+    }
+    
+    @objc func toggleSwitch(){
+        if switchButton.isOn == true {
+            preference.set(true, forKey: UserDefaultsKeys.touchIDEnabled.rawValue)
+        }else{
+            preference.set(false, forKey: UserDefaultsKeys.touchIDEnabled.rawValue)
+        }
     }
 
     @objc func goDeviceSettings(){

@@ -140,6 +140,12 @@ extension UIViewController {
         case accBalanceLabel
         case balanceLabel
         case ROAMINGS
+        case touchIDEnabled
+    }
+    
+    enum keyChainKeys: String {
+        case secretPassword
+        case secretUser
     }
 }
 
