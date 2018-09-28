@@ -467,6 +467,9 @@ class SettingsVc: baseViewControllerM {
         privacyCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         privacyCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
+        let privacyRec = UITapGestureRecognizer(target: self, action: #selector(goToSettingsPrivacy(_sender:)))
+        privacyCard.addGestureRecognizer(privacyRec)
+        
         //Left Image
         let privacyLeftImage = UIImageView()
         privacyCard.addSubview(privacyLeftImage)
@@ -514,6 +517,9 @@ class SettingsVc: baseViewControllerM {
         notificationCard.topAnchor.constraint(equalTo: privacyCard.bottomAnchor, constant: 20).isActive = true
         notificationCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         notificationCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        
+        let notifRec = UITapGestureRecognizer(target: self, action: #selector(goToNotifications))
+        notificationCard.addGestureRecognizer(notifRec)
         
         //Left Image
         let notifLeftImage = UIImageView()
@@ -670,6 +676,18 @@ class SettingsVc: baseViewControllerM {
     @objc func goToTouchID(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "TouchID")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToNotifications(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "notifications")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToSettingsPrivacy(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "settingsPrivacy")
         present(moveTo, animated: true, completion: nil)
     }
 }

@@ -141,6 +141,9 @@ extension UIViewController {
         case balanceLabel
         case ROAMINGS
         case touchIDEnabled
+        case notificationEnabled
+        case privacyEnabled
+        case privateDataEnabled
     }
     
     enum keyChainKeys: String {

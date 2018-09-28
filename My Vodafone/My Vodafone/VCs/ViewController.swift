@@ -83,8 +83,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnOkAction(_ sender: Any) {
-        //set first time usage to false
+        //set first time usage to false and some default user defaults
         preference.set("No", forKey: "firstTime")
+        preference.set(true, forKey: UserDefaultsKeys.notificationEnabled.rawValue)
+        preference.set(true, forKey: UserDefaultsKeys.privacyEnabled.rawValue)
+        preference.set(true, forKey: UserDefaultsKeys.privateDataEnabled.rawValue)
         
 //        preference.synchronize()
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")

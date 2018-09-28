@@ -27,6 +27,8 @@
 		016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */; };
 		016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */; };
 		01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */; };
+		01709C62215EB110008C8C3E /* notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C61215EB110008C8C3E /* notifications.swift */; };
+		01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
@@ -138,6 +140,8 @@
 		016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfViewController.swift; sourceTree = "<group>"; };
 		016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffCreditRedeeming.swift; sourceTree = "<group>"; };
 		01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		01709C61215EB110008C8C3E /* notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notifications.swift; sourceTree = "<group>"; };
+		01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsPrivacy.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				0148E06420D9237E003D3F54 /* SettingsViewController.swift */,
 				01CFCF9A215BA99B0048D56E /* SettingsVc.swift */,
 				013C34AC215CF4C300581379 /* TouchID.swift */,
+				01709C61215EB110008C8C3E /* notifications.swift */,
+				01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -781,6 +787,8 @@
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
+				01709C62215EB110008C8C3E /* notifications.swift in Sources */,
+				01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */,
 				015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
