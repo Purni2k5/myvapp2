@@ -174,9 +174,9 @@ class LoginViewController: baseViewControllerM {
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                         
                         if responseData != nil {
-                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
                             let obj = responseData["AccountStatus"] as! String
-                            let Services = self.preference.object(forKey: "ServiceList")
+                            let Services = self.preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
                             let default_service = responseData["DefaultService"] as! String
                             self.preference.set(default_service, forKey: "DefaultService")
                             let defaultService = self.preference.object(forKey: "DefaultService") as! String
@@ -198,11 +198,13 @@ class LoginViewController: baseViewControllerM {
                                                 print("Got it")
                                                 
                                             }else{
+                                                print("this happened")
                                                 //Just pick one to display
                                                 self.defaultAccName = dict.value(forKey: "DisplayName") as! String?
                                                 self.ServiceID = dict.value(forKey: "ID") as! String?
                                                 self.AcctType = dict.value(forKey: "Type") as! String?
                                                 self.primaryID = dict.value(forKey: "primaryID") as! String?
+                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
                                                 //                            foundDefault = true
                                             }
                                         }
@@ -210,8 +212,8 @@ class LoginViewController: baseViewControllerM {
                                     
                                 }
                             }
-                            print("Primary ID:: \(self.primaryID!)")
-                            print("Display Name:: \(self.defaultAccName!)")
+//                            print("Primary ID:: \(self.primaryID!)")
+//                            print("Display Name:: \(self.defaultAccName!)")
                             let defaultNum = self.primaryID?.dropFirst(3)
                             self.primaryID = "0\(defaultNum!)"
                             self.preference.set(self.primaryID, forKey: "defaultMSISDN")
@@ -402,9 +404,9 @@ class LoginViewController: baseViewControllerM {
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                         
                         if responseData != nil {
-                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
                             let obj = responseData["AccountStatus"] as! String
-                            let Services = self.preference.object(forKey: "ServiceList")
+                            let Services = self.preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
                             let default_service = responseData["DefaultService"] as! String
                             self.preference.set(default_service, forKey: "DefaultService")
                             let defaultService = self.preference.object(forKey: "DefaultService") as! String

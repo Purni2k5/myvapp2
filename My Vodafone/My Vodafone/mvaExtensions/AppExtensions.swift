@@ -144,6 +144,7 @@ extension UIViewController {
         case notificationEnabled
         case privacyEnabled
         case privateDataEnabled
+        case ServiceList
     }
     
     enum keyChainKeys: String {

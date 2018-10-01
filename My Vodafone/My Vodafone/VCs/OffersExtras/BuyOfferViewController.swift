@@ -111,7 +111,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
         view.addSubview(vcScrollView)
         view.backgroundColor = UIColor.dark_background
         setUpViewsBuyOffer()
-        let Services = preference.object(forKey: "ServiceList")
+        let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
 //        print("username \(username!)")

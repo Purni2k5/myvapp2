@@ -418,6 +418,9 @@ class SettingsVc: baseViewControllerM {
         personailizedAppCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         personailizedAppCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
+        let personlisedRec = UITapGestureRecognizer(target: self, action: #selector(goToSettingsPersonlise(_sender:)))
+        personailizedAppCard.addGestureRecognizer(personlisedRec)
+        
         //Left Image
         let personalizedLeftImage = UIImageView()
         personailizedAppCard.addSubview(personalizedLeftImage)
@@ -688,6 +691,12 @@ class SettingsVc: baseViewControllerM {
     @objc func goToSettingsPrivacy(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "settingsPrivacy")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToSettingsPersonlise(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "personliseApp")
         present(moveTo, animated: true, completion: nil)
     }
 }

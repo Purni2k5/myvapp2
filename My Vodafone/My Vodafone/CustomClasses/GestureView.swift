@@ -38,3 +38,7 @@ class UserDetailsCard: UIView {
 class SingleVariable: UIView {
     var senderVariable: String?
 }
+
+class RadioButton: UIButton {
+    var serviceID: String?
+}

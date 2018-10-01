@@ -56,7 +56,7 @@ class ProductsServicesViewController: UIViewController {
         userPdts.addGestureRecognizer(gestureRec2)
         
         
-        let Services = preference.object(forKey: "ServiceList")
+        let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {
             let totalServices = array.count
             print("Total Service:: \(totalServices)")
@@ -356,8 +356,8 @@ class ProductsServicesViewController: UIViewController {
                             let serviceList: NSArray?
                             responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                             serviceList = responseData!["ServiceList"] as! NSArray?
-                            self.preference.removeObject(forKey: "ServiceList")
-                            self.preference.set(serviceList!, forKey: "ServiceList")
+                            self.preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            self.preference.set(serviceList!, forKey: UserDefaultsKeys.ServiceList.rawValue)
                             
                             DispatchQueue.main.async {
                                 if let array = serviceList {

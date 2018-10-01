@@ -320,7 +320,7 @@ class AccountConfViewController: baseViewControllerM {
                                         
                                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                                         self.preference.set("Yes", forKey: "loginStatus")
-                                        self.preference.set(responseData["ServiceList"] as! NSArray, forKey: "ServiceList")
+                                        self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
                                         self.preference.set(responseData, forKey: "responseData")
                                         self.stop_activity_loader()
                                         //go to home screen
