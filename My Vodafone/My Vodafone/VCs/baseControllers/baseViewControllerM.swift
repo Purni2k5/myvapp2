@@ -31,6 +31,7 @@ class baseViewControllerM: UIViewController {
     var motherViewTrailing1: NSLayoutConstraint?
     var motherViewTrailing2: NSLayoutConstraint?
     var menuShowing: Bool = false
+    var networksShowing: Bool = false
     
     //create a closure for background image
     let vcHomeImage: UIImageView = {
@@ -70,6 +71,10 @@ class baseViewControllerM: UIViewController {
         view.isOpaque = false
         return view
     }()
+    let btnSpeedChecker = UIButton()
+    let btnNetworkUsage = UIButton()
+    let btnBBFinder = UIButton()
+    let btnNetworkCov = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -163,6 +168,18 @@ class baseViewControllerM: UIViewController {
         menuShowing = !menuShowing
     }
     
+    @objc func showNetworks(){
+        if networksShowing {
+            hidesNetworks()
+        }else{
+            displayHiddenNetworks()
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        networksShowing = !networksShowing
+    }
+    
     func prePaidMenu(){
         
         let motherView = UIView()
@@ -186,7 +203,7 @@ class baseViewControllerM: UIViewController {
         scrollViewBase.topAnchor.constraint(equalTo: motherView.topAnchor).isActive = true
         scrollViewBase.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
         scrollViewBase.bottomAnchor.constraint(equalTo: motherView.bottomAnchor).isActive = true
-        scrollViewBase.contentSize.height = 750
+        scrollViewBase.contentSize.height = 900
         
         //close button
         let btnClose = UIButton()
@@ -378,7 +395,7 @@ class baseViewControllerM: UIViewController {
         networkIcon.topAnchor.constraint(equalTo: locatorIcon.bottomAnchor, constant: 20).isActive = true
         networkIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         networkIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
-//        networkIcon.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
+        networkIcon.addTarget(self, action: #selector(showNetworks), for: .touchUpInside)
         //Network
         let btnNetwork = UIButton()
         scrollViewBase.addSubview(btnNetwork)
@@ -388,7 +405,7 @@ class baseViewControllerM: UIViewController {
         btnNetwork.setTitleColor(UIColor.white, for: .normal)
         btnNetwork.leadingAnchor.constraint(equalTo: networkIcon.trailingAnchor, constant: 16).isActive = true
         btnNetwork.topAnchor.constraint(equalTo: btnLocator.bottomAnchor, constant: 24).isActive = true
-//        networkIcon.addTarget(self, action: #selector(goToLocator), for: .touchUpInside)
+        btnNetwork.addTarget(self, action: #selector(showNetworks), for: .touchUpInside)
         //Arrow down
         let chevron = UIButton()
         scrollViewBase.addSubview(chevron)
@@ -398,52 +415,53 @@ class baseViewControllerM: UIViewController {
         chevron.setImage(chevTint, for: .normal)
         chevron.tintColor = UIColor.white
         chevron.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
-        chevron.topAnchor.constraint(equalTo: btnLocator.bottomAnchor, constant: 28).isActive = true
-        chevron.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        chevron.heightAnchor.constraint(equalToConstant: 15).isActive = true
-//        chevron.addTarget(self, action: #selector(dropDown), for: .touchUpInside)
+        chevron.topAnchor.constraint(equalTo: btnLocator.bottomAnchor, constant: 26).isActive = true
+        chevron.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        chevron.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        chevron.addTarget(self, action: #selector(showNetworks), for: .touchUpInside)
         
         //btn speed checker
-        let btnSpeedChecker = UIButton()
+        
         scrollViewBase.addSubview(btnSpeedChecker)
         btnSpeedChecker.translatesAutoresizingMaskIntoConstraints = false
         btnSpeedChecker.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnSpeedChecker.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 13).isActive = true
         btnSpeedChecker.setTitle("Speed Checker", for: .normal)
-        btnSpeedChecker.titleLabel?.font = UIFont(name: String.defaultFontR, size: 19)
+        btnSpeedChecker.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnSpeedChecker.setTitleColor(UIColor.gray, for: .normal)
         btnSpeedChecker.isHidden = true
+        btnSpeedChecker.addTarget(self, action: #selector(goToSpeedChecker), for: .touchUpInside)
         
         //btn network usage
-        let btnNetworkUsage = UIButton()
+        
         scrollViewBase.addSubview(btnNetworkUsage)
         btnNetworkUsage.translatesAutoresizingMaskIntoConstraints = false
         btnNetworkUsage.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnNetworkUsage.topAnchor.constraint(equalTo: btnSpeedChecker.bottomAnchor, constant: 13).isActive = true
         btnNetworkUsage.setTitle("Network Usage", for: .normal)
-        btnNetworkUsage.titleLabel?.font = UIFont(name: String.defaultFontR, size: 19)
+        btnNetworkUsage.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnNetworkUsage.setTitleColor(UIColor.gray, for: .normal)
         btnNetworkUsage.isHidden = true
         
         //btn Broadband finder
-        let btnBBFinder = UIButton()
+        
         scrollViewBase.addSubview(btnBBFinder)
         btnBBFinder.translatesAutoresizingMaskIntoConstraints = false
         btnBBFinder.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnBBFinder.topAnchor.constraint(equalTo: btnNetworkUsage.bottomAnchor, constant: 13).isActive = true
         btnBBFinder.setTitle("Broadband Finder", for: .normal)
-        btnBBFinder.titleLabel?.font = UIFont(name: String.defaultFontR, size: 19)
+        btnBBFinder.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnBBFinder.setTitleColor(UIColor.gray, for: .normal)
         btnBBFinder.isHidden = true
         
         //btn Network Coverage
-        let btnNetworkCov = UIButton()
+        
         scrollViewBase.addSubview(btnNetworkCov)
         btnNetworkCov.translatesAutoresizingMaskIntoConstraints = false
         btnNetworkCov.leadingAnchor.constraint(equalTo: locatorIcon.trailingAnchor, constant: 16).isActive = true
         btnNetworkCov.topAnchor.constraint(equalTo: btnBBFinder.bottomAnchor, constant: 13).isActive = true
         btnNetworkCov.setTitle("Network Coverage", for: .normal)
-        btnNetworkCov.titleLabel?.font = UIFont(name: String.defaultFontR, size: 19)
+        btnNetworkCov.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnNetworkCov.setTitleColor(UIColor.gray, for: .normal)
         btnNetworkCov.isHidden = true
         
@@ -457,7 +475,7 @@ class baseViewControllerM: UIViewController {
         mssgIcon.tintColor = UIColor.white
         mssgIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
         mssgIconTop1 = mssgIcon.topAnchor.constraint(equalTo: networkIcon.bottomAnchor, constant: 20)
-        mssgIconTop2 = mssgIcon.topAnchor.constraint(equalTo: networkIcon.bottomAnchor, constant: 90)
+        mssgIconTop2 = mssgIcon.topAnchor.constraint(equalTo: networkIcon.bottomAnchor, constant: 172)
         mssgIconTop1?.isActive = true
         mssgIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         mssgIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
@@ -470,7 +488,7 @@ class baseViewControllerM: UIViewController {
         btnMessage.setTitleColor(UIColor.white, for: .normal)
         btnMessage.leadingAnchor.constraint(equalTo: mssgIcon.trailingAnchor, constant: 16).isActive = true
         mssgTopConstraint1 = btnMessage.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 24)
-        mssgTopConstraint2 = btnMessage.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 94)
+        mssgTopConstraint2 = btnMessage.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor, constant: 178)
         mssgTopConstraint1?.isActive = true
         btnMessage.addTarget(self, action: #selector(goToMessages), for: .touchUpInside)
         
@@ -569,6 +587,19 @@ class baseViewControllerM: UIViewController {
         btnLogout.leadingAnchor.constraint(equalTo: logoutIcon.trailingAnchor, constant: 16).isActive = true
         btnLogout.topAnchor.constraint(equalTo: btnAbout.bottomAnchor, constant: 25).isActive = true
         btnLogout.addTarget(self, action: #selector(goToLogout), for: .touchUpInside)
+        
+        //Version
+        let lblVersion = UILabel()
+        scrollViewBase.addSubview(lblVersion)
+        lblVersion.translatesAutoresizingMaskIntoConstraints = false
+        lblVersion.text = "Version v. \(onlyAppVersion())"
+        lblVersion.font = UIFont(name: String.defaultFontR, size: 19)
+        lblVersion.textColor = UIColor.white
+        lblVersion.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 63).isActive = true
+        lblVersion.topAnchor.constraint(equalTo: btnLogout.bottomAnchor, constant: 30).isActive = true
+        lblVersion.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -5).isActive = true
+        lblVersion.numberOfLines = 0
+        lblVersion.lineBreakMode = .byWordWrapping
     }
     
     @objc func closeMenu(){
@@ -673,11 +704,39 @@ class baseViewControllerM: UIViewController {
         let moveTo = storyboard.instantiateViewController(withIdentifier: "PrivacyPolicyViewController")
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func goToSpeedChecker(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "NetPerform", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
+        present(moveTo, animated: true, completion: nil)
+    }
 
     @objc func closeModalB(){
         self.view.removeFromSuperview()
     }
     
+    func displayHiddenNetworks(){
+        mssgIconTop1?.isActive = false
+        mssgIconTop2?.isActive = true
+        mssgTopConstraint1?.isActive = false
+        mssgTopConstraint2?.isActive = true
+        btnSpeedChecker.isHidden = false
+        btnNetworkUsage.isHidden = false
+        btnBBFinder.isHidden = false
+        btnNetworkCov.isHidden = false
+        scrollViewBase.contentSize.height = 900
+    }
+    func hidesNetworks(){
+        mssgIconTop2?.isActive = false
+        mssgIconTop1?.isActive = true
+        mssgTopConstraint2?.isActive = false
+        mssgTopConstraint1?.isActive = true
+        btnSpeedChecker.isHidden = true
+        btnNetworkUsage.isHidden = true
+        btnBBFinder.isHidden = true
+        btnNetworkCov.isHidden = true
+        scrollViewBase.contentSize.height = 750
+    }
     func displayNoInternet() {
         let storyboard = UIStoryboard(name: "Support", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
