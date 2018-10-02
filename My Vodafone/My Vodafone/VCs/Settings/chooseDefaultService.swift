@@ -50,6 +50,16 @@ class chooseDefaultService: baseViewControllerM {
         return view
     }()
     
+    //create a closure for activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
+        return view
+    }()
+    
     let lblSelectHeader = UILabel()
     let separator1 = UIView()
     let desc = UILabel()
@@ -63,6 +73,22 @@ class chooseDefaultService: baseViewControllerM {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    let txtSelectedService = UITextField()
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnSave.isHidden = true
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnSave.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,6 +202,13 @@ class chooseDefaultService: baseViewControllerM {
         separator1.topAnchor.constraint(equalTo: desc.bottomAnchor, constant: 30).isActive = true
         separator1.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
+        cardView.addSubview(txtSelectedService)
+        txtSelectedService.translatesAutoresizingMaskIntoConstraints = false
+        txtSelectedService.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 2).isActive = true
+        txtSelectedService.topAnchor.constraint(equalTo: separator1.bottomAnchor, constant: 4).isActive = true
+        txtSelectedService.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -2).isActive = true
+        txtSelectedService.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        txtSelectedService.isHidden = true
         
         
     }
@@ -189,6 +222,7 @@ class chooseDefaultService: baseViewControllerM {
     func loadServices(){
         let services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String
+        txtSelectedService.text = defaultService
         print(defaultService)
         if let array = services as? NSArray {
             let arrayCount = array.count
@@ -282,6 +316,12 @@ class chooseDefaultService: baseViewControllerM {
                 btnSave.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
                 btnSave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
                 btnSave.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                btnSave.addTarget(self, action: #selector(setDefaultService), for: .touchUpInside)
+                
+                //activity loader
+                cardView.addSubview(activity_loader)
+                activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                activity_loader.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
             }else{
                 print("not up to \(counter)")
                 view.addSubview(btnSave)
@@ -289,12 +329,96 @@ class chooseDefaultService: baseViewControllerM {
                 btnSave.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
                 btnSave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
                 btnSave.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                btnSave.addTarget(self, action: #selector(setDefaultService), for: .touchUpInside)
+                
+                //activity loader
+                cardView.addSubview(activity_loader)
+                activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                activity_loader.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
             }
+        }
+    }
+    
+    @objc func setDefaultService(){
+        start_activity_loader()
+        let selService = txtSelectedService.text!
+        let async_call = URL(string: String.userSVC)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        let postParameters: Dictionary<String, Any> = [
+            "action":"setDefaultService",
+            "username":username!,
+            "serviceID":selService,
+            "os":getDeviceOS()
+        ]
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        print("error is:: \(error!.localizedDescription)")
+                        self.stop_activity_loader()
+                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                    }
+                    return;
+                }
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON {
+                        var responseCode: Int?
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        DispatchQueue.main.async {
+                            if responseCode == 0 {
+                                let responseData = parseJSON["RESPONSEDATA"] as? NSDictionary
+                                if let resMssg = responseData {
+                                    let dService = resMssg["DefaultService"] as? NSDictionary
+                                    if let selServiceDet = dService {
+                                        let ID = selServiceDet["ID"] as! String
+                                        var primaryID = selServiceDet["primaryID"] as! String
+                                        self.preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
+                                        self.preference.set(ID, forKey: UserDefaultsKeys.DefaultService.rawValue)
+                                        
+                                        let defaultNum = primaryID.dropFirst(3)
+                                        primaryID = "0\(defaultNum)"
+                                        self.preference.set(primaryID, forKey: UserDefaultsKeys.defaultMSISDN.rawValue)
+                                        
+                                        //go to home screen
+                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                        self.present(moveTo, animated: true, completion: nil)
+                                    }
+                                }
+                                
+                                
+                            }else{
+                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as? String
+                                if let mssg = responseMessage {
+                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: mssg)
+                                }
+                                
+                            }
+                            self.stop_activity_loader()
+                        }
+                    }
+                }catch{
+                    DispatchQueue.main.async {
+                        print("catch is:: \(error.localizedDescription)")
+                        self.stop_activity_loader()
+                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
+                    }
+                }
+            }
+            task.resume()
         }
     }
     
     @objc func changeService(_ btn: UIButton){
         print(btn.tag)
+        txtSelectedService.text = String(btn.tag)
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveLinear, animations: {
             btn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }) { (success) in

@@ -52,7 +52,7 @@ class homeVC: baseViewControllerM {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
         
-        let defaultService = UserData["DefaultService"] as! String
+        let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String
         username = UserData["Username"] as! String?
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         balanceLabel = preference.object(forKey: "balanceLabel") as! String?
