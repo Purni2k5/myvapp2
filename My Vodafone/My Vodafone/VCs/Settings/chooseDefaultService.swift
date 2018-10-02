@@ -54,6 +54,15 @@ class chooseDefaultService: baseViewControllerM {
     let separator1 = UIView()
     let desc = UILabel()
     var tagger: Int?
+    let btnSave:  UIButton = {
+        let view = UIButton()
+        view.backgroundColor = UIColor.vodaRed
+        view.setTitle("Save", for: .normal)
+        view.setTitleColor(UIColor.white, for: .normal)
+        view.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,6 +177,7 @@ class chooseDefaultService: baseViewControllerM {
         separator1.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
         
+        
     }
     
     @objc func goToPersonlised(){
@@ -181,11 +191,15 @@ class chooseDefaultService: baseViewControllerM {
         let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String
         print(defaultService)
         if let array = services as? NSArray {
+            let arrayCount = array.count
+            print("arrayCount:: \(arrayCount)")
+            var counter = 0
             var topAnchorConstraint: CGFloat = 40
             var displayNameTopConstraint: CGFloat = 70
             var dynamicCardHeight: CGFloat = 100
             var separator2TopConstraint: CGFloat = 30
             var displayNumberTop: CGFloat = 5
+            
             for obj in array {
                 if let dict = obj as? NSDictionary {
                     let displayName = dict.value(forKey: "DisplayName") as! String
@@ -253,20 +267,34 @@ class chooseDefaultService: baseViewControllerM {
                     radioButton.addTarget(self, action: #selector(changeService(_:)), for: .touchUpInside)
                     radioButton.tag = Int(serviceID)!
                     
+                    counter = counter + 1
                     topAnchorConstraint = topAnchorConstraint + 100
                     displayNameTopConstraint = displayNameTopConstraint + 100
                     dynamicCardHeight = dynamicCardHeight + 127
                     cardHeight?.constant = dynamicCardHeight
-                    scrollView.contentSize.height = dynamicCardHeight
+                    scrollView.contentSize.height = dynamicCardHeight + 500
                 }
+            }
+            if counter == arrayCount {
+                
+                view.addSubview(btnSave)
+                btnSave.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+                btnSave.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
+                btnSave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+                btnSave.heightAnchor.constraint(equalToConstant: 55).isActive = true
+            }else{
+                print("not up to \(counter)")
+                view.addSubview(btnSave)
+                btnSave.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+                btnSave.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
+                btnSave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+                btnSave.heightAnchor.constraint(equalToConstant: 55).isActive = true
             }
         }
     }
     
     @objc func changeService(_ btn: UIButton){
-        
         print(btn.tag)
-        
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveLinear, animations: {
             btn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }) { (success) in
@@ -275,6 +303,12 @@ class chooseDefaultService: baseViewControllerM {
                 btn.transform = .identity
                 let checkImage = UIImage(named: "Checkbox")
                 btn.setImage(checkImage, for: .normal)
+                let defautIDString = String(btn.tag)
+                self.preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
+                self.preference.set(defautIDString, forKey: UserDefaultsKeys.DefaultService.rawValue)
+                let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+                let moveTo = storyboard.instantiateViewController(withIdentifier: "chooseDefaultService")
+                self.present(moveTo, animated: true, completion: nil)
             }, completion: nil)
         }
     }

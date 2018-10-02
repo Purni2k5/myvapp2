@@ -440,28 +440,7 @@ class ChangePasswordInApp: baseViewControllerM {
                                 }
                                 
                             }
-                            task.resume()
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                            task.resume() 
                             
                         }
                     }
