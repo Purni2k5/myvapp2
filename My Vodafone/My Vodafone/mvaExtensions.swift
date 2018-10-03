@@ -26,6 +26,7 @@ extension UIColor {
     static let support_dark_gray1 = UIColor().colourFromHex("999999")
     static let support_dark_gray2 = UIColor().colourFromHex("666666")
     static let dark_gray_60 = UIColor().colourFromHex("99333333")
+    static let color_light_gray_30 = UIColor().colourFromHex("4D929292")
     
     func colourFromHex(_ hex: String) -> UIColor {
         //make sure nor spaces and new lines in our hex string

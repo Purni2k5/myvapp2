@@ -66,10 +66,13 @@ class speedChecker: baseViewControllerM {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let cardWidth = cardView.frame.size.width
+        print("card:: \(cardWidth)")
         scrollView.contentSize.height = view.frame.size.height + topImage.frame.size.height + cardView.frame.size.height
     }
 
     func setUpViewsSpeedChecker(){
+        let margins = view.layoutMarginsGuide
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
@@ -173,21 +176,31 @@ class speedChecker: baseViewControllerM {
         lblPrevious.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 5).isActive = true
         lblPrevious.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
+        //Button holder
+        let holder = UIView()
+        view.addSubview(holder)
+        holder.translatesAutoresizingMaskIntoConstraints = false
+        holder.backgroundColor = UIColor.support_light_gray
+        holder.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        holder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        holder.topAnchor.constraint(equalTo: lblPrevious.bottomAnchor, constant: 10).isActive = true
+        holder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
         scrollView.addSubview(cardView)
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.backgroundColor = UIColor.white
-        cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        cardView.topAnchor.constraint(equalTo: lblPrevious.bottomAnchor, constant: 10).isActive = true
         cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        cardView.topAnchor.constraint(equalTo: holder.bottomAnchor).isActive = true
+        cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         cardView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         
         cardView.addSubview(btnWifi)
         btnWifi.translatesAutoresizingMaskIntoConstraints = false
-        btnWifi.backgroundColor = UIColor.gray
+        btnWifi.backgroundColor = UIColor.support_light_gray
         btnWifi.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnWifi.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
         btnWifi.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
-        btnWifi.widthAnchor.constraint(equalToConstant: 170).isActive = true
+        btnWifi.widthAnchor.constraint(equalToConstant: 167.5).isActive = true
         
         cardView.addSubview(btnNetwork)
         btnNetwork.translatesAutoresizingMaskIntoConstraints = false
@@ -195,8 +208,8 @@ class speedChecker: baseViewControllerM {
         btnNetwork.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnNetwork.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
         btnNetwork.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
-        btnNetwork.trailingAnchor.constraint(equalTo: btnWifi.leadingAnchor).isActive = true
-        
+//        btnNetwork.trailingAnchor.constraint(equalTo: btnWifi.leadingAnchor).isActive = true
+        btnNetwork.widthAnchor.constraint(equalToConstant: 167.5).isActive = true
         
         
         
