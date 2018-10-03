@@ -164,7 +164,11 @@ class SettingsVc: baseViewControllerM {
     
     override func viewDidAppear(_ animated: Bool) {
         print(autoLoginCard.frame.size.height)
-        scrollView.contentSize.height = view.frame.size.height + autoLoginCard.frame.size.height + changePasswordCard.frame.size.height + touchIDCard.frame.size.height + personailizedAppCard.frame.size.height + privacyCard.frame.size.height + notificationCard.frame.size.height + termsConditionCard.frame.size.height + privacyPolicyCard.frame.size.height
+        let viewHeight = view.frame.size.height + autoLoginCard.frame.size.height
+        let changeHeight = changePasswordCard.frame.size.height + touchIDCard.frame.size.height
+        let personalHeight = personailizedAppCard.frame.size.height + privacyCard.frame.size.height
+        let notifHeight = notificationCard.frame.size.height + termsConditionCard.frame.size.height
+        scrollView.contentSize.height = viewHeight + changeHeight + personalHeight + notifHeight + privacyPolicyCard.frame.size.height
 //        scrollView.contentSize.height = 2000
     }
 

@@ -542,59 +542,116 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                     if let parseJSON = myJSON {
                         var responseCode: Int!
-                        var responseMessage: String!
+                        var responseMessage: Any?
                         
                         responseCode = parseJSON["RESPONSECODE"] as! Int
                         
                         print("responseyy:: \(parseJSON)")
-                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                        
                         DispatchQueue.main.async {
+                            if responseCode == 0 {
+                                responseMessage = parseJSON["RESPONSEMESSAGE"]
+                                if let resMessage = responseMessage as? Int{
+                                    let bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String?
+                                    let theHeight = self.view.frame.size.height //grabs the height of your view
+                                    let responseView = UIView()
+                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                    responseView.isOpaque = false
+                                    responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                    
+                                    self.view.addSubview(responseView)
+                                    
+                                    //label to hold response message
+                                    let responseLabel = UILabel()
+                                    self.vcScrollView.addSubview(responseLabel)
+                                    responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                    responseLabel.text = bundleToRemove
+                                    responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                    responseLabel.textColor = UIColor.white
+                                    responseLabel.textAlignment = .center
+                                    responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                    responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                    responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                    responseLabel.numberOfLines = 0
+                                    responseLabel.lineBreakMode = .byWordWrapping
+                                    
+                                    UIView.animate(withDuration: 5, animations: {
+                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                    }, completion: { (true) in
+                                        self.view.removeFromSuperview()
+                                    })
+                                    
+                                }else{
+                                    //Now create a view to display response
+                                    
+                                    let theHeight = self.view.frame.size.height //grabs the height of your view
+                                    let responseView = UIView()
+                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                    responseView.isOpaque = false
+                                    responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                    
+                                    self.view.addSubview(responseView)
+                                    
+                                    //label to hold response message
+                                    let responseLabel = UILabel()
+                                    self.vcScrollView.addSubview(responseLabel)
+                                    responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                    responseLabel.text = responseMessage as! String
+                                    responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                    responseLabel.textColor = UIColor.white
+                                    responseLabel.textAlignment = .center
+                                    responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                    responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                    responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                    responseLabel.numberOfLines = 0
+                                    responseLabel.lineBreakMode = .byWordWrapping
+                                    
+                                    UIView.animate(withDuration: 5, animations: {
+                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                    }, completion: { (true) in
+                                        self.view.removeFromSuperview()
+                                    })
+                                }
+                                
+                            }else{
+                                let theHeight = self.view.frame.size.height //grabs the height of your view
+                                let responseView = UIView()
+                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                responseView.isOpaque = false
+                                responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                
+                                self.view.addSubview(responseView)
+                                
+                                //label to hold response message
+                                let responseLabel = UILabel()
+                                self.vcScrollView.addSubview(responseLabel)
+                                responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                responseLabel.text = "Sorry could not process request try again..."
+                                responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                responseLabel.textColor = UIColor.white
+                                responseLabel.textAlignment = .center
+                                responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                responseLabel.numberOfLines = 0
+                                responseLabel.lineBreakMode = .byWordWrapping
+                                
+                                UIView.animate(withDuration: 5, animations: {
+                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                }, completion: { (true) in
+                                    self.view.removeFromSuperview()
+                                })
+                            }
                             self.stop_activity_loader()
-                            //Now create a view to display response
                             
-                            /*let responseView = UIView()
-                            self.vcScrollView.addSubview(responseView)
-                            responseView.translatesAutoresizingMaskIntoConstraints = false
-                            responseView.backgroundColor = UIColor.black
-                            responseView.layer.shadowOpacity = 0.1
-                            responseView.leadingAnchor.constraint(equalTo: self.vcScrollView.leadingAnchor, constant: 0).isActive = true
-                            responseView.trailingAnchor.constraint(equalTo: self.vcScrollView.trailingAnchor, constant: 0).isActive = true
-                            responseView.widthAnchor.constraint(equalTo: self.vcScrollView.widthAnchor).isActive = true
-                            responseView.heightAnchor.constraint(equalToConstant: 130).isActive = true
-                            responseView.bottomAnchor.constraint(equalTo: self.vcScrollView.bottomAnchor).isActive = true */
-                            
-                            let theHeight = self.view.frame.size.height //grabs the height of your view
-                            let responseView = UIView()
-                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-                            responseView.isOpaque = false
-                            responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
-                            
-                            self.view.addSubview(responseView)
-                            
-                            //label to hold response message
-                            let responseLabel = UILabel()
-                            self.vcScrollView.addSubview(responseLabel)
-                            responseLabel.translatesAutoresizingMaskIntoConstraints = false
-                            responseLabel.text = responseMessage
-                            responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
-                            responseLabel.textColor = UIColor.white
-                            responseLabel.textAlignment = .center
-                            responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
-                            responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
-                            responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
-                            responseLabel.numberOfLines = 0
-                            responseLabel.lineBreakMode = .byWordWrapping
-                            
-                            UIView.animate(withDuration: 5, animations: {
-                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
-                            }, completion: { (true) in
-                                self.view.removeFromSuperview()
-                            })
                         }
                     }
                 }catch{
                     print(error.localizedDescription)
-                    self.stop_activity_loader()
+                    DispatchQueue.main.async {
+                        self.stop_activity_loader()
+                    }
+                    
                 }
             }
             task.resume()

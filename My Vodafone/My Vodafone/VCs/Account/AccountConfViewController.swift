@@ -214,7 +214,12 @@ class AccountConfViewController: baseViewControllerM {
         lblMessage.numberOfLines = 0
         lblMessage.lineBreakMode = .byWordWrapping
         
-        scrollView.contentSize.height = (view.frame.size.height + accountLbl.frame.size.height + actDesc.frame.size.height + darkView.frame.size.height + lblConfirmPin.frame.size.height + txtOTP.frame.size.height + confirmButton.frame.size.height + cancelButton.frame.size.height)
+        let viewHeight = view.frame.size.height + accountLbl.frame.size.height
+        let llHeight = actDesc.frame.size.height + darkView.frame.size.height
+        let confirmHeight = lblConfirmPin.frame.size.height + txtOTP.frame.size.height
+        let height2 = confirmButton.frame.size.height + cancelButton.frame.size.height
+        
+        scrollView.contentSize.height = viewHeight + llHeight + confirmHeight + height2
         
         scrollView.addSubview(activity_loader)
         activity_loader.topAnchor.constraint(equalTo: txtOTP.bottomAnchor, constant: 30).isActive = true
