@@ -19,6 +19,7 @@ class homeVC: baseViewControllerM {
     var accountBalance: String?
     var balanceLabel: String?
     var accountBalanceLabel: String?
+    var dService: String?
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
 //    var altServiceID: String?
@@ -52,7 +53,13 @@ class homeVC: baseViewControllerM {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
         
-        let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String
+        if let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {
+            dService = defaultService
+        }else{
+            //logout
+            print("Do this")
+            logout()
+        }
         username = UserData["Username"] as! String?
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         balanceLabel = preference.object(forKey: "balanceLabel") as! String?

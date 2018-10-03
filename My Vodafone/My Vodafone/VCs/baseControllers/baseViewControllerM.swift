@@ -602,6 +602,30 @@ class baseViewControllerM: UIViewController {
         lblVersion.lineBreakMode = .byWordWrapping
     }
     
+    func logout(){
+        preference.removeObject(forKey: UserDefaultsKeys.loginStatus.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.responseData.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.staffNumber.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.staffCreditData.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.Plan.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.Data.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.defaultMSISDN.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.RESPONSEMESSAGE.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.FBBLINKEDNUMBER.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.FBBACTKEY.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.FBBUSERID.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BBPACKAGES.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.FBBUSERACCOUNT.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.accountBalance.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.accBalanceLabel.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.balanceLabel.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.ROAMINGS.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
+        let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        present(moveTo!, animated: true, completion: nil)
+    }
+    
     @objc func closeMenu(){
         self.motherViewTrailing2?.isActive = false
         self.motherViewTrailing1?.isActive = true
