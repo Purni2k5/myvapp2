@@ -55,6 +55,14 @@ class speedChecker: baseViewControllerM {
     let btnNetwork = UIView()
     let redView = UIView()
     
+    fileprivate var redViewLeft1: NSLayoutConstraint?
+    fileprivate var redViewLeft2: NSLayoutConstraint?
+    fileprivate var redViewTop1: NSLayoutConstraint?
+    fileprivate var redViewTop2: NSLayoutConstraint?
+    fileprivate var redViewRight1: NSLayoutConstraint?
+    fileprivate var redViewRight2: NSLayoutConstraint?
+    var isNetworkClicked: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,13 +74,13 @@ class speedChecker: baseViewControllerM {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let cardWidth = cardView.frame.size.width
+        let cardWidth = view.frame.size.width
         print("card:: \(cardWidth)")
         scrollView.contentSize.height = view.frame.size.height + topImage.frame.size.height + cardView.frame.size.height
     }
 
     func setUpViewsSpeedChecker(){
-        let margins = view.layoutMarginsGuide
+        
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
@@ -176,44 +184,111 @@ class speedChecker: baseViewControllerM {
         lblPrevious.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 5).isActive = true
         lblPrevious.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
-        //Button holder
-        let holder = UIView()
-        view.addSubview(holder)
-        holder.translatesAutoresizingMaskIntoConstraints = false
-        holder.backgroundColor = UIColor.support_light_gray
-        holder.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        holder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        holder.topAnchor.constraint(equalTo: lblPrevious.bottomAnchor, constant: 10).isActive = true
-        holder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        scrollView.addSubview(btnWifi)
+        btnWifi.translatesAutoresizingMaskIntoConstraints = false
+        btnWifi.backgroundColor = UIColor.support_light_gray
+        btnWifi.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        btnWifi.topAnchor.constraint(equalTo: lblPrevious.bottomAnchor, constant: 10).isActive = true
+        btnWifi.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        btnWifi.widthAnchor.constraint(equalToConstant: 207).isActive = true
+        
+        let btnRec = UITapGestureRecognizer(target: self, action: #selector(switchToWifi(_sender:)))
+        btnWifi.addGestureRecognizer(btnRec)
+        
+        scrollView.addSubview(btnNetwork)
+        btnNetwork.translatesAutoresizingMaskIntoConstraints = false
+        btnNetwork.backgroundColor = UIColor.support_light_gray
+        btnNetwork.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        btnNetwork.topAnchor.constraint(equalTo: lblPrevious.bottomAnchor, constant: 10).isActive = true
+        btnNetwork.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        //        btnNetwork.trailingAnchor.constraint(equalTo: btnWifi.leadingAnchor).isActive = true
+        btnNetwork.widthAnchor.constraint(equalToConstant: 207).isActive = true
+        let btnNRec = UITapGestureRecognizer(target: self, action: #selector(switchToNetwork(_sender:)))
+        btnNetwork.addGestureRecognizer(btnNRec)
         
         scrollView.addSubview(cardView)
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.backgroundColor = UIColor.white
         cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        cardView.topAnchor.constraint(equalTo: holder.bottomAnchor).isActive = true
+        cardView.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor).isActive = true
         cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         cardView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         
-        cardView.addSubview(btnWifi)
-        btnWifi.translatesAutoresizingMaskIntoConstraints = false
-        btnWifi.backgroundColor = UIColor.support_light_gray
-        btnWifi.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        btnWifi.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
-        btnWifi.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
-        btnWifi.widthAnchor.constraint(equalToConstant: 167.5).isActive = true
-        
-        cardView.addSubview(btnNetwork)
-        btnNetwork.translatesAutoresizingMaskIntoConstraints = false
-        btnNetwork.backgroundColor = UIColor.vodaRed
-        btnNetwork.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        btnNetwork.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
-        btnNetwork.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
-//        btnNetwork.trailingAnchor.constraint(equalTo: btnWifi.leadingAnchor).isActive = true
-        btnNetwork.widthAnchor.constraint(equalToConstant: 167.5).isActive = true
         
         
         
         
+       
+        
+        let lblNetwork = UILabel()
+        btnNetwork.addSubview(lblNetwork)
+        lblNetwork.translatesAutoresizingMaskIntoConstraints = false
+        lblNetwork.text = "Network"
+        lblNetwork.textColor = UIColor.black
+        lblNetwork.font = UIFont(name: String.defaultFontR, size: 20)
+        lblNetwork.textAlignment = .center
+        lblNetwork.centerXAnchor.constraint(equalTo: btnNetwork.centerXAnchor).isActive = true
+        lblNetwork.centerYAnchor.constraint(equalTo: btnNetwork.centerYAnchor).isActive = true
+        
+        let lblWifi = UILabel()
+        btnWifi.addSubview(lblWifi)
+        lblWifi.translatesAutoresizingMaskIntoConstraints = false
+        lblWifi.text = "Wi-Fi"
+        lblWifi.textColor = UIColor.black
+        lblWifi.font = UIFont(name: String.defaultFontR, size: 20)
+        lblWifi.textAlignment = .center
+        lblWifi.centerXAnchor.constraint(equalTo: btnWifi.centerXAnchor).isActive = true
+        lblWifi.centerYAnchor.constraint(equalTo: btnWifi.centerYAnchor).isActive = true
+        
+        cardView.addSubview(redView)
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        redView.backgroundColor = UIColor.red
+        redView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        redViewLeft1 = redView.leadingAnchor.constraint(equalTo: btnNetwork.leadingAnchor)
+        redViewLeft2 = redView.leadingAnchor.constraint(equalTo: btnWifi.leadingAnchor)
+        redViewRight1 = redView.trailingAnchor.constraint(equalTo: btnNetwork.trailingAnchor)
+        redViewRight2 = redView.trailingAnchor.constraint(equalTo: btnWifi.trailingAnchor)
+        redViewTop1 = redView.topAnchor.constraint(equalTo: btnNetwork.bottomAnchor)
+        redViewTop2 = redView.topAnchor.constraint(equalTo: btnWifi.bottomAnchor)
+        redViewLeft1?.isActive = true
+        redViewTop1?.isActive = true
+        redViewRight1?.isActive = true
+        
+        
+    }
+    
+    @objc func switchToNetwork(_sender: UITapGestureRecognizer){
+        UIView.animate(withDuration: 1, animations: {
+            
+        }) { (true) in
+            self.constraintToNetwork()
+        }
+    }
+    
+    @objc func switchToWifi(_sender: UITapGestureRecognizer){
+        UIView.animate(withDuration: 1, animations: {
+            
+        }) { (true) in
+            self.constraintToWifi()
+        }
+    }
+    
+    func constraintToNetwork(){
+        self.redViewLeft2?.isActive = false
+        self.redViewLeft1?.isActive = true
+        self.redViewTop2?.isActive = false
+        self.redViewTop1?.isActive = true
+        self.redViewRight2?.isActive = false
+        self.redViewRight1?.isActive = true
+    }
+    
+    func constraintToWifi(){
+        self.redViewLeft1?.isActive = false
+        self.redViewLeft2?.isActive = true
+        self.redViewTop1?.isActive = false
+        self.redViewTop2?.isActive = true
+        self.redViewRight1?.isActive = false
+        self.redViewRight2?.isActive = true
     }
 
 }
