@@ -168,6 +168,7 @@ class LoginViewController: baseViewControllerM {
                         var responseCode: Int!
                         var responseMessage: String!
                         var responseData: NSDictionary!
+                        print(parseJSON)
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
@@ -223,7 +224,7 @@ class LoginViewController: baseViewControllerM {
                         
                         print(responseCode)
                         print("-------------- response data -------------")
-                        print(parseJSON)
+                        
 //                        self.stopAsyncLoader()
                         DispatchQueue.main.async { // Correct
                             if responseCode == 0{
