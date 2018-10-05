@@ -235,9 +235,6 @@
                                                         <state key="normal" title="Forgotten Password">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <connections>
-                                                            <segue destination="87t-sE-e5l" kind="show" id="e4T-ne-xEV"/>
-                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not registered with My Vodafone?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2P-QK-IMl">
                                                         <rect key="frame" x="30" y="360" width="275" height="43"/>
@@ -369,140 +366,13 @@
                     <view key="view" contentMode="scaleToFill" id="Cb3-FC-ivf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="morning_bg_" translatesAutoresizingMaskIntoConstraints="NO" id="nf9-Ko-rN8">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset your password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykf-tZ-E9F">
-                                <rect key="frame" x="20" y="76" width="335" height="31"/>
-                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="36"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghT-ho-i1i">
-                                <rect key="frame" x="20" y="129" width="335" height="240"/>
-                                <subviews>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="k0l-DY-BQ7">
-                                        <rect key="frame" x="20" y="8" width="295" height="80"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="bGg-Mu-mnx"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="yFg-Yf-Nvt">
-                                        <rect key="frame" x="40" y="28" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="HSq-gs-3JR"/>
-                                            <constraint firstAttribute="height" constant="30" id="dgW-lD-lkJ"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdz-5A-gDg">
-                                        <rect key="frame" x="90" y="39" width="128" height="15"/>
-                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your username or telephone number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVq-pe-BAh">
-                                        <rect key="frame" x="20" y="10" width="295" height="15"/>
-                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L95-J6-flG">
-                                        <rect key="frame" x="20" y="35" width="295" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="2kH-qR-BHf"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19x-p9-43Q">
-                                        <rect key="frame" x="20" y="107" width="295" height="45"/>
-                                        <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="gBW-Lg-Gah"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
-                                        <state key="normal" title="Continue">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="NC7-vu-ZwD" kind="show" id="P48-s8-poA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uXo-V9-fOn">
-                                        <rect key="frame" x="20" y="162" width="295" height="45"/>
-                                        <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Ls2-Ui-T0H"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
-                                        <state key="normal" title="Go Back">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="Tae-j8-n0g" kind="show" id="e5Y-bD-t5N"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="L95-J6-flG" firstAttribute="leading" secondItem="ghT-ho-i1i" secondAttribute="leading" constant="20" id="18c-2J-7va"/>
-                                    <constraint firstItem="k0l-DY-BQ7" firstAttribute="leading" secondItem="ghT-ho-i1i" secondAttribute="leading" constant="20" id="1HS-4K-9rI"/>
-                                    <constraint firstItem="k0l-DY-BQ7" firstAttribute="top" secondItem="yFg-Yf-Nvt" secondAttribute="bottom" constant="-50" id="1JN-Y7-3mc"/>
-                                    <constraint firstItem="SVq-pe-BAh" firstAttribute="top" secondItem="ghT-ho-i1i" secondAttribute="top" constant="10" id="1OS-lC-YbB"/>
-                                    <constraint firstItem="SVq-pe-BAh" firstAttribute="leading" secondItem="ghT-ho-i1i" secondAttribute="leading" constant="20" id="3Ey-SM-hS7"/>
-                                    <constraint firstItem="L95-J6-flG" firstAttribute="top" secondItem="SVq-pe-BAh" secondAttribute="bottom" constant="10" id="AEw-WE-oGf"/>
-                                    <constraint firstAttribute="trailing" secondItem="k0l-DY-BQ7" secondAttribute="trailing" constant="20" id="AKq-xx-z7A"/>
-                                    <constraint firstItem="uXo-V9-fOn" firstAttribute="top" secondItem="19x-p9-43Q" secondAttribute="bottom" constant="10" id="AVO-ga-ge7"/>
-                                    <constraint firstItem="uXo-V9-fOn" firstAttribute="leading" secondItem="ghT-ho-i1i" secondAttribute="leading" constant="20" id="GD2-sC-uux"/>
-                                    <constraint firstAttribute="trailing" secondItem="L95-J6-flG" secondAttribute="trailing" constant="20" id="WtJ-Ui-CeU"/>
-                                    <constraint firstItem="k0l-DY-BQ7" firstAttribute="top" secondItem="bdz-5A-gDg" secondAttribute="bottom" constant="-46" id="XGX-Yh-s8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="19x-p9-43Q" secondAttribute="trailing" constant="20" id="YWc-oV-Uy5"/>
-                                    <constraint firstAttribute="height" constant="240" id="al5-Su-fZz"/>
-                                    <constraint firstItem="k0l-DY-BQ7" firstAttribute="leading" secondItem="yFg-Yf-Nvt" secondAttribute="trailing" constant="-50" id="esP-Qf-UlS"/>
-                                    <constraint firstItem="19x-p9-43Q" firstAttribute="top" secondItem="k0l-DY-BQ7" secondAttribute="bottom" constant="19" id="f1U-uA-cKR"/>
-                                    <constraint firstItem="k0l-DY-BQ7" firstAttribute="top" secondItem="ghT-ho-i1i" secondAttribute="top" constant="8" id="nWL-Ou-eVD"/>
-                                    <constraint firstAttribute="trailing" secondItem="SVq-pe-BAh" secondAttribute="trailing" constant="20" id="qw1-kE-df3"/>
-                                    <constraint firstItem="bdz-5A-gDg" firstAttribute="leading" secondItem="k0l-DY-BQ7" secondAttribute="trailing" constant="-225" id="rba-qS-1WS"/>
-                                    <constraint firstItem="bdz-5A-gDg" firstAttribute="leading" secondItem="yFg-Yf-Nvt" secondAttribute="trailing" constant="20" id="swA-Ua-MaA"/>
-                                    <constraint firstItem="19x-p9-43Q" firstAttribute="leading" secondItem="ghT-ho-i1i" secondAttribute="leading" constant="20" id="uSr-Cu-4gZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="uXo-V9-fOn" secondAttribute="trailing" constant="20" id="xDW-Nq-dHS"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fB-W8-PML">
-                                <rect key="frame" x="5" y="28" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="cNn-ZG-cgy"/>
-                                    <constraint firstAttribute="width" constant="40" id="eJr-Pk-sfV"/>
-                                </constraints>
-                                <state key="normal" image="leftArrow"/>
-                                <connections>
-                                    <segue destination="Tae-j8-n0g" kind="show" id="2vk-nT-0hy"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="top" secondItem="2fB-W8-PML" secondAttribute="bottom" constant="-48" id="3ua-ad-h2K"/>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="top" secondItem="cYE-ll-OdX" secondAttribute="top" id="6ui-es-lY3"/>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="leading" secondItem="2fB-W8-PML" secondAttribute="trailing" constant="-45" id="AZZ-Zg-Uvr"/>
-                            <constraint firstItem="ghT-ho-i1i" firstAttribute="top" secondItem="ykf-tZ-E9F" secondAttribute="bottom" constant="22" id="EnZ-ME-Rz8"/>
-                            <constraint firstItem="cYE-ll-OdX" firstAttribute="trailing" secondItem="ykf-tZ-E9F" secondAttribute="trailing" constant="20" id="K8x-FA-AO7"/>
-                            <constraint firstItem="cYE-ll-OdX" firstAttribute="trailing" secondItem="ghT-ho-i1i" secondAttribute="trailing" constant="20" id="R2z-X3-hkj"/>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="bottom" secondItem="cYE-ll-OdX" secondAttribute="bottom" id="S3t-re-Te3"/>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="leading" secondItem="cYE-ll-OdX" secondAttribute="leading" id="gpg-fW-hcp"/>
-                            <constraint firstItem="ghT-ho-i1i" firstAttribute="leading" secondItem="cYE-ll-OdX" secondAttribute="leading" constant="20" id="nk2-iG-LGp"/>
-                            <constraint firstItem="ykf-tZ-E9F" firstAttribute="top" secondItem="cYE-ll-OdX" secondAttribute="top" constant="56" id="yZI-zC-2Cd"/>
-                            <constraint firstItem="ykf-tZ-E9F" firstAttribute="leading" secondItem="cYE-ll-OdX" secondAttribute="leading" constant="20" id="yig-1L-L3v"/>
-                            <constraint firstItem="nf9-Ko-rN8" firstAttribute="trailing" secondItem="cYE-ll-OdX" secondAttribute="trailing" id="zSC-kq-910"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cYE-ll-OdX"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1A7-wr-dJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9" y="-313"/>
+            <point key="canvasLocation" x="-905" y="-236"/>
         </scene>
         <!--HomeVC-->
         <scene sceneID="v3G-9u-2CM">
@@ -1098,204 +968,14 @@
                     <view key="view" contentMode="scaleToFill" id="KDO-FI-edj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOA-qy-ZMd">
-                                <rect key="frame" x="0.0" y="20" width="375" height="580"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aMm-fk-0rK">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="morning_bg_" translatesAutoresizingMaskIntoConstraints="NO" id="Yze-Z0-2kw">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="600" id="FVg-je-Cv2"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nf4-bY-9tf">
-                                                <rect key="frame" x="8" y="7" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Woj-zy-iuU"/>
-                                                    <constraint firstAttribute="width" constant="40" id="gQg-S3-TxI"/>
-                                                </constraints>
-                                                <state key="normal" image="leftArrow"/>
-                                                <connections>
-                                                    <segue destination="87t-sE-e5l" kind="show" id="aQQ-rC-mCe"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset your password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-E6-sie">
-                                                <rect key="frame" x="20" y="56" width="335" height="31"/>
-                                                <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="36"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oix-dy-pSS">
-                                                <rect key="frame" x="20" y="113" width="335" height="430"/>
-                                                <subviews>
-                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error_dialog_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dme-ws-hQG">
-                                                        <rect key="frame" x="20" y="18" width="295" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="MoR-Ow-sbK"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="Wej-fr-X2N">
-                                                        <rect key="frame" x="33" y="32" width="30" height="30"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="Cpm-Dn-qMx"/>
-                                                            <constraint firstAttribute="width" constant="30" id="GNp-D0-Q3I"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhS-mT-MMh">
-                                                        <rect key="frame" x="71" y="37" width="128" height="15"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your recovery code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcD-Qp-fg1">
-                                                        <rect key="frame" x="20" y="20" width="295" height="15"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5q-ar-5gR" userLabel="otpPin">
-                                                        <rect key="frame" x="20" y="43" width="295" height="45"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="6zQ-hu-TX5"/>
-                                                        </constraints>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter new password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hca-li-F7i">
-                                                        <rect key="frame" x="20" y="103" width="295" height="15"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVW-zs-tqo">
-                                                        <rect key="frame" x="20" y="128" width="295" height="45"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="ZP0-Fn-etF"/>
-                                                        </constraints>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm new password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGe-Eq-m0Y">
-                                                        <rect key="frame" x="20" y="197" width="295" height="15"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTo-di-Xad">
-                                                        <rect key="frame" x="20" y="222" width="295" height="45"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="wl1-AS-k7o"/>
-                                                        </constraints>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4a-em-Sma">
-                                                        <rect key="frame" x="20" y="294" width="295" height="45"/>
-                                                        <color key="backgroundColor" red="0.29019607843137252" green="0.30196078431372547" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="KHu-7U-XuU"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
-                                                        <state key="normal" title="Continue">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3P-CI-SHW">
-                                                        <rect key="frame" x="20" y="349" width="295" height="45"/>
-                                                        <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="DfZ-ai-3ud"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
-                                                        <state key="normal" title="Go Back">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="c4a-em-Sma" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="6Ae-le-7T7"/>
-                                                    <constraint firstItem="IhS-mT-MMh" firstAttribute="top" secondItem="Oix-dy-pSS" secondAttribute="top" constant="37" id="6X2-8J-q1W"/>
-                                                    <constraint firstItem="dme-ws-hQG" firstAttribute="top" secondItem="Oix-dy-pSS" secondAttribute="top" constant="18" id="6k1-5g-gYQ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="k5q-ar-5gR" secondAttribute="trailing" constant="20" id="6o4-xx-bTz"/>
-                                                    <constraint firstAttribute="trailing" secondItem="kcD-Qp-fg1" secondAttribute="trailing" constant="20" id="71Y-iT-B4W"/>
-                                                    <constraint firstItem="dme-ws-hQG" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="7sO-Sw-2ja"/>
-                                                    <constraint firstAttribute="trailing" secondItem="xVW-zs-tqo" secondAttribute="trailing" constant="20" id="8zK-9k-7ni"/>
-                                                    <constraint firstItem="Wej-fr-X2N" firstAttribute="top" secondItem="Oix-dy-pSS" secondAttribute="top" constant="32" id="DLT-rZ-Wmz"/>
-                                                    <constraint firstItem="k5q-ar-5gR" firstAttribute="top" secondItem="kcD-Qp-fg1" secondAttribute="bottom" constant="8" id="Gvq-FO-RNL"/>
-                                                    <constraint firstItem="kTo-di-Xad" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="GxP-g8-XQa"/>
-                                                    <constraint firstAttribute="height" constant="430" id="Ipy-zi-8ae"/>
-                                                    <constraint firstItem="hca-li-F7i" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="Jjl-wa-g2Q"/>
-                                                    <constraint firstItem="kTo-di-Xad" firstAttribute="top" secondItem="wGe-Eq-m0Y" secondAttribute="bottom" constant="10" id="LTD-5F-VWy"/>
-                                                    <constraint firstItem="wGe-Eq-m0Y" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="Pvx-cJ-dx1"/>
-                                                    <constraint firstAttribute="trailing" secondItem="hca-li-F7i" secondAttribute="trailing" constant="20" id="VD1-eE-leZ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="kTo-di-Xad" secondAttribute="trailing" constant="20" id="WFs-ge-9vR"/>
-                                                    <constraint firstItem="l3P-CI-SHW" firstAttribute="top" secondItem="c4a-em-Sma" secondAttribute="bottom" constant="10" id="eim-UK-Bop"/>
-                                                    <constraint firstItem="k5q-ar-5gR" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="ekA-D0-UB4"/>
-                                                    <constraint firstAttribute="trailing" secondItem="c4a-em-Sma" secondAttribute="trailing" constant="20" id="eq2-vX-LHG"/>
-                                                    <constraint firstItem="wGe-Eq-m0Y" firstAttribute="top" secondItem="xVW-zs-tqo" secondAttribute="bottom" constant="24" id="ern-jF-VqI"/>
-                                                    <constraint firstItem="xVW-zs-tqo" firstAttribute="top" secondItem="hca-li-F7i" secondAttribute="bottom" constant="10" id="gEe-g2-gpq"/>
-                                                    <constraint firstAttribute="trailing" secondItem="dme-ws-hQG" secondAttribute="trailing" constant="20" id="hXE-Rr-YKu"/>
-                                                    <constraint firstItem="hca-li-F7i" firstAttribute="top" secondItem="k5q-ar-5gR" secondAttribute="bottom" constant="15" id="iwa-wq-iy4"/>
-                                                    <constraint firstAttribute="trailing" secondItem="wGe-Eq-m0Y" secondAttribute="trailing" constant="20" id="nqe-d8-4y3"/>
-                                                    <constraint firstAttribute="trailing" secondItem="l3P-CI-SHW" secondAttribute="trailing" constant="20" id="p5P-Cu-uyl"/>
-                                                    <constraint firstItem="IhS-mT-MMh" firstAttribute="leading" secondItem="Wej-fr-X2N" secondAttribute="trailing" constant="8" id="pw7-q1-Shx"/>
-                                                    <constraint firstItem="Wej-fr-X2N" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="33" id="qx8-50-KWd"/>
-                                                    <constraint firstItem="l3P-CI-SHW" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="s1f-NK-mJj"/>
-                                                    <constraint firstItem="kcD-Qp-fg1" firstAttribute="top" secondItem="Oix-dy-pSS" secondAttribute="top" constant="20" id="srn-PO-TDk"/>
-                                                    <constraint firstItem="kcD-Qp-fg1" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="vcc-MW-oXv"/>
-                                                    <constraint firstItem="c4a-em-Sma" firstAttribute="top" secondItem="kTo-di-Xad" secondAttribute="bottom" constant="27" id="xVr-fp-ZJr"/>
-                                                    <constraint firstItem="xVW-zs-tqo" firstAttribute="leading" secondItem="Oix-dy-pSS" secondAttribute="leading" constant="20" id="yMP-pg-6su"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="Oix-dy-pSS" firstAttribute="top" secondItem="M4Q-E6-sie" secondAttribute="bottom" constant="26" id="9HG-42-OGI"/>
-                                            <constraint firstItem="M4Q-E6-sie" firstAttribute="leading" secondItem="aMm-fk-0rK" secondAttribute="leading" constant="20" id="DKY-bx-cLG"/>
-                                            <constraint firstAttribute="bottom" secondItem="Yze-Z0-2kw" secondAttribute="bottom" id="Ghs-w3-kJ5"/>
-                                            <constraint firstAttribute="height" constant="600" id="IBs-Bt-bob"/>
-                                            <constraint firstAttribute="trailing" secondItem="Yze-Z0-2kw" secondAttribute="trailing" id="IOH-Ad-Upg"/>
-                                            <constraint firstItem="nf4-bY-9tf" firstAttribute="leading" secondItem="aMm-fk-0rK" secondAttribute="leading" constant="8" id="Kxp-1p-0q3"/>
-                                            <constraint firstAttribute="trailing" secondItem="M4Q-E6-sie" secondAttribute="trailing" constant="20" id="LyQ-tr-AEo"/>
-                                            <constraint firstItem="Oix-dy-pSS" firstAttribute="leading" secondItem="aMm-fk-0rK" secondAttribute="leading" constant="20" id="OOi-Y4-8Hp"/>
-                                            <constraint firstItem="nf4-bY-9tf" firstAttribute="top" secondItem="aMm-fk-0rK" secondAttribute="top" constant="7" id="XL2-4g-ccX"/>
-                                            <constraint firstAttribute="trailing" secondItem="Oix-dy-pSS" secondAttribute="trailing" constant="20" id="Z1P-jV-GAn"/>
-                                            <constraint firstItem="Yze-Z0-2kw" firstAttribute="top" secondItem="aMm-fk-0rK" secondAttribute="top" id="dea-yd-hWD"/>
-                                            <constraint firstItem="Yze-Z0-2kw" firstAttribute="leading" secondItem="aMm-fk-0rK" secondAttribute="leading" id="hu1-FY-1uQ"/>
-                                            <constraint firstItem="M4Q-E6-sie" firstAttribute="top" secondItem="aMm-fk-0rK" secondAttribute="top" constant="56" id="v3d-fO-0pe"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="aMm-fk-0rK" secondAttribute="trailing" id="CFd-Uf-Ctr"/>
-                                    <constraint firstItem="aMm-fk-0rK" firstAttribute="top" secondItem="JOA-qy-ZMd" secondAttribute="top" id="PhZ-Vz-hGj"/>
-                                    <constraint firstItem="aMm-fk-0rK" firstAttribute="leading" secondItem="JOA-qy-ZMd" secondAttribute="leading" id="qWy-Qf-oYb"/>
-                                    <constraint firstAttribute="bottom" secondItem="aMm-fk-0rK" secondAttribute="bottom" id="yhE-Cz-GgG"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="JOA-qy-ZMd" firstAttribute="leading" secondItem="MGQ-uG-gdz" secondAttribute="leading" id="Lqz-VB-p1y"/>
-                            <constraint firstItem="aMm-fk-0rK" firstAttribute="width" secondItem="KDO-FI-edj" secondAttribute="width" id="OpF-QO-BaS"/>
-                            <constraint firstItem="JOA-qy-ZMd" firstAttribute="bottom" secondItem="MGQ-uG-gdz" secondAttribute="bottom" id="ZBT-4S-K5d"/>
-                            <constraint firstItem="JOA-qy-ZMd" firstAttribute="trailing" secondItem="MGQ-uG-gdz" secondAttribute="trailing" id="ZDN-q2-ufW"/>
-                            <constraint firstItem="JOA-qy-ZMd" firstAttribute="top" secondItem="MGQ-uG-gdz" secondAttribute="top" id="wDg-pj-kG4"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MGQ-uG-gdz"/>
                     </view>
                     <size key="freeformSize" width="375" height="600"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aah-Oy-8rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="-344"/>
+            <point key="canvasLocation" x="-278" y="-266"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="oZV-if-joI">
@@ -1421,9 +1101,6 @@
                                                         <state key="normal" title="Forgotten Password">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <connections>
-                                                            <segue destination="87t-sE-e5l" kind="show" id="NbU-BM-Hrw"/>
-                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have a My Vodafone account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwa-o5-MhH">
                                                         <rect key="frame" x="20" y="442" width="295" height="43"/>
@@ -1562,12 +1239,10 @@
         <image name="ic_settings" width="100" height="100"/>
         <image name="ic_top_up" width="58" height="58"/>
         <image name="info" width="36" height="32"/>
-        <image name="leftArrow" width="50" height="50"/>
         <image name="morning_bg_" width="375" height="845"/>
         <image name="new_close" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aQQ-rC-mCe"/>
-        <segue reference="e5Y-bD-t5N"/>
+        <segue reference="hDS-5q-rs3"/>
     </inferredMetricsTieBreakers>
 </document>
