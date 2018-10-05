@@ -309,7 +309,7 @@ class userServiceDetails: baseViewControllerM {
                                             if let array = myNextArray {
                                                 for obj in array {
                                                     
-                                                    if let dict = obj as? NSDictionary{
+                                                    if let dict = obj as? NSDictionary{ 
                                                        
                                                         let actualValue = dict.value(forKey: "ActualValue") as! String
                                                         let actualUnit = dict.value(forKey: "ActualUnit") as! String
