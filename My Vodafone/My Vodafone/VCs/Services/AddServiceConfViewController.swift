@@ -203,12 +203,7 @@ class AddServiceConfViewController: baseViewControllerM {
         }else{
             // check for internet connection
             if !CheckInternet.Connection(){
-                let storyboard = UIStoryboard(name: "Support", bundle: nil)
-                let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController")
-                self.addChildViewController(moveTo)
-                moveTo.view.frame = self.view.frame
-                self.view.addSubview(moveTo.view)
-                moveTo.didMove(toParentViewController: self)
+                displayNoInternet()
             }else{
                 start_activity_loader()
                 let postParameters: Dictionary<String, Any> = [

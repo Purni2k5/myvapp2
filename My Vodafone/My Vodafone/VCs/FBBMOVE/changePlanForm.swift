@@ -320,13 +320,7 @@ class changePlanForm: baseViewControllerM {
     
     @objc func sendRequest(){
         if !CheckInternet.Connection(){
-            let storyboard = UIStoryboard(name: "Support", bundle: nil)
-            let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
-            
-            self.addChildViewController(moveTo)
-            moveTo.view.frame = self.view.frame
-            self.view.addSubview(moveTo.view)
-            moveTo.didMove(toParentViewController: self)
+            displayNoInternet()
         }else{
             start_activity_loader()
             let newPlan = txtNewPlan.text

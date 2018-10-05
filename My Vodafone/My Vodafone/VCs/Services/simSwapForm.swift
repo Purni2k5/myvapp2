@@ -447,67 +447,72 @@ class simSwapForm: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSo
         let simCard1 = txtSimCard1.text
         let simCard2 = txtSimCard2.text
         
-        start_activity_loader()
-        
-        let postParameters: Dictionary<String, Any> = [
-            "action":"simSwap",
-            "firstname":fName!,
-            "lastname":lName!,
-            "idtype":String(idTypeSel!),
-            "idnumber":idNo!,
-            "dob":dob!,
-            "sim_number":simCard1!,
-            "alternatenumber":altNo!,
-            "msisdn":msisdn!,
-            "os":getAppVersion()
-        ]
-        
-        let async_call = URL(string: String.userURL)
-        let request = NSMutableURLRequest(url: async_call!)
-        request.httpMethod = "POST"
-        
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-            request.httpBody = postData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+        if !CheckInternet.Connection(){
+            displayNoInternet()
+        }else{
+            start_activity_loader()
             
-            let task = URLSession.shared.dataTask(with: request as URLRequest){
-                data, response, error in
-                if error != nil {
-                    print("error is:: \(error!.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self.stop_activity_loader()
-                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
-                    }
-                    return;
-                }
+            let postParameters: Dictionary<String, Any> = [
+                "action":"simSwap",
+                "firstname":fName!,
+                "lastname":lName!,
+                "idtype":String(idTypeSel!),
+                "idnumber":idNo!,
+                "dob":dob!,
+                "sim_number":simCard1!,
+                "alternatenumber":altNo!,
+                "msisdn":msisdn!,
+                "os":getAppVersion()
+            ]
+            
+            let async_call = URL(string: String.userURL)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
+            
+            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                do {
-                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = myJSON {
-                        var responseCode: Int?
-                        responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is:: \(error!.localizedDescription)")
                         DispatchQueue.main.async {
-                            if responseCode == 1 || responseCode == 2 {
-                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage!)
-                            }else{
-                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage!)
-                            }
+                            self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
                         }
+                        return;
                     }
                     
-                }catch{
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry request not processed try again later")
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseCode: Int?
+                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            
+                            DispatchQueue.main.async {
+                                if responseCode == 1 || responseCode == 2 {
+                                    let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage!)
+                                }else{
+                                    let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage!)
+                                }
+                            }
+                        }
+                        
+                    }catch{
+                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry request not processed try again later")
+                        }
                     }
                 }
+                task.resume()
             }
-            task.resume()
         }
+        
     }
     
     @objc func checkInputs(){

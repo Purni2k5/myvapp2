@@ -340,80 +340,90 @@ class chooseDefaultService: baseViewControllerM {
     }
     
     @objc func setDefaultService(){
-        start_activity_loader()
-        let selService = txtSelectedService.text!
-        let async_call = URL(string: String.userSVC)
-        let request = NSMutableURLRequest(url: async_call!)
-        request.httpMethod = "POST"
-        let postParameters: Dictionary<String, Any> = [
-            "action":"setDefaultService",
-            "username":username!,
-            "serviceID":selService,
-            "os":getDeviceOS()
-        ]
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-            request.httpBody = postData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let task = URLSession.shared.dataTask(with: request as URLRequest){
-                data, response, error in
-                if error != nil {
-                    DispatchQueue.main.async {
-                        print("error is:: \(error!.localizedDescription)")
-                        self.stop_activity_loader()
-                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
-                    }
-                    return;
-                }
-                do {
-                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = myJSON {
-                        var responseCode: Int?
-                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+        if !CheckInternet.Connection(){
+            let storyboard = UIStoryboard(name: "Support", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController")
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            self.view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }else{
+            start_activity_loader()
+            let selService = txtSelectedService.text!
+            let async_call = URL(string: String.userSVC)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
+            let postParameters: Dictionary<String, Any> = [
+                "action":"setDefaultService",
+                "username":username!,
+                "serviceID":selService,
+                "os":getDeviceOS()
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
                         DispatchQueue.main.async {
-                            if responseCode == 0 {
-                                let responseData = parseJSON["RESPONSEDATA"] as? NSDictionary
-                                if let resMssg = responseData {
-                                    let dService = resMssg["DefaultService"] as? NSDictionary
-                                    if let selServiceDet = dService {
-                                        let ID = selServiceDet["ID"] as! String
-                                        var primaryID = selServiceDet["primaryID"] as! String
-                                        self.preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
-                                        self.preference.set(ID, forKey: UserDefaultsKeys.DefaultService.rawValue)
-                                        
-                                        let defaultNum = primaryID.dropFirst(3)
-                                        primaryID = "0\(defaultNum)"
-                                        self.preference.set(primaryID, forKey: UserDefaultsKeys.defaultMSISDN.rawValue)
-                                        
-                                        //go to home screen
-                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                        self.present(moveTo, animated: true, completion: nil)
-                                    }
-                                }
-                                
-                                
-                            }else{
-                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as? String
-                                if let mssg = responseMessage {
-                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: mssg)
-                                }
-                                
-                            }
+                            print("error is:: \(error!.localizedDescription)")
                             self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                        }
+                        return;
+                    }
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseCode: Int?
+                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            DispatchQueue.main.async {
+                                if responseCode == 0 {
+                                    let responseData = parseJSON["RESPONSEDATA"] as? NSDictionary
+                                    if let resMssg = responseData {
+                                        let dService = resMssg["DefaultService"] as? NSDictionary
+                                        if let selServiceDet = dService {
+                                            let ID = selServiceDet["ID"] as! String
+                                            var primaryID = selServiceDet["primaryID"] as! String
+                                            self.preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
+                                            self.preference.set(ID, forKey: UserDefaultsKeys.DefaultService.rawValue)
+                                            
+                                            let defaultNum = primaryID.dropFirst(3)
+                                            primaryID = "0\(defaultNum)"
+                                            self.preference.set(primaryID, forKey: UserDefaultsKeys.defaultMSISDN.rawValue)
+                                            
+                                            //go to home screen
+                                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                            let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                            self.present(moveTo, animated: true, completion: nil)
+                                        }
+                                    }
+                                    
+                                    
+                                }else{
+                                    let responseMessage = parseJSON["RESPONSEMESSAGE"] as? String
+                                    if let mssg = responseMessage {
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: mssg)
+                                    }
+                                    
+                                }
+                                self.stop_activity_loader()
+                            }
+                        }
+                    }catch{
+                        DispatchQueue.main.async {
+                            print("catch is:: \(error.localizedDescription)")
+                            self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
                         }
                     }
-                }catch{
-                    DispatchQueue.main.async {
-                        print("catch is:: \(error.localizedDescription)")
-                        self.stop_activity_loader()
-                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)
-                    }
                 }
+                task.resume()
             }
-            task.resume()
         }
+        
     }
     
     @objc func changeService(_ btn: UIButton){

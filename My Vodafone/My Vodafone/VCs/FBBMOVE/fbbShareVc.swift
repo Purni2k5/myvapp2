@@ -523,13 +523,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
     @objc func moveData(){
         //Check for Internet
         if !CheckInternet.Connection(){
-            let storyboard = UIStoryboard(name: "Support", bundle: nil)
-            let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController") as! NointernetViewController
-            
-            self.addChildViewController(moveTo)
-            moveTo.view.frame = self.view.frame
-            self.view.addSubview(moveTo.view)
-            moveTo.didMove(toParentViewController: self)
+            displayNoInternet()
         }else{
             let dataToMove = txtDataToMove.text
             var transferChannel = txtTransfer.text
