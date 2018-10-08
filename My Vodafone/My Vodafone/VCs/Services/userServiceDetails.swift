@@ -13,6 +13,10 @@ class userServiceDetails: baseViewControllerM {
     var msisdn: String?
     var displayName: String?
     var username: String?
+    var expirationDuration: String?
+    var promotion: String?
+    var expirationDate: String?
+    var promotionID: String?
     
     //closure for scroll view
     let scrollView: UIScrollView = {
@@ -248,13 +252,16 @@ class userServiceDetails: baseViewControllerM {
 //                                print(parseJSON)
                                 if let bundleDetails = parseJSON["PROMOTIONS"] as! NSArray? {
                                     var cardViewTop:CGFloat = 30
+                                    
+                                    
                                     for bundleDetail in bundleDetails {
 //                                        print("Bundle Detail \(bundleDetail)")
                                         
                                         if let dict = bundleDetail as? NSDictionary {
-                                            let promotion = dict.value(forKey: "Promotion") as! String?
-                                            let expirationDuration = dict.value(forKey: "ExpirationDuration") as! String?
-                                            
+                                            self.promotion = dict.value(forKey: "Promotion") as! String?
+                                            self.expirationDuration = dict.value(forKey: "ExpirationDuration") as! String?
+                                            self.expirationDate = dict.value(forKey: "ExpirationDate") as! String?
+                                            self.promotionID = dict.value(forKey: "PromotionId") as! String?
                                             let cardView = UIView()
                                             self.scrollView.addSubview(cardView)
                                             cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -271,7 +278,7 @@ class userServiceDetails: baseViewControllerM {
                                             let lblPromotion = UILabel()
                                             cardView.addSubview(lblPromotion)
                                             lblPromotion.translatesAutoresizingMaskIntoConstraints = false
-                                            lblPromotion.text = promotion
+                                            lblPromotion.text = self.promotion
                                             lblPromotion.textColor = UIColor.black
                                             lblPromotion.font = UIFont(name: String.defaultFontR, size: 25)
                                             lblPromotion.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
@@ -283,7 +290,7 @@ class userServiceDetails: baseViewControllerM {
                                             let lblExpire = UILabel()
                                             cardView.addSubview(lblExpire)
                                             lblExpire.translatesAutoresizingMaskIntoConstraints = false
-                                            lblExpire.text = expirationDuration
+                                            lblExpire.text = self.expirationDuration
                                             lblExpire.textColor = UIColor.black
                                             lblExpire.font = UIFont(name: String.defaultFontR, size: 15)
                                             lblExpire.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
@@ -397,7 +404,7 @@ class userServiceDetails: baseViewControllerM {
                                                     }
                                                 }
                                                 
-                                                let lblButton = UIButton()
+                                                let lblButton = ButtonUnsubscribe()
                                                 cardView.addSubview(lblButton)
                                                 lblButton.translatesAutoresizingMaskIntoConstraints = false
                                                 lblButton.setTitle("Unsubscribe", for: .normal)
@@ -407,6 +414,11 @@ class userServiceDetails: baseViewControllerM {
                                                 lblButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
                                                 lblButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
                                                 lblButton.backgroundColor = UIColor.grayButton
+                                                lblButton.msisdn = self.msisdn
+                                                lblButton.plan = self.promotion
+                                                lblButton.expireData = self.expirationDate
+                                                lblButton.promotionID = self.promotionID
+                                                lblButton.addTarget(self, action: #selector(self.unsubscribe), for: .touchUpInside)
                                                 
                                                 var HeightCalc = array.count * 50;
                                                 HeightCalc = HeightCalc + 165
@@ -436,6 +448,22 @@ class userServiceDetails: baseViewControllerM {
             }
             task.resume()
         }
+    }
+    
+    @objc func unsubscribe(_btn: UIButton){
+//        guard let gestureVariables = _sender.view as? GesturesView else {return}
+        guard let variables = _btn as? ButtonUnsubscribe else { return }
+        let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "unsubscribeVc") as? unsubscribeVc else {return}
+        moveTo.msisdn = variables.msisdn
+        moveTo.plan = variables.plan
+        moveTo.promotionID = variables.promotionID
+        moveTo.expirationDate = variables.expireData
+        moveTo.modalPresentationCapturesStatusBarAppearance = true
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
 
 }
