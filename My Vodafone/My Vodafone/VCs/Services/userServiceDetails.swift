@@ -95,7 +95,7 @@ class userServiceDetails: baseViewControllerM {
         scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
-        scrollView.contentSize.height = 1500
+//        scrollView.contentSize.height = 1500
         
         scrollView.addSubview(topImage)
         topImage.image = UIImage(named: "bg2")
@@ -197,21 +197,19 @@ class userServiceDetails: baseViewControllerM {
         lblMSISDN.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 30).isActive = true
         lblMSISDN.topAnchor.constraint(equalTo: lblDisplayName.bottomAnchor, constant: 5).isActive = true
         lblMSISDN.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -30).isActive = true
-    }
-    
-    func createCard(){
-        let cardView = UIView()
-        scrollView.addSubview(cardView)
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        cardView.backgroundColor = UIColor.white
-        cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        cardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
-        cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        cardView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        cardView.layer.cornerRadius = 2
-        cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        cardView.layer.shadowColor = UIColor.black.cgColor
-        cardView.layer.shadowOpacity = 0.2
+        
+        let btnBrowseAll = UIButton()
+        scrollView.addSubview(btnBrowseAll)
+        btnBrowseAll.translatesAutoresizingMaskIntoConstraints = false
+        btnBrowseAll.setTitle("Browse All", for: .normal)
+        btnBrowseAll.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
+        btnBrowseAll.setTitleColor(UIColor.white, for: .normal)
+        btnBrowseAll.backgroundColor = UIColor.grayButton.withAlphaComponent(0.90)
+        btnBrowseAll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        btnBrowseAll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        btnBrowseAll.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnBrowseAll.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
+        btnBrowseAll.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
     }
     
     func getAccountBalance(){
@@ -256,7 +254,6 @@ class userServiceDetails: baseViewControllerM {
                                         if let dict = bundleDetail as? NSDictionary {
                                             let promotion = dict.value(forKey: "Promotion") as! String?
                                             let expirationDuration = dict.value(forKey: "ExpirationDuration") as! String?
-//                                            self.createCard()
                                             
                                             let cardView = UIView()
                                             self.scrollView.addSubview(cardView)
@@ -306,6 +303,8 @@ class userServiceDetails: baseViewControllerM {
                                             
                                             let myNextArray = dict.value(forKey: "BundleDetails") as? NSArray
                                             
+                                            var bucketSep: CGFloat = 20
+                                            
                                             if let array = myNextArray {
                                                 for obj in array {
                                                     
@@ -314,26 +313,107 @@ class userServiceDetails: baseViewControllerM {
                                                         let actualValue = dict.value(forKey: "ActualValue") as! String
                                                         let actualUnit = dict.value(forKey: "ActualUnit") as! String
                                                         
-                                                        let lblActualValue = UILabel()
-                                                        cardView.addSubview(lblActualValue)
-                                                        lblActualValue.translatesAutoresizingMaskIntoConstraints = false
-                                                        lblActualValue.text = actualValue
-                                                        lblActualValue.textColor = UIColor.black
-                                                        lblActualValue.font = UIFont(name: String.defaultFontR, size: 16)
-                                                        lblActualValue.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
-                                                        lblActualValue.topAnchor.constraint(equalTo: lblHeaderSep.bottomAnchor, constant: 40).isActive = true
-                                                        lblActualValue.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
-                                                        lblActualValue.numberOfLines = 0
-                                                        lblActualValue.lineBreakMode = .byWordWrapping
+                                                        let bucketValue = dict.value(forKey: "BucketValue") as! String
+                                                        let bucketUnit = dict.value(forKey: "BucketUnit") as! String
+                                                        
+                                                        let percentageUsed = dict.value(forKey: "PercentageUsed") as! String
+                                                        
+                                                        let lblActual = UILabel()
+                                                        cardView.addSubview(lblActual)
+                                                        lblActual.translatesAutoresizingMaskIntoConstraints = false
+                                                        if bucketValue > actualValue {
+                                                            lblActual.text = bucketValue + bucketUnit + " remaining"
+                                                        }
+                                                        else{
+                                                            lblActual.text = actualValue + actualUnit
+                                                        }
+                                                        
+                                                        lblActual.textColor = UIColor.black
+                                                        lblActual.font = UIFont(name: String.defaultFontR, size: 15)
+                                                        lblActual.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+                                                        lblActual.topAnchor.constraint(equalTo: lblHeaderSep.bottomAnchor, constant: bucketSep).isActive = true
+                                                        lblActual.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
+                                                        lblActual.numberOfLines = 0
+                                                        lblActual.lineBreakMode = .byWordWrapping
+                                                        
+                                                        /*let center = cardView.center
+                                                        //track layer
+                                                        let trackLayer = CAShapeLayer()
+                                                        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 *
+                                                            CGFloat.pi, clockwise: true)
+                                                        trackLayer.path = circularPath.cgPath
+                                                        trackLayer.strokeColor = UIColor.gray.cgColor
+                                                        trackLayer.strokeEnd = 1
+                                                        trackLayer.lineCap = kCALineCapRound
+                                                        trackLayer.fillColor = UIColor.clear.cgColor
+                                                        trackLayer.lineWidth = 5
+                                                        cardView.layer.addSublayer(trackLayer)
+                                                        
+                                                        //progress Layer
+                                                        let shapeLayer = CAShapeLayer()
+                                                        
+                                                        shapeLayer.path = circularPath.cgPath
+                                                        shapeLayer.strokeColor = UIColor.vodaIconColour.cgColor
+//                                                        NumberFormatter().number(from: percentageUsed) as! CGFloat
+                                                        shapeLayer.strokeEnd = 0.6
+                                                        shapeLayer.lineCap = kCALineCapRound
+                                                        shapeLayer.fillColor = UIColor.clear.cgColor
+                                                        shapeLayer.lineWidth = 5
+                                                        cardView.layer.addSublayer(shapeLayer)*/
+                                                        let lblPercentageused = UILabel()
+                                                        cardView.addSubview(lblPercentageused)
+                                                        lblPercentageused.translatesAutoresizingMaskIntoConstraints = false
+                                                        lblPercentageused.text = percentageUsed + "%"
+                                                        lblPercentageused.textColor = UIColor.black
+                                                        lblPercentageused.font = UIFont(name: String.defaultFontR, size: 15)
+                                                        //                                                        lblPercentageused.leadingAnchor.constraint(equalTo: lblBucket.trailingAnchor, constant: 10).isActive = true
+                                                        lblPercentageused.topAnchor.constraint(equalTo: lblHeaderSep.bottomAnchor, constant: bucketSep).isActive = true
+                                                        lblPercentageused.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
+                                                        lblPercentageused.numberOfLines = 0
+                                                        lblPercentageused.lineBreakMode = .byWordWrapping
+                                                        
+                                                        let lblBucket = UILabel()
+                                                        cardView.addSubview(lblBucket)
+                                                        lblBucket.translatesAutoresizingMaskIntoConstraints = false
+                                                        
+                                                        if bucketValue > actualValue {
+                                                            lblBucket.text = ""
+                                                        }
+                                                        else{
+                                                            lblBucket.text = bucketValue + bucketUnit
+                                                        }
+                                                        
+                                                        lblBucket.textColor = UIColor.black
+                                                        lblBucket.font = UIFont(name: String.defaultFontR, size: 15)
+//                                                        lblBucket.leadingAnchor.constraint(equalTo: lblActual.trailingAnchor, constant: 10).isActive = true
+                                                        lblBucket.topAnchor.constraint(equalTo: lblHeaderSep.bottomAnchor, constant: bucketSep).isActive = true
+                                                        lblBucket.trailingAnchor.constraint(equalTo: lblPercentageused.leadingAnchor, constant: -10).isActive = true
+                                                        lblBucket.numberOfLines = 0
+                                                        lblBucket.lineBreakMode = .byWordWrapping
+                                                        
+                                                        
+                                                        bucketSep = bucketSep + 50
+                                                        
                                                     }
                                                 }
-                                                if array.count >= 5 {
-                                                    cardView.heightAnchor.constraint(equalToConstant: 550).isActive = true
-                                                    cardViewTop = cardViewTop + 570
-                                                }else{
-                                                    cardView.heightAnchor.constraint(equalToConstant: 320).isActive = true
-                                                    cardViewTop = cardViewTop + 350
-                                                }
+                                                
+                                                let lblButton = UIButton()
+                                                cardView.addSubview(lblButton)
+                                                lblButton.translatesAutoresizingMaskIntoConstraints = false
+                                                lblButton.setTitle("Unsubscribe", for: .normal)
+                                                lblButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
+                                                lblButton.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+                                                lblButton.topAnchor.constraint(equalTo: lblHeaderSep.bottomAnchor, constant: bucketSep).isActive = true
+                                                lblButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
+                                                lblButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                                                lblButton.backgroundColor = UIColor.grayButton
+                                                
+                                                var HeightCalc = array.count * 50;
+                                                HeightCalc = HeightCalc + 165
+                                                cardView.heightAnchor.constraint(equalToConstant: CGFloat(HeightCalc)).isActive = true
+                                                cardViewTop = cardViewTop + CGFloat(HeightCalc) + 20
+                                                print("cardHeight \(cardViewTop)")
+                                                self.scrollView.contentSize.height = cardViewTop + 330 + 60
                                             }
                                             
                                         }
