@@ -177,7 +177,8 @@ class unsubscribeVc: baseViewControllerM {
                 let postParameters: Dictionary<String, Any> = [
                     "action":"bundleUnsubscription",
                     "msisdn":msisdn!,
-                    "bundleid":promoID
+                    "bundleid":promoID,
+                    "os":getDeviceOS()
                 ]
                 let request = NSMutableURLRequest(url: async_call!)
                 request.httpMethod = "POST"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -359,21 +359,6 @@
             </objects>
             <point key="canvasLocation" x="644" y="-1004"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="AMP-aH-fLL">
-            <objects>
-                <viewController id="87t-sE-e5l" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Cb3-FC-ivf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="cYE-ll-OdX"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1A7-wr-dJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-905" y="-236"/>
-        </scene>
         <!--HomeVC-->
         <scene sceneID="v3G-9u-2CM">
             <objects>
@@ -506,10 +491,10 @@
             </objects>
             <point key="canvasLocation" x="4679" y="-353"/>
         </scene>
-        <!--View Controller-->
+        <!--Reset Password-->
         <scene sceneID="eV6-2w-Jkp">
             <objects>
-                <viewController id="rAm-CN-h0m" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetPassword" id="rAm-CN-h0m" customClass="ResetPassword" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gfe-0X-jvP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -536,10 +521,10 @@
             </objects>
             <point key="canvasLocation" x="2145" y="-1020"/>
         </scene>
-        <!--View Controller-->
+        <!--Forgot Password-->
         <scene sceneID="l1d-M0-HPC">
             <objects>
-                <viewController id="tus-FO-RS5" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForgotPassword" id="tus-FO-RS5" customClass="ForgotPassword" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R61-Xc-poz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -960,22 +945,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhv-lx-Fxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1138" y="3982"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nrG-x9-iPi">
-            <objects>
-                <viewController id="NC7-vu-ZwD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KDO-FI-edj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="MGQ-uG-gdz"/>
-                    </view>
-                    <size key="freeformSize" width="375" height="600"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aah-Oy-8rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-278" y="-266"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="oZV-if-joI">
