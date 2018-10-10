@@ -20,7 +20,9 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
     @IBOutlet weak var lblMobileNum: UILabel!
     
     let txtHiddenPurchaseNum = UITextField()
+    let btnContacts = UIButton()
     var selectedAccount: String?
+    var defaultNumber: String?
     
     //contraints for labels
     @IBOutlet weak var lblMobileNoTopConstraint: NSLayoutConstraint!
@@ -46,7 +48,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
         changeColour()
         //get default number and load
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
-        let defaultNumber = preference.object(forKey: "defaultMSISDN") as! String
+        defaultNumber = preference.object(forKey: "defaultMSISDN") as! String
         username = UserData["Username"] as! String
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray{
@@ -94,6 +96,17 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
         txtHiddenPurchaseNum.heightAnchor.constraint(equalToConstant: 55).isActive = true
         txtHiddenPurchaseNum.borderStyle = .roundedRect
         txtHiddenPurchaseNum.isHidden = true
+        
+        view.addSubview(btnContacts)
+        btnContacts.translatesAutoresizingMaskIntoConstraints = false
+        let contactsImage = UIImage(named: "contactsHi")
+        btnContacts.setImage(contactsImage, for: .normal)
+        btnContacts.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        btnContacts.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        btnContacts.topAnchor.constraint(equalTo: lblMobileNum.bottomAnchor, constant: 1).isActive = true
+        btnContacts.leadingAnchor.constraint(equalTo: txtHiddenPurchaseNum.trailingAnchor, constant: 5).isActive = true
+        btnContacts.isHidden = true
+        btnContacts.addTarget(self, action: #selector(showContacts), for: .touchUpInside)
     }
     @IBAction func closeTopu(_ sender: Any) {
         self.view.removeFromSuperview()
@@ -196,10 +209,14 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
         let accountNumber = accArr![arrayPick] //Last
         txtHiddenPurchaseNum.text = accountNumber
         if selectedAccount == "Buy for other number"{
+            txtHiddenPurchaseNum.text = defaultNumber
+            txtHiddenPurchaseNum.becomeFirstResponder()
             txtHiddenPurchaseNum.isHidden = false
-            txtTopConstraint.constant = 65
+            btnContacts.isHidden = false
+            txtTopConstraint.constant = 70
         }else{
             txtHiddenPurchaseNum.isHidden = true
+            btnContacts.isHidden = true
             txtTopConstraint.constant = 5
         }
     }
@@ -224,6 +241,16 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
     //Function to dismiss keyboard
     @objc func dismissKeyBoard(){
         view.endEditing(true)
+    }
+    
+    @objc func showContacts(){
+        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "DisplayContacts")
+        //        present(moveTo!, animated: true, completion: nil)
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     
