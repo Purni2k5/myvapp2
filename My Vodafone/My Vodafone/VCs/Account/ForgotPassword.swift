@@ -254,6 +254,11 @@ class ForgotPassword: baseViewControllerM {
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
                             DispatchQueue.main.async {
                                 if responseCode == 0 {
+                                    if let responseData = parseJSON["RESPONSEDATA"] as? NSDictionary {
+                                        let responseInfo = responseData["Info"] as! NSDictionary
+                                        let responseUserName = responseInfo["Username"] as! String
+                                    
+                                    
                                     if let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String? {
                                         UIView.animate(withDuration: 0.5, delay: 3, options: .curveEaseIn, animations: {
                                             self.lblEnterUserTopConstraint?.constant = 80
@@ -263,7 +268,7 @@ class ForgotPassword: baseViewControllerM {
                                         }, completion: { (true) in
                                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                             guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ResetPassword") as? ResetPassword else {return}
-                                            moveTo.username = username
+                                            moveTo.username = responseUserName
                                             self.present(moveTo, animated: true, completion: nil)
                                         })
                                     }
@@ -273,6 +278,7 @@ class ForgotPassword: baseViewControllerM {
                                         self.lblResponseMessage.text = responseMessage
                                         self.errorDialog.isHidden = false
                                     }
+                                }
                                 }
                                 self.stop_activity_loader()
                             }

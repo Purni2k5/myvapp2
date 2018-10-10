@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hcy-7D-qJb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hcy-7D-qJb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -288,6 +288,13 @@
                                     <constraint firstAttribute="width" constant="50" id="MIL-Hx-jLl"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevDown" translatesAutoresizingMaskIntoConstraints="NO" id="rk5-tv-ODZ">
+                                <rect key="frame" x="275" y="176" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6RD-bs-4MU"/>
+                                    <constraint firstAttribute="width" constant="40" id="SXb-Rw-GA4"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.44337565099999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -295,6 +302,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="c9h-op-eDi" secondAttribute="trailing" constant="20" id="5be-xx-uCJ"/>
                             <constraint firstItem="6zZ-QU-jRm" firstAttribute="trailing" secondItem="9MG-VU-j97" secondAttribute="trailing" constant="2" id="77K-17-rYD"/>
                             <constraint firstItem="r9u-qG-8jX" firstAttribute="leading" secondItem="6zZ-QU-jRm" secondAttribute="leading" id="8aV-Fj-ZsT"/>
+                            <constraint firstItem="rk5-tv-ODZ" firstAttribute="top" secondItem="r9G-Xo-jZD" secondAttribute="bottom" constant="-48" id="Ccq-rf-nJf"/>
                             <constraint firstItem="r9u-qG-8jX" firstAttribute="trailing" secondItem="6zZ-QU-jRm" secondAttribute="trailing" id="E0v-Oy-CkM"/>
                             <constraint firstItem="6zZ-QU-jRm" firstAttribute="trailing" secondItem="3a3-6x-bLK" secondAttribute="trailing" constant="20" id="Fvk-ih-BaD"/>
                             <constraint firstItem="c9h-op-eDi" firstAttribute="top" secondItem="r9u-qG-8jX" secondAttribute="bottom" constant="20" id="Gjn-K2-Zst"/>
@@ -315,6 +323,7 @@
                             <constraint firstItem="6zZ-QU-jRm" firstAttribute="trailing" secondItem="dYP-aP-erF" secondAttribute="trailing" constant="50" id="eKt-gq-p1b"/>
                             <constraint firstItem="6zZ-QU-jRm" firstAttribute="trailing" secondItem="2Q1-30-kk5" secondAttribute="trailing" constant="50" id="gUT-Ho-qHd"/>
                             <constraint firstItem="XeC-6W-w4h" firstAttribute="leading" secondItem="6zZ-QU-jRm" secondAttribute="leading" constant="50" id="mdZ-9W-oiu"/>
+                            <constraint firstItem="rk5-tv-ODZ" firstAttribute="leading" secondItem="r9G-Xo-jZD" secondAttribute="trailing" constant="-50" id="opE-aJ-0P9"/>
                             <constraint firstItem="c9h-op-eDi" firstAttribute="leading" secondItem="6zZ-QU-jRm" secondAttribute="leading" constant="50" id="pgt-lQ-zEC"/>
                             <constraint firstItem="dYP-aP-erF" firstAttribute="leading" secondItem="6zZ-QU-jRm" secondAttribute="leading" constant="50" id="qak-aA-cKE"/>
                             <constraint firstItem="9MG-VU-j97" firstAttribute="top" secondItem="r9u-qG-8jX" secondAttribute="bottom" constant="22" id="xPK-U8-RTH"/>
@@ -374,6 +383,7 @@
     <resources>
         <image name="arrow" width="28" height="51"/>
         <image name="bg2" width="750" height="651"/>
+        <image name="chevDown" width="24" height="24"/>
         <image name="error_dialog_bg" width="568" height="117"/>
         <image name="info" width="36" height="32"/>
         <image name="leftArrow" width="50" height="50"/>

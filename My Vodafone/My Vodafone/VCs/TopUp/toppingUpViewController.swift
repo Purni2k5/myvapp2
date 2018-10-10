@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Contacts
+import ContactsUI
 
-class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
+class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource, CNContactPickerDelegate {
 
 //    let preference = UserDefaults.standard
     @IBOutlet weak var btnClose: UIButton!
@@ -244,13 +246,57 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
     }
     
     @objc func showContacts(){
-        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "DisplayContacts")
-        //        present(moveTo!, animated: true, completion: nil)
-        self.addChildViewController(moveTo)
-        moveTo.view.frame = self.view.frame
-        self.view.addSubview(moveTo.view)
-        moveTo.didMove(toParentViewController: self)
+        let entityType = CNEntityType.contacts
+        let authStatus = CNContactStore.authorizationStatus(for: entityType)
+        
+        if authStatus == CNAuthorizationStatus.notDetermined {
+            let contactStore = CNContactStore.init()
+            contactStore.requestAccess(for: entityType, completionHandler: { (success, nil) in
+                if success {
+                    self.openContacts()
+                }else{
+                    print("Not authorized")
+                }
+            })
+        }else if authStatus == CNAuthorizationStatus.authorized {
+            openContacts()
+        }
+    }
+    
+    func openContacts(){
+        let contactPicker = CNContactPickerViewController.init()
+        contactPicker.delegate = self
+        present(contactPicker, animated: true, completion: nil)
+    }
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        //When user selects any contact
+        var phoneNo = "Phone number not available"
+        let phoneString = ((((contact.phoneNumbers[0] as AnyObject).value(forKey: "labelValuePair") as AnyObject).value(forKey: "value") as AnyObject).value(forKey: "stringValue"))
+        phoneNo = phoneString as! String
+        if phoneNo.contains("+233") || phoneNo.contains("+"){
+            let newPhoneNo = phoneNo.dropFirst(4)
+            phoneNo = "0\(newPhoneNo)"
+        }else if phoneNo.contains("("){
+            print("this")
+            phoneNo = phoneNo.replacingOccurrences(of: "(", with: "")
+            phoneNo = phoneNo.replacingOccurrences(of: ")", with: "")
+            phoneNo = phoneNo.replacingOccurrences(of: "-", with: "")
+            phoneNo = phoneNo.replacingOccurrences(of: " ", with: "")
+        }
+        else if phoneNo.contains("233"){
+            let newPhoneNo = phoneNo.dropFirst(3)
+            phoneNo = "0\(newPhoneNo)"
+        }
+        phoneNo = phoneNo.trimmingCharacters(in: .whitespaces)
+        
+        txtHiddenPurchaseNum.text = phoneNo
     }
     
     

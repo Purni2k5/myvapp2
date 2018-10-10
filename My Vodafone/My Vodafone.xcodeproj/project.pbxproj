@@ -121,6 +121,8 @@
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
 		281F8FC32146CC91000B39A3 /* creditTransferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F8FC22146CC91000B39A3 /* creditTransferVc.swift */; };
+		28472E47216E16F70001BBB0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28472E45216E16F70001BBB0 /* Contacts.framework */; };
+		28472E48216E16F70001BBB0 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28472E46216E16F70001BBB0 /* ContactsUI.framework */; };
 		285A1D072129C37600EBA1EC /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A1D062129C37600EBA1EC /* homeVC.swift */; };
 		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
@@ -247,6 +249,8 @@
 		04E81B81CBD9B8057781B417 /* Pods-My Vodafone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.debug.xcconfig"; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
 		281F8FC22146CC91000B39A3 /* creditTransferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = creditTransferVc.swift; sourceTree = "<group>"; };
+		28472E45216E16F70001BBB0 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		28472E46216E16F70001BBB0 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		285A1D062129C37600EBA1EC /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28472E47216E16F70001BBB0 /* Contacts.framework in Frameworks */,
+				28472E48216E16F70001BBB0 /* ContactsUI.framework in Frameworks */,
 				5C678538021AB6C93B3B8EED /* Pods_My_Vodafone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +596,8 @@
 		3E803F6E21EBB679FF7E8393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28472E45216E16F70001BBB0 /* Contacts.framework */,
+				28472E46216E16F70001BBB0 /* ContactsUI.framework */,
 				013C34AE215D29B800581379 /* LocalAuthentication.framework */,
 				5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */,
 			);
