@@ -336,7 +336,7 @@ class userServiceDetails: baseViewControllerM {
                                                         lblActual.numberOfLines = 0
                                                         lblActual.lineBreakMode = .byWordWrapping
                                                         
-                                                        /*let center = cardView.center
+                                                        /* llet center = cardView.center
                                                         //track layer
                                                         let trackLayer = CAShapeLayer()
                                                         let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 *
