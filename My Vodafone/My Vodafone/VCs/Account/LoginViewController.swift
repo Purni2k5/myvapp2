@@ -44,6 +44,7 @@ class LoginViewController: baseViewControllerM {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
 
+        btnForgottenPassword.addTarget(self, action: #selector(goToPasswordRec), for: .touchUpInside)
         
         loginHeader.text = "Log in to \nMy Vodafone"
         indicator.isHidden = true
@@ -491,6 +492,12 @@ class LoginViewController: baseViewControllerM {
             //executing the task
             task.resume()
         }
+    }
+    
+    @objc func goToPasswordRec(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ForgotPassword")
+        present(moveTo, animated: true, completion: nil)
     }
 
 }

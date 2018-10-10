@@ -42,3 +42,10 @@ class SingleVariable: UIView {
 class RadioButton: UIButton {
     var serviceID: String?
 }
+
+class ButtonUnsubscribe: UIButton {
+    var plan: String?
+    var msisdn: String?
+    var expireData: String?
+    var promotionID: String?
+}

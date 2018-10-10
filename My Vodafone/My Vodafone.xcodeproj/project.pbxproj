@@ -31,11 +31,16 @@
 		01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */; };
 		01709C62215EB110008C8C3E /* notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C61215EB110008C8C3E /* notifications.swift */; };
 		01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */; };
+		017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
 		01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */; };
 		01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EBD20D05957002DEB7D /* UserProductsViewController.swift */; };
 		0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F8F0215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift */; };
+		0186E64B216B9736008B6601 /* unsubscribeVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186E64A216B9736008B6601 /* unsubscribeVc.swift */; };
+		0186E64D216CC4F1008B6601 /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186E64C216CC4F1008B6601 /* ForgotPassword.swift */; };
+		0186E64F216CE376008B6601 /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186E64E216CE376008B6601 /* ResetPassword.swift */; };
+		0186E651216D3DFB008B6601 /* TopUpHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186E650216D3DFB008B6601 /* TopUpHistory.swift */; };
 		01885B2220CED5B100D0A325 /* homePrePaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */; };
 		018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AC081211208E1002691E4 /* DialVodaCashViewController.swift */; };
 		018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B7ACE213D48C9002753B7 /* linkFBBVc.swift */; };
@@ -148,11 +153,16 @@
 		01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		01709C61215EB110008C8C3E /* notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notifications.swift; sourceTree = "<group>"; };
 		01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsPrivacy.swift; sourceTree = "<group>"; };
+		017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContacts.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceViewController.swift; sourceTree = "<group>"; };
 		01853EBD20D05957002DEB7D /* UserProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductsViewController.swift; sourceTree = "<group>"; };
 		0185F8F0215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewForStoreLocator.swift; sourceTree = "<group>"; };
+		0186E64A216B9736008B6601 /* unsubscribeVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unsubscribeVc.swift; sourceTree = "<group>"; };
+		0186E64C216CC4F1008B6601 /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
+		0186E64E216CE376008B6601 /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
+		0186E650216D3DFB008B6601 /* TopUpHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpHistory.swift; sourceTree = "<group>"; };
 		01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePrePaidViewController.swift; sourceTree = "<group>"; };
 		018AC081211208E1002691E4 /* DialVodaCashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialVodaCashViewController.swift; sourceTree = "<group>"; };
 		018B7ACE213D48C9002753B7 /* linkFBBVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = linkFBBVc.swift; sourceTree = "<group>"; };
@@ -299,6 +309,8 @@
 				28E4B19020E966BF00336B1B /* TopUpViewController.swift */,
 				014E311620ECCD03004ACE9A /* toppingUpViewController.swift */,
 				016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */,
+				0186E650216D3DFB008B6601 /* TopUpHistory.swift */,
+				017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */,
 			);
 			path = TopUp;
 			sourceTree = "<group>";
@@ -521,6 +533,8 @@
 				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
 				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
 				01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */,
+				0186E64C216CC4F1008B6601 /* ForgotPassword.swift */,
+				0186E64E216CE376008B6601 /* ResetPassword.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -568,6 +582,7 @@
 				01853EBB20D00CB4002DEB7D /* AddServiceViewController.swift */,
 				01853EBD20D05957002DEB7D /* UserProductsViewController.swift */,
 				01F57B59215295C9005F5F0C /* userServiceDetails.swift */,
+				0186E64A216B9736008B6601 /* unsubscribeVc.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -751,6 +766,7 @@
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
+				0186E651216D3DFB008B6601 /* TopUpHistory.swift in Sources */,
 				01CFCF99215B97A30048D56E /* Messages.swift in Sources */,
 				01F57B5F2153C5A2005F5F0C /* SmartTraveller.swift in Sources */,
 				01A3434F214A932E00B4A6A5 /* simSwapForm.swift in Sources */,
@@ -765,8 +781,10 @@
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
+				0186E64F216CE376008B6601 /* ResetPassword.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
 				01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */,
+				0186E64D216CC4F1008B6601 /* ForgotPassword.swift in Sources */,
 				019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */,
 				01C22A75213473530037B691 /* yendiAgoroVc.swift in Sources */,
 				281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */,
@@ -779,6 +797,7 @@
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
 				01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */,
 				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
+				0186E64B216B9736008B6601 /* unsubscribeVc.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
 				01C1A8172107A01300D4CDDC /* mvaURLS.swift in Sources */,
@@ -793,6 +812,7 @@
 				01AC079420D814320034B6B8 /* PrivacyPolicyViewController.swift in Sources */,
 				01E63B1521624233006CA19D /* personliseApp.swift in Sources */,
 				01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */,
+				017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */,
 				018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */,
 				01F57B612153E1F0005F5F0C /* RoamingBundles.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,

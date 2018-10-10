@@ -19,8 +19,12 @@ class baseViewControllerM: UIViewController {
     var AcctType: String?
     var deviceOs: String?
     var defaultService: String?
+    var primaryIDB: String?
+    var defaultAccNameB: String?
+    var defaultMSISDNB: String?
     
     let kVersion = "CFBundleShortVersionString"
+    let keyChainB = KeychainSwift()
     
     
     var mssgTopConstraint1: NSLayoutConstraint?
@@ -734,6 +738,12 @@ class baseViewControllerM: UIViewController {
         let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func goToLogin(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        present(moveTo, animated: true, completion: nil)
+    }
 
     @objc func closeModalB(){
         self.view.removeFromSuperview()
@@ -809,5 +819,143 @@ class baseViewControllerM: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
+    }
+    
+    func loginToAccount(url: URL, password: String, username: String){
+        let request = NSMutableURLRequest(url: url)
+        
+        
+        request.httpMethod = "POST"
+        
+        
+        
+        let postParameters:Dictionary<String, Any> = [
+            "username":username,
+            "password":password,
+            "action":"loginToAccount",
+            "os":getAppVersion()
+        ]
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            //creating a task to send the post request
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil{
+                    print("error is \(error!.localizedDescription)")
+                    DispatchQueue.main.async {
+                        //Todo
+                        //go to Login screen
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                        self.present(moveTo, animated: true, completion: nil)
+                    }
+                    return;
+                }
+                //parsing the response
+                do{
+                    //converting response to NSDictionary
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    //parsing the json
+                    if let parseJSON = myJSON {
+                        //creating variables to hold response
+                        var responseCode: Int!
+                        var responseMessage: String!
+                        var responseData: NSDictionary!
+                        print(parseJSON)
+                        //getting the json response
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                        
+                        if responseData != nil {
+                            self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            let obj = responseData["AccountStatus"] as! String
+                            let Services = self.preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            let default_service = responseData["DefaultService"] as! String
+                            self.preference.set(default_service, forKey: "DefaultService")
+                            let defaultService = self.preference.object(forKey: "DefaultService") as! String
+                            if let array = Services as? NSArray {
+                                var foundDefault = false
+                                
+                                for obj in array {
+                                    if foundDefault == false{
+                                        if let dict = obj as? NSDictionary {
+                                            // Now reference the data you need using:
+                                            self.ServiceID = dict.value(forKey: "ID") as! String?
+                                            self.AcctType = dict.value(forKey: "Type") as! String?
+                                            
+                                            if(self.ServiceID == defaultService){
+                                                self.defaultAccNameB = dict.value(forKey: "DisplayName") as! String?
+                                                self.primaryIDB = dict.value(forKey: "primaryID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                foundDefault = true
+                                                print("Got it")
+                                                
+                                            }else{
+                                                print("this happened")
+                                                //Just pick one to display
+                                                self.defaultAccNameB = dict.value(forKey: "DisplayName") as! String?
+                                                self.ServiceID = dict.value(forKey: "ID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                self.primaryIDB = dict.value(forKey: "primaryID") as! String?
+                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
+                                                //                            foundDefault = true
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            //                            print("Primary ID:: \(self.primaryID!)")
+                            //                            print("Display Name:: \(self.defaultAccName!)")
+                            let defaultNum = self.primaryIDB?.dropFirst(3)
+                            self.primaryIDB = "0\(defaultNum!)"
+                            self.preference.set(self.primaryIDB, forKey: "defaultMSISDN")
+                            print("Account stat: \(obj)")
+                        }
+                        
+                        
+                        print(responseCode)
+                        print("-------------- response data -------------")
+                        
+                        //                        self.stopAsyncLoader()
+                        DispatchQueue.main.async { // Correct
+                            if responseCode == 0{
+                                
+                                self.preference.set("Yes", forKey: "loginStatus")
+                                self.preference.set(responseData, forKey: "responseData")
+                                
+                                self.keyChainB.set(password, forKey: keyChainKeys.secretPassword.rawValue)
+                                self.keyChainB.set(username, forKey: keyChainKeys.secretUser.rawValue)
+                                
+                                
+                                //go to home screen
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                self.present(moveTo, animated: true, completion: nil)
+                            }else{
+                                //go to Login screen
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                                self.present(moveTo, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        //go to Login screen
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                        self.present(moveTo, animated: true, completion: nil)
+                    }
+                    print(error)
+                }
+            }
+            //executing the task
+            task.resume()
+        }
+        
     }
 }
