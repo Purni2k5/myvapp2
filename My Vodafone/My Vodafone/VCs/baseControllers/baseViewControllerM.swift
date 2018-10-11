@@ -639,6 +639,22 @@ class baseViewControllerM: UIViewController {
         menuShowing = !menuShowing
     }
     
+    func greetings() -> String{
+        var time: String = "Unknown"
+        let now = Date()
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: now as Date)
+        let hourInt = Int(currentHour.description)!
+        if hourInt >= 0 && hourInt <= 11 {
+            time = "morning"
+        }else if hourInt >= 12 && hourInt <= 15 {
+            time = "afternoon"
+        }else{
+            time = "evening"
+        }
+        return time
+    }
+    
     @objc func goToHome(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")

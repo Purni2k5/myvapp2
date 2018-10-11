@@ -616,7 +616,6 @@
 				01C022F720C99304003E48CC /* Frameworks */,
 				01C022F820C99304003E48CC /* Resources */,
 				6D2BDE887BE4AEFA6EF51A47 /* [CP] Embed Pods Frameworks */,
-				04BC7A45CA45136F7F37C50F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -709,21 +708,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04BC7A45CA45136F7F37C50F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		21194F58B3686A4F91B94A11 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -749,10 +733,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FSPagerView
 
-class homeVC: baseViewControllerM {
+class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
+    
     
     var defaultImageUrl: String?
     var defaultAccName: String?
@@ -40,11 +42,19 @@ class homeVC: baseViewControllerM {
     let lblShakeHeader = UILabel()
     let btnTopUp = UIButton()
     let shakeImage = UIImageView(image: #imageLiteral(resourceName: "shake_bubble"))
+    let pagerView = FSPagerView()
     let lblShakeDesc = UILabel()
     let shakeButton = UIButton()
     let lblPromotion = UILabel()
     let lblPromotionExpire = UILabel()
+    let scrollView = UIScrollView()
+    let greetingsRed = UIImageView()
+    let lblGreetings = UILabel()
+    let lblWelcome = UILabel()
     let keyChain = KeychainSwift()
+    
+    fileprivate let imageNames = ["shake_bubble","bubble2"]
+    let pageControl = FSPageControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +137,8 @@ class homeVC: baseViewControllerM {
     
     func showSlider(){
         UIView.animate(withDuration: 1, animations: {
-            self.shakeImage.alpha = 1
+//            self.shakeImage.alpha = 1
+            self.pagerView.alpha = 1
             self.lblShakeHeader.alpha = 1
             self.lblShakeDesc.alpha = 1
             self.shakeButton.alpha = 1
@@ -203,7 +214,7 @@ class homeVC: baseViewControllerM {
         motherView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         motherView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        let scrollView = UIScrollView()
+        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = UIColor.clear
         motherView.addSubview(scrollView)
@@ -244,51 +255,36 @@ class homeVC: baseViewControllerM {
         lblMenu.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -14).isActive = true
         
         //sake image
-        scrollView.addSubview(shakeImage)
+        /*scrollView.addSubview(shakeImage)
         shakeImage.translatesAutoresizingMaskIntoConstraints = false
         shakeImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
         shakeImage.topAnchor.constraint(equalTo: app_logo.bottomAnchor, constant: 20).isActive = true
         shakeImage.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
-        shakeImage.heightAnchor.constraint(equalToConstant: 170).isActive = true
-//        shakeImage.contentMode = .scaleAspectFit
+        shakeImage.heightAnchor.constraint(equalToConstant: 170).isActive = true*/
         
-        //shake header
-        scrollView.addSubview(lblShakeHeader)
-        lblShakeHeader.translatesAutoresizingMaskIntoConstraints = false
-        lblShakeHeader.textColor = UIColor.white
-        lblShakeHeader.text = "Shake on Vodafone X"
-        lblShakeHeader.numberOfLines = 0
-        lblShakeHeader.lineBreakMode = .byWordWrapping
-        lblShakeHeader.font = UIFont(name: String.defaultFontB, size: 20)
-        lblShakeHeader.textAlignment = .center
-        lblShakeHeader.leadingAnchor.constraint(equalTo: shakeImage.leadingAnchor, constant: 20).isActive = true
-        lblShakeHeader.topAnchor.constraint(equalTo: shakeImage.topAnchor, constant: 20).isActive = true
-        lblShakeHeader.trailingAnchor.constraint(equalTo: shakeImage.trailingAnchor, constant: -20).isActive = true
+        //Pager view
+        scrollView.addSubview(pagerView)
+        pagerView.translatesAutoresizingMaskIntoConstraints = false
+        pagerView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
+        pagerView.topAnchor.constraint(equalTo: app_logo.bottomAnchor, constant: 10).isActive = true
+        pagerView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
+        pagerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        pagerView.contentMode = .scaleAspectFit
+        pagerView.dataSource = self
+        pagerView.delegate = self
+        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
+        pagerView.automaticSlidingInterval = 3.0
+        pagerView.isInfinite = true
+        pagerView.transformer = FSPagerViewTransformer(type: .zoomOut)
         
-        //Shake Description
-        scrollView.addSubview(lblShakeDesc)
-        lblShakeDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblShakeDesc.textColor = UIColor.white
-//        lblShakeDesc.textAlignment = .center
-        lblShakeDesc.numberOfLines = 0
-        lblShakeDesc.lineBreakMode = .byWordWrapping
-        lblShakeDesc.font = UIFont(name: String.defaultFontR, size: 16)
-        lblShakeDesc.text = "Shake and get exciting bundles and rewards only on My Vodafone App"
-        lblShakeDesc.leadingAnchor.constraint(equalTo: shakeImage.leadingAnchor, constant: 20).isActive = true
-        lblShakeDesc.topAnchor.constraint(equalTo: lblShakeHeader.bottomAnchor, constant: 10).isActive = true
-        lblShakeDesc.trailingAnchor.constraint(equalTo: shakeImage.trailingAnchor, constant: -40).isActive = true
+        // Create a page control
+        scrollView.addSubview(pageControl)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.centerXAnchor.constraint(equalTo: motherView.centerXAnchor).isActive = true
+        pageControl.topAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: 20).isActive = true
+        pageControl.numberOfPages = imageNames.count
+        pageControl.contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         
-        //shake button
-        scrollView.addSubview(shakeButton)
-        shakeButton.translatesAutoresizingMaskIntoConstraints = false
-        shakeButton.backgroundColor = UIColor.white
-        shakeButton.setTitleColor(UIColor.black, for: .normal)
-        shakeButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 16)
-        shakeButton.setTitle("1GB FREE ON SHAKE - CLICK HERE", for: .normal)
-        shakeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        shakeButton.leadingAnchor.constraint(equalTo: shakeImage.leadingAnchor, constant: 20).isActive = true
-        shakeButton.trailingAnchor.constraint(equalTo: shakeImage.trailingAnchor, constant: -20).isActive = true
-        shakeButton.topAnchor.constraint(equalTo: lblShakeDesc.bottomAnchor, constant: 10).isActive = true
         
         //Default account image
         scrollView.addSubview(defaultAccImage)
@@ -296,7 +292,7 @@ class homeVC: baseViewControllerM {
         defaultAccImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "default_profile"), options: [.continueInBackground, .progressiveDownload])
         
         defaultAccImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        defaultAccImage.topAnchor.constraint(equalTo: shakeImage.bottomAnchor, constant: 20).isActive = true
+        defaultAccImage.topAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: 20).isActive = true
         defaultAccImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
         defaultAccImage.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
@@ -596,6 +592,128 @@ class homeVC: baseViewControllerM {
         }
     }
     
+    func numberOfItems(in pagerView: FSPagerView) -> Int {
+        return imageNames.count
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
+        cell.imageView?.image = UIImage(named: self.imageNames[index])
+        if self.imageNames[index] == "shake_bubble"{
+            greetingsRed.alpha = 0
+            lblGreetings.alpha = 0
+            lblWelcome.alpha = 0
+            pagerView.addSubview(lblShakeHeader)
+            lblShakeHeader.translatesAutoresizingMaskIntoConstraints = false
+            lblShakeHeader.textColor = UIColor.white
+            lblShakeHeader.isHidden = false
+            lblShakeHeader.text = "Shake on Vodafone X"
+            lblShakeHeader.numberOfLines = 0
+            lblShakeHeader.lineBreakMode = .byWordWrapping
+            lblShakeHeader.font = UIFont(name: String.defaultFontB, size: 20)
+            lblShakeHeader.textAlignment = .center
+            lblShakeHeader.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 20).isActive = true
+            lblShakeHeader.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 20).isActive = true
+            lblShakeHeader.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -20).isActive = true
+            
+            //Shake Description
+            pagerView.addSubview(lblShakeDesc)
+            lblShakeDesc.translatesAutoresizingMaskIntoConstraints = false
+            lblShakeDesc.textColor = UIColor.white
+            lblShakeDesc.numberOfLines = 0
+            lblShakeDesc.lineBreakMode = .byWordWrapping
+            lblShakeDesc.font = UIFont(name: String.defaultFontR, size: 16)
+            lblShakeDesc.isHidden = false
+            lblShakeDesc.text = "Shake and get exciting bundles and rewards only on My Vodafone App"
+            lblShakeDesc.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 20).isActive = true
+            lblShakeDesc.topAnchor.constraint(equalTo: lblShakeHeader.bottomAnchor, constant: 10).isActive = true
+            lblShakeDesc.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -40).isActive = true
+            //shake button
+            scrollView.addSubview(shakeButton)
+            shakeButton.translatesAutoresizingMaskIntoConstraints = false
+            shakeButton.backgroundColor = UIColor.white
+            shakeButton.setTitleColor(UIColor.black, for: .normal)
+            shakeButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 16)
+            shakeButton.isHidden = false
+            shakeButton.setTitle("1GB FREE ON SHAKE - CLICK HERE", for: .normal)
+            shakeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+            shakeButton.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 20).isActive = true
+            shakeButton.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -20).isActive = true
+            shakeButton.topAnchor.constraint(equalTo: lblShakeDesc.bottomAnchor, constant: 10).isActive = true
+            
+        }else if imageNames[index] == "bubble2"{
+            lblShakeHeader.isHidden = true
+            lblShakeDesc.isHidden = true
+            shakeButton.isHidden = true
+            pagerView.addSubview(greetingsRed)
+            greetingsRed.alpha = 1
+            greetingsRed.translatesAutoresizingMaskIntoConstraints = false
+            greetingsRed.backgroundColor = UIColor.vodaRed
+            greetingsRed.widthAnchor.constraint(equalToConstant: 5).isActive = true
+            greetingsRed.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 60).isActive = true
+            greetingsRed.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 40).isActive = true
+            greetingsRed.heightAnchor.constraint(equalToConstant: 120).isActive = true
+            
+            pagerView.addSubview(lblGreetings)
+            lblGreetings.translatesAutoresizingMaskIntoConstraints = false
+            lblGreetings.font = UIFont(name: String.defaultFontB, size: 22)
+            lblGreetings.textColor = UIColor.white
+            lblGreetings.alpha = 1
+            let timeOfDay = greetings()
+            lblGreetings.text = "Good \(timeOfDay)"
+            lblGreetings.leadingAnchor.constraint(equalTo: greetingsRed.trailingAnchor, constant: 20).isActive = true
+            lblGreetings.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 80).isActive = true
+            lblGreetings.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -10).isActive = true
+            lblGreetings.numberOfLines = 0
+            lblGreetings.lineBreakMode = .byWordWrapping
+            
+            pagerView.addSubview(lblWelcome)
+            lblWelcome.translatesAutoresizingMaskIntoConstraints = false
+            lblWelcome.textColor = UIColor.white
+            lblWelcome.font = UIFont(name: String.defaultFontR, size: 16)
+            lblWelcome.alpha = 1
+            let firstText = "Welcome to "
+            
+            let secondText  = "My Vodafone"
+            
+            let attributedString = NSMutableAttributedString(string: firstText)
+            
+            let attrs = [NSAttributedStringKey.font : UIFont(name: String.defaultFontB, size: 16)]
+            let boldString = NSMutableAttributedString(string: secondText, attributes:attrs)
+            
+            attributedString.append(boldString)
+            lblWelcome.attributedText = attributedString
+            lblWelcome.numberOfLines = 0
+            lblWelcome.lineBreakMode = .byWordWrapping
+            lblWelcome.leadingAnchor.constraint(equalTo: greetingsRed.trailingAnchor, constant: 20).isActive = true
+            lblWelcome.topAnchor.constraint(equalTo: lblGreetings.bottomAnchor, constant: 5).isActive = true
+            lblWelcome.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -10).isActive = true
+        }
+        else{
+            lblShakeHeader.isHidden = true
+            lblShakeDesc.isHidden = true
+            shakeButton.isHidden = true
+            greetingsRed.alpha = 0
+            lblGreetings.alpha = 0
+            lblWelcome.alpha = 0
+        }
+        cell.imageView?.clipsToBounds = true
+        return cell
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        pagerView.deselectItem(at: index, animated: true)
+        pagerView.scrollToItem(at: index, animated: true)
+    }
+    
+    func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
+        pageControl.currentPage = targetIndex
+    }
+    
+    func pagerViewDidEndScrollAnimation(_ pagerView: FSPagerView) {
+        self.pageControl.currentPage = pagerView.currentIndex
+    }
+    
     @objc func goToSupport(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Support", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
@@ -631,7 +749,8 @@ class homeVC: baseViewControllerM {
         menuShowing = !menuShowing
     }
     func zeroAlpha(){
-        shakeImage.alpha = 0
+//        shakeImage.alpha = 0
+        pagerView.alpha = 0
         lblShakeHeader.alpha = 0
         lblShakeDesc.alpha = 0
         shakeButton.alpha = 0
