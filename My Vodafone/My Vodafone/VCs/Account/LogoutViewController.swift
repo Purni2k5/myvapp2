@@ -22,21 +22,6 @@ class LogoutViewController: UIViewController {
         btnClose.tintColor = UIColor.white
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func btnYes(_ sender: Any) {
         preference.removeObject(forKey: UserDefaultsKeys.loginStatus.rawValue)
@@ -57,7 +42,24 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.accBalanceLabel.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.balanceLabel.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.ROAMINGS.rawValue)
+        
+        let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
+        if let array = Services as? NSArray {
+            for obj in array {
+                if let dict = obj as? NSDictionary {
+                    
+                    let displayNumber = dict.value(forKey: "primaryID") as! String
+                    let userNumber = displayNumber.dropFirst(3)
+                    let firstPin = "0\(userNumber)"
+                    preference.removeObject(forKey: "\(firstPin)_topUpHistory")
+                    preference.removeObject(forKey: "\(firstPin)_serviceBreakDown")
+                }
+            }
+        }
+        
         preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
+        
+        
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }

@@ -294,7 +294,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
             let newPhoneNo = phoneNo.dropFirst(3)
             phoneNo = "0\(newPhoneNo)"
         }
-        phoneNo = phoneNo.trimmingCharacters(in: .whitespaces)
+        phoneNo = phoneNo.replacingOccurrences(of: " ", with: "")
         
         txtHiddenPurchaseNum.text = phoneNo
     }

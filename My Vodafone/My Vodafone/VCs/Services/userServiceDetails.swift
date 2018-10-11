@@ -424,7 +424,7 @@ class userServiceDetails: baseViewControllerM {
                                                 HeightCalc = HeightCalc + 165
                                                 cardView.heightAnchor.constraint(equalToConstant: CGFloat(HeightCalc)).isActive = true
                                                 cardViewTop = cardViewTop + CGFloat(HeightCalc) + 20
-                                                print("cardHeight \(cardViewTop)")
+                                                
                                                 self.scrollView.contentSize.height = cardViewTop + 330 + 60
                                             }
                                             

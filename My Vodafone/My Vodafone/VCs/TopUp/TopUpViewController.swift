@@ -32,6 +32,9 @@ class TopUpViewController: baseViewControllerM {
         //add gesture
         let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.showTopUp))
         goTopUp.addGestureRecognizer(gestureRec)
+        //Adding gesture
+        let historyRec = UITapGestureRecognizer.init(target: self, action: #selector(goToHistory))
+        topUpHistory.addGestureRecognizer(historyRec)
         
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
@@ -147,6 +150,12 @@ class TopUpViewController: baseViewControllerM {
             
         }
         
+    }
+    
+    @objc func goToHistory(){
+        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "TopUpHistory")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToRedeeming(_sender: UITapGestureRecognizer){

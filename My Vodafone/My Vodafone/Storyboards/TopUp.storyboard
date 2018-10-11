@@ -364,10 +364,10 @@
             </objects>
             <point key="canvasLocation" x="5742" y="316"/>
         </scene>
-        <!--Display Contacts-->
+        <!--Top Up History-->
         <scene sceneID="6UU-pa-Jcj">
             <objects>
-                <viewController storyboardIdentifier="DisplayContacts" id="Ml8-Iz-GDI" customClass="DisplayContacts" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopUpHistory" id="Ml8-Iz-GDI" customClass="TopUpHistory" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Hd-CP-mQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
