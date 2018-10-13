@@ -22,7 +22,6 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var balanceLabel: String?
     var accountBalanceLabel: String?
     var dService: String?
-    var isGauge: Bool = false
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
 //    var altServiceID: String?
@@ -30,6 +29,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
 //    var ServiceID: String?
 //    var AcctType: String?
     var fontSizeForCredit: CGFloat = 30
+    var fontSizeForCreditTitle: CGFloat = 19
     
     let defaultAccImage = UIImageView()
     let defaultCallCreditView = UIView()
@@ -53,8 +53,69 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     let lblGreetings = UILabel()
     let lblWelcome = UILabel()
     let keyChain = KeychainSwift()
+    let made4MeOffer1 = UIButton()
+    let made4MeOffer2 = UIButton()
+    let made4MeOffer3 = UIButton()
+    let gaugeViewHolder = UIView()
+    let lblGaugeViewTitle = UILabel()
+    let lblGaugeViewLeft = UILabel()
+    let lblGaugeViewBucket = UILabel()
+    
+    let shapeLayer = CAShapeLayer()
+    let trackLayer = CAShapeLayer()
+    
+    var isMade4MePresent: Bool = false
+    var isGaugeVisible: Bool = true
     
     fileprivate var imageNames = ["shake_bubble", "bubble2"]
+    fileprivate var defaultImageTopConstraint1: NSLayoutConstraint?
+    fileprivate var defaultImageTopConstraint2: NSLayoutConstraint?
+    
+    fileprivate var defaultCallCreditViewTop1: NSLayoutConstraint?
+    fileprivate var defaultCallCreditViewTop2: NSLayoutConstraint?
+    
+    fileprivate var defaultCallCreditViewLeading1: NSLayoutConstraint?
+    fileprivate var defaultCallCreditViewLeading2: NSLayoutConstraint?
+    
+    fileprivate var defaultCallCreditViewTrailing1: NSLayoutConstraint?
+    fileprivate var defaultCallCreditViewTrailing2: NSLayoutConstraint?
+    fileprivate var btnTopWidth: NSLayoutConstraint?
+    fileprivate var btnTopHeight: NSLayoutConstraint?
+    fileprivate var btnTopUpTopConstraint1: NSLayoutConstraint?
+    fileprivate var btnTopUpTopConstraint2: NSLayoutConstraint?
+    fileprivate var btnTopUpTrailingConstraint1: NSLayoutConstraint?
+    fileprivate var btnTopUpTrailingConstraint2: NSLayoutConstraint?
+    
+    fileprivate var defaultCallViewHeight: NSLayoutConstraint?
+    
+    fileprivate var yendiAgoroTop1: NSLayoutConstraint?
+    fileprivate var yendiAgoroTop2: NSLayoutConstraint?
+    fileprivate var supportTop1: NSLayoutConstraint?
+    fileprivate var supportTop2: NSLayoutConstraint?
+    
+    let btnOffers: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = UIColor.white
+        let btnImage = UIImage(named: "top_up")
+        btn.setImage(btnImage, for: .normal)
+        btn.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        btn.addTarget(self, action: #selector(goToTopUp), for: .touchUpInside)
+        return btn
+    }()
+    
+    let btnGoFBB: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        let btnImage = UIImage(named: "fbb")
+        btn.setImage(btnImage, for: .normal)
+//        btn.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        btn.addTarget(self, action: #selector(goToFBBM), for: .touchUpInside)
+        return btn
+    }()
+    
+    let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+    
     let pageControl = FSPageControl()
     
     override func viewDidLoad() {
@@ -120,10 +181,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.showSlider()
-    }
+    
     
     override func viewDidLayoutSubviews() {
         
@@ -133,8 +191,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultAccImage.layer.borderWidth = 2
         
         //topup button
-        btnTopUp.layer.cornerRadius = btnTopUp.frame.size.width / 2
-        btnTopUp.clipsToBounds = true
+        
     }
     
     func showSlider(){
@@ -344,6 +401,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         pageControl.numberOfPages = imageNames.count
         pageControl.contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         
+        scrollView.addSubview(made4MeOffer1)
+        scrollView.addSubview(made4MeOffer2)
+        scrollView.addSubview(made4MeOffer3)
+        
         
         //Default account image
         scrollView.addSubview(defaultAccImage)
@@ -351,7 +412,17 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultAccImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "default_profile"), options: [.continueInBackground, .progressiveDownload])
         
         defaultAccImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        defaultAccImage.topAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: 20).isActive = true
+        defaultImageTopConstraint1 = defaultAccImage.topAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: 30)
+        defaultImageTopConstraint2 = defaultAccImage.topAnchor.constraint(equalTo: made4MeOffer1.bottomAnchor, constant: 20)
+        
+        if !isMade4MePresent {
+            defaultImageTopConstraint1?.isActive = true
+        }else{
+            defaultImageTopConstraint2?.isActive = true
+        }
+        
+        
+        
         defaultAccImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
         defaultAccImage.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
@@ -376,10 +447,19 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultCallCreditView.translatesAutoresizingMaskIntoConstraints = false
         defaultCallCreditView.backgroundColor = UIColor.white.withAlphaComponent(0.50)
         defaultCallCreditView.isOpaque = false
-        defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 45).isActive = true
-        defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -45).isActive = true
-        defaultCallCreditView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
+        defaultCallCreditViewLeading1 = defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 45)
+        defaultCallCreditViewLeading2 = defaultCallCreditView.widthAnchor.constraint(equalToConstant: 200)
+        
+        defaultCallCreditViewTrailing1 = defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -45)
+        defaultCallCreditViewTrailing2 = defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10)
+        
+        defaultCallViewHeight = defaultCallCreditView.heightAnchor.constraint(equalToConstant: 80)
+        defaultCallViewHeight?.isActive = true
+        defaultCallCreditViewTop1 = defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20)
+        defaultCallCreditViewTop2 = defaultCallCreditView.topAnchor.constraint(equalTo: defaultAccImage.topAnchor, constant: 10)
+        
+        
+//        print("is gauge:: \(isGaugeVisible)")
         defaultCallCreditView.layer.cornerRadius = 40
         defaultCallCreditView.clipsToBounds = true
         
@@ -387,11 +467,18 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultCallCreditView.addSubview(btnTopUp)
         btnTopUp.translatesAutoresizingMaskIntoConstraints = false
         btnTopUp.backgroundColor = UIColor.white
-        btnTopUp.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        btnTopUp.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        btnTopUp.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 20).isActive = true
-//        btnTopUp.bottomAnchor.constraint(equalTo: defaultCallCreditView.bottomAnchor).isActive = true
-        btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor).isActive = true
+        btnTopWidth = btnTopUp.widthAnchor.constraint(equalToConstant: 80)
+        btnTopWidth?.isActive = true
+        btnTopHeight = btnTopUp.heightAnchor.constraint(equalToConstant: 80)
+        btnTopHeight?.isActive = true
+        btnTopUpTopConstraint1 = btnTopUp.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor)
+        btnTopUpTopConstraint2 = btnTopUp.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor)
+        btnTopUpTopConstraint1?.isActive = true
+        btnTopUpTrailingConstraint1 =  btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor)
+        btnTopUpTrailingConstraint2 =  btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor)
+        btnTopUpTrailingConstraint1?.isActive = true
+        btnTopUp.layer.cornerRadius = 80 / 2
+        btnTopUp.clipsToBounds = true
         let topupImage = UIImage(named: "top_up")
         btnTopUp.setImage(topupImage, for: .normal)
         btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
@@ -407,8 +494,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
         
         lblCreditTitle.textColor = UIColor.black
-        lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 19)
-        lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 25).isActive = true
+        lblCreditTitle.font = UIFont(name: String.defaultFontR, size: fontSizeForCreditTitle)
+        lblCreditTitle.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 10).isActive = true
         lblCreditTitle.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor, constant: 20).isActive = true
         
         //label for actual credit
@@ -422,19 +509,63 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         lblCreditRem.textColor = UIColor.black
         let credit = lblCreditRem.text?.count
-        if credit! > 5 {
+        
+        if credit! > 5 && isGaugeVisible == true {
+            
             fontSizeForCredit = 20
+            btnTopWidth?.constant = 70
+            btnTopHeight?.constant = 70
+            btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+            btnTopUp.layer.cornerRadius = 35
+            btnTopUpTopConstraint2?.isActive = true
+            btnTopUpTrailingConstraint2?.isActive = true
+            defaultCallViewHeight?.constant = 70
+            defaultCallCreditView.layer.cornerRadius = 35
+            fontSizeForCreditTitle = 17
+            lblCreditTitle.font = UIFont(name: String.defaultFontR, size: fontSizeForCreditTitle)
+        }else{
+            
         }
         lblCreditRem.font = UIFont(name: String.defaultFontB, size: fontSizeForCredit)
-        lblCreditRem.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 25).isActive = true
+        lblCreditRem.leadingAnchor.constraint(equalTo: defaultCallCreditView.leadingAnchor, constant: 10).isActive = true
         lblCreditRem.topAnchor.constraint(equalTo: lblCreditTitle.bottomAnchor, constant: 8).isActive = true
+        
+        //Gauge View
+        
+        scrollView.addSubview(gaugeViewHolder)
+        gaugeViewHolder.translatesAutoresizingMaskIntoConstraints = false
+        gaugeViewHolder.backgroundColor = UIColor.clear
+        gaugeViewHolder.leadingAnchor.constraint(equalTo: motherView.leadingAnchor).isActive = true
+        gaugeViewHolder.topAnchor.constraint(equalTo: defaultAccImage.bottomAnchor, constant: 100).isActive = true
+        gaugeViewHolder.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
+        gaugeViewHolder.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        scrollView.addSubview(btnOffers)
+        btnOffers.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 230).isActive = true
+        btnOffers.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        btnOffers.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        btnOffers.bottomAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 12).isActive = true
+        btnOffers.layer.cornerRadius = 30
+        btnOffers.clipsToBounds = true
+        
+        scrollView.addSubview(btnGoFBB)
+        btnGoFBB.topAnchor.constraint(equalTo: btnOffers.bottomAnchor, constant: -2).isActive = true
+        btnGoFBB.leadingAnchor.constraint(equalTo: btnOffers.trailingAnchor, constant: 1).isActive = true
+        btnGoFBB.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnGoFBB.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnGoFBB.layer.cornerRadius = 20
+        btnGoFBB.layer.borderColor = UIColor.white.cgColor
+        btnGoFBB.layer.borderWidth = 1
+        
         
         //yendi agoro
         scrollView.addSubview(yendiagoro)
         yendiagoro.translatesAutoresizingMaskIntoConstraints = false
         yendiagoro.image = UIImage(named: "spinlogo")
         yendiagoro.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150).isActive = true
+        yendiAgoroTop1 = yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150)
+        yendiAgoroTop2 = yendiagoro.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 80)
+        
         yendiagoro.heightAnchor.constraint(equalToConstant: 58).isActive = true
         yendiagoro.widthAnchor.constraint(equalToConstant: 110).isActive = true
         yendiagoro.isUserInteractionEnabled = true
@@ -446,7 +577,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         scrollView.addSubview(twoFourSeven)
         twoFourSeven.translatesAutoresizingMaskIntoConstraints = false
         twoFourSeven.image = UIImage(named: "support")
-        twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 140).isActive = true
+        supportTop1 = twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 140)
+        supportTop2 = twoFourSeven.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 70)
         twoFourSeven.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -3).isActive = true
         twoFourSeven.widthAnchor.constraint(equalToConstant: 80).isActive = true
         twoFourSeven.heightAnchor.constraint(equalToConstant: 80).isActive = true
@@ -520,7 +652,82 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         lblPromotionExpire.numberOfLines = 0
         lblPromotionExpire.lineBreakMode = .byWordWrapping
         
-        scrollView.contentSize.height = 950
+        if isGaugeVisible {
+            defaultCallCreditViewTop2?.isActive = true
+            defaultCallCreditViewLeading2?.isActive = true
+            defaultCallCreditViewTrailing2?.isActive = true
+            yendiAgoroTop2?.isActive = true
+            supportTop2?.isActive = true
+            gaugeViewHolder.isHidden = false
+        }else{
+            defaultCallCreditViewTop1?.isActive = true
+            defaultCallCreditViewLeading1?.isActive = true
+            defaultCallCreditViewTrailing1?.isActive = true
+            yendiAgoroTop1?.isActive = true
+            supportTop1?.isActive = true
+            gaugeViewHolder.isHidden = true
+        }
+        
+        scrollView.contentSize.height = 2000
+    }
+    
+    private func updateGauge(){
+        print("Attempting to move progress bar")
+        shapeLayer.strokeEnd = 0.5
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showSlider()
+        
+        let circularPath = UIBezierPath(arcCenter: .zero
+            , radius: 100, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.white.withAlphaComponent(0.50).cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = kCALineCapRound
+        trackLayer.position = CGPoint(x: gaugeViewHolder.frame.size.width/2, y: gaugeViewHolder.frame.size.height/2)
+        gaugeViewHolder.layer.addSublayer(trackLayer)
+        
+        gaugeViewHolder.addSubview(lblGaugeViewTitle)
+        lblGaugeViewTitle.translatesAutoresizingMaskIntoConstraints = false
+        lblGaugeViewTitle.font = UIFont(name: String.defaultFontR, size: 21)
+        lblGaugeViewTitle.textColor = UIColor.white
+        lblGaugeViewTitle.text = "Total Data"
+        lblGaugeViewTitle.topAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 40).isActive = true
+        lblGaugeViewTitle.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
+        
+        gaugeViewHolder.addSubview(lblGaugeViewLeft)
+        lblGaugeViewLeft.translatesAutoresizingMaskIntoConstraints = false
+        lblGaugeViewLeft.text = "200GB"
+        lblGaugeViewLeft.textColor = UIColor.white
+        lblGaugeViewLeft.font = UIFont(name: String.defaultFontB, size: 35)
+        lblGaugeViewLeft.topAnchor.constraint(equalTo: lblGaugeViewTitle.bottomAnchor, constant: 30).isActive = true
+        lblGaugeViewLeft.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
+        
+        gaugeViewHolder.addSubview(lblGaugeViewBucket)
+        lblGaugeViewBucket.translatesAutoresizingMaskIntoConstraints = false
+        lblGaugeViewBucket.text = "of 500GB"
+        lblGaugeViewBucket.textColor = UIColor.white
+        lblGaugeViewBucket.font = UIFont(name: String.defaultFontR, size: 21)
+        lblGaugeViewBucket.topAnchor.constraint(equalTo: lblGaugeViewLeft.bottomAnchor, constant: 30).isActive = true
+        lblGaugeViewBucket.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
+        
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.white.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineCap = kCALineCapRound
+        shapeLayer.position = CGPoint(x: gaugeViewHolder.frame.size.width/2, y: gaugeViewHolder.frame.size.height/2)
+        shapeLayer.strokeEnd = 0
+        shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1   )
+        updateGauge()
+//        basicAnimation.toValue = 1
+//        shapeLayer.add(basicAnimation, forKey: "basics")
+        //        trackLayer.position = centerForGauge
+        gaugeViewHolder.layer.addSublayer(shapeLayer)
     }
     
     func backgroundCalls(){
@@ -689,7 +896,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     }
     
     func pagerViewDidScroll(_ pagerView: FSPagerView) {
-        print(pagerView.currentIndex)
+        
         if pagerView.currentIndex == 0 {
             pagerView.addSubview(lblShakeHeader)
             lblShakeHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -705,7 +912,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             lblShakeHeader.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -20).isActive = true
             lblShakeHeader.alpha = 1
         }else{
-            print("Do this")
+            
             lblShakeHeader.alpha = 0
         }
     }

@@ -760,6 +760,13 @@ class baseViewControllerM: UIViewController {
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func goToFBBM(){
+        let storyboard = UIStoryboard(name: "OffersExtras", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else { return }
+        moveTo.selectedOffer = "FBB"
+        present(moveTo, animated: true, completion: nil)
+    }
 
     @objc func closeModalB(){
         self.view.removeFromSuperview()
