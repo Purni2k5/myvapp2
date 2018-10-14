@@ -42,6 +42,8 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.accBalanceLabel.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.balanceLabel.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.ROAMINGS.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
         
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {

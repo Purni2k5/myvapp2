@@ -626,6 +626,8 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.balanceLabel.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.ROAMINGS.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }
@@ -839,6 +841,8 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: "accBalanceLabel")
         preference.removeObject(forKey: "balanceLabel")
         preference.removeObject(forKey: "ROAMINGS")
+        preference.removeObject(forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

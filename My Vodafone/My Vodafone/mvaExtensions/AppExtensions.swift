@@ -44,6 +44,25 @@ extension UITextField {
     }
 }
 
+//This function is not working
+extension UILabel {
+    //MARK: StartBlink
+    func startBlink() {
+        self.alpha = 0
+        UIView.animate(withDuration: 0.8,//Time duration
+            delay:0.0,
+            options:[.allowUserInteraction, .curveEaseInOut, .autoreverse, .repeat],
+            animations: { self.alpha = 1 },
+            completion: nil)
+    }
+    
+    //MARK: StopBlink
+    func stopBlink() {
+        layer.removeAllAnimations()
+        alpha = 1
+    }
+}
+
 extension UIViewController {
     
     func hideKeyboardWhenTappedAround() {
@@ -146,6 +165,8 @@ extension UIViewController {
         case privacyEnabled
         case privateDataEnabled
         case ServiceList
+        case userSubscriberSummary
+        case isGaugeVisible
     }
     
     enum keyChainKeys: String {

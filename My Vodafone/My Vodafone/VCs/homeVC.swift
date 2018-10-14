@@ -8,6 +8,7 @@
 
 import UIKit
 import FSPagerView
+import SpriteKit
 
 class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
@@ -59,7 +60,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     let gaugeViewHolder = UIView()
     let lblGaugeViewTitle = UILabel()
     let lblGaugeViewLeft = UILabel()
-    let lblGaugeViewBucket = UILabel()
+    let lblGaugeActualValue = UILabel()
     
     let shapeLayer = CAShapeLayer()
     let trackLayer = CAShapeLayer()
@@ -93,6 +94,34 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     fileprivate var supportTop1: NSLayoutConstraint?
     fileprivate var supportTop2: NSLayoutConstraint?
     
+    //Variables for gauge
+    var gloBucketType: String?
+    
+    var dataActualUnit: String?
+    var dataActualValue: String?
+    var dataBucketUnit: String?
+    var dataBucketValue: String?
+    var dataPercentUsed: String?
+    var dataUnit: String?
+    
+    var smsActualUnit: String?
+    var smsActualValue: String?
+    var smsBucketUnit: String?
+    var smsBucketValue: String?
+    var smsPercentUsed: String?
+    var smsUnit: String?
+    
+    var callsActualUnit: String?
+    var callsActualValue: String?
+    var callsBucketUnit: String?
+    var callsBucketValue: String?
+    var callsPercentUsed: String?
+    var callsUnit: String?
+    
+    var callsActualValueSum: Int = 0
+    var callsBucketValueSum: Double = 0
+    var percentageCallsSum: Double = 0
+    
     let btnOffers: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +142,59 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btn.addTarget(self, action: #selector(goToFBBM), for: .touchUpInside)
         return btn
     }()
+    
+    let btnDataIcon: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = UIColor.white
+        let btnImage = UIImage(named: "data_icon")
+        let tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btn.setImage(tintImage, for: .normal)
+        btn.tintColor = UIColor.gray
+        btn.addTarget(self, action: #selector(showDataGauge), for: .touchUpInside)
+        return btn
+    }()
+    
+    let btnSMSIcon: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        let btnImage = UIImage(named: "sms")
+        let tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btn.setImage(tintImage, for: .normal)
+        btn.tintColor = UIColor.white
+        btn.addTarget(self, action: #selector(showSMSGauge), for: .touchUpInside)
+        return btn
+    }()
+    
+    let btnCallsIcon: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        let btnImage = UIImage(named: "call_icon")
+        let tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btn.setImage(tintImage, for: .normal)
+        btn.tintColor = UIColor.white
+//        btn.addTarget(self, action: #selector(showCall), for: .touchUpInside)
+        return btn
+    }()
+    
+    let lblPlan: UILabel = {
+       let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.white
+        view.font = UIFont(name: String.defaultFontB, size: 20)
+        return view
+    }()
+    
+    let lblPlanMessage: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.vodaRed
+        view.text = "You are running out of DATA, SMS, CALL"
+        view.font = UIFont(name: String.defaultFontB, size: 13)
+        return view
+    }()
+    
+    let lblPlanExpiration = UILabel()
     
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
     
@@ -557,6 +639,54 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnGoFBB.layer.borderColor = UIColor.white.cgColor
         btnGoFBB.layer.borderWidth = 1
         
+        //data Icon
+        gaugeViewHolder.addSubview(btnDataIcon)
+        btnDataIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnDataIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnDataIcon.topAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 100).isActive = true
+        btnDataIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 30).isActive = true
+        btnDataIcon.layer.cornerRadius = 20
+        btnDataIcon.layer.borderWidth = 1
+        btnDataIcon.layer.borderColor = UIColor.white.cgColor
+        
+        //sms Icon
+        gaugeViewHolder.addSubview(btnSMSIcon)
+        btnSMSIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnSMSIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnSMSIcon.topAnchor.constraint(equalTo: btnDataIcon.bottomAnchor, constant: 15).isActive = true
+        btnSMSIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 55).isActive = true
+        btnSMSIcon.layer.cornerRadius = 20
+        btnSMSIcon.layer.borderWidth = 1
+        btnSMSIcon.layer.borderColor = UIColor.white.cgColor
+        
+        //Call Icon
+        gaugeViewHolder.addSubview(btnCallsIcon)
+        btnCallsIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnCallsIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnCallsIcon.topAnchor.constraint(equalTo: btnSMSIcon.bottomAnchor, constant: 10).isActive = true
+        btnCallsIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 100).isActive = true
+        btnCallsIcon.layer.cornerRadius = 20
+        btnCallsIcon.layer.borderWidth = 1
+        btnCallsIcon.layer.borderColor = UIColor.white.cgColor
+        btnCallsIcon.addTarget(self, action: #selector(showCall), for: .touchUpInside)
+        
+        //Plan label
+        gaugeViewHolder.addSubview(lblPlan)
+        lblPlan.leadingAnchor.constraint(equalTo: btnCallsIcon.trailingAnchor, constant: 20).isActive = true
+        lblPlan.topAnchor.constraint(equalTo: btnCallsIcon.topAnchor, constant: 20).isActive = true
+        lblPlan.trailingAnchor.constraint(equalTo: gaugeViewHolder.trailingAnchor, constant: -10).isActive = true
+        lblPlan.numberOfLines = 0
+        lblPlan.lineBreakMode = .byWordWrapping
+        
+        //Plan Warning Message
+        gaugeViewHolder.addSubview(lblPlanMessage)
+        lblPlanMessage.leadingAnchor.constraint(equalTo: btnCallsIcon.trailingAnchor, constant: 40).isActive = true
+        lblPlanMessage.topAnchor.constraint(equalTo: lblPlan.bottomAnchor, constant: 4).isActive = true
+        lblPlanMessage.trailingAnchor.constraint(equalTo: gaugeViewHolder.trailingAnchor, constant: -10).isActive = true
+        lblPlanMessage.numberOfLines = 0
+        lblPlanMessage.lineBreakMode = .byWordWrapping
+        
+        
         
         //yendi agoro
         scrollView.addSubview(yendiagoro)
@@ -668,6 +798,13 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             gaugeViewHolder.isHidden = true
         }
         
+        gaugeViewHolder.addSubview(lblPlanExpiration)
+        lblPlanExpiration.translatesAutoresizingMaskIntoConstraints = false
+        lblPlanExpiration.textColor = UIColor.white
+        lblPlanExpiration.font = UIFont(name: String.defaultFontR, size: 21)
+        lblPlanExpiration.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 40).isActive = true
+        lblPlanExpiration.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
+        
         scrollView.contentSize.height = 2000
     }
     
@@ -693,7 +830,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         gaugeViewHolder.addSubview(lblGaugeViewTitle)
         lblGaugeViewTitle.translatesAutoresizingMaskIntoConstraints = false
-        lblGaugeViewTitle.font = UIFont(name: String.defaultFontR, size: 21)
+        lblGaugeViewTitle.font = UIFont(name: String.defaultFontR, size: 20)
         lblGaugeViewTitle.textColor = UIColor.white
         lblGaugeViewTitle.text = "Total Data"
         lblGaugeViewTitle.topAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 40).isActive = true
@@ -701,19 +838,17 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         gaugeViewHolder.addSubview(lblGaugeViewLeft)
         lblGaugeViewLeft.translatesAutoresizingMaskIntoConstraints = false
-        lblGaugeViewLeft.text = "200GB"
         lblGaugeViewLeft.textColor = UIColor.white
         lblGaugeViewLeft.font = UIFont(name: String.defaultFontB, size: 35)
         lblGaugeViewLeft.topAnchor.constraint(equalTo: lblGaugeViewTitle.bottomAnchor, constant: 30).isActive = true
         lblGaugeViewLeft.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
         
-        gaugeViewHolder.addSubview(lblGaugeViewBucket)
-        lblGaugeViewBucket.translatesAutoresizingMaskIntoConstraints = false
-        lblGaugeViewBucket.text = "of 500GB"
-        lblGaugeViewBucket.textColor = UIColor.white
-        lblGaugeViewBucket.font = UIFont(name: String.defaultFontR, size: 21)
-        lblGaugeViewBucket.topAnchor.constraint(equalTo: lblGaugeViewLeft.bottomAnchor, constant: 30).isActive = true
-        lblGaugeViewBucket.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
+        gaugeViewHolder.addSubview(lblGaugeActualValue)
+        lblGaugeActualValue.translatesAutoresizingMaskIntoConstraints = false
+        lblGaugeActualValue.textColor = UIColor.white
+        lblGaugeActualValue.font = UIFont(name: String.defaultFontR, size: 21)
+        lblGaugeActualValue.topAnchor.constraint(equalTo: lblGaugeViewLeft.bottomAnchor, constant: 20).isActive = true
+        lblGaugeActualValue.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
         
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.white.cgColor
@@ -794,6 +929,80 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
     }
     
+    //Fuction to display data in gaugeView
+    @objc func showDataGauge(){
+        btnDataIcon.backgroundColor = UIColor.white
+        var btnImage = UIImage(named: "data_icon")
+        var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnDataIcon.setImage(tintImage, for: .normal)
+        btnDataIcon.tintColor = UIColor.gray
+        
+        btnSMSIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "sms")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnSMSIcon.setImage(tintImage, for: .normal)
+        btnSMSIcon.tintColor = UIColor.white
+        
+        btnCallsIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "call_icon")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnCallsIcon.setImage(tintImage, for: .normal)
+        btnCallsIcon.tintColor = UIColor.white
+        
+        lblGaugeViewTitle.text = "Total Data"
+        lblGaugeViewLeft.text = "\(dataBucketValue ?? "")\(dataBucketUnit ?? "")"
+        lblGaugeActualValue.text = "of \(dataActualValue ?? "")\(dataActualUnit ?? "")"
+        let n = CGFloat(truncating: NumberFormatter().number(from: dataPercentUsed!)!)
+        shapeLayer.strokeEnd = CGFloat(n)
+    }
+    
+    //Fuction to display sms in gaugeView
+    @objc func showSMSGauge(){
+        btnSMSIcon.backgroundColor = UIColor.white
+        var btnImage = UIImage(named: "sms")
+        var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnSMSIcon.setImage(tintImage, for: .normal)
+        btnSMSIcon.tintColor = UIColor.gray
+        
+        btnDataIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "data_icon")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnDataIcon.setImage(tintImage, for: .normal)
+        btnDataIcon.tintColor = UIColor.white
+        
+        btnCallsIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "call_icon")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnCallsIcon.setImage(tintImage, for: .normal)
+        btnCallsIcon.tintColor = UIColor.white
+    }
+    
+    @objc func showCall(){
+        print("here ")
+    }
+    
+    //Fuction to display call in gaugeView
+    @objc func showCallGauge(){
+        print("here")
+        btnCallsIcon.backgroundColor = UIColor.white
+        var btnImage = UIImage(named: "call_icon")
+        var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnCallsIcon.setImage(tintImage, for: .normal)
+        btnCallsIcon.tintColor = UIColor.gray
+        
+        btnSMSIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "sms")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnSMSIcon.setImage(tintImage, for: .normal)
+        btnSMSIcon.tintColor = UIColor.white
+        
+        btnDataIcon.backgroundColor = UIColor.clear
+        btnImage = UIImage(named: "data_icon")
+        tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnDataIcon.setImage(tintImage, for: .normal)
+        btnDataIcon.tintColor = UIColor.white
+    }
+    
     //Function to call balances
     func getMobileBalances() {
         let postParameters: Dictionary<String, Any> = [
@@ -826,6 +1035,125 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                         DispatchQueue.main.async {
                             if responseCode == 0 {
                                 let promotions = parseJSON["PROMOTIONS"] as! NSArray?
+                                
+                                if let promotionsRip = promotions {
+                                    self.preference.set(promotionsRip, forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
+                                    for obj in promotionsRip{
+                                        if let dict = obj as? NSDictionary{
+                                            let planExpireDuration = dict.value(forKey: "ExpirationDuration") as! String
+                                            let plan = dict.value(forKey: "Promotion") as! String
+                                            
+                                            let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String
+                                            
+                                            self.lblPlanExpiration.text = planExpireDuration
+                                            self.lblPlan.text = plan
+                                            if Int(rawExpireDuration)! < 7 {
+                                                self.lblPlan.textColor = UIColor.vodaRed
+                                            }
+                                            
+                                            let bundleDict = dict.value(forKey: "BundleDetails") as? NSArray
+                                            if let array = bundleDict {
+                                                let totalBuckets = array.count
+                                                if totalBuckets > 2 {
+                                                    // set isGauge to true
+//                                                    TODO set preference for gaugevisible
+//                                                    self.isGaugeVisible = true
+                                                }else{
+//                                                    self.isGaugeVisible = false
+                                                    print("Dont show gauge")
+                                                }
+                                                for arrayObject in array {
+                                                    
+                                                    print("bundle arrays \(arrayObject)")
+                                                    if let bundleDict = arrayObject as? NSDictionary{
+                                                        let bucketType = bundleDict.value(forKey: "Type") as! String
+                                                        let actualValue = bundleDict.value(forKey: "ActualValue") as! String
+                                                        let bucketUnit = bundleDict.value(forKey: "BucketUnit") as! String
+                                                        let percentageUsed = bundleDict.value(forKey: "PercentageUsed") as! String
+                                                        let bucketValue = bundleDict.value(forKey: "BucketValue") as! String
+                                                        let unit = bundleDict.value(forKey: "Unit") as! String
+                                                        let actualUnit = bundleDict.value(forKey: "ActualUnit") as! String
+                                                        
+                                                        if bucketType == "data"{
+                                                            self.gloBucketType = bucketType
+                                                            self.dataUnit = unit
+                                                            self.dataActualUnit = actualUnit
+                                                            self.dataBucketUnit = bucketUnit
+                                                            self.dataActualValue = actualValue
+                                                            self.dataPercentUsed = percentageUsed
+                                                            self.dataBucketValue = bucketValue
+                                                            if bucketValue.contains("."){
+//                                                                let removeDeci = bucketValue.dropLast(3)
+                                                                self.lblGaugeViewLeft.text = "\(bucketValue)\(bucketUnit)"
+                                                            }else{
+                                                                self.lblGaugeViewLeft.text = "\(bucketValue)\(bucketUnit)"
+                                                            }
+                                                            self.lblGaugeActualValue.text = "of \(actualValue)\(actualUnit)"
+                                                            
+                                                        }else if bucketType == "sms" {
+                                                            self.gloBucketType = "Sms"
+                                                            self.smsUnit = unit
+                                                            self.smsActualUnit = actualUnit
+                                                            self.smsBucketUnit = bucketUnit
+                                                            self.smsActualValue = actualValue
+                                                            self.smsPercentUsed = percentageUsed
+                                                            self.smsBucketValue = bucketValue
+                                                        }else if bucketType == "offnet"{
+                                                            self.gloBucketType = "Total Mins"
+                                                            self.callsUnit = unit
+                                                            self.callsActualUnit = actualUnit
+                                                            self.callsBucketUnit = bucketUnit
+                                                            self.callsActualValue = actualValue
+                                                            self.callsPercentUsed = percentageUsed
+                                                            self.callsBucketValue = bucketValue
+                                                            let convertActualValue = Int(actualValue)
+                                                            let convBucketValue = Double(bucketValue)
+                                                            let convPercentValue = Double(percentageUsed)
+                                                            self.callsActualValueSum += convertActualValue!
+                                                            self.callsBucketValueSum += convBucketValue!
+                                                            self.percentageCallsSum += convPercentValue!
+                                                        }else if bucketType == "onnet"{
+                                                            self.gloBucketType = "Total Mins"
+                                                            self.callsUnit = unit
+                                                            self.callsActualUnit = actualUnit
+                                                            self.callsBucketUnit = bucketUnit
+                                                            self.callsActualValue = actualValue
+                                                            self.callsPercentUsed = percentageUsed
+                                                            self.callsBucketValue = bucketValue
+                                                            let convertActualValue = Int(actualValue)
+                                                            let convBucketValue = Double(bucketValue)
+                                                            let convPercentValue = Double(percentageUsed)
+                                                            self.callsActualValueSum += convertActualValue!
+                                                            self.callsBucketValueSum += convBucketValue!
+                                                            self.percentageCallsSum += convPercentValue!
+                                                        }else if bucketType == "idd"{
+                                                            self.gloBucketType = "Total Mins"
+                                                            self.callsUnit = unit
+                                                            self.callsActualUnit = actualUnit
+                                                            self.callsBucketUnit = bucketUnit
+                                                            self.callsActualValue = actualValue
+                                                            self.callsPercentUsed = percentageUsed
+                                                            self.callsBucketValue = bucketValue
+                                                            let convertActualValue = Int(actualValue)
+                                                            let convBucketValue = Double(bucketValue)
+                                                            let convPercentValue = Double(percentageUsed)
+                                                            self.callsActualValueSum += convertActualValue!
+                                                            self.callsBucketValueSum += convBucketValue!
+                                                            self.percentageCallsSum += convPercentValue!
+                                                        }
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                }
+                                                print("total calls given \(self.callsActualValueSum)")
+                                                print("total calls left \(self.callsBucketValueSum)")
+                                                print("total calls percentage \(self.percentageCallsSum)")
+                                            }
+                                        }
+                                        
+                                    }
+                                }
                                 let balance = parseJSON["BALANCE"] as! NSDictionary?
                                 print("promos \(promotions!)")
                                 print("balance \(balance!)")
@@ -843,9 +1171,6 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                     self.preference.set(self.balanceLabel!, forKey: "balanceLabel")
                                     self.lblCreditTitle.text = self.balanceLabel!
                                 }
-                                
-                                
-                                
                                 
                             }
                         }
@@ -968,4 +1293,5 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         lblLastUpdatedStatus.alpha = 0
         yendiagoro.alpha = 0
     }
+    
 }
