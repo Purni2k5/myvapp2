@@ -8,7 +8,7 @@
 
 import UIKit
 import FSPagerView
-import SpriteKit
+
 
 class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
@@ -300,31 +300,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.defaultCallCreditView.transform = .identity
         }) { (success) in
-            self.showTwoFourSeven()
+            self.showYendiAgoro()
         }
         self.defaultCallCreditView.alpha = 1
         self.lblCreditTitle.alpha = 1
         self.lblCreditRem.alpha = 1
         self.btnTopUp.alpha = 1
-        
-        /*UIView.animate(withDuration: 1, animations: {
-            self.defaultCallCreditView.alpha = 1
-            self.lblCreditTitle.alpha = 1
-            self.lblCreditRem.alpha = 1
-            self.btnTopUp.alpha = 1
-        }) { (true) in
-            self.showTwoFourSeven()
-        }*/
+       
     }
     
-    
-    func showTwoFourSeven(){
-        UIView.animate(withDuration: 1, animations: {
-            self.twoFourSeven.alpha = 1
-        }) { (true) in
-            self.showLastUpdate()
-        }
-    }
     
     func showLastUpdate() {
         UIView.animate(withDuration: 1, animations: {
@@ -332,26 +316,21 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             self.updateIcon.alpha = 1
         }) { (true) in
             self.showYendiAgoro()
+//            self.showTwoFourSeven()
         }
     }
     
     func showYendiAgoro(){
         yendiagoro.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+        twoFourSeven.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 2, options: [], animations: {
             self.yendiagoro.transform = .identity
+            self.twoFourSeven.transform = .identity
         }) { (success) in
             
         }
         self.yendiagoro.alpha = 1
-        /*UIView.animate(withDuration: 1, animations: {
-            self.yendiagoro.alpha = 1
-        }) { (true) in
-            UIView.animate(withDuration: 1, animations: {
-                self.yendiagoro.alpha = 0
-            }, completion: { (true) in
-                self.yendiagoro.alpha = 1
-            })
-        }*/
+        self.twoFourSeven.alpha = 1
     }
     func setUpViews1(){
         
@@ -1289,8 +1268,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
 //        defaultAccImage.alpha = 0
 //        defaultAccDisName.alpha = 0
         twoFourSeven.alpha = 0
-        updateIcon.alpha = 0
-        lblLastUpdatedStatus.alpha = 0
+//        updateIcon.alpha = 0
+//        lblLastUpdatedStatus.alpha = 0
         yendiagoro.alpha = 0
     }
     
