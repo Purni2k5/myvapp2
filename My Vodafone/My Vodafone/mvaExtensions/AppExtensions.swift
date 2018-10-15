@@ -167,6 +167,7 @@ extension UIViewController {
         case ServiceList
         case userSubscriberSummary
         case isGaugeVisible
+        case lastUpdate
     }
     
     enum keyChainKeys: String {

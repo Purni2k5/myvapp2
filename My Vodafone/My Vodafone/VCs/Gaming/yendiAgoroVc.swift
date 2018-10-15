@@ -62,6 +62,13 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
             print("still error \(fullURLString)")
         }
         
+        var scriptContent = "var meta = document.createElement('meta');"
+        scriptContent += "meta.name='viewport';"
+        scriptContent += "meta.content='width=device-width';"
+        scriptContent += "document.getElementsByTagName('head')[0].appendChild(meta);"
+        
+        yendiWebView.evaluateJavaScript(scriptContent, completionHandler: nil)
+        
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }

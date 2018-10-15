@@ -39,7 +39,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     let defaultAccDisName = UILabel()
     let yendiagoro = UIImageView()
     let twoFourSeven = UIImageView()
-    let updateIcon = UIImageView()
+    let updateIcon = UIButton()
     let lblLastUpdatedStatus = UILabel()
     let lblShakeHeader = UILabel()
     let btnTopUp = UIButton()
@@ -66,7 +66,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     let trackLayer = CAShapeLayer()
     
     var isMade4MePresent: Bool = false
-    var isGaugeVisible: Bool = true
+    var isGaugeVisible: Bool = false
     
     fileprivate var imageNames = ["shake_bubble", "bubble2"]
     fileprivate var defaultImageTopConstraint1: NSLayoutConstraint?
@@ -121,6 +121,20 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var callsActualValueSum: Int = 0
     var callsBucketValueSum: Double = 0
     var percentageCallsSum: Double = 0
+    var dataActualValueSum: Double = 0
+    var dataBucketValueSum: Double = 0
+    
+    var actualValueToKB: Double = 0
+    var bucketValueToKB: Double = 0
+    var dataActualInKB: Double = 0
+    var dataBucketInKB: Double = 0
+    
+    var gaugeTracker = 0
+    var gaugeViewPromotion: String?
+    var gaugeViewExpirationDuration: String?
+    var gaugeViewRawExpirationDuration: String?
+    
+    var lastUpdate: String?
     
     let btnOffers: UIButton = {
         let btn = UIButton()
@@ -166,15 +180,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         return btn
     }()
     
-    let btnCallsIcon: UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
+    let btnCallDataIcon: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         let btnImage = UIImage(named: "call_icon")
         let tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
-        btn.setImage(tintImage, for: .normal)
-        btn.tintColor = UIColor.white
-//        btn.addTarget(self, action: #selector(showCall), for: .touchUpInside)
-        return btn
+        button.setImage(tintImage, for: .normal)
+        button.tintColor = UIColor.white
+        button.addTarget(self, action: #selector(showCallsGauge), for: .touchUpInside)
+        return button
     }()
     
     let lblPlan: UILabel = {
@@ -189,7 +203,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textColor = UIColor.vodaRed
-        view.text = "You are running out of DATA, SMS, CALL"
+        view.text = ""
         view.font = UIFont(name: String.defaultFontB, size: 13)
         return view
     }()
@@ -219,6 +233,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         balanceLabel = preference.object(forKey: "balanceLabel") as! String?
         accountBalanceLabel = preference.object(forKey: "accBalanceLabel") as! String?
+        lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
         
 //        print("yos:: \(defaultService)")
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
@@ -284,6 +299,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             self.showCredit()
         }
         self.pagerView.alpha = 1
+        self.lblShakeHeader.alpha = 1
+        self.lblShakeDesc.alpha = 1
+        self.shakeButton.alpha = 1
         /*UIView.animate(withDuration: 1, animations: {
 //            self.shakeImage.alpha = 1
             self.pagerView.alpha = 1
@@ -593,6 +611,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         //Gauge View
         
+        
         scrollView.addSubview(gaugeViewHolder)
         gaugeViewHolder.translatesAutoresizingMaskIntoConstraints = false
         gaugeViewHolder.backgroundColor = UIColor.clear
@@ -639,27 +658,26 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnSMSIcon.layer.borderColor = UIColor.white.cgColor
         
         //Call Icon
-        gaugeViewHolder.addSubview(btnCallsIcon)
-        btnCallsIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        btnCallsIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        btnCallsIcon.topAnchor.constraint(equalTo: btnSMSIcon.bottomAnchor, constant: 10).isActive = true
-        btnCallsIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 100).isActive = true
-        btnCallsIcon.layer.cornerRadius = 20
-        btnCallsIcon.layer.borderWidth = 1
-        btnCallsIcon.layer.borderColor = UIColor.white.cgColor
-        btnCallsIcon.addTarget(self, action: #selector(showCall), for: .touchUpInside)
+        scrollView.addSubview(btnCallDataIcon)
+        btnCallDataIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnCallDataIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnCallDataIcon.topAnchor.constraint(equalTo: btnSMSIcon.bottomAnchor, constant: 10).isActive = true
+        btnCallDataIcon.leadingAnchor.constraint(equalTo: btnSMSIcon.trailingAnchor, constant: 2).isActive = true
+        btnCallDataIcon.layer.cornerRadius = 20
+        btnCallDataIcon.layer.borderWidth = 1
+        btnCallDataIcon.layer.borderColor = UIColor.white.cgColor
         
         //Plan label
         gaugeViewHolder.addSubview(lblPlan)
-        lblPlan.leadingAnchor.constraint(equalTo: btnCallsIcon.trailingAnchor, constant: 20).isActive = true
-        lblPlan.topAnchor.constraint(equalTo: btnCallsIcon.topAnchor, constant: 20).isActive = true
+        lblPlan.leadingAnchor.constraint(equalTo: btnCallDataIcon.trailingAnchor, constant: 20).isActive = true
+        lblPlan.topAnchor.constraint(equalTo: btnCallDataIcon.topAnchor, constant: 20).isActive = true
         lblPlan.trailingAnchor.constraint(equalTo: gaugeViewHolder.trailingAnchor, constant: -10).isActive = true
         lblPlan.numberOfLines = 0
         lblPlan.lineBreakMode = .byWordWrapping
         
         //Plan Warning Message
         gaugeViewHolder.addSubview(lblPlanMessage)
-        lblPlanMessage.leadingAnchor.constraint(equalTo: btnCallsIcon.trailingAnchor, constant: 40).isActive = true
+        lblPlanMessage.leadingAnchor.constraint(equalTo: btnCallDataIcon.trailingAnchor, constant: 40).isActive = true
         lblPlanMessage.topAnchor.constraint(equalTo: lblPlan.bottomAnchor, constant: 4).isActive = true
         lblPlanMessage.trailingAnchor.constraint(equalTo: gaugeViewHolder.trailingAnchor, constant: -10).isActive = true
         lblPlanMessage.numberOfLines = 0
@@ -699,17 +717,25 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         //update icon
         scrollView.addSubview(updateIcon)
         updateIcon.translatesAutoresizingMaskIntoConstraints = false
-        updateIcon.image = UIImage(named: "progressarrow")
+        let progressArrow = UIImage(named: "progressarrow")
+        
+        updateIcon.setImage(progressArrow, for: .normal)
         updateIcon.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 100).isActive = true
         updateIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 60).isActive = true
-        updateIcon.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        updateIcon.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        updateIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        updateIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        updateIcon.addTarget(self, action: #selector(updateHome), for: .touchUpInside)
         
         //Last updated label
         scrollView.addSubview(lblLastUpdatedStatus)
         lblLastUpdatedStatus.translatesAutoresizingMaskIntoConstraints = false
-        lblLastUpdatedStatus.text = "Last updated on ........."
-        lblLastUpdatedStatus.font = UIFont(name: String.defaultFontR, size: 13)
+        if let lastUpdate = lastUpdate {
+            lblLastUpdatedStatus.text = "Last updated on \(lastUpdate)"
+        }else{
+            lblLastUpdatedStatus.text = "Last updated on ........."
+        }
+        
+        lblLastUpdatedStatus.font = UIFont(name: String.defaultFontR, size: 14)
         lblLastUpdatedStatus.textColor = UIColor.white
         lblLastUpdatedStatus.leadingAnchor.constraint(equalTo: updateIcon.trailingAnchor, constant: 10).isActive = true
         lblLastUpdatedStatus.topAnchor.constraint(equalTo: yendiagoro.bottomAnchor, constant: 105).isActive = true
@@ -775,6 +801,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             yendiAgoroTop1?.isActive = true
             supportTop1?.isActive = true
             gaugeViewHolder.isHidden = true
+            btnGoFBB.isHidden = true
+            btnCallDataIcon.isHidden = true
+            btnOffers.isHidden = true
         }
         
         gaugeViewHolder.addSubview(lblPlanExpiration)
@@ -847,6 +876,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     func backgroundCalls(){
         checkStaff()
         getMobileBalances()
+        
     }
     
     //Function to check for staff Number
@@ -909,7 +939,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     }
     
     //Fuction to display data in gaugeView
-    @objc func showDataGauge(){
+    fileprivate func activateDataGauge() {
+        shapeLayer.strokeEnd = 0
         btnDataIcon.backgroundColor = UIColor.white
         var btnImage = UIImage(named: "data_icon")
         var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
@@ -922,21 +953,30 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnSMSIcon.setImage(tintImage, for: .normal)
         btnSMSIcon.tintColor = UIColor.white
         
-        btnCallsIcon.backgroundColor = UIColor.clear
+        btnCallDataIcon.backgroundColor = UIColor.clear
         btnImage = UIImage(named: "call_icon")
         tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
-        btnCallsIcon.setImage(tintImage, for: .normal)
-        btnCallsIcon.tintColor = UIColor.white
+        btnCallDataIcon.setImage(tintImage, for: .normal)
+        btnCallDataIcon.tintColor = UIColor.white
         
         lblGaugeViewTitle.text = "Total Data"
-        lblGaugeViewLeft.text = "\(dataBucketValue ?? "")\(dataBucketUnit ?? "")"
+        lblGaugeViewLeft.text = "\(dataBucketValueSum)\(dataBucketUnit ?? "")"
         lblGaugeActualValue.text = "of \(dataActualValue ?? "")\(dataActualUnit ?? "")"
-        let n = CGFloat(truncating: NumberFormatter().number(from: dataPercentUsed!)!)
-        shapeLayer.strokeEnd = CGFloat(n)
+        
+        var dataUsed = (dataActualInKB - dataBucketInKB)
+        dataUsed = (dataBucketInKB / dataActualInKB) * 100
+        dataUsed = dataUsed / 100
+        print("total Data: \(dataUsed)")
+        shapeLayer.strokeEnd = CGFloat(dataUsed)
+    }
+    
+    @objc func showDataGauge(){
+        
+        activateDataGauge()
     }
     
     //Fuction to display sms in gaugeView
-    @objc func showSMSGauge(){
+    fileprivate func activateSMSGauge() {
         btnSMSIcon.backgroundColor = UIColor.white
         var btnImage = UIImage(named: "sms")
         var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
@@ -949,25 +989,31 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnDataIcon.setImage(tintImage, for: .normal)
         btnDataIcon.tintColor = UIColor.white
         
-        btnCallsIcon.backgroundColor = UIColor.clear
+        btnCallDataIcon.backgroundColor = UIColor.clear
         btnImage = UIImage(named: "call_icon")
         tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
-        btnCallsIcon.setImage(tintImage, for: .normal)
-        btnCallsIcon.tintColor = UIColor.white
+        btnCallDataIcon.setImage(tintImage, for: .normal)
+        btnCallDataIcon.tintColor = UIColor.white
+        
+        lblGaugeViewTitle.text = "Sms"
+        lblGaugeViewLeft.text = "\(smsBucketValue ?? "")"
+        lblGaugeActualValue.text = "of \(smsActualValue ?? "")\(smsActualUnit ?? "")"
+        
+        let intsmsActual = Double(smsActualValue!)!
+        let intsmsBucket = Double(smsBucketValue!)!
+        var totalUsed = (intsmsActual - intsmsBucket)
+        totalUsed = (intsmsBucket / intsmsActual) * 100
+        totalUsed = totalUsed / 100
+        print("total Sms: \(totalUsed)")
+        shapeLayer.strokeEnd = CGFloat(totalUsed)
     }
     
-    @objc func showCall(){
-        print("here ")
-    }
-    
-    //Fuction to display call in gaugeView
-    @objc func showCallGauge(){
-        print("here")
-        btnCallsIcon.backgroundColor = UIColor.white
+    fileprivate func activateCallGauge(){
+        btnCallDataIcon.backgroundColor = UIColor.white
         var btnImage = UIImage(named: "call_icon")
         var tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
-        btnCallsIcon.setImage(tintImage, for: .normal)
-        btnCallsIcon.tintColor = UIColor.gray
+        btnCallDataIcon.setImage(tintImage, for: .normal)
+        btnCallDataIcon.tintColor = UIColor.gray
         
         btnSMSIcon.backgroundColor = UIColor.clear
         btnImage = UIImage(named: "sms")
@@ -980,10 +1026,33 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
         btnDataIcon.setImage(tintImage, for: .normal)
         btnDataIcon.tintColor = UIColor.white
+        
+        lblGaugeViewTitle.text = "Total Mins"
+        lblGaugeViewLeft.text = "\(String(callsBucketValueSum))"
+        lblGaugeActualValue.text = "of \(String(callsActualValueSum))\(callsActualUnit ?? "")"
+        
+        let intCallsActual = Double(callsActualValueSum)
+        let intsCallsBucket = Double(callsBucketValueSum)
+        var totalUsed = (intCallsActual - intsCallsBucket)
+        totalUsed = (intsCallsBucket / intCallsActual) * 100
+        totalUsed = totalUsed / 100
+        print("total Calls: \(totalUsed)")
+        shapeLayer.strokeEnd = CGFloat(totalUsed)
+    }
+    
+    @objc func showSMSGauge(){
+        activateSMSGauge()
+    }
+    
+    //Fuction to display call in gaugeView
+    @objc func showCallsGauge(){
+        activateCallGauge()
+        
     }
     
     //Function to call balances
     func getMobileBalances() {
+        
         let postParameters: Dictionary<String, Any> = [
             "action":"subscriberSummary",
             "msisdn":msisdn!,
@@ -1013,7 +1082,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         DispatchQueue.main.async {
                             if responseCode == 0 {
+                                let today = self.getTodayString()
+                                print("Time: \(today)")
+                                UIView.animate(withDuration: 1) {
+                                    self.updateIcon.transform = CGAffineTransform(rotationAngle: .pi)
+                                }
+                                self.preference.set(today, forKey: UserDefaultsKeys.lastUpdate.rawValue)
+                                self.lblLastUpdatedStatus.text = today
                                 let promotions = parseJSON["PROMOTIONS"] as! NSArray?
+                                print("Promotions : \(promotions)")
                                 
                                 if let promotionsRip = promotions {
                                     self.preference.set(promotionsRip, forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
@@ -1025,22 +1102,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                             let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String
                                             
                                             self.lblPlanExpiration.text = planExpireDuration
-                                            self.lblPlan.text = plan
+                                            
                                             if Int(rawExpireDuration)! < 7 {
-                                                self.lblPlan.textColor = UIColor.vodaRed
+                                                self.lblPlanMessage.textColor = UIColor.vodaRed
                                             }
                                             
                                             let bundleDict = dict.value(forKey: "BundleDetails") as? NSArray
                                             if let array = bundleDict {
                                                 let totalBuckets = array.count
-                                                if totalBuckets > 2 {
-                                                    // set isGauge to true
-//                                                    TODO set preference for gaugevisible
-//                                                    self.isGaugeVisible = true
-                                                }else{
-//                                                    self.isGaugeVisible = false
-                                                    print("Dont show gauge")
-                                                }
+                                                print("Total bucket:: \(totalBuckets)")
                                                 for arrayObject in array {
                                                     
                                                     print("bundle arrays \(arrayObject)")
@@ -1052,90 +1122,206 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                         let bucketValue = bundleDict.value(forKey: "BucketValue") as! String
                                                         let unit = bundleDict.value(forKey: "Unit") as! String
                                                         let actualUnit = bundleDict.value(forKey: "ActualUnit") as! String
+                                                        print("Bucket Types: \(bucketType)")
                                                         
-                                                        if bucketType == "data"{
-                                                            self.gloBucketType = bucketType
-                                                            self.dataUnit = unit
-                                                            self.dataActualUnit = actualUnit
-                                                            self.dataBucketUnit = bucketUnit
-                                                            self.dataActualValue = actualValue
-                                                            self.dataPercentUsed = percentageUsed
-                                                            self.dataBucketValue = bucketValue
-                                                            if bucketValue.contains("."){
-//                                                                let removeDeci = bucketValue.dropLast(3)
-                                                                self.lblGaugeViewLeft.text = "\(bucketValue)\(bucketUnit)"
-                                                            }else{
-                                                                self.lblGaugeViewLeft.text = "\(bucketValue)\(bucketUnit)"
-                                                            }
-                                                            self.lblGaugeActualValue.text = "of \(actualValue)\(actualUnit)"
+                                                        if totalBuckets >= 3 {
+                                                            print("show gauge")
+                                                            // set isGauge to true
+                                                            // TODO set preference for gaugevisible
+                                                            self.isGaugeVisible = true
+                                                            self.gaugeViewExpirationDuration = dict.value(forKey: "ExpirationDuration") as! String
+                                                            self.gaugeViewPromotion = dict.value(forKey: "Promotion") as! String
+                                                            self.gaugeViewRawExpirationDuration = dict.value(forKey: "RawExpirationDuration") as! String
                                                             
-                                                        }else if bucketType == "sms" {
-                                                            self.gloBucketType = "Sms"
-                                                            self.smsUnit = unit
-                                                            self.smsActualUnit = actualUnit
-                                                            self.smsBucketUnit = bucketUnit
-                                                            self.smsActualValue = actualValue
-                                                            self.smsPercentUsed = percentageUsed
-                                                            self.smsBucketValue = bucketValue
-                                                        }else if bucketType == "offnet"{
-                                                            self.gloBucketType = "Total Mins"
-                                                            self.callsUnit = unit
-                                                            self.callsActualUnit = actualUnit
-                                                            self.callsBucketUnit = bucketUnit
-                                                            self.callsActualValue = actualValue
-                                                            self.callsPercentUsed = percentageUsed
-                                                            self.callsBucketValue = bucketValue
-                                                            let convertActualValue = Int(actualValue)
-                                                            let convBucketValue = Double(bucketValue)
-                                                            let convPercentValue = Double(percentageUsed)
-                                                            self.callsActualValueSum += convertActualValue!
-                                                            self.callsBucketValueSum += convBucketValue!
-                                                            self.percentageCallsSum += convPercentValue!
-                                                        }else if bucketType == "onnet"{
-                                                            self.gloBucketType = "Total Mins"
-                                                            self.callsUnit = unit
-                                                            self.callsActualUnit = actualUnit
-                                                            self.callsBucketUnit = bucketUnit
-                                                            self.callsActualValue = actualValue
-                                                            self.callsPercentUsed = percentageUsed
-                                                            self.callsBucketValue = bucketValue
-                                                            let convertActualValue = Int(actualValue)
-                                                            let convBucketValue = Double(bucketValue)
-                                                            let convPercentValue = Double(percentageUsed)
-                                                            self.callsActualValueSum += convertActualValue!
-                                                            self.callsBucketValueSum += convBucketValue!
-                                                            self.percentageCallsSum += convPercentValue!
-                                                        }else if bucketType == "idd"{
-                                                            self.gloBucketType = "Total Mins"
-                                                            self.callsUnit = unit
-                                                            self.callsActualUnit = actualUnit
-                                                            self.callsBucketUnit = bucketUnit
-                                                            self.callsActualValue = actualValue
-                                                            self.callsPercentUsed = percentageUsed
-                                                            self.callsBucketValue = bucketValue
-                                                            let convertActualValue = Int(actualValue)
-                                                            let convBucketValue = Double(bucketValue)
-                                                            let convPercentValue = Double(percentageUsed)
-                                                            self.callsActualValueSum += convertActualValue!
-                                                            self.callsBucketValueSum += convBucketValue!
-                                                            self.percentageCallsSum += convPercentValue!
+                                                            if bucketType == "data"{
+                                                                self.gloBucketType = bucketType
+                                                                self.dataUnit = unit
+                                                                self.dataActualUnit = actualUnit
+                                                                self.dataBucketUnit = bucketUnit
+                                                                self.dataActualValue = actualValue
+                                                                self.dataPercentUsed = percentageUsed
+                                                                self.dataBucketValue = bucketValue
+                                                                let convertActualValue = Double(actualValue)
+                                                                let convBucketValue = Double(bucketValue)
+                                                                self.dataActualValueSum += convertActualValue!
+                                                                self.dataBucketValueSum += convBucketValue!
+                                                                if bucketValue.contains("."){
+                                                                    //                                                                let removeDeci = bucketValue.dropLast(3)
+                                                                    self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
+                                                                }else{
+                                                                    self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
+                                                                }
+                                                                self.lblGaugeActualValue.text = "of \(self.dataActualValueSum)\(actualUnit)"
+                                                                
+                                                                if bucketUnit != "KB"{
+                                                                    self.bucketValueToKB = self.convertGBTOKB(passed: Double(bucketValue)!)
+                                                                    self.dataBucketInKB += self.bucketValueToKB
+                                                                    
+                                                                }else{
+                                                                    self.dataBucketInKB += Double(bucketValue)!
+                                                                }
+                                                                
+                                                                if actualUnit != "KB" {
+                                                                    self.actualValueToKB = self.convertGBTOKB(passed: Double(actualValue)!)
+                                                                    
+                                                                    self.dataActualInKB += self.actualValueToKB
+                                                                }else{
+                                                                    self.dataActualInKB += Double(actualValue)!
+                                                                }
+                                                            }else if bucketType == "sms" {
+                                                                print("Seen sms")
+                                                                self.gloBucketType = "Sms"
+                                                                self.smsUnit = unit
+                                                                self.smsActualUnit = actualUnit
+                                                                self.smsBucketUnit = bucketUnit
+                                                                self.smsActualValue = actualValue
+                                                                self.smsPercentUsed = percentageUsed
+                                                                self.smsBucketValue = bucketValue
+                                                            }else if bucketType == "offnet"{
+                                                                print("Seen offnet")
+                                                                self.gloBucketType = "Total Mins"
+                                                                self.callsUnit = unit
+                                                                self.callsActualUnit = actualUnit
+                                                                self.callsBucketUnit = bucketUnit
+                                                                self.callsActualValue = actualValue
+                                                                self.callsPercentUsed = percentageUsed
+                                                                self.callsBucketValue = bucketValue
+                                                                let convertActualValue = Int(actualValue)
+                                                                print("Actual valu \(actualValue)")
+                                                                let convBucketValue = Double(bucketValue)
+                                                                let convPercentValue = Double(percentageUsed)
+                                                                self.callsActualValueSum += convertActualValue!
+                                                                self.callsBucketValueSum += convBucketValue!
+                                                                self.percentageCallsSum += convPercentValue!
+                                                            }else if bucketType == "onnet"{
+                                                                print("Seen onnet")
+                                                                self.gloBucketType = "Total Mins"
+                                                                self.callsUnit = unit
+                                                                self.callsActualUnit = actualUnit
+                                                                self.callsBucketUnit = bucketUnit
+                                                                self.callsActualValue = actualValue
+                                                                self.callsPercentUsed = percentageUsed
+                                                                self.callsBucketValue = bucketValue
+                                                                let convertActualValue = Int(actualValue)
+                                                                let convBucketValue = Double(bucketValue)
+                                                                let convPercentValue = Double(percentageUsed)
+                                                                self.callsActualValueSum += convertActualValue!
+                                                                self.callsBucketValueSum += convBucketValue!
+                                                                self.percentageCallsSum += convPercentValue!
+                                                            }else if bucketType == "idd"{
+                                                                self.gloBucketType = "Total Mins"
+                                                                self.callsUnit = unit
+                                                                self.callsActualUnit = actualUnit
+                                                                self.callsBucketUnit = bucketUnit
+                                                                self.callsActualValue = actualValue
+                                                                self.callsPercentUsed = percentageUsed
+                                                                self.callsBucketValue = bucketValue
+                                                                let convertActualValue = Int(actualValue)
+                                                                let convBucketValue = Double(bucketValue)
+                                                                let convPercentValue = Double(percentageUsed)
+                                                                self.callsActualValueSum += convertActualValue!
+                                                                self.callsBucketValueSum += convBucketValue!
+                                                                self.percentageCallsSum += convPercentValue!
+                                                            }else{
+                                                                self.gloBucketType = "Total Mins"
+                                                                self.callsUnit = unit
+                                                                self.callsActualUnit = actualUnit
+                                                                self.callsBucketUnit = bucketUnit
+                                                                self.callsActualValue = actualValue
+                                                                self.callsPercentUsed = percentageUsed
+                                                                self.callsBucketValue = bucketValue
+                                                                let convertActualValue = Int(actualValue)
+                                                                let convBucketValue = Double(bucketValue)
+                                                                let convPercentValue = Double(percentageUsed)
+                                                                self.callsActualValueSum += convertActualValue!
+                                                                self.callsBucketValueSum += convBucketValue!
+                                                                self.percentageCallsSum += convPercentValue!
+                                                            }
+                                                        }else{
+                                                            print("Didn't count")
                                                         }
-                                                        
-                                                        
                                                     }
-                                                    
                                                 }
-                                                print("total calls given \(self.callsActualValueSum)")
-                                                print("total calls left \(self.callsBucketValueSum)")
-                                                print("total calls percentage \(self.percentageCallsSum)")
-                                            }
+                                            } //The lasst
+                                        }
+                                    }
+                                    print("total calls given \(self.callsActualValueSum)")
+                                    print("total calls left \(self.callsBucketValueSum)")
+                                    print("total calls percentage \(self.percentageCallsSum)")
+                                    print("GaugeView Promo \(self.gaugeViewPromotion)")
+                                    print("Sum actual in KB \(self.dataActualInKB)")
+                                    print("Sum bucket in KB \(self.dataBucketInKB)")
+                                    var dataUsed = (self.dataActualInKB - self.dataBucketInKB)
+                                    dataUsed = (self.dataBucketInKB / self.dataActualInKB) * 100
+                                    dataUsed = dataUsed / 100
+                                    //Calls
+                                    let intCallsActual = Double(self.callsActualValueSum)
+                                    let intsCallsBucket = Double(self.callsBucketValueSum)
+                                    var callsUsed = (intCallsActual - intsCallsBucket)
+                                    callsUsed = (intsCallsBucket / intCallsActual) * 100
+                                    callsUsed = callsUsed / 100
+                                    //SMS
+                                    let intsmsActual = Double(self.smsActualValue!)!
+                                    let intsmsBucket = Double(self.smsBucketValue!)!
+                                    var SMSUsed = (intsmsActual - intsmsBucket)
+                                    SMSUsed = (intsmsBucket / intsmsActual) * 100
+                                    SMSUsed = SMSUsed / 100
+                                    if dataUsed < 0.25 && callsUsed < 0.25 && SMSUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE, SMS"
+                                    }else if dataUsed < 0.25 && callsUsed < 0.25{
+                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE"
+                                    }else if dataUsed < 0.25 && SMSUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of DATA, SMS"
+                                    }else if callsUsed < 0.25 && SMSUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of VOICE, SMS"
+                                    }else if dataUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of DATA"
+                                    }else if callsUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of VOICE"
+                                    }else if SMSUsed < 0.25 {
+                                        self.lblPlanMessage.text = "You are running out of SMS"
+                                    }
+                                    
+                                    if self.gaugeViewPromotion == nil {
+                                        print("Dont show gauge again")
+                                        self.isGaugeVisible = false
+                                        
+                                    }
+                                    if !self.isGaugeVisible {
+                                        self.gaugeViewHolder.isHidden = true
+                                        self.btnGoFBB.isHidden = true
+                                        self.btnCallDataIcon.isHidden = true
+                                        self.btnOffers.isHidden = true
+                                        
+                                    }else{
+                                        self.defaultCallCreditViewTop1?.isActive = false
+                                        self.defaultCallCreditViewTop2?.isActive = true
+                                        self.defaultCallCreditViewLeading1?.isActive = false
+                                        self.defaultCallCreditViewLeading2?.isActive = true
+                                        self.defaultCallCreditViewTrailing1?.isActive = false
+                                        self.defaultCallCreditViewTrailing2?.isActive = true
+                                        self.yendiAgoroTop1?.isActive = false
+                                        self.yendiAgoroTop2?.isActive = true
+                                        self.supportTop1?.isActive = false
+                                        self.supportTop2?.isActive = true
+                                        self.gaugeViewHolder.isHidden = false
+                                        self.lblPlan.text = self.gaugeViewPromotion
+                                        self.lblPlanExpiration.text = self.gaugeViewExpirationDuration
+                                        if Int(self.gaugeViewRawExpirationDuration!)! < 7 {
+                                            self.lblPlanExpiration.textColor = UIColor.vodaRed
                                         }
                                         
+                                        self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 17)
+                                        self.lblCreditRem.font = UIFont(name: String.defaultFontB, size: 17)
+                                        self.btnCallDataIcon.isHidden = false
+                                        self.btnGoFBB.isHidden = false
+                                        self.btnOffers.isHidden = false
+                                        self.activateDataGauge()
+                                        self.shapeLayer.strokeEnd = CGFloat(dataUsed)
                                     }
                                 }
                                 let balance = parseJSON["BALANCE"] as! NSDictionary?
-                                print("promos \(promotions!)")
-                                print("balance \(balance!)")
+                                
                                 if let accBalance = balance!["AccountBalance"] as! String? {
                                     self.accountBalance = accBalance
                                     self.preference.set(self.accountBalance!, forKey: "accountBalance")
@@ -1161,6 +1347,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             task.resume()
         }
     }
+    
+    @objc func updateHome(){
+        UIView.animate(withDuration: 1) {
+            self.updateIcon.transform = CGAffineTransform(rotationAngle: .pi)
+        }
+        getMobileBalances()
+    }
+    
+    
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return imageNames.count
@@ -1215,9 +1410,39 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             lblShakeHeader.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 20).isActive = true
             lblShakeHeader.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -20).isActive = true
             lblShakeHeader.alpha = 1
+            lblShakeDesc.alpha = 1
+            shakeButton.alpha = 1
+            
+            //Shake Description
+            pagerView.addSubview(lblShakeDesc)
+            lblShakeDesc.translatesAutoresizingMaskIntoConstraints = false
+            lblShakeDesc.textColor = UIColor.white
+            lblShakeDesc.numberOfLines = 0
+            lblShakeDesc.lineBreakMode = .byWordWrapping
+            lblShakeDesc.font = UIFont(name: String.defaultFontR, size: 16)
+            lblShakeDesc.isHidden = false
+            lblShakeDesc.text = "Shake and get exciting bundles and rewards only on My Vodafone App"
+            lblShakeDesc.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 20).isActive = true
+            lblShakeDesc.topAnchor.constraint(equalTo: lblShakeHeader.bottomAnchor, constant: 10).isActive = true
+            lblShakeDesc.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -40).isActive = true
+            //shake button
+            pagerView.addSubview(shakeButton)
+            shakeButton.translatesAutoresizingMaskIntoConstraints = false
+            shakeButton.backgroundColor = UIColor.white
+            shakeButton.setTitleColor(UIColor.black, for: .normal)
+            shakeButton.titleLabel?.font = UIFont(name: String.defaultFontR, size: 16)
+            shakeButton.isHidden = false
+            shakeButton.setTitle("1GB FREE ON SHAKE - CLICK HERE", for: .normal)
+            shakeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+            shakeButton.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 20).isActive = true
+            shakeButton.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -20).isActive = true
+            shakeButton.topAnchor.constraint(equalTo: lblShakeDesc.bottomAnchor, constant: 10).isActive = true
+            shakeButton.addTarget(self, action: #selector(goToShake), for: .touchUpInside)
         }else{
             
             lblShakeHeader.alpha = 0
+            lblShakeDesc.alpha = 0
+            shakeButton.alpha = 0
         }
     }
     
@@ -1254,6 +1479,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             self.view.layoutIfNeeded()
         }
         menuShowing = !menuShowing
+    }
+    @objc func goToShake(){
+        print("Going to shake")
     }
     func zeroAlpha(){
 //        shakeImage.alpha = 0

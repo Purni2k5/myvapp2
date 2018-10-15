@@ -628,6 +628,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }
@@ -639,6 +640,16 @@ class baseViewControllerM: UIViewController {
             self.view.layoutIfNeeded()
         }
         menuShowing = !menuShowing
+    }
+    
+    func convertMBTOKB(passed: Double) -> Double{
+        let convertValue = passed * 1024
+        return convertValue
+    }
+    
+    func convertGBTOKB(passed: Double) -> Double{
+        let convertValue = passed * 1024 * 1024
+        return convertValue
     }
     
     func greetings() -> String{
@@ -655,6 +666,30 @@ class baseViewControllerM: UIViewController {
             time = "evening"
         }
         return time
+    }
+    
+    // Get today date as String
+    func getTodayString() -> String{
+        let date = Date()
+        let calender = Calendar.current
+        let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+        
+        let year = components.year
+        let month = components.month
+        let day = components.day
+        let hour = components.hour
+        let minute = components.minute
+        let second = components.second
+        
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE"
+        let dayInWeek = formatter.string(from: date)
+        
+        let today_string = String(dayInWeek) + "," + String(day!) + " " + String(month!) + " " + String(year!)  + " " + String(hour!) + ":" +  String(minute!) + ":" + String(second!)
+        
+        return today_string
+        
     }
     
     @objc func goToHome(){
@@ -843,6 +878,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: "ROAMINGS")
         preference.removeObject(forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
