@@ -818,7 +818,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
     private func updateGauge(){
         print("Attempting to move progress bar")
-        shapeLayer.strokeEnd = 0.5
+        shapeLayer.strokeEnd = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1084,9 +1084,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                             if responseCode == 0 {
                                 let today = self.getTodayString()
                                 print("Time: \(today)")
-                                UIView.animate(withDuration: 1) {
-                                    self.updateIcon.transform = CGAffineTransform(rotationAngle: .pi)
-                                }
+                               self.updateIcon.layer.removeAnimation(forKey: "rotate")
                                 self.preference.set(today, forKey: UserDefaultsKeys.lastUpdate.rawValue)
                                 self.lblLastUpdatedStatus.text = today
                                 let promotions = parseJSON["PROMOTIONS"] as! NSArray?
@@ -1349,9 +1347,13 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     }
     
     @objc func updateHome(){
-        UIView.animate(withDuration: 1) {
-            self.updateIcon.transform = CGAffineTransform(rotationAngle: .pi)
-        }
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(.pi * 2.0)
+        rotateAnimation.duration = 1.0
+        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+        
+        updateIcon.layer.add(rotateAnimation, forKey: "rotate")
         getMobileBalances()
     }
     
@@ -1398,6 +1400,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         if pagerView.currentIndex == 0 {
             pagerView.addSubview(lblShakeHeader)
+            lblGreetings.alpha = 0
+            greetingsRed.alpha = 0
+            lblWelcome.alpha = 0
             lblShakeHeader.translatesAutoresizingMaskIntoConstraints = false
             lblShakeHeader.textColor = UIColor.white
             lblShakeHeader.isHidden = false
@@ -1443,6 +1448,40 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             lblShakeHeader.alpha = 0
             lblShakeDesc.alpha = 0
             shakeButton.alpha = 0
+            
+            lblGreetings.alpha = 1
+            greetingsRed.alpha = 1
+            lblWelcome.alpha = 1
+            pagerView.addSubview(greetingsRed)
+            greetingsRed.translatesAutoresizingMaskIntoConstraints = false
+            greetingsRed.backgroundColor = UIColor.vodaRed
+            greetingsRed.widthAnchor.constraint(equalToConstant: 3).isActive = true
+            greetingsRed.leadingAnchor.constraint(equalTo: pagerView.leadingAnchor, constant: 50).isActive = true
+            greetingsRed.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 40).isActive = true
+            greetingsRed.bottomAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: -40).isActive = true
+            
+            pagerView.addSubview(lblGreetings)
+            lblGreetings.translatesAutoresizingMaskIntoConstraints = false
+            lblGreetings.textColor = UIColor.white
+            lblGreetings.font = UIFont(name: String.defaultFontR, size: 23)
+            lblGreetings.text = "Good \(greetings())"
+            lblGreetings.leadingAnchor.constraint(equalTo: greetingsRed.trailingAnchor, constant: 20).isActive = true
+            lblGreetings.topAnchor.constraint(equalTo: pagerView.topAnchor, constant: 80).isActive = true
+            lblGreetings.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -10).isActive = true
+            lblGreetings.numberOfLines = 0
+            lblGreetings.lineBreakMode = .byWordWrapping
+            
+            pagerView.addSubview(lblWelcome)
+            lblWelcome.translatesAutoresizingMaskIntoConstraints = false
+            lblWelcome.textColor = UIColor.white
+            lblWelcome.font = UIFont(name: String.defaultFontR, size: 13)
+            lblWelcome.leadingAnchor.constraint(equalTo: greetingsRed.leadingAnchor, constant: 20).isActive = true
+            lblWelcome.topAnchor.constraint(equalTo: lblGreetings.bottomAnchor, constant: 5).isActive = true
+            lblWelcome.trailingAnchor.constraint(equalTo: pagerView.trailingAnchor, constant: -10).isActive = true
+            lblWelcome.numberOfLines = 0
+            lblWelcome.lineBreakMode = .byWordWrapping
+            
+            lblWelcome.text = "Welcome to My Vodafone"
         }
     }
     
@@ -1481,7 +1520,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         menuShowing = !menuShowing
     }
     @objc func goToShake(){
-        print("Going to shake")
+        let storyboard = UIStoryboard(name: "Shake", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeScreen")
+        present(moveTo, animated: true, completion: nil)
     }
     func zeroAlpha(){
 //        shakeImage.alpha = 0

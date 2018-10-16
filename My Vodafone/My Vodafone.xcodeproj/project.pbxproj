@@ -31,6 +31,9 @@
 		01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */; };
 		01709C62215EB110008C8C3E /* notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C61215EB110008C8C3E /* notifications.swift */; };
 		01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */; };
+		01731973217586BA00989F8A /* Shake.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01731972217586BA00989F8A /* Shake.storyboard */; };
+		017319762175870900989F8A /* ShakeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319752175870900989F8A /* ShakeScreen.swift */; };
+		0173197821759EB000989F8A /* shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0173197721759EB000989F8A /* shake.wav */; };
 		017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
@@ -155,6 +158,9 @@
 		01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		01709C61215EB110008C8C3E /* notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notifications.swift; sourceTree = "<group>"; };
 		01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsPrivacy.swift; sourceTree = "<group>"; };
+		01731972217586BA00989F8A /* Shake.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Shake.storyboard; sourceTree = "<group>"; };
+		017319752175870900989F8A /* ShakeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeScreen.swift; sourceTree = "<group>"; };
+		0173197721759EB000989F8A /* shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shake.wav; sourceTree = "<group>"; };
 		017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContacts.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -329,6 +335,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		01731974217586D700989F8A /* Shake */ = {
+			isa = PBXGroup;
+			children = (
+				017319752175870900989F8A /* ShakeScreen.swift */,
+				0173197721759EB000989F8A /* shake.wav */,
+			);
+			path = Shake;
+			sourceTree = "<group>";
+		};
 		01941D992119B2A600B7D207 /* mvaExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +464,7 @@
 				015CEB02215572AC00341BA9 /* StoreLocator.storyboard */,
 				01CFCF95215B97800048D56E /* Messages.storyboard */,
 				015A53462163C80D0040807E /* NetPerform.storyboard */,
+				01731972217586BA00989F8A /* Shake.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -511,6 +527,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				01731974217586D700989F8A /* Shake */,
 				015A53482163C82F0040807E /* NetPerform */,
 				01CFCF97215B97920048D56E /* Messages */,
 				015CEB04215572CD00341BA9 /* StoreLocator */,
@@ -691,6 +708,7 @@
 				01C0235820C9C957003E48CC /* terms_and_conditions.html in Resources */,
 				01F57B472150FE13005F5F0C /* ProductsServices.storyboard in Resources */,
 				01F57B5121510693005F5F0C /* Games.storyboard in Resources */,
+				0173197821759EB000989F8A /* shake.wav in Resources */,
 				01C0234F20C9C957003E48CC /* simswap.html in Resources */,
 				01C0233B20C9C940003E48CC /* VodafoneLt.ttf in Resources */,
 				01C0233F20C9C940003E48CC /* VodafoneRg.ttf in Resources */,
@@ -701,6 +719,7 @@
 				01F57B4D2151041C005F5F0C /* About.storyboard in Resources */,
 				01C0230520C99304003E48CC /* Assets.xcassets in Resources */,
 				01C0230320C99304003E48CC /* Main.storyboard in Resources */,
+				01731973217586BA00989F8A /* Shake.storyboard in Resources */,
 				01F57B492151011E005F5F0C /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -811,6 +830,7 @@
 				01F57B612153E1F0005F5F0C /* RoamingBundles.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
+				017319762175870900989F8A /* ShakeScreen.swift in Sources */,
 				0199F5F121398FA000906580 /* fbbMove.swift in Sources */,
 				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,

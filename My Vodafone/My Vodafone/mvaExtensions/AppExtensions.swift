@@ -187,3 +187,20 @@ extension StringProtocol {
     }
 }
 
+//extension NSMutableAttributedString {
+//    @discardableResult func bold(_ text: String) -> NSMutableAttributedString {
+//        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont(name: String.defaultFontR, size: 13)!]
+//        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
+//        append(boldString)
+//
+//        return self
+//    }
+//
+//    @discardableResult func normal(_ text: String) -> NSMutableAttributedString {
+//        let normal = NSAttributedString(string: text)
+//        append(normal)
+//
+//        return self
+//    }
+//}
+
