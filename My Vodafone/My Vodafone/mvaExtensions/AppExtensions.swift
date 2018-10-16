@@ -168,6 +168,7 @@ extension UIViewController {
         case userSubscriberSummary
         case isGaugeVisible
         case lastUpdate
+        case shakeBundles
     }
     
     enum keyChainKeys: String {
@@ -187,20 +188,15 @@ extension StringProtocol {
     }
 }
 
-//extension NSMutableAttributedString {
-//    @discardableResult func bold(_ text: String) -> NSMutableAttributedString {
-//        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont(name: String.defaultFontR, size: 13)!]
-//        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
-//        append(boldString)
-//
-//        return self
-//    }
-//
-//    @discardableResult func normal(_ text: String) -> NSMutableAttributedString {
-//        let normal = NSAttributedString(string: text)
-//        append(normal)
-//
-//        return self
-//    }
-//}
+extension UIImageView {
+    func shakeView(){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 10, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
+        self.layer.add(animation, forKey: "position")
+    }
+}
 

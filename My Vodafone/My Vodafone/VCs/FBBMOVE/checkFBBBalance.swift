@@ -65,6 +65,7 @@ class checkFBBBalance: baseViewControllerM {
     let btnCheck = UIButton()
     let checkBox = UIButton()
     
+    
     var isChecked: Bool = true
     var username: String?
     

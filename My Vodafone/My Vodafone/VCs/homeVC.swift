@@ -355,7 +355,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let bgImage = UIImageView()
         bgImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bgImage)
-        bgImage.image = UIImage(named: "morning_bg_")
+        let timeOfDay = greetings()
+         if timeOfDay == "morning"{
+         bgImage.image = UIImage(named: "shake__bg")
+         }else if timeOfDay == "afternoon" {
+         bgImage.image = UIImage(named: "bg_afternoon")
+         }else{
+         bgImage.image = UIImage(named: "evening_bg_")
+         }
+        
         bgImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bgImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bgImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
@@ -468,7 +476,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         pagerView.dataSource = self
         pagerView.delegate = self
         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-        pagerView.automaticSlidingInterval = 3.0
+        pagerView.automaticSlidingInterval = 5.0
         pagerView.isInfinite = true
         pagerView.transformer = FSPagerViewTransformer(type: .zoomOut)
         
@@ -1521,7 +1529,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     }
     @objc func goToShake(){
         let storyboard = UIStoryboard(name: "Shake", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeScreen")
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeScreen")
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeList")
         present(moveTo, animated: true, completion: nil)
     }
     func zeroAlpha(){

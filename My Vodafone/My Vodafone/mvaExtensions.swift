@@ -27,6 +27,7 @@ extension UIColor {
     static let support_dark_gray2 = UIColor().colourFromHex("666666")
     static let dark_gray_60 = UIColor().colourFromHex("99333333")
     static let color_light_gray_30 = UIColor().colourFromHex("4D929292")
+    static let support_yellow = UIColor().colourFromHex("FEC800")
     
     func colourFromHex(_ hex: String) -> UIColor {
         //make sure nor spaces and new lines in our hex string
@@ -76,4 +77,5 @@ extension String {
     static let MVA_FBBMOVE = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/ProjectNkrumah";
     static let MVA_ROAMINGDISCOUNTS = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roamingdiscounts.html";
     static let MVA_ROAMINGFAQ = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roaming_faq.html";
+    static let MVA_SHAKE_PROMOS = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/Promos";
 }

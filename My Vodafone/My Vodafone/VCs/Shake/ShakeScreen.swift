@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AudioToolbox
 
 class ShakeScreen: baseViewControllerM {
 
@@ -27,7 +28,7 @@ class ShakeScreen: baseViewControllerM {
     }()
     
     let shakeImage: UIImageView = {
-        let view = UIImageView(image: #imageLiteral(resourceName: "shakebg"))
+        let view = UIImageView(image: #imageLiteral(resourceName: "shake_hand"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -36,12 +37,27 @@ class ShakeScreen: baseViewControllerM {
     let trackLayer = CAShapeLayer()
     var shakeCount = 0
     
+    var musicEffect: AVAudioPlayer = AVAudioPlayer()
+    
+    
+    fileprivate func playWav() {
+        let musicFile = Bundle.main.path(forResource: "shake", ofType: ".wav")
+        
+        do {
+            try musicEffect = AVAudioPlayer(contentsOf: URL (fileURLWithPath: musicFile!))
+            
+        }catch{
+            print(error)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.grayButton
         setUpViewShakeScreen()
+        
+        playWav()
     }
     
     func setUpViewShakeScreen(){
@@ -60,6 +76,7 @@ class ShakeScreen: baseViewControllerM {
         lblShakeHeader.font = UIFont(name: String.defaultFontR, size: 25)
         lblShakeHeader.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50).isActive = true
         lblShakeHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        lblShakeHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         lblShakeHeader.numberOfLines = 0
         lblShakeHeader.lineBreakMode = .byWordWrapping
         lblShakeHeader.textAlignment = .center
@@ -87,10 +104,12 @@ class ShakeScreen: baseViewControllerM {
         shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1   )
         view.layer.addSublayer(shapeLayer)
         
-//        view.addSubview(shakeImage)
-//        shakeImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        shakeImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        shakeImage.center = view.center
+        view.addSubview(shakeImage)
+        shakeImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        shakeImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        shakeImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        shakeImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        shakeImage.center = view.center
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -98,11 +117,16 @@ class ShakeScreen: baseViewControllerM {
         if motion == .motionShake{
             print("Shake detected")
             shapeLayer.strokeEnd += 0.25
+            musicEffect.play()
             shakeCount =  shakeCount + 1
             lblShakeHeader.text = "That's it Shake it until you make it"
             if shakeCount == 4{
                 print("Stop shake")
                 lblShakeHeader.text = "Welcome to Shake on vodafone X"
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                let storyboard = UIStoryboard(name: "Shake", bundle: nil)
+                let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeList")
+                present(moveTo, animated: true, completion: nil)
             }
         }
         

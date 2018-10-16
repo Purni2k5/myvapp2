@@ -49,3 +49,10 @@ class ButtonUnsubscribe: UIButton {
     var expireData: String?
     var promotionID: String?
 }
+
+class ConfirmXShake: UIButton {
+    var name: String?
+    var desc: String?
+    var price: String?
+    var pid: String?
+}
