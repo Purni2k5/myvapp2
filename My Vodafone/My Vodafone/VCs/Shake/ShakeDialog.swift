@@ -203,6 +203,7 @@ class ShakeDialog: baseViewControllerM {
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                         if let parseJSON = myJSON {
+                            print("parser \(parseJSON)")
                             var responseCode: Int?
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
                             DispatchQueue.main.async {

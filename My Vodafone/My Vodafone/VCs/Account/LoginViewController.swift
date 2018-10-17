@@ -35,8 +35,7 @@ class LoginViewController: baseViewControllerM {
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    //http://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc
-    let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
+    let login_api = URL(string: String.MVA_LOGIN)
 
     let keyChain = KeychainSwift()
     
@@ -139,6 +138,7 @@ class LoginViewController: baseViewControllerM {
             "action":"loginToAccount",
             "os":getAppVersion()
         ]
+        print("hashii:: \(hashPass)")
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
             request.httpBody = postData
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -169,11 +169,13 @@ class LoginViewController: baseViewControllerM {
                         var responseCode: Int!
                         var responseMessage: String!
                         var responseData: NSDictionary!
+                        var responseSession: NSDictionary!
                         print(parseJSON)
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                        responseSession = parseJSON["SESSION"] as! NSDictionary?
                         
                         if responseData != nil {
                             self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)

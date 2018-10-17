@@ -120,8 +120,14 @@ class RoamingFaultReporting: baseViewControllerM, UIPickerViewDelegate, UIPicker
         scrollView.bottomAnchor.constraint(equalTo: motherView.safeBottomAnchor).isActive = true
         
         scrollView.addSubview(topImage)
-        let top_image = UIImage(named: "bg2")
-        topImage.image = top_image
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            topImage.image = UIImage(named: "bg2")
+        }else if timeOfDay == "afternoon" {
+            topImage.image = UIImage(named: "afternoon_bg")
+        }else{
+            topImage.image = UIImage(named: "evening_bg2")
+        }
         topImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         topImage.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         topImage.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true

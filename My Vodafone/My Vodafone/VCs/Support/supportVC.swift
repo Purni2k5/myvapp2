@@ -8,7 +8,7 @@
 
 import UIKit
 
-class supportVC: UIViewController {
+class supportVC: baseViewControllerM {
 
     
     //create a closure for background Image
@@ -19,7 +19,7 @@ class supportVC: UIViewController {
     }()
     
     //create a motherView
-    let motherView: UIView = {
+    let motherViewSupportVc: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.clear
@@ -56,13 +56,20 @@ class supportVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUpViews()
+        setUpViewsSupportVc()
         checkConnection()
     }
 
-    func setUpViews(){
+    func setUpViewsSupportVc(){
         view.addSubview(backImage)
-        backImage.image = UIImage(named: "morning_bg_")
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            backImage.image = UIImage(named: "morning_bg_")
+        }else if timeOfDay == "afternoon" {
+            backImage.image = UIImage(named: "bg_afternoon")
+        }else{
+            backImage.image = UIImage(named: "evening_bg_")
+        }
         backImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         backImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

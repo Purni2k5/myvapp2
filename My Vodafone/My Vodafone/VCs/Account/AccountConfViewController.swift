@@ -70,7 +70,14 @@ class AccountConfViewController: baseViewControllerM {
         //background Image
         let backgroundImage = closureImage
         view.addSubview(backgroundImage)
-        backgroundImage.image = UIImage(named: "morning_bg_")
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            backgroundImage.image = UIImage(named: "morning_bg_")
+        }else if timeOfDay == "afternoon" {
+            backgroundImage.image = UIImage(named: "bg_afternoon")
+        }else{
+            backgroundImage.image = UIImage(named: "evening_bg_")
+        }
         backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backgroundImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

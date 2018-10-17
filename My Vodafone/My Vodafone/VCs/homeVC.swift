@@ -1105,12 +1105,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                             let planExpireDuration = dict.value(forKey: "ExpirationDuration") as! String
                                             let plan = dict.value(forKey: "Promotion") as! String
                                             
-                                            let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String
+                                            let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String?
                                             
                                             self.lblPlanExpiration.text = planExpireDuration
                                             
-                                            if Int(rawExpireDuration)! < 7 {
-                                                self.lblPlanMessage.textColor = UIColor.vodaRed
+                                            if let rawExpiree = rawExpireDuration as String? {
+                                                if Int(rawExpiree)! < 7 {
+                                                    self.lblPlanMessage.textColor = UIColor.vodaRed
+                                                }
+                                                
                                             }
                                             
                                             let bundleDict = dict.value(forKey: "BundleDetails") as? NSArray
@@ -1267,26 +1270,34 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                     callsUsed = (intsCallsBucket / intCallsActual) * 100
                                     callsUsed = callsUsed / 100
                                     //SMS
-                                    let intsmsActual = Double(self.smsActualValue!)!
-                                    let intsmsBucket = Double(self.smsBucketValue!)!
-                                    var SMSUsed = (intsmsActual - intsmsBucket)
-                                    SMSUsed = (intsmsBucket / intsmsActual) * 100
-                                    SMSUsed = SMSUsed / 100
-                                    if dataUsed < 0.25 && callsUsed < 0.25 && SMSUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE, SMS"
-                                    }else if dataUsed < 0.25 && callsUsed < 0.25{
-                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE"
-                                    }else if dataUsed < 0.25 && SMSUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of DATA, SMS"
-                                    }else if callsUsed < 0.25 && SMSUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of VOICE, SMS"
-                                    }else if dataUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of DATA"
-                                    }else if callsUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of VOICE"
-                                    }else if SMSUsed < 0.25 {
-                                        self.lblPlanMessage.text = "You are running out of SMS"
+                                    if let intsmsActualOptional = self.smsActualValue{
+                                        let intsmsActual = Double(intsmsActualOptional)!
+                                        let intsmsBucket = Double(self.smsBucketValue!)!
+                                        var SMSUsed = (intsmsActual - intsmsBucket)
+                                        
+                                        SMSUsed = (intsmsBucket / intsmsActual) * 100
+                                        SMSUsed = SMSUsed / 100
+                                        
+                                        if dataUsed < 0.25 && callsUsed < 0.25 && SMSUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of DATA, VOICE, SMS"
+                                        }else if dataUsed < 0.25 && callsUsed < 0.25{
+                                            self.lblPlanMessage.text = "You are running out of DATA, VOICE"
+                                        }else if dataUsed < 0.25 && SMSUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of DATA, SMS"
+                                        }else if callsUsed < 0.25 && SMSUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of VOICE, SMS"
+                                        }else if dataUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of DATA"
+                                        }else if callsUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of VOICE"
+                                        }else if SMSUsed < 0.25 {
+                                            self.lblPlanMessage.text = "You are running out of SMS"
+                                        }
                                     }
+                                    
+                                    
+                                    
+                                    
                                     
                                     if self.gaugeViewPromotion == nil {
                                         print("Dont show gauge again")

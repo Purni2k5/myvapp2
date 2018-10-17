@@ -1,14 +1,14 @@
 //
-//  ShakeList.swift
+//  ShakeListOther.swift
 //  My Vodafone
 //
-//  Created by Chef Dennis Barimah on 16/10/2018.
+//  Created by Chef Dennis Barimah on 17/10/2018.
 //  Copyright © 2018 Chef Dennis Barimah. All rights reserved.
 //
 
 import UIKit
 
-class ShakeList: baseViewControllerM {
+class ShakeListOther: baseViewControllerM {
 
     var username: String?
     
@@ -50,10 +50,10 @@ class ShakeList: baseViewControllerM {
     let separator = UIView()
     
     fileprivate func getSharedXBundles() {
-        if let shakeXBundles = preference.object(forKey: UserDefaultsKeys.shakeBundles.rawValue) as! NSArray? {
+        if let shakeXBundles = preference.object(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue) as! NSArray? {
             
             let totalArray = shakeXBundles.count
-            var counter = 0
+            
             
             var cardTop: CGFloat = 15
             for obj in shakeXBundles {
@@ -145,91 +145,13 @@ class ShakeList: baseViewControllerM {
                     btnPurchase.desc = desc
                     btnPurchase.pid = pid
                     btnPurchase.price = price
+                    btnPurchase.addTarget(self, action: #selector(self.goToConfirmShakeX(_btn:)), for: .touchUpInside)
                     
-                    counter = counter + 1
-                    if counter == shakeXBundles.count {
-                        let lblOtherOffers = UILabel()
-                        self.scrollView.addSubview(lblOtherOffers)
-                        lblOtherOffers.translatesAutoresizingMaskIntoConstraints = false
-                        lblOtherOffers.font = UIFont(name: String.defaultFontB, size: 23)
-                        lblOtherOffers.textColor = UIColor.white
-                        lblOtherOffers.text = "Other Offers"
-                        lblOtherOffers.numberOfLines = 0
-                        lblOtherOffers.lineBreakMode = .byWordWrapping
-                        lblOtherOffers.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-                        lblOtherOffers.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
-                        
-                        let separator2 = UIView()
-                        self.scrollView.addSubview(separator2)
-                        separator2.translatesAutoresizingMaskIntoConstraints = false
-                        separator2.backgroundColor = UIColor.gray
-                        separator2.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
-                        separator2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-                        separator2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-                        separator2.topAnchor.constraint(equalTo: lblOtherOffers.bottomAnchor, constant: 20).isActive = true
-                        
-                        //Draw card to hold bundles
-                        let cardView = UIView()
-                        self.scrollView.addSubview(cardView)
-                        cardView.backgroundColor = UIColor.white.withAlphaComponent(0.60)
-                        cardView.translatesAutoresizingMaskIntoConstraints = false
-                        cardView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-                        cardView.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 10).isActive = true
-                        cardView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-                        cardView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-                        cardView.layer.cornerRadius = 3
-                        
-                        //shake icon
-                        let miniShakeIcon = UIImageView(image: #imageLiteral(resourceName: "shake_hand"))
-                        cardView.addSubview(miniShakeIcon)
-                        miniShakeIcon.translatesAutoresizingMaskIntoConstraints = false
-                        miniShakeIcon.widthAnchor.constraint(equalToConstant: 50).isActive = true
-                        miniShakeIcon.heightAnchor.constraint(equalToConstant: 50).isActive = true
-                        miniShakeIcon.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20).isActive = true
-                        miniShakeIcon.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
-                        
-                        let lblShakeName = UILabel()
-                        cardView.addSubview(lblShakeName)
-                        lblShakeName.translatesAutoresizingMaskIntoConstraints = false
-                        lblShakeName.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20).isActive = true
-                        lblShakeName.leadingAnchor.constraint(equalTo: miniShakeIcon.trailingAnchor, constant: 10).isActive = true
-                        lblShakeName.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -80).isActive = true
-                        lblShakeName.font = UIFont(name: String.defaultFontB, size: 21)
-                        lblShakeName.textColor = UIColor.black
-                        lblShakeName.text = "Other Vodafone X Bundles"
-                        lblShakeName.numberOfLines = 0
-                        lblShakeName.lineBreakMode = .byWordWrapping
-                        
-                        
-                        
-                        let lblSub_desc = UILabel()
-                        cardView.addSubview(lblSub_desc)
-                        lblSub_desc.translatesAutoresizingMaskIntoConstraints = false
-                        lblSub_desc.topAnchor.constraint(equalTo: miniShakeIcon.bottomAnchor, constant: 20).isActive = true
-                        lblSub_desc.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
-                        lblSub_desc.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30).isActive = true
-                        lblSub_desc.numberOfLines = 0
-                        lblSub_desc.lineBreakMode = .byWordWrapping
-                        lblSub_desc.font = UIFont(name: String.defaultFontR, size: 16)
-                        lblSub_desc.textColor = UIColor.black
-                        lblSub_desc.text = "Get all other Vodafone X bundles"
-                        
-                        let btnPurchase = ConfirmXShake()
-                        cardView.addSubview(btnPurchase)
-                        btnPurchase.translatesAutoresizingMaskIntoConstraints = false
-                        btnPurchase.backgroundColor = UIColor.support_yellow
-                        btnPurchase.setTitle("CLICK", for: .normal)
-                        btnPurchase.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-                        btnPurchase.setTitleColor(UIColor.white, for: .normal)
-                        btnPurchase.heightAnchor.constraint(equalToConstant: 55).isActive = true
-                        btnPurchase.widthAnchor.constraint(equalToConstant: 120).isActive = true
-                        btnPurchase.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 80).isActive = true
-                        
-                        btnPurchase.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
-                        btnPurchase.addTarget(self, action: #selector(self.goToOtherShakeX), for: .touchUpInside)
-                    }
-                    //                                                    var totalHeight = (totalArray * 165) + 125
-                    self.scrollView.contentSize.height = 1200 + 125 + 210
+                    
+                    
+                    let totalHeight = (totalArray * 165) + 125
+                    self.scrollView.contentSize.height = CGFloat(totalHeight + 300)
+                    print("height \(CGFloat(totalHeight + 300))")
                     
                     
                 }
@@ -244,7 +166,7 @@ class ShakeList: baseViewControllerM {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpVeiwsShakeList()
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
@@ -256,20 +178,20 @@ class ShakeList: baseViewControllerM {
             prePaidMenu()
         }
     }
-
-
+    
+    
     func setUpVeiwsShakeList(){
         let bgImage = UIImageView()
         bgImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bgImage)
         /*let timeOfDay = greetings()
-        if timeOfDay == "morning"{
-            bgImage.image = UIImage(named: "shake__bg")
-        }else if timeOfDay == "afternoon" {
-            bgImage.image = UIImage(named: "bg_afternoon")
-        }else{
-            bgImage.image = UIImage(named: "bg_afternoon")
-        }*/
+         if timeOfDay == "morning"{
+         bgImage.image = UIImage(named: "shake__bg")
+         }else if timeOfDay == "afternoon" {
+         bgImage.image = UIImage(named: "bg_afternoon")
+         }else{
+         bgImage.image = UIImage(named: "bg_afternoon")
+         }*/
         bgImage.image = UIImage(named: "shake__bg")
         
         bgImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -384,9 +306,9 @@ class ShakeList: baseViewControllerM {
             start_activity_loader()
             let postParameters: Dictionary<String, Any> = [
                 "action":"getCustomData",
-                "sql":"select * from VF_SHAKE_BUNDLES WHERE STATUS= ?",
+                "sql":"select * from VF_SHAKE_BUNDLES WHERE TYPE=? AND STATUS=? ORDER BY to_number(PRICE) DESC",
                 "authentication":"dd05e670a96e8f587c626ccfa101ddd013906d3d",
-                "condition":"0",
+                "condition":"VODAFONE X|1",
                 "username":username!,
                 "os":getAppVersion()
             ]
@@ -412,18 +334,17 @@ class ShakeList: baseViewControllerM {
                             var responseCode: Int?
                             
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
-//                            print("Shake X \(parseJSON)")
+                            //                            print("Shake X \(parseJSON)")
                             DispatchQueue.main.async {
                                 if responseCode == 0 {
                                     self.stop_activity_loader()
                                     if let responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray? {
                                         let resMssge = responseMessage
-//                                        print("Shakes X \(resMssge)")
-                                        self.preference.set(resMssge, forKey: UserDefaultsKeys.shakeBundles.rawValue)
+                                        //                                        print("Shakes X \(resMssge)")
+                                        self.preference.set(resMssge, forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
                                         if let array = resMssge as NSArray? {
-                                            let totalArray = array.count
-                                            var counter = 0
                                             
+                                            let totalArray = array.count
                                             var cardTop: CGFloat = 15
                                             for obj in array {
                                                 print("objs \(obj)")
@@ -468,7 +389,7 @@ class ShakeList: baseViewControllerM {
                                                     lblShakeName.numberOfLines = 0
                                                     lblShakeName.lineBreakMode = .byWordWrapping
                                                     cardTop = cardTop + 165
-//                                                    self.scrollView.contentSize.height = 1200
+                                                    //                                                    self.scrollView.contentSize.height = 1200
                                                     
                                                     let lblPrice = UILabel()
                                                     cardView.addSubview(lblPrice)
@@ -517,91 +438,11 @@ class ShakeList: baseViewControllerM {
                                                     btnPurchase.price = price
                                                     btnPurchase.addTarget(self, action: #selector(self.goToConfirmShakeX(_btn:)), for: .touchUpInside)
                                                     
-                                                    counter = counter + 1
-                                                    if counter == array.count {
-                                                        let lblOtherOffers = UILabel()
-                                                        self.scrollView.addSubview(lblOtherOffers)
-                                                        lblOtherOffers.translatesAutoresizingMaskIntoConstraints = false
-                                                        lblOtherOffers.font = UIFont(name: String.defaultFontB, size: 23)
-                                                        lblOtherOffers.textColor = UIColor.white
-                                                        lblOtherOffers.text = "Other Offers"
-                                                        lblOtherOffers.numberOfLines = 0
-                                                        lblOtherOffers.lineBreakMode = .byWordWrapping
-                                                        lblOtherOffers.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-                                                        lblOtherOffers.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 30).isActive = true
-                                                        
-                                                        let separator2 = UIView()
-                                                        self.scrollView.addSubview(separator2)
-                                                        separator2.translatesAutoresizingMaskIntoConstraints = false
-                                                        separator2.backgroundColor = UIColor.gray
-                                                        separator2.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
-                                                        separator2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-                                                        separator2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-                                                        separator2.topAnchor.constraint(equalTo: lblOtherOffers.bottomAnchor, constant: 20).isActive = true
-                                                        
-                                                        //Draw card to hold bundles
-                                                        let cardView = UIView()
-                                                        self.scrollView.addSubview(cardView)
-                                                        cardView.backgroundColor = UIColor.white.withAlphaComponent(0.60)
-                                                        cardView.translatesAutoresizingMaskIntoConstraints = false
-                                                        cardView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-                                                        cardView.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 10).isActive = true
-                                                        cardView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-                                                        cardView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-                                                        cardView.layer.cornerRadius = 3
-                                                        
-                                                        //shake icon
-                                                        let miniShakeIcon = UIImageView(image: #imageLiteral(resourceName: "shake_hand"))
-                                                        cardView.addSubview(miniShakeIcon)
-                                                        miniShakeIcon.translatesAutoresizingMaskIntoConstraints = false
-                                                        miniShakeIcon.widthAnchor.constraint(equalToConstant: 50).isActive = true
-                                                        miniShakeIcon.heightAnchor.constraint(equalToConstant: 50).isActive = true
-                                                        miniShakeIcon.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20).isActive = true
-                                                        miniShakeIcon.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
-                                                        
-                                                        let lblShakeName = UILabel()
-                                                        cardView.addSubview(lblShakeName)
-                                                        lblShakeName.translatesAutoresizingMaskIntoConstraints = false
-                                                        lblShakeName.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20).isActive = true
-                                                        lblShakeName.leadingAnchor.constraint(equalTo: miniShakeIcon.trailingAnchor, constant: 10).isActive = true
-                                                        lblShakeName.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -80).isActive = true
-                                                        lblShakeName.font = UIFont(name: String.defaultFontB, size: 21)
-                                                        lblShakeName.textColor = UIColor.black
-                                                        lblShakeName.text = "Other Vodafone X Bundles"
-                                                        lblShakeName.numberOfLines = 0
-                                                        lblShakeName.lineBreakMode = .byWordWrapping
-                                                        
-                                                        
-                                                        
-                                                        let lblSub_desc = UILabel()
-                                                        cardView.addSubview(lblSub_desc)
-                                                        lblSub_desc.translatesAutoresizingMaskIntoConstraints = false
-                                                        lblSub_desc.topAnchor.constraint(equalTo: miniShakeIcon.bottomAnchor, constant: 20).isActive = true
-                                                        lblSub_desc.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
-                                                        lblSub_desc.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30).isActive = true
-                                                        lblSub_desc.numberOfLines = 0
-                                                        lblSub_desc.lineBreakMode = .byWordWrapping
-                                                        lblSub_desc.font = UIFont(name: String.defaultFontR, size: 16)
-                                                        lblSub_desc.textColor = UIColor.black
-                                                        lblSub_desc.text = "Get all other Vodafone X bundles"
-                                                        
-                                                        let btnPurchase = UIButton()
-                                                        cardView.addSubview(btnPurchase)
-                                                        btnPurchase.translatesAutoresizingMaskIntoConstraints = false
-                                                        btnPurchase.backgroundColor = UIColor.support_yellow
-                                                        btnPurchase.setTitle("CLICK", for: .normal)
-                                                        btnPurchase.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-                                                        btnPurchase.setTitleColor(UIColor.white, for: .normal)
-                                                        btnPurchase.heightAnchor.constraint(equalToConstant: 55).isActive = true
-                                                        btnPurchase.widthAnchor.constraint(equalToConstant: 120).isActive = true
-                                                        btnPurchase.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 80).isActive = true
-                                                        btnPurchase.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
-                                                        btnPurchase.addTarget(self, action: #selector(self.goToOtherShakeX), for: .touchUpInside)
-                                                    }
-//                                                    var totalHeight = (totalArray * 165) + 125
-                                                    self.scrollView.contentSize.height = 1200 + 125 + 210
+                                                                                                        //                                                    var totalHeight = (totalArray * 165) + 125
+                                                    let totalHeight = (totalArray * 165) + 125
+                                                    self.scrollView.contentSize.height = CGFloat(totalHeight + 300)
                                                     
-                                                  
+                                                    
                                                 }
                                                 
                                                 
@@ -625,12 +466,6 @@ class ShakeList: baseViewControllerM {
                 task.resume()
             }
         }
-    }
-    
-    @objc func goToOtherShakeX(){
-        let storyboard = UIStoryboard(name: "Shake", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeListOther")
-        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func goToConfirmShakeX(_btn: UIButton){

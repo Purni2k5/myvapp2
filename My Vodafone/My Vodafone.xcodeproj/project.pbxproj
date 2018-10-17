@@ -38,6 +38,7 @@
 		0173197C2175EF5D00989F8A /* ShakeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197B2175EF5D00989F8A /* ShakeList.swift */; };
 		0173197E21763F0F00989F8A /* confirmShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197D21763F0F00989F8A /* confirmShake.swift */; };
 		01731980217677D800989F8A /* ShakeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197F217677D800989F8A /* ShakeDialog.swift */; };
+		017319822177616D00989F8A /* ShakeListOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319812177616D00989F8A /* ShakeListOther.swift */; };
 		017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
@@ -169,6 +170,7 @@
 		0173197B2175EF5D00989F8A /* ShakeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeList.swift; sourceTree = "<group>"; };
 		0173197D21763F0F00989F8A /* confirmShake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmShake.swift; sourceTree = "<group>"; };
 		0173197F217677D800989F8A /* ShakeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDialog.swift; sourceTree = "<group>"; };
+		017319812177616D00989F8A /* ShakeListOther.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeListOther.swift; sourceTree = "<group>"; };
 		017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContacts.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				0173197B2175EF5D00989F8A /* ShakeList.swift */,
 				0173197D21763F0F00989F8A /* confirmShake.swift */,
 				0173197F217677D800989F8A /* ShakeDialog.swift */,
+				017319812177616D00989F8A /* ShakeListOther.swift */,
 			);
 			path = Shake;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				01CFCF9B215BA99B0048D56E /* SettingsVc.swift in Sources */,
 				015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */,
 				0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */,
+				017319822177616D00989F8A /* ShakeListOther.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

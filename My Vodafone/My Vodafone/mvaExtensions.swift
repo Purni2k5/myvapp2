@@ -53,12 +53,13 @@ extension UIColor {
 extension String {
     static let defaultFontR = "VodafoneRg-Regular"
     static let defaultFontB = "VodafoneRg-Bold"
-    static let offers = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/DBEnpoints"
-    static let buyPackage = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
-    static let userSVC = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc"
-    static let userURL = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User"
+    static let offers = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/DBEnpoints"
+    static let buyPackage = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/User"
+    static let userSVC = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/UserSvc"
+    static let userURL = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/User"
     
     /*Support URLs*/
+    static let MVA_LOGIN = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/UserSvc"
     static let MVA_CUSTOMER_CENTER = "100";
     static let MVA_BUSINESS_SOLUTIONS = "080010000";
     static let MVA_WHATSAPP = "233501000300";
@@ -74,8 +75,8 @@ extension String {
     static let MVA_SERVICEPICUPLOAD = "https://myvodafoneapp.vodafone.com.gh/voda_port/myvodafone/ServicePic.php";
     static let MVA_SPINGAME = "https://myvodafoneappmw.vodafone.com.gh/SpinAPI/index.jsp";
     static let MVA_SUPPPORT_EMAIL = "info.gh@vodafone.com";
-    static let MVA_FBBMOVE = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/ProjectNkrumah";
+    static let MVA_FBBMOVE = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/ProjectNkrumah";
     static let MVA_ROAMINGDISCOUNTS = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roamingdiscounts.html";
     static let MVA_ROAMINGFAQ = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roaming_faq.html";
-    static let MVA_SHAKE_PROMOS = "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/Promos";
+    static let MVA_SHAKE_PROMOS = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/Promos";
 }

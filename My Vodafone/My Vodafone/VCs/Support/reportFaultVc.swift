@@ -8,12 +8,12 @@
 
 import UIKit
 
-class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     let preferences = UserDefaults.standard
     //create a closure for motherView
-    let motherView: UIView = {
+    let motherViewFault: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.grayBackground
@@ -75,7 +75,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         checkConnection()
         
         msisdn = preferences.object(forKey: "defaultMSISDN") as! String?
-        setUpViews()
+        setUpViewsReportFault()
         
         self.hideKeyboardWhenTappedAround()
         createPickerView()
@@ -94,7 +94,7 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         txtAltNumber.addTarget(self, action: #selector(checkInputs), for: .editingChanged)
     }
     
-    func setUpViews(){
+    func setUpViewsReportFault(){
         view.addSubview(motherView)
         motherView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         motherView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
@@ -108,8 +108,14 @@ class reportFaultVc: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         scrollView.bottomAnchor.constraint(equalTo: motherView.safeBottomAnchor).isActive = true
         
         scrollView.addSubview(topImage)
-        let top_image = UIImage(named: "bg2")
-        topImage.image = top_image
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            topImage.image = UIImage(named: "bg2")
+        }else if timeOfDay == "afternoon" {
+            topImage.image = UIImage(named: "afternoon_bg")
+        }else{
+            topImage.image = UIImage(named: "evening_bg2")
+        }
         topImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         topImage.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         topImage.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true

@@ -109,7 +109,14 @@ class ChangePasswordInApp: baseViewControllerM {
     
     func setUpViewsChangePass(){
         view.addSubview(backImage)
-        backImage.image = UIImage(named: "morning_bg_")
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            backImage.image = UIImage(named: "morning_bg_")
+        }else if timeOfDay == "afternoon" {
+            backImage.image = UIImage(named: "bg_afternoon")
+        }else{
+            backImage.image = UIImage(named: "evening_bg_")
+        }
         backImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         backImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

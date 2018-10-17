@@ -117,7 +117,14 @@ class confirmChangePlan: baseViewControllerM {
         
         
         scrollView.addSubview(topImage)
-        topImage.image = UIImage(named: "bg2")
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            topImage.image = UIImage(named: "bg2")
+        }else if timeOfDay == "afternoon" {
+            topImage.image = UIImage(named: "afternoon_bg")
+        }else{
+            topImage.image = UIImage(named: "evening_bg2")
+        }
         topImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
         topImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topImage.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true

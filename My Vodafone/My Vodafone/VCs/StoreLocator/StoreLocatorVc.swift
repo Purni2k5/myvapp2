@@ -117,7 +117,14 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         
         
         scrollView.addSubview(topImage)
-        topImage.image = UIImage(named: "bg2")
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            topImage.image = UIImage(named: "bg2")
+        }else if timeOfDay == "afternoon" {
+            topImage.image = UIImage(named: "afternoon_bg")
+        }else{
+            topImage.image = UIImage(named: "evening_bg2")
+        }
         topImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
         topImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topImage.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
@@ -549,6 +556,7 @@ extension StoreLocatorVc {
         let geoCoder = CLGeocoder()
         
         guard center.distance(from: previousLocation!) > 50 else { return }
+        
         previousLocation = center
         geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
             guard let strongSelf = self else { return }

@@ -169,6 +169,7 @@ extension UIViewController {
         case isGaugeVisible
         case lastUpdate
         case shakeBundles
+        case shakeBundlesOther
     }
     
     enum keyChainKeys: String {

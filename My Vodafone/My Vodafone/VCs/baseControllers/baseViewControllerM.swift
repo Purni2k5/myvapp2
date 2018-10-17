@@ -630,6 +630,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundles.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }
@@ -881,6 +882,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.isGaugeVisible.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundles.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
