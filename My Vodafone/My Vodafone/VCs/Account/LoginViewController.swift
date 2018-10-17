@@ -222,6 +222,15 @@ class LoginViewController: baseViewControllerM {
                             self.primaryID = "0\(defaultNum!)"
                             self.preference.set(self.primaryID, forKey: "defaultMSISDN")
                             print("Account stat: \(obj)")
+                            
+                            let session = responseSession["session"] as! String
+                            let secret = responseSession["secret"] as! String
+                            let key = responseSession["key"] as! String
+                            
+                            //Save secrets
+                            self.preference.set(session, forKey: UserDefaultsKeys.userSession.rawValue)
+                            self.preference.set(secret, forKey: UserDefaultsKeys.userSecret.rawValue)
+                            self.preference.set(key, forKey: UserDefaultsKeys.userKey.rawValue)
                         }
                         
                         
@@ -237,6 +246,7 @@ class LoginViewController: baseViewControllerM {
                                 
                                 self.keyChain.set(hashPass, forKey: keyChainKeys.secretPassword.rawValue)
                                 self.keyChain.set(username, forKey: keyChainKeys.secretUser.rawValue)
+                                self.keyHardening()
                                 
                                 
                                 //go to home screen

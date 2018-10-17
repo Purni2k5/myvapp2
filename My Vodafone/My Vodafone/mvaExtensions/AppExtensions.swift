@@ -170,6 +170,10 @@ extension UIViewController {
         case lastUpdate
         case shakeBundles
         case shakeBundlesOther
+        case userSecret
+        case userKey
+        case userSession
+        case requestKey
     }
     
     enum keyChainKeys: String {

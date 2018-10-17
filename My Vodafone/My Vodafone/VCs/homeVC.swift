@@ -271,6 +271,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         setUpViews1()
         backgroundCalls()
+        
         // Check for internet connection
         checkConnection()
         if AcctType == "PHONE_MOBILE_PRE_P" {

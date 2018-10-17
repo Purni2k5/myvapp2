@@ -84,6 +84,7 @@ class baseViewControllerM: UIViewController {
         
         deviceOs = getDeviceOS()
         
+        
         if let UserData = preference.object(forKey: "responseData") as! NSDictionary?{
             defaultService = UserData["DefaultService"] as! String
         }
@@ -631,6 +632,10 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundles.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSession.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }
@@ -859,6 +864,24 @@ class baseViewControllerM: UIViewController {
         return hexString
     }
     
+    //key hardening
+    func keyHardening(){
+        let userSession = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+        let userSecret = preference.object(forKey: UserDefaultsKeys.userSecret.rawValue) as! String
+        let userKey = preference.object(forKey: UserDefaultsKeys.userKey.rawValue) as! String
+        var secretKey =  userKey+userSession+userSecret
+        secretKey = md5Base(secretKey)
+        print("FirstKEY: \(secretKey)")
+        secretKey = String(secretKey.prefix(16))
+        
+        preference.set(secretKey, forKey: UserDefaultsKeys.requestKey.rawValue)
+    }
+    
+    //Harden my request
+    func encryptAsyncRequest(){
+        
+    }
+    
     func clearLogout(){
         preference.removeObject(forKey: "loginStatus")
         preference.removeObject(forKey: "responseData")
@@ -883,6 +906,10 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundles.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSession.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

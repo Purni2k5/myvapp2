@@ -6,6 +6,7 @@ target 'My Vodafone' do
   use_frameworks!
   pod 'SDWebImage', '~> 4.0'
   pod 'FSPagerView'
+  pod 'CryptoSwift'
 
   # Pods for My Vodafone
 

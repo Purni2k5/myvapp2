@@ -48,6 +48,10 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.lastUpdate.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundles.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.shakeBundlesOther.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSession.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {

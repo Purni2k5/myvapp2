@@ -39,6 +39,7 @@
 		0173197E21763F0F00989F8A /* confirmShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197D21763F0F00989F8A /* confirmShake.swift */; };
 		01731980217677D800989F8A /* ShakeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197F217677D800989F8A /* ShakeDialog.swift */; };
 		017319822177616D00989F8A /* ShakeListOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319812177616D00989F8A /* ShakeListOther.swift */; };
+		017319842177965D00989F8A /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319832177965D00989F8A /* CryptoHelper.swift */; };
 		017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
@@ -171,6 +172,7 @@
 		0173197D21763F0F00989F8A /* confirmShake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = confirmShake.swift; sourceTree = "<group>"; };
 		0173197F217677D800989F8A /* ShakeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDialog.swift; sourceTree = "<group>"; };
 		017319812177616D00989F8A /* ShakeListOther.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeListOther.swift; sourceTree = "<group>"; };
+		017319832177965D00989F8A /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
 		017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContacts.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				01709C5F215E3103008C8C3E /* KeychainSwiftDistrib.swift */,
+				017319832177965D00989F8A /* CryptoHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -768,11 +771,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
@@ -826,6 +831,7 @@
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
 				01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */,
 				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
+				017319842177965D00989F8A /* CryptoHelper.swift in Sources */,
 				0186E64B216B9736008B6601 /* unsubscribeVc.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
 				01A9580B212B28C200F4D7C9 /* supportModalVc.swift in Sources */,
