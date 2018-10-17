@@ -357,7 +357,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         view.addSubview(bgImage)
         let timeOfDay = greetings()
          if timeOfDay == "morning"{
-         bgImage.image = UIImage(named: "shake__bg")
+         bgImage.image = UIImage(named: "morning_bg_")
          }else if timeOfDay == "afternoon" {
          bgImage.image = UIImage(named: "bg_afternoon")
          }else{
@@ -1530,7 +1530,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     @objc func goToShake(){
         let storyboard = UIStoryboard(name: "Shake", bundle: nil)
 //        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeScreen")
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeList")
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeScreen")
         present(moveTo, animated: true, completion: nil)
     }
     func zeroAlpha(){

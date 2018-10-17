@@ -223,7 +223,7 @@ class confirmShake: baseViewControllerM {
             shapeLayer.strokeEnd += 0.25
             musicEffect.play()
             shakeCount =  shakeCount + 1
-            lblShakeHeader.text = "Keep goin \nDon't give up"
+            lblShakeHeader.text = "Keep going \nDon't give up"
             if shakeCount == 4{
                 print("Stop shake")
                 lblShakeHeader.text = "Buying your bundle"

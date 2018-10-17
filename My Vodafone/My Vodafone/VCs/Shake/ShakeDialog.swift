@@ -75,11 +75,33 @@ class ShakeDialog: baseViewControllerM {
         activity_loader.isHidden = false
         activity_loader.hidesWhenStopped = true
         activity_loader.startAnimating()
+        btnConfirm.isHidden = true
+        btnCancel.isHidden = true
+        lblMessage.text = "Confirming your bundle purchase"
+        
     }
     
     //Function to stopIndicator
     func stop_activity_loader(){
         activity_loader.stopAnimating()
+        btnCancel.isHidden = false
+    }
+    
+    //Function to change Dialog Image
+    func changeDialogImage(statusCode: Int){
+        if statusCode == 0 {
+            let dImage = UIImage(named: "shake_complete")
+            dialogImage.image = dImage
+        }else if statusCode == 1 {
+            let dImage = UIImage(named: "shake_hand")
+            dialogImage.image = dImage
+        }
+        else{
+            let dImage = UIImage(named: "warning")
+            dialogImage.image = dImage
+        }
+        
+        
     }
     
     override func viewDidLoad() {
@@ -126,6 +148,7 @@ class ShakeDialog: baseViewControllerM {
         btnConfirm.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnConfirm.widthAnchor.constraint(equalToConstant: 150).isActive = true
         btnConfirm.topAnchor.constraint(equalTo: lblMessage.bottomAnchor, constant: 40).isActive = true
+        btnConfirm.addTarget(self, action: #selector(confirmXPurchase), for: .touchUpInside)
         
         view.addSubview(btnCancel)
         btnCancel.topAnchor.constraint(equalTo: lblMessage.bottomAnchor, constant: 40).isActive = true
@@ -133,24 +156,119 @@ class ShakeDialog: baseViewControllerM {
         btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnCancel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        view.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: lblMessage.bottomAnchor, constant: 40).isActive = true
         
         
     }
     
-    
+    @objc func confirmXPurchase(){
+        if !CheckInternet.Connection(){
+            displayNoInternet()
+        }else{
+            start_activity_loader()
+            changeDialogImage(statusCode: 1)
+            
+            let async_call = URL(string: String.MVA_SHAKE_PROMOS)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
+            
+            let postParameters: Dictionary<String, Any> = [
+                "action":"ShakeBuyPackage",
+                "msisdn":msisdn!,
+                "bundleid":pid!,
+                "username":username!,
+                "bundletoremove":"",
+                "sessionID":sessionID!,
+                "os":getAppVersion()
+            ]
+            
+            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            print("error is:: \(error!.localizedDescription)")
+                            self.changeDialogImage(statusCode: 2)
+                            self.stop_activity_loader()
+                        }
+                        return
+                    }
+                    
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseCode: Int?
+                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            DispatchQueue.main.async {
+                                if responseCode == 2 {
+                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    let sdErrorMessage = parseJSON["SDERRORMESSAGE"] as! String?
+                                    self.stop_activity_loader()
+                                    self.changeDialogImage(statusCode: 2)
+                                    if let rMessage = rMessage {
+                                        self.lblMessage.text = rMessage
+                                    }
+                                }else if responseCode == 0 {
+                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    self.stop_activity_loader()
+                                    UIView.animate(withDuration: 1, delay: 5, options: .curveEaseIn, animations: {
+                                        self.changeDialogImage(statusCode: 0)
+                                        if let rMessage = rMessage {
+                                            self.lblMessage.text = rMessage
+                                        }
+                                    }, completion: { (true) in
+                                        // Go to home screen
+                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                        self.present(moveTo, animated: true, completion: nil)
+                                    })
+                                    
+                                    
+                                }else{
+                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+                                    print("error message: \(rMessage ?? "")")
+                                    self.stop_activity_loader()
+                                    self.changeDialogImage(statusCode: 2)
+                                    self.lblMessage.text = "Sorry could not process your request"
+                                }
+                            }
+                        }
+                    }catch{
+                        DispatchQueue.main.async {
+                            print("error is:: \(error.localizedDescription)")
+                            self.changeDialogImage(statusCode: 2)
+                            self.stop_activity_loader()
+                            self.lblMessage.text = "Sorry could not process request at this time"
+                        }
+                    }
+                }
+                task.resume()
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+    }
     
     
     override var prefersStatusBarHidden: Bool{
