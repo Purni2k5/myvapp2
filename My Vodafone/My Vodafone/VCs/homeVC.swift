@@ -272,6 +272,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         setUpViews1()
         backgroundCalls()
         
+        
         // Check for internet connection
         checkConnection()
         if AcctType == "PHONE_MOBILE_PRE_P" {
@@ -884,27 +885,40 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
     func backgroundCalls(){
         checkStaff()
-        getMobileBalances()
+//        getMobileBalances()
         
     }
     
     //Function to check for staff Number
     func checkStaff(){
-        let postParameters: Dictionary<String, Any> = [
-            "action":"checkStaffNumber",
-            "msisdn":msisdn!,
-            "username":username!,
-            "os":getAppVersion()
+        let postParameters = ["action":"checkStaffNumber","msisdn":msisdn!,"username":username!,"os":getAppVersion()]
+        
+        print("poster:: \(postParameters)")
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+            
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            print("JSON string = \(theJSONText)")
+        
+        
+        let requestBody: Dictionary<String, Any> = [
+            "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
         ]
+        print("printJJ:: \(requestBody)")
+        
         let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+        if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
             request.httpBody = postData
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
+            var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+            session = session.replacingOccurrences(of: "-", with: "")
+            print("Sess: \(session)")
+            request.addValue(session, forHTTPHeaderField: "session")
+            request.addValue(username!, forHTTPHeaderField: "username")
+            print("My request:: \(requestBody)")
             let task = URLSession.shared.dataTask(with: request as URLRequest){
                 data, response, error in
                 if error != nil {
@@ -914,36 +928,63 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                 
                 do {
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
                     if let parseJSON = myJSON {
-                        var responseCode: Int?
-                        responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        if responseCode == 0 {
-                            let staffCreditData = parseJSON["RESPONSEDATA"] as! NSDictionary?
-                            let checkIfStaff = self.preference.object(forKey: "staffNumber")
-                            if (checkIfStaff != nil) {
+                        var responseBody: String?
+                        responseBody = parseJSON["responseBody"] as! String?
+                        print("responseBody:: \(responseBody)")
+                        print("myJSON:: \(myJSON)")
+                        
+                        let decrypt = self.decryptAsyncRequest(requestBody: responseBody!) as! String
+//                        let resCode = decrypt!["RESPONSECODE"] as! Int?
+                        print("Decrypted:: \(decrypt)")
+                        let jsonText = "{\"first_name\":\"Sergey\"}"
+                        var dictonary:NSDictionary?
+                        
+                        if let data = decrypt.data(using: String.Encoding.utf8) {
+                            
+                            do {
+                                dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject] as! NSDictionary
                                 
-                                self.preference.removeObject(forKey: "staffNumber")
-                                self.preference.removeObject(forKey: "staffCreditData")
-                                // populate with fresh values
-                                self.preference.set(true, forKey: "staffNumber")
-                                self.preference.set(staffCreditData, forKey: "staffCreditData")
-                            }else{
-                                self.preference.set(true, forKey: "staffNumber")
-                                self.preference.set(staffCreditData, forKey: "staffCreditData")
-                                
+                                if let myDictionary = dictonary
+                                {
+                                    print(" First name is: \(myDictionary["RESPONSECODE"]!)")
+                                }
+                            } catch let error as NSError {
+                                print(error)
                             }
-                            
-                        }else{
-                            
                         }
                         
+//                        var responseCode: Int?
+//                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+//                        if responseCode == 0 {
+//                            let staffCreditData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+//                            let checkIfStaff = self.preference.object(forKey: "staffNumber")
+//                            if (checkIfStaff != nil) {
+//
+//                                self.preference.removeObject(forKey: "staffNumber")
+//                                self.preference.removeObject(forKey: "staffCreditData")
+//                                // populate with fresh values
+//                                self.preference.set(true, forKey: "staffNumber")
+//                                self.preference.set(staffCreditData, forKey: "staffCreditData")
+//                            }else{
+//                                self.preference.set(true, forKey: "staffNumber")
+//                                self.preference.set(staffCreditData, forKey: "staffCreditData")
+//
+//                            }
+//
+//                        }else{
+//
+//                        }
+
                     }
-                    
+                
                 }catch{
                     print("check staff catch error:: \(error.localizedDescription)")
                 }
             }
             task.resume()
+        }
         }
     }
     

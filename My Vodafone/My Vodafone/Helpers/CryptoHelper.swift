@@ -10,11 +10,12 @@ import CryptoSwift
 
 class CryptoHelper{
     
+    
     private static let key = "1234567890abcder";//16 char secret key
     
-    public static func encrypt(input:String)->String?{
+    public static func encrypt(input:String, userKey: String)->String?{
         do{
-            let encrypted: Array<UInt8> = try AES(key: key, iv: key, padding: .pkcs5).encrypt(Array(input.utf8))
+            let encrypted: Array<UInt8> = try AES(key: userKey, iv: userKey, padding: .pkcs5).encrypt(Array(input.utf8))
             
             return encrypted.toBase64()
         }catch{
@@ -23,10 +24,10 @@ class CryptoHelper{
         return nil
     }
     
-    public static func decrypt(input:String)->String?{
+    public static func decrypt(input:String, userKey: String)->String?{
         do{
             let d=Data(base64Encoded: input)
-            let decrypted = try AES(key: key, iv: key, padding: .pkcs5).decrypt(
+            let decrypted = try AES(key: userKey, iv: userKey, padding: .pkcs5).decrypt(
                 d!.bytes)
             return String(data: Data(decrypted), encoding: .utf8)
         }catch{

@@ -873,13 +873,25 @@ class baseViewControllerM: UIViewController {
         secretKey = md5Base(secretKey)
         print("FirstKEY: \(secretKey)")
         secretKey = String(secretKey.prefix(16))
-        
+        print("secretKey: \(secretKey)")
         preference.set(secretKey, forKey: UserDefaultsKeys.requestKey.rawValue)
     }
     
     //Harden my request
-    func encryptAsyncRequest(){
+    func encryptAsyncRequest(requestBody: String) -> String{
+        let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as! String
         
+        let cipher:String = CryptoHelper.encrypt(input:requestBody, userKey: secretKey)!;
+        
+        return cipher
+    }
+    
+    func decryptAsyncRequest(requestBody: String) -> String{
+        let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as! String
+        
+        let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey)!;
+        
+        return cipher
     }
     
     func clearLogout(){
