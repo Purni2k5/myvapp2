@@ -308,7 +308,7 @@ class checkFBBBalance: baseViewControllerM {
                 }else{
                     
                 }
-                let async_api = URL(string: String.userURL)
+                let async_api = URL(string: String.oldUserURL)
                 let request = NSMutableURLRequest(url: async_api!)
                 
                 let postParameters: Dictionary<String, Any> = [

@@ -280,7 +280,7 @@ class confirmChangePlan: baseViewControllerM {
                 self.stop_activity_loader()
                 toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are required")
             }else{
-                let async_api = URL(string: String.userURL)
+                let async_api = URL(string: String.oldUserURL)
                 let request = NSMutableURLRequest(url: async_api!)
                 
                 let postParameters: Dictionary<String, Any> = [

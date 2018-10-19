@@ -56,3 +56,15 @@ class ConfirmXShake: UIButton {
     var price: String?
     var pid: String?
 }
+
+class made4MeVariables: UIView {
+    var price: String?
+    var volume: String?
+    var name: String?
+    var bundleid: String?
+    var short: String?
+    var currency: String?
+    var validity: String?
+    var long: String?
+    
+}

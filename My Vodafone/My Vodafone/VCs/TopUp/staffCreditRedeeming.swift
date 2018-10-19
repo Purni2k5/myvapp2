@@ -129,7 +129,7 @@ class staffCreditRedeeming: baseViewControllerM {
                 "username":username!,
                 "os":getAppVersion()
             ]
-            let async_call = URL(string: String.userSVC)
+            let async_call = URL(string: String.oldUserSVC)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){

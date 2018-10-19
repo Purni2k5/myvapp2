@@ -83,7 +83,7 @@ class RegisterViewController: baseViewControllerM {
                     password = md5(password!)
                     password = password?.sha1()
                     passClone = password
-                    print("hash \(passClone!)")
+                    
                     
                     let postParameters: Dictionary<String, Any> = [
                         "action":"createNewAccount",
@@ -134,7 +134,10 @@ class RegisterViewController: baseViewControllerM {
 //                                        DispatchQueue.main.async {
                                             if responseCode == 1{
                                                 self.displayErrorMessage(errorMess: responseMessage)
-                                            }else{
+                                            }else if responseCode == 2 {
+                                                self.displayErrorMessage(errorMess: "Sorry could not process your request try again later!")
+                                            }
+                                            else{
                                                 responseData = parsJSON["RESPONSEDATA"] as! NSDictionary?
                                                 username = responseData["Username"] as! String?
                                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

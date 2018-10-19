@@ -205,7 +205,7 @@ class confirmFBBMove: baseViewControllerM {
                 "os":getAppVersion()
             ]
             
-            let async_call = URL(string: String.MVA_FBBMOVE)
+            let async_call = URL(string: String.OLD_MVA_FBBMOVE)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             

@@ -174,92 +174,95 @@ class ShakeDialog: baseViewControllerM {
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             
-            let postParameters: Dictionary<String, Any> = [
-                "action":"ShakeBuyPackage",
-                "msisdn":msisdn!,
-                "bundleid":pid!,
-                "username":username!,
-                "bundletoremove":"",
-                "sessionID":sessionID!,
-                "os":getAppVersion()
-            ]
+            let postParameters = ["action":"ShakeBuyPackage","msisdn":msisdn!,"bundleid":pid!,"username":username!,"bundletoremove":"","sessionID":sessionID!,"os":getAppVersion()]
             
-            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                request.httpBody = postData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
+            if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+                let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
                 
-                let task = URLSession.shared.dataTask(with: request as URLRequest){
-                    data, response, error in
-                    if error != nil {
-                        DispatchQueue.main.async {
-                            print("error is:: \(error!.localizedDescription)")
-                            self.changeDialogImage(statusCode: 2)
-                            self.stop_activity_loader()
-                        }
-                        return
-                    }
+                let requestBody: Dictionary<String, Any> = [
+                    "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)]
+                if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                    session = session.replacingOccurrences(of: "-", with: "")
                     
-                    do {
-                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        if let parseJSON = myJSON {
-                            print("parser \(parseJSON)")
-                            var responseCode: Int?
-                            responseCode = parseJSON["RESPONSECODE"] as! Int?
+                    request.addValue(session, forHTTPHeaderField: "session")
+                    request.addValue(username!, forHTTPHeaderField: "username")
+                    
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
                             DispatchQueue.main.async {
-                                if responseCode == 2 {
-                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                    let sdErrorMessage = parseJSON["SDERRORMESSAGE"] as! String?
-                                    self.stop_activity_loader()
-                                    self.changeDialogImage(statusCode: 2)
-                                    if let rMessage = rMessage {
-                                        self.lblMessage.text = rMessage
-                                    }
-                                }else if responseCode == 0 {
-                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                    self.stop_activity_loader()
-                                    UIView.animate(withDuration: 1, delay: 5, options: .curveEaseIn, animations: {
-                                        self.changeDialogImage(statusCode: 0)
-                                        if let rMessage = rMessage {
-                                            self.lblMessage.text = rMessage
+                                print("error is:: \(error!.localizedDescription)")
+                                self.changeDialogImage(statusCode: 2)
+                                self.stop_activity_loader()
+                            }
+                            return
+                        }
+                        
+                        do {
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            if let parseJSON = myJSON {
+                                var responseBody: String?
+                                responseBody = parseJSON["responseBody"] as! String?
+                                print("responseBody:: \(responseBody ?? "")")
+                                if let resBody = responseBody{
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                    
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    var responseCode: Int?
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    DispatchQueue.main.async {
+                                        if responseCode == 2 {
+                                            let rMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            let sdErrorMessage = decryptedResponseBody["SDERRORMESSAGE"] as! String?
+                                            self.stop_activity_loader()
+                                            self.changeDialogImage(statusCode: 2)
+                                            if let rMessage = rMessage {
+                                                self.lblMessage.text = rMessage
+                                            }
+                                        }else if responseCode == 0 {
+                                            let rMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            self.stop_activity_loader()
+                                            UIView.animate(withDuration: 1, delay: 5, options: .curveEaseIn, animations: {
+                                                self.changeDialogImage(statusCode: 0)
+                                                if let rMessage = rMessage {
+                                                    self.lblMessage.text = rMessage
+                                                }
+                                            }, completion: { (true) in
+                                                // Go to home screen
+                                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                                self.present(moveTo, animated: true, completion: nil)
+                                            })
+                                            
+                                            
+                                        }else{
+                                            let rMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            print("error message: \(rMessage ?? "")")
+                                            self.stop_activity_loader()
+                                            self.changeDialogImage(statusCode: 2)
+                                            self.lblMessage.text = "Sorry could not process your request"
                                         }
-                                    }, completion: { (true) in
-                                        // Go to home screen
-                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                        self.present(moveTo, animated: true, completion: nil)
-                                    })
-                                    
-                                    
-                                }else{
-                                    let rMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                    print("error message: \(rMessage ?? "")")
-                                    self.stop_activity_loader()
-                                    self.changeDialogImage(statusCode: 2)
-                                    self.lblMessage.text = "Sorry could not process your request"
+                                    }
                                 }
+                                
+                            }
+                        }catch{
+                            DispatchQueue.main.async {
+                                print("error is:: \(error.localizedDescription)")
+                                self.changeDialogImage(statusCode: 2)
+                                self.stop_activity_loader()
+                                self.lblMessage.text = "Sorry could not process request at this time"
                             }
                         }
-                    }catch{
-                        DispatchQueue.main.async {
-                            print("error is:: \(error.localizedDescription)")
-                            self.changeDialogImage(statusCode: 2)
-                            self.stop_activity_loader()
-                            self.lblMessage.text = "Sorry could not process request at this time"
-                        }
                     }
+                    task.resume()
                 }
-                task.resume()
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             
             

@@ -174,6 +174,7 @@ extension UIViewController {
         case userKey
         case userSession
         case requestKey
+        case Made4MeBundles
     }
     
     enum keyChainKeys: String {
@@ -203,5 +204,23 @@ extension UIImageView {
         animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
         self.layer.add(animation, forKey: "position")
     }
+}
+
+extension UIScrollView {
+    
+    func resizeScrollViewContentSize() {
+        
+        var contentRect = CGRect.zero
+        
+        for view in self.subviews {
+            
+            contentRect = contentRect.union(view.frame)
+            
+        }
+        
+        self.contentSize.height = contentRect.size.height
+        
+    }
+    
 }
 

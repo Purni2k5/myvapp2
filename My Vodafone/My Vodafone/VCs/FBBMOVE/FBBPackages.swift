@@ -308,7 +308,7 @@ class FBBPackages: baseViewControllerM {
                         }
                     }
                 }
-                let async_call = URL(string: String.offers)
+                let async_call = URL(string: String.oldOffers)
                 let request = NSMutableURLRequest(url: async_call!)
                 
                 let postParameters: Dictionary<String, Any> = [
@@ -509,7 +509,7 @@ class FBBPackages: baseViewControllerM {
                 }
             }else{
                 start_activity_loader()
-                let async_call = URL(string: String.offers)
+                let async_call = URL(string: String.oldOffers)
                 let request = NSMutableURLRequest(url: async_call!)
                 
                 let postParameters: Dictionary<String, Any> = [

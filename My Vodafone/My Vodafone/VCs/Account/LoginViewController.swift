@@ -173,7 +173,7 @@ class LoginViewController: baseViewControllerM {
                         print(parseJSON)
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                         responseSession = parseJSON["SESSION"] as! NSDictionary?
                         
@@ -369,6 +369,7 @@ class LoginViewController: baseViewControllerM {
     }
     
     func touchAPICall(url: URL, secretPass: String, username: String){
+        print("called touchAPI")
         let request = NSMutableURLRequest(url: url)
         let urlConfig = URLSessionConfiguration.default
         urlConfig.timeoutIntervalForRequest = 30.0
@@ -408,14 +409,18 @@ class LoginViewController: baseViewControllerM {
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                     //parsing the json
                     if let parseJSON = myJSON {
+                        
                         //creating variables to hold response
                         var responseCode: Int!
                         var responseMessage: String!
                         var responseData: NSDictionary!
+                        var responseSession: NSDictionary!
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
                         responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                        responseSession = parseJSON["SESSION"] as! NSDictionary?
+                        print("responseDatasss:: \(responseData)")
                         
                         if responseData != nil {
                             self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
@@ -460,6 +465,16 @@ class LoginViewController: baseViewControllerM {
                             self.primaryID = "0\(defaultNum!)"
                             self.preference.set(self.primaryID, forKey: "defaultMSISDN")
                             print("Account stat: \(obj)")
+                            
+                            let session = responseSession["session"] as! String
+                            let secret = responseSession["secret"] as! String
+                            let key = responseSession["key"] as! String
+                            
+                            
+                            //Save secrets
+                            self.preference.set(session, forKey: UserDefaultsKeys.userSession.rawValue)
+                            self.preference.set(secret, forKey: UserDefaultsKeys.userSecret.rawValue)
+                            self.preference.set(key, forKey: UserDefaultsKeys.userKey.rawValue)
                         }
                         
                         
@@ -472,7 +487,7 @@ class LoginViewController: baseViewControllerM {
                                 self.stopAsyncLoader()
                                 self.preference.set("Yes", forKey: "loginStatus")
                                 self.preference.set(responseData, forKey: "responseData")
-                                
+                                self.keyHardening()
                                 
                                 //go to home screen
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

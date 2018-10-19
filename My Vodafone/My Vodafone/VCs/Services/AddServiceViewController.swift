@@ -396,7 +396,7 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
                 ]
                 
                 
-                let asyn_call = URL(string: String.userSVC)
+                let asyn_call = URL(string: String.oldUserSVC)
                 let request = NSMutableURLRequest(url: asyn_call!)
                 request.httpMethod = "POST"
                 

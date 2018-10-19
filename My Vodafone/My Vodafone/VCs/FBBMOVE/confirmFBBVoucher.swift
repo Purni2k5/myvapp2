@@ -220,7 +220,7 @@ class confirmFBBVoucher: baseViewControllerM {
                 "os":getAppVersion()
             ]
             
-            let async_call = URL(string: String.userURL)
+            let async_call = URL(string: String.oldUserURL)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             

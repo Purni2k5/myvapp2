@@ -453,7 +453,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
             "os":getAppVersion()
         ]
         
-        let asyc_call = URL(string: String.MVA_FBBMOVE)
+        let asyc_call = URL(string: String.OLD_MVA_FBBMOVE)
         let request = NSMutableURLRequest(url: asyc_call!)
         request.httpMethod = "POST"
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
@@ -570,7 +570,7 @@ class fbbShareVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSou
                 
                 print(postParameters)
                 
-                let async_call = URL(string: String.MVA_FBBMOVE)
+                let async_call = URL(string: String.OLD_MVA_FBBMOVE)
                 let request = NSMutableURLRequest(url: async_call!)
                 request.httpMethod = "POST"
                 

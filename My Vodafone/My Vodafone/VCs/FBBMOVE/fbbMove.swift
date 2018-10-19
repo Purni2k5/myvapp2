@@ -286,7 +286,7 @@ class fbbMove: baseViewControllerM {
                 ]
                 
                 print(postParameters)
-                let asyn_call = URL(string: String.MVA_FBBMOVE)
+                let asyn_call = URL(string: String.OLD_MVA_FBBMOVE)
                 let request = NSMutableURLRequest(url: asyn_call!)
                 request.httpMethod = "POST"
                 //Convert post parameters to json

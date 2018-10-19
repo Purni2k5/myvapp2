@@ -237,93 +237,105 @@ class confirmShake: baseViewControllerM {
                     let async_call = URL(string: String.MVA_SHAKE_PROMOS)
                     let request = NSMutableURLRequest(url: async_call!)
                     
-                    let postParameters: Dictionary<String, Any> = [
-                        "action":"ShakeBuyPackage",
-                        "msisdn":msisdn!,
-                        "bundleid":pid!,
-                        "username":username!,
-                        "bundletoremove":"",
-                        "os":getAppVersion()
-                    ]
+                    let postParameters = ["action":"ShakeBuyPackage","msisdn":msisdn!,"bundleid":pid!,"username":username!,"bundletoremove":"","os":getAppVersion()]
                     
                     request.httpMethod = "POST"
-                    if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                        request.httpBody = postData
-                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+                        let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
                         
-                        let task = URLSession.shared.dataTask(with: request as URLRequest){
-                            data, response, error in
-                            if error != nil {
-                                DispatchQueue.main.async {
-                                    self.stop_activity_loader()
-                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
-                                }
-                                return;
-                            }
+                        let requestBody: Dictionary<String, Any> = [
+                            "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                        ]
+                        if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                            request.httpBody = postData
+                            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                            request.addValue("application/json", forHTTPHeaderField: "Accept")
+                            var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                            session = session.replacingOccurrences(of: "-", with: "")
                             
-                            do {
-                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                                if let parseJSON = myJSON {
-                                    var responseCode: Int?
-                                    responseCode = parseJSON["RESPONSECODE"] as! Int?
+                            request.addValue(session, forHTTPHeaderField: "session")
+                            request.addValue(username!, forHTTPHeaderField: "username")
+                            
+                            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                                data, response, error in
+                                if error != nil {
                                     DispatchQueue.main.async {
-                                        if responseCode == 0 {
-                                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                            self.stop_activity_loader()
-                                            self.shapeLayer.strokeEnd = 0
-                                            //Go to dialog and display error message
-                                            let storyboard = UIStoryboard(name: "Shake", bundle: nil)
-                                            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
-                                            moveTo.responseCode = responseCode
-                                            moveTo.responseMessage = responseMessage
-                                            self.addChildViewController(moveTo)
-                                            moveTo.view.frame = self.view.frame
-                                            self.view.addSubview(moveTo.view)
-                                            moveTo.didMove(toParentViewController: self)
-
-                                        }else if responseCode == 1 {
-                                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                            let sessionID = parseJSON["SESSIONID"] as! String?
-                                            let pid = parseJSON["BUNDLETOREMOVE"] as! String?
-                                            self.stop_activity_loader()
-                                            //Go to dialog and display successful message
-                                            let storyboard = UIStoryboard(name: "Shake", bundle: nil)
-                                            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
-                                            moveTo.responseCode = responseCode
-                                            moveTo.responseMessage = responseMessage
-                                            moveTo.pid = pid
-                                            moveTo.sessionID = sessionID
-                                            self.addChildViewController(moveTo)
-                                            moveTo.view.frame = self.view.frame
-                                            self.view.addSubview(moveTo.view)
-                                            moveTo.didMove(toParentViewController: self)
-                                        }else{
-                                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                            self.stop_activity_loader()
-                                            self.shapeLayer.strokeEnd = 0
-                                            //Go to dialog and display error message
-                                            let storyboard = UIStoryboard(name: "Shake", bundle: nil)
-                                            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
-                                            moveTo.responseCode = responseCode
-                                            moveTo.responseMessage = responseMessage
-                                            self.addChildViewController(moveTo)
-                                            moveTo.view.frame = self.view.frame
-                                            self.view.addSubview(moveTo.view)
-                                            moveTo.didMove(toParentViewController: self)
+                                        self.stop_activity_loader()
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error!.localizedDescription)
+                                    }
+                                    return;
+                                }
+                                
+                                do {
+                                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                    if let parseJSON = myJSON {
+                                        var responseBody: String?
+                                        responseBody = parseJSON["responseBody"] as! String?
+                                        
+                                        let decrypt = self.decryptAsyncRequest(requestBody: responseBody!)
+                                        
+                                        let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                        print(decryptedResponseBody)
+                                        var responseCode: Int?
+                                        responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                        DispatchQueue.main.async {
+                                            if responseCode == 0 {
+                                                let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                                self.stop_activity_loader()
+                                                self.shapeLayer.strokeEnd = 0
+                                                //Go to dialog and display error message
+                                                let storyboard = UIStoryboard(name: "Shake", bundle: nil)
+                                                guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
+                                                moveTo.responseCode = responseCode
+                                                moveTo.responseMessage = responseMessage
+                                                self.addChildViewController(moveTo)
+                                                moveTo.view.frame = self.view.frame
+                                                self.view.addSubview(moveTo.view)
+                                                moveTo.didMove(toParentViewController: self)
+                                                
+                                            }else if responseCode == 1 {
+                                                let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                                let sessionID = decryptedResponseBody["SESSIONID"] as! String?
+                                                let pid = decryptedResponseBody["BUNDLETOREMOVE"] as! String?
+                                                self.stop_activity_loader()
+                                                //Go to dialog and display successful message
+                                                let storyboard = UIStoryboard(name: "Shake", bundle: nil)
+                                                guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
+                                                moveTo.responseCode = responseCode
+                                                moveTo.responseMessage = responseMessage
+                                                moveTo.pid = pid
+                                                moveTo.sessionID = sessionID
+                                                self.addChildViewController(moveTo)
+                                                moveTo.view.frame = self.view.frame
+                                                self.view.addSubview(moveTo.view)
+                                                moveTo.didMove(toParentViewController: self)
+                                            }else{
+                                                let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                                self.stop_activity_loader()
+                                                self.shapeLayer.strokeEnd = 0
+                                                //Go to dialog and display error message
+                                                let storyboard = UIStoryboard(name: "Shake", bundle: nil)
+                                                guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
+                                                moveTo.responseCode = responseCode
+                                                moveTo.responseMessage = responseMessage
+                                                self.addChildViewController(moveTo)
+                                                moveTo.view.frame = self.view.frame
+                                                self.view.addSubview(moveTo.view)
+                                                moveTo.didMove(toParentViewController: self)
+                                            }
                                         }
                                     }
-                                }
-                            }catch {
-                                DispatchQueue.main.async {
-                                    self.stop_activity_loader()
-                                    self.shapeLayer.strokeEnd = 0
-                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not process data")
-                                    print(error.localizedDescription)
+                                }catch {
+                                    DispatchQueue.main.async {
+                                        self.stop_activity_loader()
+                                        self.shapeLayer.strokeEnd = 0
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not process data")
+                                        print(error.localizedDescription)
+                                    }
                                 }
                             }
+                            task.resume()
                         }
-                        task.resume()
                     }
                 }
                 

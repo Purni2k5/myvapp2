@@ -377,112 +377,129 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
             let request = NSMutableURLRequest(url: checkUrl!)
             request.httpMethod = "POST"
             msisdn = txtHiddenPurchaseNum.text
-            let postParameters: Dictionary<String, Any> = [
-                "action":"buyPackageCheck",
-                "msisdn":msisdn!,
-                "username":username!,
-                "bundleid":selectedOfferPID,
-                "os":getAppVersion()
+            let postParameters = ["action":"buyPackageCheck","msisdn":msisdn!,"username":username!,"bundleid":selectedOfferPID,"os":getAppVersion()
             ]
-            if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                request.httpBody = postData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-                //creating a task to send request
-                let task = URLSession.shared.dataTask(with: request as URLRequest){
-                    data, response, error in
-                    if error != nil {
-                        print("error is \(error!.localizedDescription)")
-                        self.activity_loader.stopAnimating()
-                        self.buyButton.isHidden = false
-                        return;
-                    }
-                    //passing the response
-                    do{
-                        //converting the response to NSDictionary
-                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        if let parseJSON = myJSON{
-                            var responseCode: Int!
-                            var responseMessage: String!
-                            
-                            
-                            responseCode = parseJSON["RESPONSECODE"] as! Int
-                            responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                            if parseJSON["BUNDLETOREMOVE"] != nil{
-                                self.bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String
-                            }else{
-                                self.bundleToRemove = ""
-                            }
-                            
-                            
-                            print("response:: \(parseJSON)")
-                            DispatchQueue.main.async {
-                                self.activity_loader.stopAnimating()
-                                self.buyButton.isHidden = false
-                                
-                                /*Display dialogue message*/
-                                //push dark view down
-                                self.darkViewTopConstraint1?.isActive = false
-                                self.darkViewTopConstraint2?.isActive = true
-                                self.vcScrollView.addSubview(self.confirmDialog)
-                                self.confirmDialog.translatesAutoresizingMaskIntoConstraints = false
-                                self.confirmDialog.backgroundColor = UIColor.dark_background
-                                self.confirmDialog.heightAnchor.constraint(equalToConstant: 200).isActive = true
-                                self.confirmDialog.topAnchor.constraint(equalTo: self.vcScrollView.topAnchor, constant: 0).isActive = true
-                                self.confirmDialog.leadingAnchor.constraint(equalTo: self.vcScrollView.leadingAnchor).isActive = true
-                                self.confirmDialog.trailingAnchor.constraint(equalTo: self.vcScrollView.trailingAnchor).isActive = true
-                                self.confirmDialog.widthAnchor.constraint(equalTo: self.vcScrollView.widthAnchor).isActive = true
-                                
-                                //Label to hold response message
-                                
-                                self.vcScrollView.addSubview(self.lblResponse)
-                                self.lblResponse.translatesAutoresizingMaskIntoConstraints = false
-                                self.lblResponse.text = responseMessage
-                                self.lblResponse.font = UIFont(name: String.defaultFontR, size: 20)
-                                self.lblResponse.textColor = UIColor.white
-                                self.lblResponse.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
-                                self.lblResponse.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
-                                self.lblResponse.topAnchor.constraint(equalTo: self.confirmDialog.topAnchor, constant: 40).isActive = true
-                                self.lblResponse.numberOfLines = 0
-                                self.lblResponse.lineBreakMode = .byWordWrapping
-//                                lblResponse.textAlignment = .center
-                                
-                                //Button to continue
-                                
-                                self.vcScrollView.addSubview(self.btnContinue)
-                                self.btnContinue.translatesAutoresizingMaskIntoConstraints = false
-                                self.btnContinue.backgroundColor = UIColor.vodaRed
-                                self.btnContinue.heightAnchor.constraint(equalToConstant: 55).isActive = true
-                                self.btnContinue.widthAnchor.constraint(equalToConstant: 150).isActive = true
-                                self.btnContinue.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
-                                self.btnContinue.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
-                                self.btnContinue.setTitle("Continue", for: .normal)
-                                self.btnContinue.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-                                self.btnContinue.addTarget(self, action: #selector(self.btnContinueExe), for: .touchUpInside)
-                                
-                                //Button to continue
-                                
-                                self.vcScrollView.addSubview(self.btnCancel)
-                                self.btnCancel.translatesAutoresizingMaskIntoConstraints = false
-                                self.btnCancel.backgroundColor = UIColor.grayButton
-                                self.btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
-                                self.btnCancel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-                                self.btnCancel.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
-                                self.btnCancel.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
-                                self.btnCancel.setTitle("Cancel", for: .normal)
-                                self.btnCancel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-                                self.btnCancel.addTarget(self, action: #selector(self.closeDialogue), for: .touchUpInside)
-                            }
+            if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+                let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                let requestBody: Dictionary<String, Any> = [
+                    "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                ]
+                if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                    session = session.replacingOccurrences(of: "-", with: "")
+                    request.addValue(session, forHTTPHeaderField: "session")
+                    request.addValue(username!, forHTTPHeaderField: "username")
+                    
+                    //creating a task to send request
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
+                        if error != nil {
+                            print("error is \(error!.localizedDescription)")
+                            self.activity_loader.stopAnimating()
+                            self.buyButton.isHidden = false
+                            return;
                         }
-                    }catch {
-                        print(error.localizedDescription)
-                        self.activity_loader.stopAnimating()
-                        self.buyButton.isHidden = false
+                        //passing the response
+                        do{
+                            //converting the response to NSDictionary
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            if let parseJSON = myJSON{
+                                var responseBody: String?
+                                responseBody = parseJSON["responseBody"] as! String?
+                                print("responseBody:: \(responseBody ?? "")")
+                                if let resBody = responseBody{
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                    print("Decrypted:: \(decrypt)")
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    
+                                    var responseCode: Int!
+                                    var responseMessage: String!
+                                    
+                                    
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int
+                                    responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String
+                                    if parseJSON["BUNDLETOREMOVE"] != nil{
+                                        self.bundleToRemove = decryptedResponseBody["BUNDLETOREMOVE"] as! String
+                                    }else{
+                                        self.bundleToRemove = ""
+                                    }
+                                    
+                                    
+                                    print("response:: \(decryptedResponseBody)")
+                                    DispatchQueue.main.async {
+                                        self.activity_loader.stopAnimating()
+                                        self.buyButton.isHidden = false
+                                        
+                                        /*Display dialogue message*/
+                                        //push dark view down
+                                        self.darkViewTopConstraint1?.isActive = false
+                                        self.darkViewTopConstraint2?.isActive = true
+                                        self.vcScrollView.addSubview(self.confirmDialog)
+                                        self.confirmDialog.translatesAutoresizingMaskIntoConstraints = false
+                                        self.confirmDialog.backgroundColor = UIColor.dark_background
+                                        self.confirmDialog.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                                        self.confirmDialog.topAnchor.constraint(equalTo: self.vcScrollView.topAnchor, constant: 0).isActive = true
+                                        self.confirmDialog.leadingAnchor.constraint(equalTo: self.vcScrollView.leadingAnchor).isActive = true
+                                        self.confirmDialog.trailingAnchor.constraint(equalTo: self.vcScrollView.trailingAnchor).isActive = true
+                                        self.confirmDialog.widthAnchor.constraint(equalTo: self.vcScrollView.widthAnchor).isActive = true
+                                        
+                                        //Label to hold response message
+                                        
+                                        self.vcScrollView.addSubview(self.lblResponse)
+                                        self.lblResponse.translatesAutoresizingMaskIntoConstraints = false
+                                        self.lblResponse.text = responseMessage
+                                        self.lblResponse.font = UIFont(name: String.defaultFontR, size: 20)
+                                        self.lblResponse.textColor = UIColor.white
+                                        self.lblResponse.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
+                                        self.lblResponse.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
+                                        self.lblResponse.topAnchor.constraint(equalTo: self.confirmDialog.topAnchor, constant: 40).isActive = true
+                                        self.lblResponse.numberOfLines = 0
+                                        self.lblResponse.lineBreakMode = .byWordWrapping
+                                        //                                lblResponse.textAlignment = .center
+                                        
+                                        //Button to continue
+                                        
+                                        self.vcScrollView.addSubview(self.btnContinue)
+                                        self.btnContinue.translatesAutoresizingMaskIntoConstraints = false
+                                        self.btnContinue.backgroundColor = UIColor.vodaRed
+                                        self.btnContinue.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                                        self.btnContinue.widthAnchor.constraint(equalToConstant: 150).isActive = true
+                                        self.btnContinue.leadingAnchor.constraint(equalTo: self.confirmDialog.leadingAnchor, constant: 50).isActive = true
+                                        self.btnContinue.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
+                                        self.btnContinue.setTitle("Continue", for: .normal)
+                                        self.btnContinue.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
+                                        self.btnContinue.addTarget(self, action: #selector(self.btnContinueExe), for: .touchUpInside)
+                                        
+                                        //Button to continue
+                                        
+                                        self.vcScrollView.addSubview(self.btnCancel)
+                                        self.btnCancel.translatesAutoresizingMaskIntoConstraints = false
+                                        self.btnCancel.backgroundColor = UIColor.grayButton
+                                        self.btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                                        self.btnCancel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+                                        self.btnCancel.trailingAnchor.constraint(equalTo: self.confirmDialog.trailingAnchor, constant: -50).isActive = true
+                                        self.btnCancel.topAnchor.constraint(equalTo: self.lblResponse.bottomAnchor, constant: 10).isActive = true
+                                        self.btnCancel.setTitle("Cancel", for: .normal)
+                                        self.btnCancel.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
+                                        self.btnCancel.addTarget(self, action: #selector(self.closeDialogue), for: .touchUpInside)
+                                    }
+
+                                }
+                            }
+                        }catch {
+                            print(error.localizedDescription)
+                            self.activity_loader.stopAnimating()
+                            self.buyButton.isHidden = false
+                        }
                     }
+                    task.resume()
                 }
-                task.resume()
             }
+            
         }else{
             print("No internet connection")
             self.activity_loader.stopAnimating()
@@ -514,148 +531,162 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
         request.httpMethod = "POST"
         msisdn = txtHiddenPurchaseNum.text
         
-        let postParameters:Dictionary<String, Any> = [
-            "action":"buyPackage",
-            "msisdn":msisdn!,
-            "username":username!,
-            "bundleid":selectedOfferPID,
-            "bundletoremove":bundleToRemove,
-            "os":getAppVersion()
-        ]
-        
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-            request.httpBody = postData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let postParameters = ["action":"buyPackage","msisdn":msisdn!,"username":username!,"bundleid":selectedOfferPID,"bundletoremove":bundleToRemove,"os":getAppVersion()]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
             
-            //creating a task to send the request
-            let task = URLSession.shared.dataTask(with: request as URLRequest){
-                data, response, error in
-                if error != nil {
-                    print("error is:: \(error!.localizedDescription)")
-                    self.stop_activity_loader()
-                    return
-                }
-                //parsing response
-                do{
-                    //converting the response to NSDictionary
-                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = myJSON {
-                        var responseCode: Int!
-                        var responseMessage: Any?
-                        
-                        responseCode = parseJSON["RESPONSECODE"] as! Int
-                        
-                        print("responseyy:: \(parseJSON)")
-                        
-                        DispatchQueue.main.async {
-                            if responseCode == 0 {
-                                responseMessage = parseJSON["RESPONSEMESSAGE"]
-                                if let resMessage = responseMessage as? Int{
-                                    let bundleToRemove = parseJSON["BUNDLETOREMOVE"] as! String?
-                                    let theHeight = self.view.frame.size.height //grabs the height of your view
-                                    let responseView = UIView()
-                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-                                    responseView.isOpaque = false
-                                    responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
-                                    
-                                    self.view.addSubview(responseView)
-                                    
-                                    //label to hold response message
-                                    let responseLabel = UILabel()
-                                    self.vcScrollView.addSubview(responseLabel)
-                                    responseLabel.translatesAutoresizingMaskIntoConstraints = false
-                                    responseLabel.text = bundleToRemove
-                                    responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
-                                    responseLabel.textColor = UIColor.white
-                                    responseLabel.textAlignment = .center
-                                    responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
-                                    responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
-                                    responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
-                                    responseLabel.numberOfLines = 0
-                                    responseLabel.lineBreakMode = .byWordWrapping
-                                    
-                                    UIView.animate(withDuration: 5, animations: {
-                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
-                                    }, completion: { (true) in
-                                        self.view.removeFromSuperview()
-                                    })
-                                    
-                                }else{
-                                    //Now create a view to display response
-                                    
-                                    let theHeight = self.view.frame.size.height //grabs the height of your view
-                                    let responseView = UIView()
-                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-                                    responseView.isOpaque = false
-                                    responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
-                                    
-                                    self.view.addSubview(responseView)
-                                    
-                                    //label to hold response message
-                                    let responseLabel = UILabel()
-                                    self.vcScrollView.addSubview(responseLabel)
-                                    responseLabel.translatesAutoresizingMaskIntoConstraints = false
-                                    responseLabel.text = responseMessage as! String
-                                    responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
-                                    responseLabel.textColor = UIColor.white
-                                    responseLabel.textAlignment = .center
-                                    responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
-                                    responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
-                                    responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
-                                    responseLabel.numberOfLines = 0
-                                    responseLabel.lineBreakMode = .byWordWrapping
-                                    
-                                    UIView.animate(withDuration: 5, animations: {
-                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
-                                    }, completion: { (true) in
-                                        self.view.removeFromSuperview()
-                                    })
-                                }
-                                
-                            }else{
-                                let theHeight = self.view.frame.size.height //grabs the height of your view
-                                let responseView = UIView()
-                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-                                responseView.isOpaque = false
-                                responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
-                                
-                                self.view.addSubview(responseView)
-                                
-                                //label to hold response message
-                                let responseLabel = UILabel()
-                                self.vcScrollView.addSubview(responseLabel)
-                                responseLabel.translatesAutoresizingMaskIntoConstraints = false
-                                responseLabel.text = "Sorry could not process request try again..."
-                                responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
-                                responseLabel.textColor = UIColor.white
-                                responseLabel.textAlignment = .center
-                                responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
-                                responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
-                                responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
-                                responseLabel.numberOfLines = 0
-                                responseLabel.lineBreakMode = .byWordWrapping
-                                
-                                UIView.animate(withDuration: 5, animations: {
-                                    responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
-                                }, completion: { (true) in
-                                    self.view.removeFromSuperview()
-                                })
-                            }
-                            self.stop_activity_loader()
-                            
-                        }
-                    }
-                }catch{
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                //creating a task to send the request
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is:: \(error!.localizedDescription)")
                         self.stop_activity_loader()
+                        return
                     }
-                    
+                    //parsing response
+                    do{
+                        //converting the response to NSDictionary
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseBody: String?
+                            responseBody = parseJSON["responseBody"] as! String?
+                            print("responseBody:: \(responseBody ?? "")")
+                            if let resBody = responseBody{
+                                let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                print("Decrypted:: \(decrypt)")
+                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                print(decryptedResponseBody)
+                                
+                                var responseCode: Int!
+                                var responseMessage: Any?
+                                
+                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int
+                                
+                                
+                                
+                                DispatchQueue.main.async {
+                                    if responseCode == 0 {
+                                        responseMessage = decryptedResponseBody["RESPONSEMESSAGE"]
+                                        if let resMessage = responseMessage as? Int{
+                                            let bundleToRemove = decryptedResponseBody["BUNDLETOREMOVE"] as! String?
+                                            let theHeight = self.view.frame.size.height //grabs the height of your view
+                                            let responseView = UIView()
+                                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                            responseView.isOpaque = false
+                                            responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                            
+                                            self.view.addSubview(responseView)
+                                            
+                                            //label to hold response message
+                                            let responseLabel = UILabel()
+                                            self.vcScrollView.addSubview(responseLabel)
+                                            responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                            responseLabel.text = bundleToRemove
+                                            responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                            responseLabel.textColor = UIColor.white
+                                            responseLabel.textAlignment = .center
+                                            responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                            responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                            responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                            responseLabel.numberOfLines = 0
+                                            responseLabel.lineBreakMode = .byWordWrapping
+                                            
+                                            UIView.animate(withDuration: 5, animations: {
+                                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                            }, completion: { (true) in
+                                                self.view.removeFromSuperview()
+                                            })
+                                            
+                                        }else{
+                                            //Now create a view to display response
+                                            
+                                            let theHeight = self.view.frame.size.height //grabs the height of your view
+                                            let responseView = UIView()
+                                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                            responseView.isOpaque = false
+                                            responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                            
+                                            self.view.addSubview(responseView)
+                                            
+                                            //label to hold response message
+                                            let responseLabel = UILabel()
+                                            self.vcScrollView.addSubview(responseLabel)
+                                            responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                            responseLabel.text = responseMessage as! String
+                                            responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                            responseLabel.textColor = UIColor.white
+                                            responseLabel.textAlignment = .center
+                                            responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                            responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                            responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                            responseLabel.numberOfLines = 0
+                                            responseLabel.lineBreakMode = .byWordWrapping
+                                            
+                                            UIView.animate(withDuration: 5, animations: {
+                                                responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                            }, completion: { (true) in
+                                                self.view.removeFromSuperview()
+                                            })
+                                        }
+                                        
+                                    }else{
+                                        let theHeight = self.view.frame.size.height //grabs the height of your view
+                                        let responseView = UIView()
+                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                        responseView.isOpaque = false
+                                        responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
+                                        
+                                        self.view.addSubview(responseView)
+                                        
+                                        //label to hold response message
+                                        let responseLabel = UILabel()
+                                        self.vcScrollView.addSubview(responseLabel)
+                                        responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                        responseLabel.text = "Sorry could not process request try again..."
+                                        responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                        responseLabel.textColor = UIColor.white
+                                        responseLabel.textAlignment = .center
+                                        responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                        responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                        responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                        responseLabel.numberOfLines = 0
+                                        responseLabel.lineBreakMode = .byWordWrapping
+                                        
+                                        UIView.animate(withDuration: 5, animations: {
+                                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                        }, completion: { (true) in
+                                            self.view.removeFromSuperview()
+                                        })
+                                    }
+                                    self.stop_activity_loader()
+                                    
+                                }
+                            }
+                        }
+                    }catch{
+                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                        }
+                        
+                    }
                 }
+                task.resume()
             }
-            task.resume()
         }
+        
+        
     }
     //Function to startIndicator
     func start_activity_loader(){

@@ -415,7 +415,7 @@ class TopUpHistory: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataS
             }else{
                 srchType = "1"
             }
-            let async_call = URL(string: String.userURL)
+            let async_call = URL(string: String.oldUserURL)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             let postParameters: Dictionary<String, Any> = [
@@ -560,7 +560,7 @@ class TopUpHistory: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataS
         }else{
             srchType = "1"
         }
-        let async_call = URL(string: String.userURL)
+        let async_call = URL(string: String.oldUserURL)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         let postParameters: Dictionary<String, Any> = [

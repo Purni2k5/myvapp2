@@ -79,8 +79,8 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
     fileprivate var redViewTop2: NSLayoutConstraint?
     fileprivate var redViewRight1: NSLayoutConstraint?
     fileprivate var redViewRight2: NSLayoutConstraint?
+    var username: String?
     
-    var animalArray: [String] = ["Dog", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey", "Cat", "Goat", "Sheep", "Rabbit", "Crocodile", "Lizard", "Monkey"]
     var cellID = "cellID"
     var locationData = [CellData]()
     
@@ -93,6 +93,8 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         hideKeyboardWhenTappedAround()
         
 //        locationData = [CellData.init(image: #imageLiteral(resourceName: "wifi"), name: "How", distance: "12km", desc: "Description")]
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
         
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
@@ -472,63 +474,76 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
-        let postParameters: Dictionary<String, Any> = [
-            "action":"shops",
-            "option":"location",
-            "lat":String(coordX),
-            "long":String(coordY),
-            "searchValue":"",
-            "os":getAppVersion()
-        ]
-        
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-            request.httpBody = postData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let task = URLSession.shared.dataTask(with: request as URLRequest){
-                data, response, error in
-                if error != nil {
-                    print("error is:: \(error!.localizedDescription)")
-                    return;
-                }
+        let postParameters = ["action":"shops","option":"location","lat":String(coordX),"long":String(coordY),"searchValue":"","os":getAppVersion()]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
                 
-                do {
-                    
-                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = myJSON {
-                        var responseCode: Int?
-                        responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        if responseCode == 0 {
-                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! NSArray?
-                            if let array = responseMessage {
-                                DispatchQueue.main.async {
-                                    for obj in array{
-                                        if let dict = obj as? NSDictionary {
-                                            if let shopName = dict.value(forKey: "NAME") as? String, let shopLandMark = dict.value(forKey: "LANDMARK") as! String?, var shopDistance = dict.value(forKey: "DISTANCE") as! String?{
-                                                shopDistance = "\(shopDistance) km"
-                                                let shopLocation = CellData(image: #imageLiteral(resourceName: "wifi"), name: shopName, distance: shopDistance, desc: shopLandMark)
-                                                self.locationData.append(shopLocation)
-                                            }
-                                            
-                                            
-                                        }
-                                    }
-                                    self.storeTableView.reloadData()
-                                }
-                            }
-                        }else{
-                            
-                        }
-                        print(parseJSON)
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is:: \(error!.localizedDescription)")
+                        return;
                     }
                     
-                }catch{
-                    print(error.localizedDescription)
+                    do {
+                        
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseBody: String?
+                            responseBody = parseJSON["responseBody"] as! String?
+                            print("responseBody:: \(responseBody ?? "")")
+                            if let resBody = responseBody{
+                                let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                print("Decrypted:: \(decrypt)")
+                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                print(decryptedResponseBody)
+                                var responseCode: Int?
+                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                if responseCode == 0 {
+                                    let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSArray?
+                                    if let array = responseMessage {
+                                        DispatchQueue.main.async {
+                                            for obj in array{
+                                                if let dict = obj as? NSDictionary {
+                                                    if let shopName = dict.value(forKey: "NAME") as? String, let shopLandMark = dict.value(forKey: "LANDMARK") as! String?, var shopDistance = dict.value(forKey: "DISTANCE") as! String?{
+                                                        shopDistance = "\(shopDistance) km"
+                                                        let shopLocation = CellData(image: #imageLiteral(resourceName: "wifi"), name: shopName, distance: shopDistance, desc: shopLandMark)
+                                                        self.locationData.append(shopLocation)
+                                                    }
+                                                    
+                                                    
+                                                }
+                                            }
+                                            self.storeTableView.reloadData()
+                                        }
+                                    }
+                                }else{
+                                    
+                                }
+                            }
+                            
+//                            print(parseJSON)
+                        }
+                        
+                    }catch{
+                        print(error.localizedDescription)
+                    }
                 }
+                task.resume()
             }
-            task.resume()
         }
+        
     }
   
 }
@@ -555,33 +570,36 @@ extension StoreLocatorVc {
         
         let geoCoder = CLGeocoder()
         
-        guard center.distance(from: previousLocation!) > 50 else { return }
-        
-        previousLocation = center
-        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
-            guard let strongSelf = self else { return }
+        if let prevLocation = previousLocation{
+            guard center.distance(from: previousLocation!) > 50 else { return }
             
-            if let _ = error {
-                //Show an alert
-                return
-            }
-            
-            guard let placemark = placemarks?.first else {
-                //TODO Show alert informing the user
-                return
-            }
-            
-            let streetNumber = placemark.subLocality ?? ""
-            let streetName = placemark.thoroughfare ?? ""
-            let city = placemark.locality ?? ""
-            let country = placemark.country ?? ""
-            strongSelf.latitude = placemark.location?.coordinate.latitude ?? 0.0
-            strongSelf.longitude = placemark.location?.coordinate.longitude ?? 0.0
-            strongSelf.getStores(coordX: strongSelf.latitude!, coordY: strongSelf.longitude!)
-            strongSelf.displayLocation = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
-            DispatchQueue.main.async {
-                strongSelf.lblCurrLoc.text = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
-            }
+            previousLocation = center
+            geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
+                guard let strongSelf = self else { return }
+                
+                if let _ = error {
+                    //Show an alert
+                    return
+                }
+                
+                guard let placemark = placemarks?.first else {
+                    //TODO Show alert informing the user
+                    return
+                }
+                
+                let streetNumber = placemark.subLocality ?? ""
+                let streetName = placemark.thoroughfare ?? ""
+                let city = placemark.locality ?? ""
+                let country = placemark.country ?? ""
+                strongSelf.latitude = placemark.location?.coordinate.latitude ?? 0.0
+                strongSelf.longitude = placemark.location?.coordinate.longitude ?? 0.0
+                strongSelf.getStores(coordX: strongSelf.latitude!, coordY: strongSelf.longitude!)
+                strongSelf.displayLocation = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
+                DispatchQueue.main.async {
+                    strongSelf.lblCurrLoc.text = "Your location \n\(streetNumber) \(streetName), \(city), \(country)"
+                }
+        }
+          
         }
     }
 }

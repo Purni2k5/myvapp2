@@ -879,7 +879,13 @@ class baseViewControllerM: UIViewController {
     
     //Harden my request
     func encryptAsyncRequest(requestBody: String) -> String{
-        let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as! String
+        guard let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as? String else{
+            print("logging out")
+            logout()
+            
+            return ""
+            
+        }
         
         let cipher:String = CryptoHelper.encrypt(input:requestBody, userKey: secretKey)!;
         
@@ -892,6 +898,29 @@ class baseViewControllerM: UIViewController {
         let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey)!;
         
         return cipher
+    }
+    
+    
+    
+    //Function to convert String to NSDictionary
+    func convertToNSDictionary(decrypt: String)-> NSDictionary{
+        var dictonary:NSDictionary?
+        
+        if let data = decrypt.data(using: String.Encoding.utf8){
+            
+            do {
+                dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject] as! NSDictionary
+                
+                if let myDictionary = dictonary
+                {
+                    
+                    return myDictionary
+                }
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return [:]
     }
     
     func clearLogout(){

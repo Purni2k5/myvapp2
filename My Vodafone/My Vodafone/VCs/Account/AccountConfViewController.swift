@@ -328,7 +328,11 @@ class AccountConfViewController: baseViewControllerM {
                                     if responseCode == 1 {
                                         self.lblMessage.text = responseMessage
                                         self.stop_activity_loader()
-                                    }else{
+                                    }else if responseCode == 2 {
+                                        self.lblMessage.text = "Sorry could not process your request"
+                                        self.stop_activity_loader()
+                                    }
+                                    else{
                                         
                                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
                                         self.preference.set("Yes", forKey: "loginStatus")

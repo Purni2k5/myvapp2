@@ -68,13 +68,15 @@ class RoamingPartners: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDa
     
     let txtCountry = UITextField()
     let cheviDown = UIImageView()
+    var username: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         createPickerView()
         createToolBar()
-        
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
         
         setUpViewTips()
         loadRoamingPartners()
@@ -183,56 +185,74 @@ class RoamingPartners: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDa
     
     
     func loadRoamingPartners(){
-        let postParameters: Dictionary<String, Any> = [
-            "action":"roamingPartners",
-            "os":getAppVersion()
-        ]
+        let postParameters = ["action":"roamingPartners","os":getAppVersion()]
         
         let async_call = URL(string: String.offers)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
-        
-        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-            request.httpBody = postData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let task = URLSession.shared.dataTask(with: request as URLRequest){
-                data, response, error in
-                if error != nil {
-                    print("error is:: \(error!.localizedDescription)")
-                    return;
-                }
-                do {
-                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = myJSON {
-                        var responseCode: Int?
-                        responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        DispatchQueue.main.async {
-                            if responseCode == 0 {
-                                let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                let stringToArray = [responseMessage]
-                                //print(stringToArray[0]!)
-                                if (stringToArray as NSArray?) != nil {
-                                    for obj in stringToArray{
-                                        print("objects: \(obj!)")
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is:: \(error!.localizedDescription)")
+                        return;
+                    }
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var responseBody: String?
+                            responseBody = parseJSON["responseBody"] as! String?
+                            print("responseBody:: \(responseBody ?? "")")
+                            if let resBody = responseBody{
+                                let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                print("Decrypted:: \(decrypt)")
+                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                print(decryptedResponseBody)
+                                var responseCode: Int?
+                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                DispatchQueue.main.async {
+                                    if responseCode == 0 {
+                                        let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                        let stringToArray = [responseMessage]
+                                        //print(stringToArray[0]!)
+                                        if (stringToArray as NSArray?) != nil {
+                                            for obj in stringToArray{
+                                                print("objects: \(obj!)")
+                                            }
+                                        }
+                                    }else{
+                                        
                                     }
+                                    self.stop_activity_loader()
                                 }
-                            }else{
-                                
                             }
+                            
+                        }
+                    }catch{
+                        DispatchQueue.main.async {
                             self.stop_activity_loader()
+                            print(error.localizedDescription)
                         }
                     }
-                }catch{
-                    DispatchQueue.main.async {
-                        self.stop_activity_loader()
-                        print(error.localizedDescription)
-                    }
                 }
+                task.resume()
             }
-            task.resume()
         }
+        
+        
     }
     //Create a picker view
     func createPickerView(){

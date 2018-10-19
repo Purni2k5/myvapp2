@@ -206,14 +206,9 @@ class AddServiceConfViewController: baseViewControllerM {
                 displayNoInternet()
             }else{
                 start_activity_loader()
-                let postParameters: Dictionary<String, Any> = [
-                    "action":"activateService",
-                    "activationCode":activationCode!,
-                    "serviceID":serviceID!,
-                    "username":username!,
-                    "os":getAppVersion()
-                ]
-                let async_call = URL(string: String.userSVC)
+                let postParameters = ["action":"activateService","activationCode":activationCode!,"serviceID":serviceID!,"username":username!,
+                    "os":getAppVersion()]
+                let async_call = URL(string: String.oldUserSVC)
                 let request = NSMutableURLRequest(url: async_call!)
                 request.httpMethod = "POST"
                 

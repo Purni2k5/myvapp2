@@ -449,50 +449,65 @@ class RoamingFaultReporting: baseViewControllerM, UIPickerViewDelegate, UIPicker
                                     let async_call = URL(string: String.userURL)
                                     let request = NSMutableURLRequest(url: async_call!)
                                     request.httpMethod = "POST"
-                                    let postParameters: Dictionary<String, Any> = [
-                                        "action":"faultReporting",
-                                        "alternativecontact":altNum!,
-                                        "reporttype":reportType!,
-                                        "reportcategory":reportCat!,
-                                        "comment":reportCom!,
-                                        "username":username!,
-                                        "msisdn":msisdn!,
-                                        "type":"roamingfaultreporting"
+                                    let postParameters = ["action":"faultReporting","alternativecontact":altNum!,"reporttype":reportType!,"reportcategory":reportCat!,"comment":reportCom!,"username":username!,"msisdn":msisdn!,"type":"roamingfaultreporting"
                                     ]
                                     
-                                    if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                                        request.httpBody = postData
-                                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                                    if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+                                        let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                                        let requestBody: Dictionary<String, Any> = [
+                                            "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                                        ]
                                         
-                                        let task = URLSession.shared.dataTask(with: request as URLRequest){
-                                            data, response, error in
+                                        if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                                            request.httpBody = postData
+                                            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                                            request.addValue("application/json", forHTTPHeaderField: "Accept")
+                                            var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                                            session = session.replacingOccurrences(of: "-", with: "")
+                                            request.addValue(session, forHTTPHeaderField: "session")
+                                            request.addValue(username!, forHTTPHeaderField: "username")
                                             
-                                            do {
-                                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                                                if let parseJSON = myJSON {
-                                                    var responseCode: Int?
-                                                    responseCode = parseJSON["RESPONSECODE"] as! Int?
-                                                    DispatchQueue.main.async {
-                                                        if responseCode == 0{
-                                                            let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
-                                                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage!)
-                                                        }else{
-                                                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry try again...")
+                                            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                                                data, response, error in
+                                                
+                                                do {
+                                                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                                    if let parseJSON = myJSON {
+                                                        var responseBody: String?
+                                                        responseBody = parseJSON["responseBody"] as! String?
+                                                        print("responseBody:: \(responseBody ?? "")")
+                                                        if let resBody = responseBody{
+                                                            let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                                            print("Decrypted:: \(decrypt)")
+                                                            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                                            print(decryptedResponseBody)
+                                                            var responseCode: Int?
+                                                            responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                                            DispatchQueue.main.async {
+                                                                if responseCode == 0{
+                                                                    let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage!)
+                                                                }else{
+                                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry try again...")
+                                                                }
+                                                                self.stop_activity_loader()
+                                                            }
                                                         }
+                                                        
+                                                    }
+                                                }catch{
+                                                    print(error.localizedDescription)
+                                                    DispatchQueue.main.async {
+                                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry request could not be processed")
                                                         self.stop_activity_loader()
                                                     }
                                                 }
-                                            }catch{
-                                                print(error.localizedDescription)
-                                                DispatchQueue.main.async {
-                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry request could not be processed")
-                                                    self.stop_activity_loader()
-                                                }
                                             }
+                                            task.resume()
                                         }
-                                        task.resume()
                                     }
+                                    
+                                    
                                 }
                             }
                         }

@@ -357,7 +357,7 @@ class chooseDefaultService: baseViewControllerM {
         }else{
             start_activity_loader()
             let selService = txtSelectedService.text!
-            let async_call = URL(string: String.userSVC)
+            let async_call = URL(string: String.oldUserSVC)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             let postParameters: Dictionary<String, Any> = [
