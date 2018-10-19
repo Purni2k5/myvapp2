@@ -201,6 +201,7 @@ class LoginViewController: baseViewControllerM {
                                                 foundDefault = true
                                                 print("Got it")
                                                 
+                                                
                                             }else{
                                                 print("this happened")
                                                 //Just pick one to display
@@ -248,11 +249,29 @@ class LoginViewController: baseViewControllerM {
                                 self.keyChain.set(username, forKey: keyChainKeys.secretUser.rawValue)
                                 self.keyHardening()
                                 
+                                if(self.AcctType == "PHONE_MOBILE_PRE_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_POST_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_HYBRID"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else{
+                                    print("fbb here")
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
                                 
-                                //go to home screen
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                self.present(moveTo, animated: true, completion: nil)
                             }else{
                                 self.stopAsyncLoader()
                                 //display error message
@@ -489,10 +508,28 @@ class LoginViewController: baseViewControllerM {
                                 self.preference.set(responseData, forKey: "responseData")
                                 self.keyHardening()
                                 
-                                //go to home screen
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                self.present(moveTo, animated: true, completion: nil)
+                                if(self.AcctType == "PHONE_MOBILE_PRE_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_POST_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_HYBRID"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else{
+                                    print("fbb here")
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
                             }else{
                                 self.stopAsyncLoader()
                                 //display error message

@@ -1080,7 +1080,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                 request.addValue(session, forHTTPHeaderField: "session")
                 request.addValue(username!, forHTTPHeaderField: "username")
                 
-                print("My request:: \(requestBody)")
+                print("My requestss:: \(requestBody)")
                 let task = URLSession.shared.dataTask(with: request as URLRequest){
                     data, response, error in
                     if error != nil {
@@ -1090,7 +1090,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                     
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
+                        print("myJSON:: \(myJSON)")
                         if let parseJSON = myJSON {
                             var responseBody: String?
                             responseBody = parseJSON["responseBody"] as! String?

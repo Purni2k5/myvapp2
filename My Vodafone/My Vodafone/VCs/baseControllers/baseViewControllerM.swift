@@ -895,7 +895,10 @@ class baseViewControllerM: UIViewController {
     func decryptAsyncRequest(requestBody: String) -> String{
         let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as! String
         
-        let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey)!;
+        guard let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey) else {
+            logout()
+            return ""
+        }
         
         return cipher
     }

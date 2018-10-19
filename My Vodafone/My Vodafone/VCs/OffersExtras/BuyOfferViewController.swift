@@ -97,6 +97,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
     let lblResponse = UILabel()
     let btnCancel = UIButton()
     let btnContinue = UIButton()
+    var scrollViewHeight: CGFloat = 1000
     
     var registeredAccounts = [String]()
     fileprivate var darkViewTopConstraint1: NSLayoutConstraint?

@@ -16,6 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnOk: UIButton!
     
     let preference = UserDefaults.standard
+    var defaultService: String?
+    var ServiceID: String?
+    var AcctType: String?
+    var defaultAccName: String?
+    
     
     
     override func viewDidLoad() {
@@ -33,6 +38,8 @@ class ViewController: UIViewController {
                 print("== \(names)")
             }
         }*/
+        print("First entry")
+        defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as? String
     }
     
     
@@ -57,9 +64,49 @@ class ViewController: UIViewController {
                     //if loginStatus exist check if it is yes take user to preferred home screen
                     print("is login: \(loginStatus)")
                     if loginStatus == "Yes" {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                        present(moveTo, animated: true, completion: nil)
+                        if let defaultService = defaultService{
+                            let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            if let array = Services as? NSArray {
+                                var foundDefault = false
+                                print(foundDefault)
+                                for obj in array {
+                                    if foundDefault == false{
+                                        if let dict = obj as? NSDictionary {
+                                            // Now reference the data you need using:
+                                            ServiceID = dict.value(forKey: "ID") as! String?
+                                            AcctType = dict.value(forKey: "Type") as! String?
+                                            
+                                            if(ServiceID == defaultService){
+                                                defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                                                
+                                                AcctType = dict.value(forKey: "Type") as! String?
+                                                foundDefault = true
+                                                print("Got it")
+                                                
+                                            }else{
+                                                //Just pick one to display
+                                                defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                                                ServiceID = dict.value(forKey: "ID") as! String?
+                                                AcctType = dict.value(forKey: "Type") as! String?
+                                                
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        print("defaultAcc:: \(AcctType)")
+                        if AcctType == "BB_FIXED_PRE_P"{
+                            let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+                            let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
+                            present(moveTo, animated: true, completion: nil)
+                        }else{
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                            present(moveTo, animated: true, completion: nil)
+                        }
+                        
                     }else{
                         //if it is no move to login screen
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -445,7 +445,7 @@ class SettingsVc: baseViewControllerM {
         let lblPernalisedName = UILabel()
         personailizedAppCard.addSubview(lblPernalisedName)
         lblPernalisedName.translatesAutoresizingMaskIntoConstraints = false
-        lblPernalisedName.text = "Personlised my app"
+        lblPernalisedName.text = "Personalise my app"
         lblPernalisedName.font = UIFont(name: String.defaultFontR, size: 22)
         lblPernalisedName.textColor = UIColor.black
         lblPernalisedName.leadingAnchor.constraint(equalTo: changePLeftImage.trailingAnchor, constant: 20).isActive = true
