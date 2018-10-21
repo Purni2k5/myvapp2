@@ -149,6 +149,7 @@ extension UIViewController {
         case Plan
         case Data
         case defaultMSISDN
+        case defaultName
         case RESPONSEMESSAGE
         case FBBLINKEDNUMBER
         case FBBACTKEY

@@ -356,7 +356,6 @@
 		01731974217586D700989F8A /* Shake */ = {
 			isa = PBXGroup;
 			children = (
-				019F1363217A1BC700E0B02C /* Broadband */,
 				017319752175870900989F8A /* ShakeScreen.swift */,
 				0173197721759EB000989F8A /* shake.wav */,
 				0173197B2175EF5D00989F8A /* ShakeList.swift */,
@@ -559,6 +558,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				019F1363217A1BC700E0B02C /* Broadband */,
 				01731974217586D700989F8A /* Shake */,
 				015A53482163C82F0040807E /* NetPerform */,
 				01CFCF97215B97920048D56E /* Messages */,

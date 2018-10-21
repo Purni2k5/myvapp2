@@ -223,6 +223,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         if let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {
             dService = defaultService
+            print("dService:: \(dService)")
         }else{
             //logout
             print("Do this")
@@ -233,6 +234,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         balanceLabel = preference.object(forKey: "balanceLabel") as! String?
         accountBalanceLabel = preference.object(forKey: "accBalanceLabel") as! String?
         lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
+        defaultAccName = preference.object(forKey: UserDefaultsKeys.defaultName.rawValue) as! String?
+        print("begin defName \(defaultAccName)")
         
 //        print("yos:: \(defaultService)")
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
@@ -247,16 +250,18 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                         ServiceID = dict.value(forKey: "ID") as! String?
                         AcctType = dict.value(forKey: "Type") as! String?
                         
-                        if(ServiceID == defaultService){
+                        if(ServiceID == dService){
+                            print("checked against \(defaultService)")
                             defaultAccName = dict.value(forKey: "DisplayName") as! String?
                             primaryID = dict.value(forKey: "primaryID") as! String?
                             AcctType = dict.value(forKey: "Type") as! String?
                             foundDefault = true
                             print("Got it")
+                            print("found defName \(defaultAccName)")
                             
                         }else{
                             //Just pick one to display
-                            defaultAccName = dict.value(forKey: "DisplayName") as! String?
+//                            defaultAccName = dict.value(forKey: "DisplayName") as! String?
                             ServiceID = dict.value(forKey: "ID") as! String?
                             AcctType = dict.value(forKey: "Type") as! String?
                             primaryID = dict.value(forKey: "primaryID") as! String?
@@ -274,6 +279,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         // Check for internet connection
         checkConnection()
+//        if AcctType == "BB_FIXED_PRE_P" {
+//            print("Please go to bb home")
+//        }
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
@@ -508,7 +516,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         bgImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bgImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bgImage.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
-        bgImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bgImage.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
         
         let motherView = UIView()
         motherView.translatesAutoresizingMaskIntoConstraints = false
@@ -1090,10 +1098,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                     
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        print("myJSON:: \(myJSON)")
+                        print("myJSONCheck:: \(myJSON)")
                         if let parseJSON = myJSON {
                             var responseBody: String?
-                            responseBody = parseJSON["responseBody"] as! String?
+                            responseBody = parseJSON["responseBody"] as? String
                             print("responseBodys:: \(responseBody ?? "")")
                             if let resBody = responseBody{
                                 let decrypt = self.decryptAsyncRequest(requestBody: resBody)
@@ -1293,14 +1301,16 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                             if let parseJSON = myJSON {
                                 var responseBody: String?
                                 responseBody = parseJSON["responseBody"] as! String?
+                                
                                 print("BalresponseBody:: \(responseBody)")
                                 if let resBody = responseBody {
                                     let decrypt = self.decryptAsyncRequest(requestBody: resBody)
                                     print("Decrypted:: \(decrypt)")
                                     let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
                                     print(decryptedResponseBody)
-                                    var responseCode: Int?
-                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int
+                                    var responseCode: Int!
+                                    
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
                                     
                                     DispatchQueue.main.async {
                                         if responseCode == 0 {

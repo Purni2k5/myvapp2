@@ -636,6 +636,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
         let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo!, animated: true, completion: nil)
     }
@@ -881,7 +882,7 @@ class baseViewControllerM: UIViewController {
     func encryptAsyncRequest(requestBody: String) -> String{
         guard let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as? String else{
             print("logging out")
-            logout()
+//            logout()
             
             return ""
             
@@ -893,14 +894,20 @@ class baseViewControllerM: UIViewController {
     }
     
     func decryptAsyncRequest(requestBody: String) -> String{
-        let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as! String
-        
-        guard let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey) else {
-            logout()
+        if let secretKey = preference.object(forKey: UserDefaultsKeys.requestKey.rawValue) as? String {
+            guard let cipher:String = CryptoHelper.decrypt(input:requestBody, userKey: secretKey) else {
+//                logout()
+                return ""
+            }
+            return cipher
+        }else{
+//            logout()
             return ""
         }
         
-        return cipher
+        
+        
+        
     }
     
     
@@ -954,6 +961,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

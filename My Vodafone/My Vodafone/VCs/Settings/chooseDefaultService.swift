@@ -394,8 +394,11 @@ class chooseDefaultService: baseViewControllerM {
                                         if let selServiceDet = dService {
                                             let ID = selServiceDet["ID"] as! String
                                             var primaryID = selServiceDet["primaryID"] as! String
+                                            let defaultAccName = selServiceDet["DisplayName"] as! String
                                             self.preference.removeObject(forKey: UserDefaultsKeys.DefaultService.rawValue)
                                             self.preference.set(ID, forKey: UserDefaultsKeys.DefaultService.rawValue)
+                                            self.preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
+                                            self.preference.set(defaultAccName, forKey: UserDefaultsKeys.defaultName.rawValue)
                                             
                                             let defaultNum = primaryID.dropFirst(3)
                                             primaryID = "0\(defaultNum)"

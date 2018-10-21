@@ -123,9 +123,9 @@ class LoginViewController: baseViewControllerM {
     //Function to make async call with parameters
     func callLoginToAccount(url: URL, rawPassword: String, username: String){
         let request = NSMutableURLRequest(url: url)
-        let urlConfig = URLSessionConfiguration.default
-        urlConfig.timeoutIntervalForRequest = 30.0
-        urlConfig.timeoutIntervalForResource = 60.0
+//        let urlConfig = URLSessionConfiguration.default
+//        urlConfig.timeoutIntervalForRequest = 30.0
+//        urlConfig.timeoutIntervalForResource = 60.0
         request.httpMethod = "POST"
         
         //hash password
@@ -138,7 +138,7 @@ class LoginViewController: baseViewControllerM {
             "action":"loginToAccount",
             "os":getAppVersion()
         ]
-        print("hashii:: \(hashPass)")
+//        print("hashii:: \(hashPass)")
         if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
             request.httpBody = postData
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -163,8 +163,10 @@ class LoginViewController: baseViewControllerM {
                 do{
                     //converting response to NSDictionary
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
                     //parsing the json
                     if let parseJSON = myJSON {
+                        print("here")
                         //creating variables to hold response
                         var responseCode: Int!
                         var responseMessage: String!
@@ -199,9 +201,7 @@ class LoginViewController: baseViewControllerM {
                                                 self.primaryID = dict.value(forKey: "primaryID") as! String?
                                                 self.AcctType = dict.value(forKey: "Type") as! String?
                                                 foundDefault = true
-                                                print("Got it")
-                                                
-                                                
+                                                print("Got it") 
                                             }else{
                                                 print("this happened")
                                                 //Just pick one to display
@@ -209,7 +209,7 @@ class LoginViewController: baseViewControllerM {
                                                 self.ServiceID = dict.value(forKey: "ID") as! String?
                                                 self.AcctType = dict.value(forKey: "Type") as! String?
                                                 self.primaryID = dict.value(forKey: "primaryID") as! String?
-                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
+//                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
                                                 //                            foundDefault = true
                                             }
                                         }
@@ -222,6 +222,8 @@ class LoginViewController: baseViewControllerM {
                             let defaultNum = self.primaryID?.dropFirst(3)
                             self.primaryID = "0\(defaultNum!)"
                             self.preference.set(self.primaryID, forKey: "defaultMSISDN")
+                            self.preference.set(self.defaultAccName, forKey: UserDefaultsKeys.defaultName.rawValue)
+                            self.preference.set(self.ServiceID, forKey: UserDefaultsKeys.defaultName.rawValue)
                             print("Account stat: \(obj)")
                             
                             let session = responseSession["session"] as! String
@@ -241,6 +243,7 @@ class LoginViewController: baseViewControllerM {
 //                        self.stopAsyncLoader()
                         DispatchQueue.main.async { // Correct
                             if responseCode == 0{
+                                
                                 self.stopAsyncLoader()
                                 self.preference.set("Yes", forKey: "loginStatus")
                                 self.preference.set(responseData, forKey: "responseData")
@@ -273,6 +276,7 @@ class LoginViewController: baseViewControllerM {
                                 }
                                 
                             }else{
+                                print("Was zero \(responseCode)")
                                 self.stopAsyncLoader()
                                 //display error message
                                 self.errorMessage.isHidden = false
@@ -483,6 +487,7 @@ class LoginViewController: baseViewControllerM {
                             let defaultNum = self.primaryID?.dropFirst(3)
                             self.primaryID = "0\(defaultNum!)"
                             self.preference.set(self.primaryID, forKey: "defaultMSISDN")
+                            self.preference.set(self.defaultAccName, forKey: UserDefaultsKeys.defaultName.rawValue)
                             print("Account stat: \(obj)")
                             
                             let session = responseSession["session"] as! String
