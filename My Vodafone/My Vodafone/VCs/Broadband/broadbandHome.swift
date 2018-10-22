@@ -13,6 +13,16 @@ class broadbandHome: baseViewControllerM {
     
     var dService: String?
     var displayName: String?
+    var lastUpdate: String?
+    var username: String?
+    var userID: String?
+    var accountNumber: String?
+    
+    var currentVol: String?
+    var totalInitial: String?
+    var gaugePer: String?
+    var advancePayment: String?
+    var currPlan: String?
     
     let progressLayer = CAShapeLayer()
     let trackLayer = CAShapeLayer()
@@ -106,17 +116,31 @@ class broadbandHome: baseViewControllerM {
     let lblLastUpdate: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "Last updated on ....."
+//        view.text = "Last updated on ....."
+        view.textColor = UIColor.white
+        view.font = UIFont(name: String.defaultFontR, size: 16)
         return view
     }()
+    let lblCurrPlanAmt = UILabel()
+    let lblADSLAmt = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
-        print(services)
-        dService = preference.object(forKey: UserDefaultsKeys.defaultName.rawValue) as? String
-        print(dService)
+//        print(services)
+        dService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as? String
+//        print(dService)
+        let responseData = preference.object(forKey: "responseData") as! NSDictionary
+        username = responseData["Username"] as? String
+        
+        currentVol = preference.object(forKey: UserDefaultsKeys.P_CURRENTVOL.rawValue) as! String?
+        totalInitial = preference.object(forKey: UserDefaultsKeys.TOTALINITIAL.rawValue) as! String?
+        advancePayment = preference.object(forKey: UserDefaultsKeys.P_ADVANCEPAYMENT.rawValue) as! String?
+        currPlan = preference.object(forKey: UserDefaultsKeys.P_PLANNAME.rawValue) as! String?
+        gaugePer = preference.object(forKey: UserDefaultsKeys.BB_HOME_PERCENTAGE.rawValue) as! String?
+        
+        lastUpdate = preference.object(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue) as? String
         if let serviceArray = services as? NSArray{
             var foundDefault = false
             for obj in serviceArray{
@@ -124,9 +148,12 @@ class broadbandHome: baseViewControllerM {
                 if foundDefault == false{
                     if let dict = obj as? NSDictionary {
                         displayName = dict.value(forKey: "DisplayName") as? String
-                        let id = dict.value(forKey: "ID") as? String
+                        let id = dict.value(forKey: "ID") as! String?
+                        print("ID: \(id)")
                         if id == dService{
                             displayName = dict.value(forKey: "DisplayName") as? String
+                            userID = dict.value(forKey: "primaryID") as? String
+                            accountNumber = dict.value(forKey: "SecondaryID") as? String
                             foundDefault = true
                         }
                     }
@@ -135,7 +162,9 @@ class broadbandHome: baseViewControllerM {
             }
         }
         setUpViewsBBHome()
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
        checkConnection()
@@ -296,6 +325,7 @@ class broadbandHome: baseViewControllerM {
         let topUpImage = UIImage(named: "top_up")
         btnTop.setImage(topUpImage, for: .normal)
         btnTop.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        btnTop.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
         
         let lblADSL = UILabel()
         adslView.addSubview(lblADSL)
@@ -309,10 +339,13 @@ class broadbandHome: baseViewControllerM {
         lblADSL.topAnchor.constraint(equalTo: adslView.topAnchor, constant: 15).isActive = true
         lblADSL.trailingAnchor.constraint(equalTo: btnTop.leadingAnchor, constant: 4).isActive = true
         
-        let lblADSLAmt = UILabel()
+        
         adslView.addSubview(lblADSLAmt)
         lblADSLAmt.translatesAutoresizingMaskIntoConstraints = false
-        lblADSLAmt.text = "GHS 1000"
+        if let advancePayment = advancePayment{
+            lblADSLAmt.text = "GHS \(advancePayment)"
+        }
+        
         lblADSLAmt.textColor = UIColor.black
         lblADSLAmt.font = UIFont(name: String.defaultFontB, size: 23)
         lblADSLAmt.numberOfLines = 0
@@ -353,10 +386,13 @@ class broadbandHome: baseViewControllerM {
         lblCurrPlan.topAnchor.constraint(equalTo: currentPlanView.topAnchor, constant: 15).isActive = true
         lblCurrPlan.trailingAnchor.constraint(equalTo: btnCurrPlan.leadingAnchor, constant: 4).isActive = true
         
-        let lblCurrPlanAmt = UILabel()
+        
         currentPlanView.addSubview(lblCurrPlanAmt)
         lblCurrPlanAmt.translatesAutoresizingMaskIntoConstraints = false
-        lblCurrPlanAmt.text = "VFGH Staff"
+        if let currPlan = currPlan {
+            lblCurrPlanAmt.text = currPlan
+        }
+        
         lblCurrPlanAmt.textColor = UIColor.black
         lblCurrPlanAmt.font = UIFont(name: String.defaultFontB, size: 16)
         lblCurrPlanAmt.numberOfLines = 0
@@ -373,14 +409,31 @@ class broadbandHome: baseViewControllerM {
         
         scrollView.addSubview(updateIcon)
         let btnUpdateImage = UIImage(named: "progressarrow")
+        let tintImage = btnUpdateImage?.withRenderingMode(.alwaysTemplate)
         updateIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
         updateIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
         updateIcon.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 30).isActive = true
         updateIcon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95).isActive = true
-        updateIcon.setImage(btnUpdateImage, for: .normal)
+        updateIcon.setImage(tintImage, for: .normal)
+        updateIcon.tintColor = UIColor.white
+        updateIcon.addTarget(self, action: #selector(updateRecords), for: .touchUpInside)
         
         
-        scrollView.contentSize.height = 1000
+        scrollView.addSubview(lblLastUpdate)
+        lblLastUpdate.leadingAnchor.constraint(equalTo: updateIcon.trailingAnchor, constant: 10).isActive = true
+        lblLastUpdate.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 35).isActive = true
+        lblLastUpdate.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        if let lastUpdateBB = lastUpdate {
+            lblLastUpdate.text = lastUpdateBB
+        }else{
+            lblLastUpdate.text = "Last updated on ..."
+        }
+        
+        lblLastUpdate.numberOfLines = 0
+        lblLastUpdate.lineBreakMode = .byWordWrapping
+        
+        scrollView.contentSize.height = 750
+        loadFBBDetails()
     }
     override func viewDidLayoutSubviews() {
         
@@ -405,14 +458,24 @@ class broadbandHome: baseViewControllerM {
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = kCALineCapRound
         progressLayer.position = CGPoint(x: gaugeViewHolder.frame.size.width/2, y: gaugeViewHolder.frame.size.height/2)
-        progressLayer.strokeEnd = 0.90
+        if let progressAmt = gaugePer {
+            progressLayer.strokeEnd = CGFloat(Double(progressAmt)!)
+        }else{
+            progressLayer.strokeEnd = 1.0
+        }
+        
         progressLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1   )
         gaugeViewHolder.layer.addSublayer(progressLayer)
         
         gaugeViewHolder.addSubview(lblBucketValue)
         lblBucketValue.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
         lblBucketValue.topAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 50).isActive = true
-        lblBucketValue.text = "200GB"
+        if let currentVol = currentVol {
+            lblBucketValue.text = currentVol
+        }else{
+            lblBucketValue.text = "00.00GB"
+        }
+        
         
         gaugeViewHolder.addSubview(lblLeftOf)
         lblLeftOf.topAnchor.constraint(equalTo: lblBucketValue.bottomAnchor, constant: 20).isActive = true
@@ -421,10 +484,128 @@ class broadbandHome: baseViewControllerM {
         gaugeViewHolder.addSubview(lblActualValue)
         lblActualValue.topAnchor.constraint(equalTo: lblLeftOf.bottomAnchor, constant: 20).isActive = true
         lblActualValue.centerXAnchor.constraint(equalTo: gaugeViewHolder.centerXAnchor).isActive = true
-        lblActualValue.text = "200GB"
-        
+        if let totalInitial = totalInitial {
+            lblActualValue.text = totalInitial
+        }else{
+            lblActualValue.text = "00.00GB"
+        }
+        animateRefreshBtn()
     }
     
+    func loadFBBDetails(){
+        let async_call = URL(string: String.userURL)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        let postParameters = ["action":"fbbBalance", "username":username!, "userid": userID!, "accountnumber": accountNumber!]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is \(error!.localizedDescription)")
+                        return;
+                    }
+                    
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        print("myJSON \(myJSON)")
+                        if let parseJSON = myJSON {
+                            var sessionAuth: String!
+                            sessionAuth = parseJSON["SessionAuth"] as! String?
+                            if sessionAuth == "true" {
+                                self.logout()
+                            }
+                            var responseBody: String?
+                            var responseCode: Int!
+                            var responseMessage: NSDictionary!
+                            responseBody = parseJSON["responseBody"] as! String?
+                            if responseBody != nil {
+                                let resBody = responseBody
+                                let decrypt = self.decryptAsyncRequest(requestBody: resBody!)
+                                print("Decrypted:: \(decrypt)")
+                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                print(decryptedResponseBody)
+                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                DispatchQueue.main.async {
+                                    if responseCode == 0 {
+                                        self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                                        let today = self.getTodayString()
+                                        responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
+                                        let P_CURRENTVOL = responseMessage["P_CURRENTVOL"] as! String?
+                                        let TOTALINITIAL = responseMessage["TOTALINITIAL"] as! String?
+                                        let P_ADVANCEPAYMENT = responseMessage["P_ADVANCEPAYMENT"] as! String?
+                                        let P_PLANNAME = responseMessage["P_PLANNAME"] as! String?
+                                        let PERCENTAGE = responseMessage["PERCENTAGE"] as! String?
+                                        let totalInitialUnit = responseMessage["TOTALINITIALUNIT"] as! String?
+                                        let unit = responseMessage["UNIT"] as! String?
+                                        
+                                        
+                                        self.lblBucketValue.text = "\(P_CURRENTVOL ?? "")\(unit ?? "")"
+                                        self.lblActualValue.text = "\(TOTALINITIAL ?? "")\(totalInitialUnit ?? "")"
+                                        self.lblADSLAmt.text = "GHS \(P_ADVANCEPAYMENT ?? "")"
+                                        self.lblCurrPlanAmt.text = P_PLANNAME
+                                        let currVol = "\(P_CURRENTVOL ?? "")\(unit ?? "")"
+                                        let totalVol = "\(TOTALINITIAL ?? "")\(totalInitialUnit ?? "")"
+                                        if let percConv = PERCENTAGE{
+                                            var PERCENTAGECov = Double(percConv)
+                                            PERCENTAGECov = PERCENTAGECov! / 100
+                                            print("progress \(PERCENTAGECov ?? 0.00)")
+                                            self.progressLayer.strokeEnd = CGFloat(PERCENTAGECov!)
+                                            //cache values
+                                            self.preference.set(currVol, forKey: UserDefaultsKeys.P_CURRENTVOL.rawValue)
+                                            self.preference.set(totalVol, forKey: UserDefaultsKeys.TOTALINITIAL.rawValue)
+                                            self.preference.set(P_ADVANCEPAYMENT, forKey: UserDefaultsKeys.P_ADVANCEPAYMENT.rawValue)
+                                            self.preference.set(P_PLANNAME, forKey: UserDefaultsKeys.P_PLANNAME.rawValue)
+                                            self.preference.set(PERCENTAGE, forKey: UserDefaultsKeys.BB_HOME_PERCENTAGE.rawValue)
+                                            self.preference.set(today, forKey: UserDefaultsKeys.BB_LastUpdate.rawValue)
+                                        }
+                                        self.lblLastUpdate.text = today
+                                        
+                                    }else{
+                                        self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not update your records try again later...")
+                                        print(error?.localizedDescription)
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }catch{
+                        print(error.localizedDescription)
+                    }
+                }
+                task.resume()
+            }
+        }
+    }
 
-
+    func animateRefreshBtn(){
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(.pi * 2.0)
+        rotateAnimation.duration = 1.0
+        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+        
+        updateIcon.layer.add(rotateAnimation, forKey: "rotate")
+    }
+    
+    @objc func updateRecords(){
+        animateRefreshBtn()
+        loadFBBDetails()
+    }
 }

@@ -53,6 +53,13 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.TOTALINITIAL.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_HOME_PERCENTAGE.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_CURRENTVOL.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.adslBalance.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_ADVANCEPAYMENT.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_PLANNAME.rawValue)
         
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {

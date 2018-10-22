@@ -233,6 +233,11 @@ class OffersExtrasViewController: baseViewControllerM {
         }
         
         print("Acchere:: \(AcctType)")
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
+            prePaidMenu()
+        }
         
     }
 

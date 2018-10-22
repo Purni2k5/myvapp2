@@ -22,6 +22,7 @@ class baseViewControllerM: UIViewController {
     var primaryIDB: String?
     var defaultAccNameB: String?
     var defaultMSISDNB: String?
+    var dServiceBase: String?
     
     let kVersion = "CFBundleShortVersionString"
     let keyChainB = KeychainSwift()
@@ -89,36 +90,45 @@ class baseViewControllerM: UIViewController {
             defaultService = UserData["DefaultService"] as! String
         }
         
+        if let defaultServices = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {
+            dServiceBase = defaultServices
+            print("dService:: \(dServiceBase)")
+        }else{
+            //logout
+//            print("Do this")
+//            logout()
+        }
+        
         
 //        print("yo:: \(defaultService)")
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
 //                print(Services)
         if let array = Services as? NSArray {
-            
+            var foundDefault = false
+            print(foundDefault)
             for obj in array {
-                if let dict = obj as? NSDictionary {
-                    // Now reference the data you need using:
-                    
-                    ServiceID = dict.value(forKey: "ID") as! String?
-                    AcctType = dict.value(forKey: "Type") as! String?
-                    
-                    
-                    if(ServiceID == defaultService){
-                        if(AcctType == "PHONE_MOBILE_PRE_P"){
-                            print("prepaid")
-                        }else if(AcctType == "PHONE_MOBILE_POST_P"){
-                            print("postpaid")
-                        }else if(AcctType == "PHONE_MOBILE_HYBRID"){
-                            print("hybrid")
+                if foundDefault == false{
+                    if let dict = obj as? NSDictionary {
+                        // Now reference the data you need using:
+                        AcctType = dict.value(forKey: "Type") as! String?
+                        
+                        if(ServiceID == dServiceBase){
+                            print("checked against \(defaultService)")
+                            AcctType = dict.value(forKey: "Type") as! String?
+                            foundDefault = true
+                            print("Got it")
+                            
+                            
                         }else{
-                            print("fbb")
+                            //Just pick one to display
+                            //                            defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                            ServiceID = dict.value(forKey: "ID") as! String?
+                            AcctType = dict.value(forKey: "Type") as! String?
+                            //                            foundDefault = true
                         }
-                        
-                    }else{
-                        //Just pick one to display
-                        
                     }
                 }
+                
             }
         }
         setUpViews()
@@ -159,6 +169,7 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func showMenu(){
+        print("Clicked on menu")
         if menuShowing {
             self.motherViewTrailing1?.isActive = true
             self.motherViewTrailing2?.isActive = false
@@ -608,6 +619,7 @@ class baseViewControllerM: UIViewController {
     }
     
     func logout(){
+        
         preference.removeObject(forKey: UserDefaultsKeys.loginStatus.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.responseData.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.staffNumber.rawValue)
@@ -637,8 +649,16 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
-        let moveTo = storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-        present(moveTo!, animated: true, completion: nil)
+        preference.removeObject(forKey: UserDefaultsKeys.TOTALINITIAL.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_HOME_PERCENTAGE.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_CURRENTVOL.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.adslBalance.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_ADVANCEPAYMENT.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.P_PLANNAME.rawValue)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func closeMenu(){
@@ -962,6 +982,8 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.requestKey.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.adslBalance.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_Plan.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

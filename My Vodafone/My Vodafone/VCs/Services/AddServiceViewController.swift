@@ -84,7 +84,9 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
         let responseData = preferences.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
         
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
        
@@ -336,6 +338,7 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
         txtAccNum.resignFirstResponder()
         broadbandID = txtBroadbandID.text
         accNum = txtAccNum.text
+        print("accNum \(accNum)")
         
         if selectedType == "Mobile" {
             broadbandID = ""
@@ -386,15 +389,31 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
                 self.didMove(toParentViewController: moveTo.self)
             }else{
                 start_activity_loader()
-                let postParameters: Dictionary<String, Any> = [
-                    "action":"addServiceToAccount",
-                    "serviceType": selectedType!,
-                    "primaryID": accNum!,
-                    "secondaryID": broadbandID!,
-                    "username":username!,
-                    "os":getAppVersion()
-                ]
+                var postParameters: Dictionary<String, Any> = [:]
+                if selectedType == "PHONE_MOBILE" {
+                    broadbandID = ""
+                    
+                    postParameters = [
+                        "action":"addServiceToAccount",
+                        "serviceType": selectedType!,
+                        "primaryID": accNum!,
+                        "secondaryID": "",
+                        "username":username!,
+                        "os":getAppVersion()
+                    ]
+                }else{
+                    
+                    postParameters = [
+                        "action":"addServiceToAccount",
+                        "serviceType": selectedType!,
+                        "primaryID": broadbandID!,
+                        "secondaryID": accNum!,
+                        "username":username!,
+                        "os":getAppVersion()
+                    ]
+                }
                 
+                print("para:: \(postParameters)")
                 
                 let asyn_call = URL(string: String.oldUserSVC)
                 let request = NSMutableURLRequest(url: asyn_call!)
@@ -425,32 +444,38 @@ class AddServiceViewController: baseViewControllerM, UIPickerViewDelegate, UIPic
                             //converting response to NSDictionary
                             let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                             if let parseJSON = myJSON {
+                                print("parse \(parseJSON)")
                                 var responseCode: Int!
                                 var responseMessage: String!
                                 var serviceID: String!
                                 var responseData: NSDictionary!
-                                
-                                responseCode = parseJSON["RESPONSECODE"] as! Int
-                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                                print("parse:: \(parseJSON)")
-                                DispatchQueue.main.async {
-                                    if responseCode == 1{
-                                        self.stop_activity_loader()
-                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
-                                    }else if responseCode == 2 {
-                                        self.stop_activity_loader()
-                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                if let responseCodeOp = parseJSON["RESPONSECODE"] {
+                                    responseCode = responseCodeOp as! Int
+                                    if let responseMessageOp = parseJSON["RESPONSEMESSAGE"]{
+                                        responseMessage = responseMessageOp as! String
+                                        print("parse:: \(parseJSON)")
+                                        DispatchQueue.main.async {
+                                            if responseCode == 1{
+                                                self.stop_activity_loader()
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                            }else if responseCode == 2 {
+                                                self.stop_activity_loader()
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                            }
+                                            else{
+                                                responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
+                                                serviceID = responseData["ServiceID"] as! String
+                                                let storyboard = UIStoryboard(name: "Services", bundle: nil)
+                                                let moveTo = storyboard.instantiateViewController(withIdentifier: "AddServiceConfViewController") as! AddServiceConfViewController
+                                                moveTo.responseMessage = responseMessage
+                                                moveTo.serviceID = serviceID
+                                                self.present(moveTo, animated: true, completion: nil)
+                                            }
+                                        }
                                     }
-                                    else{
-                                        responseData = parseJSON["RESPONSEDATA"] as! NSDictionary
-                                        serviceID = responseData["ServiceID"] as! String
-                                        let storyboard = UIStoryboard(name: "Services", bundle: nil)
-                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "AddServiceConfViewController") as! AddServiceConfViewController
-                                        moveTo.responseMessage = responseMessage
-                                        moveTo.serviceID = serviceID
-                                        self.present(moveTo, animated: true, completion: nil)
-                                    }
+                                    
                                 }
+                                
                                 
                             }
                         }catch{

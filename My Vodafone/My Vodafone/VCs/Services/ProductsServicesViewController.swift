@@ -193,7 +193,7 @@ class ProductsServicesViewController: UIViewController {
                             let serviceName = dict.value(forKey: "DisplayName") as! String
                             var ServiceID = dict.value(forKey: "primaryID") as! String
                             let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
-                            
+                            let type = dict.value(forKey: "Type") as! String
                             
                                 let stringCountView = String(countView)
 //                            print("int to string \(stringCountView)")
@@ -227,7 +227,14 @@ class ProductsServicesViewController: UIViewController {
                             cardImage.topAnchor.constraint(equalTo: service.topAnchor, constant: 0).isActive = true
                             cardImage.bottomAnchor.constraint(equalTo: service.bottomAnchor, constant: 0).isActive = true
                             //Adding display images
-                            let dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                            var dp = UIImageView()
+                            if type.contains("BB_FIXED"){
+                                dp = UIImageView(image: #imageLiteral(resourceName: "fbb"))
+                                
+                            }else{
+                                dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                            }
+                            
                             service.addSubview(dp)
                             dp.translatesAutoresizingMaskIntoConstraints = false
                             dp.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
@@ -236,10 +243,10 @@ class ProductsServicesViewController: UIViewController {
                             dp.heightAnchor.constraint(equalToConstant: 80).isActive = true
                             
                             //make image round
-                            dp.layer.cornerRadius = dp.frame.size.width / 2
-                            dp.clipsToBounds = true
-                            dp.layer.borderWidth = 2
-                            dp.layer.borderColor = UIColor.white.cgColor
+//                            dp.layer.cornerRadius = dp.frame.size.width / 2
+//                            dp.clipsToBounds = true
+//                            dp.layer.borderWidth = 2
+//                            dp.layer.borderColor = UIColor.white.cgColor
                             
                             //Adding display name
                             let displayLblName = UILabel()
@@ -254,9 +261,14 @@ class ProductsServicesViewController: UIViewController {
                             let serviceLblID = UILabel()
                             service.addSubview(serviceLblID)
                             serviceLblID.translatesAutoresizingMaskIntoConstraints = false
-                            let sNum = ServiceID.dropFirst(3)
-                            ServiceID = "0\(sNum)"
-                            serviceLblID.text = ServiceID
+                            if type.contains("BB_FIXED"){
+                                serviceLblID.text = ServiceID
+                                
+                            }else{
+                                let sNum = ServiceID.dropFirst(3)
+                                ServiceID = "0\(sNum)"
+                                serviceLblID.text = ServiceID
+                            }
                             serviceLblID.font = UIFont(name: defaultFontR, size: 16)
                             serviceLblID.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
                             serviceLblID.topAnchor.constraint(equalTo: displayLblName.bottomAnchor, constant: 8).isActive = true
@@ -371,7 +383,7 @@ class ProductsServicesViewController: UIViewController {
                                             let serviceName = dict.value(forKey: "DisplayName") as! String
                                             var ServiceID = dict.value(forKey: "primaryID") as! String
                                             let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
-                                            
+                                            let type = dict.value(forKey: "Type") as! String
                                             
                     
                                             //                            print("int to string \(stringCountView)")
@@ -406,7 +418,13 @@ class ProductsServicesViewController: UIViewController {
                                             cardImage.topAnchor.constraint(equalTo: service.topAnchor, constant: 0).isActive = true
                                             cardImage.bottomAnchor.constraint(equalTo: service.bottomAnchor, constant: 0).isActive = true
                                             //Adding display images
-                                            let dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                                            var dp = UIImageView()
+                                            if type.contains("BB_FIXED"){
+                                                dp = UIImageView(image: #imageLiteral(resourceName: "fbb"))
+                                            }else{
+                                                dp = UIImageView(image: #imageLiteral(resourceName: "default_profile"))
+                                            }
+                                            
                                             service.addSubview(dp)
                                             dp.translatesAutoresizingMaskIntoConstraints = false
                                             dp.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
@@ -415,10 +433,10 @@ class ProductsServicesViewController: UIViewController {
                                             dp.heightAnchor.constraint(equalToConstant: 80).isActive = true
                                             
                                             //make image round
-                                            dp.layer.cornerRadius = dp.frame.size.width / 2
-                                            dp.clipsToBounds = true
-                                            dp.layer.borderWidth = 2
-                                            dp.layer.borderColor = UIColor.white.cgColor
+//                                            dp.layer.cornerRadius = dp.frame.size.width / 2
+//                                            dp.clipsToBounds = true
+//                                            dp.layer.borderWidth = 2
+//                                            dp.layer.borderColor = UIColor.white.cgColor
                                             
                                             //Adding display name
                                             let displayLblName = UILabel()
@@ -433,9 +451,15 @@ class ProductsServicesViewController: UIViewController {
                                             let serviceLblID = UILabel()
                                             service.addSubview(serviceLblID)
                                             serviceLblID.translatesAutoresizingMaskIntoConstraints = false
-                                            let sNum = ServiceID.dropFirst(3)
-                                            ServiceID = "0\(sNum)"
-                                            serviceLblID.text = ServiceID
+                                            if type.contains("BB_FIXED"){
+                                                serviceLblID.text = ServiceID
+                                                
+                                            }else{
+                                                let sNum = ServiceID.dropFirst(3)
+                                                ServiceID = "0\(sNum)"
+                                                serviceLblID.text = ServiceID
+                                            }
+                                            
                                             serviceLblID.font = UIFont(name: String.defaultFontR, size: 16)
                                             serviceLblID.leadingAnchor.constraint(equalTo: dp.trailingAnchor, constant: 8).isActive = true
                                             serviceLblID.topAnchor.constraint(equalTo: displayLblName.bottomAnchor, constant: 8).isActive = true

@@ -153,7 +153,9 @@ class simSwapForm: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSo
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
     }

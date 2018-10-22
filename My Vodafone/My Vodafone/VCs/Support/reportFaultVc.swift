@@ -84,7 +84,11 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         //Select first index for service type
         txtReportType.text = reportTypeList[0]
         
-        
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
+            prePaidMenu()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

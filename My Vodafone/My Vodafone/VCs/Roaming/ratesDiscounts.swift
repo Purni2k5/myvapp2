@@ -54,7 +54,9 @@ class ratesDiscounts: baseViewControllerM, WKNavigationDelegate {
         loadURL()
         webView.navigationDelegate = self
         
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
     }

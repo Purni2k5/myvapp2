@@ -607,6 +607,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                                 responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                             }, completion: { (true) in
                                                 self.view.removeFromSuperview()
+                                                self.goToHome()
                                             })
                                             
                                         }else{
@@ -640,8 +641,38 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                                 self.view.removeFromSuperview()
                                             })
                                         }
+                                    }else if responseCode == 1{
+                                        let bundleToRemove = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                        let theHeight = self.view.frame.size.height //grabs the height of your view
+                                        let responseView = UIView()
+                                        responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+                                        responseView.isOpaque = false
+                                        responseView.frame = CGRect(x: 0, y: theHeight - 100 , width: self.view.frame.width, height: 150)
                                         
-                                    }else{
+                                        self.view.addSubview(responseView)
+                                        
+                                        //label to hold response message
+                                        let responseLabel = UILabel()
+                                        self.vcScrollView.addSubview(responseLabel)
+                                        responseLabel.translatesAutoresizingMaskIntoConstraints = false
+                                        responseLabel.text = bundleToRemove
+                                        responseLabel.font = UIFont(name: String.defaultFontR, size: 18)
+                                        responseLabel.textColor = UIColor.white
+                                        responseLabel.textAlignment = .center
+                                        responseLabel.topAnchor.constraint(equalTo: responseView.topAnchor, constant: 20).isActive = true
+                                        responseLabel.leadingAnchor.constraint(equalTo: responseView.leadingAnchor, constant: 10).isActive = true
+                                        responseLabel.trailingAnchor.constraint(equalTo: responseView.trailingAnchor, constant: -10).isActive = true
+                                        responseLabel.numberOfLines = 0
+                                        responseLabel.lineBreakMode = .byWordWrapping
+                                        
+                                        UIView.animate(withDuration: 5, animations: {
+                                            responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+                                        }, completion: { (true) in
+                                            self.view.removeFromSuperview()
+                                            self.goToHome()
+                                        })
+                                    }
+                                    else{
                                         let theHeight = self.view.frame.size.height //grabs the height of your view
                                         let responseView = UIView()
                                         responseView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
@@ -668,6 +699,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                             responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                         }, completion: { (true) in
                                             self.view.removeFromSuperview()
+                                            self.goToHome()
                                         })
                                     }
                                     self.stop_activity_loader()

@@ -36,7 +36,9 @@ class TopUpViewController: baseViewControllerM {
         let historyRec = UITapGestureRecognizer.init(target: self, action: #selector(goToHistory))
         topUpHistory.addGestureRecognizer(historyRec)
         
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
     }

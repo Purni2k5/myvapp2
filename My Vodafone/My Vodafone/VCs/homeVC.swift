@@ -251,13 +251,13 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                         AcctType = dict.value(forKey: "Type") as! String?
                         
                         if(ServiceID == dService){
-                            print("checked against \(defaultService)")
+//                            print("checked against \(defaultService)")
                             defaultAccName = dict.value(forKey: "DisplayName") as! String?
                             primaryID = dict.value(forKey: "primaryID") as! String?
                             AcctType = dict.value(forKey: "Type") as! String?
                             foundDefault = true
                             print("Got it")
-                            print("found defName \(defaultAccName)")
+//                            print("found defName \(defaultAccName)")
                             
                         }else{
                             //Just pick one to display
@@ -279,10 +279,11 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         // Check for internet connection
         checkConnection()
-//        if AcctType == "BB_FIXED_PRE_P" {
-//            print("Please go to bb home")
-//        }
-        if AcctType == "PHONE_MOBILE_PRE_P" {
+        
+        
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
             prePaidMenu()
         }
     }
@@ -393,6 +394,11 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                         if let parseJSON = myJSON{
+                            var sessionAuth: String!
+                            sessionAuth = parseJSON["SessionAuth"] as! String?
+                            if sessionAuth == "true" {
+                                self.logout()
+                            }
                             var responseBody: String?
                             responseBody = parseJSON["responseBody"] as! String?
                             print("Made4Me:: \(responseBody ?? "")")
@@ -983,6 +989,11 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if AcctType == "BB_FIXED_PRE_P" {
+            let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
+            present(moveTo, animated: true, completion: nil)
+        }
         self.showSlider()
         
         let circularPath = UIBezierPath(arcCenter: .zero

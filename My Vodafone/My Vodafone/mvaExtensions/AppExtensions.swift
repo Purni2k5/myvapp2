@@ -176,6 +176,15 @@ extension UIViewController {
         case userSession
         case requestKey
         case Made4MeBundles
+        case adslBalance
+        case BB_Plan
+        case P_CURRENTVOL
+        case TOTALINITIAL
+        case P_ADVANCEPAYMENT
+        case P_PLANNAME
+        case BB_HOME_PERCENTAGE
+        case BB_LastUpdate
+        case hasRated
     }
     
     enum keyChainKeys: String {
