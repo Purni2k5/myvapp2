@@ -21,6 +21,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
     var username:String?
     var msisdn: String?
     var bundleToRemove: String!
+    var hasRated: Bool?
     
     //create a closure for scroll view
     let vcScrollView: UIScrollView = {
@@ -115,6 +116,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
+        hasRated = preference.object(forKey: UserDefaultsKeys.hasRated.rawValue) as? Bool
 //        print("username \(username!)")
         if let array = Services as? NSArray{
             var iterate = 0
@@ -552,7 +554,10 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                     data, response, error in
                     if error != nil {
                         print("error is:: \(error!.localizedDescription)")
-                        self.stop_activity_loader()
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                        }
+                        
                         return
                     }
                     //parsing response
@@ -607,6 +612,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                                 responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                             }, completion: { (true) in
                                                 self.view.removeFromSuperview()
+                                                
                                                 self.goToHome()
                                             })
                                             
@@ -669,7 +675,16 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                             responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                         }, completion: { (true) in
                                             self.view.removeFromSuperview()
-                                            self.goToHome()
+                                            if let hasRated = self.hasRated {
+                                                if hasRated == true {
+                                                    
+                                                }else{
+                                                    self.showRatings()
+                                                }
+                                            }else {
+                                                self.showRatings()
+                                            }
+//                                            self.goToHome()
                                         })
                                     }
                                     else{

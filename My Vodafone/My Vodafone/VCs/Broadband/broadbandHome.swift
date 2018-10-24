@@ -325,7 +325,7 @@ class broadbandHome: baseViewControllerM {
         let topUpImage = UIImage(named: "top_up")
         btnTop.setImage(topUpImage, for: .normal)
         btnTop.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
-        btnTop.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
+        btnTop.addTarget(self, action: #selector(goToFBBM), for: .touchUpInside)
         
         let lblADSL = UILabel()
         adslView.addSubview(lblADSL)
@@ -373,6 +373,7 @@ class broadbandHome: baseViewControllerM {
         let currPlanImage = UIImage(named: "sync")
         btnCurrPlan.setImage(currPlanImage, for: .normal)
         btnCurrPlan.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        btnCurrPlan.addTarget(self, action: #selector(gotoBreakdown), for: .touchUpInside)
         
         let lblCurrPlan = UILabel()
         currentPlanView.addSubview(lblCurrPlan)
@@ -450,6 +451,7 @@ class broadbandHome: baseViewControllerM {
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = kCALineCapRound
         trackLayer.position = CGPoint(x: gaugeViewHolder.frame.size.width/2, y: gaugeViewHolder.frame.size.height/2)
+        print("gauge width \(self.gaugeViewHolder.frame.size.width)")
         gaugeViewHolder.layer.addSublayer(trackLayer)
         
         progressLayer.path = circularPath.cgPath
@@ -523,7 +525,7 @@ class broadbandHome: baseViewControllerM {
                     
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        print("myJSON \(myJSON)")
+//                        print("myJSON \(myJSON)")
                         if let parseJSON = myJSON {
                             var sessionAuth: String!
                             sessionAuth = parseJSON["SessionAuth"] as! String?
@@ -607,5 +609,11 @@ class broadbandHome: baseViewControllerM {
     @objc func updateRecords(){
         animateRefreshBtn()
         loadFBBDetails()
+    }
+    
+    @objc func gotoBreakdown(){
+        let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "FBBBreakDown")
+        present(moveTo, animated: true, completion: nil)
     }
 }

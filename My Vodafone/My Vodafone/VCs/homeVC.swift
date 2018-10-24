@@ -274,6 +274,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
         
         setUpViews1()
+        
         backgroundCalls()
         
         
@@ -994,6 +995,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
             present(moveTo, animated: true, completion: nil)
         }
+//        showRatings()
         self.showSlider()
         
         let circularPath = UIBezierPath(arcCenter: .zero

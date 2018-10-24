@@ -59,7 +59,7 @@
 		01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01941D9C2119F34B00B7D207 /* CheckInternet.swift */; };
 		019538632108C5EB00E492A7 /* mvaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538622108C5EB00E492A7 /* mvaConfig.swift */; };
 		019538652108D48500E492A7 /* DisplayChosenOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */; };
-		0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* LoginViewController.swift */; };
+		0198E74E20DAB4B9000820F7 /* OldLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0198E74D20DAB4B9000820F7 /* OldLoginViewController.swift */; };
 		0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5EE21396DB400906580 /* displayFBBBalance.swift */; };
 		0199F5F121398FA000906580 /* fbbMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199F5F021398FA000906580 /* fbbMove.swift */; };
 		019D7BBB212DB74E0036DCE2 /* reportFaultVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D7BBA212DB74E0036DCE2 /* reportFaultVc.swift */; };
@@ -136,6 +136,9 @@
 		28472E48216E16F70001BBB0 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28472E46216E16F70001BBB0 /* ContactsUI.framework */; };
 		285A1D072129C37600EBA1EC /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A1D062129C37600EBA1EC /* homeVC.swift */; };
 		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
+		28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */; };
+		28B3DBB0217F88A6003F139E /* RateUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAF217F88A6003F139E /* RateUs.swift */; };
+		28B3DBB221807397003F139E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBB121807397003F139E /* LoginViewController.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
 		5C678538021AB6C93B3B8EED /* Pods_My_Vodafone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */; };
 /* End PBXBuildFile section */
@@ -194,7 +197,7 @@
 		01941D9C2119F34B00B7D207 /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
 		019538622108C5EB00E492A7 /* mvaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvaConfig.swift; sourceTree = "<group>"; };
 		019538642108D48500E492A7 /* DisplayChosenOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayChosenOfferViewController.swift; sourceTree = "<group>"; };
-		0198E74D20DAB4B9000820F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0198E74D20DAB4B9000820F7 /* OldLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldLoginViewController.swift; sourceTree = "<group>"; };
 		0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Vodafone-Bridging-Header.h"; sourceTree = "<group>"; };
 		0199F5EE21396DB400906580 /* displayFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayFBBBalance.swift; sourceTree = "<group>"; };
 		0199F5F021398FA000906580 /* fbbMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbMove.swift; sourceTree = "<group>"; };
@@ -275,6 +278,9 @@
 		28472E46216E16F70001BBB0 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		285A1D062129C37600EBA1EC /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
+		28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBBreakDown.swift; sourceTree = "<group>"; };
+		28B3DBAF217F88A6003F139E /* RateUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateUs.swift; sourceTree = "<group>"; };
+		28B3DBB121807397003F139E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 		5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Vodafone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A29F7972C8550F82E74458 /* Pods-My Vodafone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.release.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.release.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				019F1364217A1BEC00E0B02C /* broadbandHome.swift */,
+				28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */,
 			);
 			path = Broadband;
 			sourceTree = "<group>";
@@ -540,6 +547,7 @@
 				01709C63215EC2AF008C8C3E /* settingsPrivacy.swift */,
 				01E63B1421624233006CA19D /* personliseApp.swift */,
 				01E63B1621624E00006CA19D /* chooseDefaultService.swift */,
+				28B3DBAF217F88A6003F139E /* RateUs.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -584,12 +592,13 @@
 			isa = PBXGroup;
 			children = (
 				0148E06220D915E9003D3F54 /* LogoutViewController.swift */,
-				0198E74D20DAB4B9000820F7 /* LoginViewController.swift */,
+				0198E74D20DAB4B9000820F7 /* OldLoginViewController.swift */,
 				016CC59E211C9EBD002B37E5 /* RegisterViewController.swift */,
 				016CC5A2211D23BD002B37E5 /* AccountConfViewController.swift */,
 				01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */,
 				0186E64C216CC4F1008B6601 /* ForgotPassword.swift */,
 				0186E64E216CE376008B6601 /* ResetPassword.swift */,
+				28B3DBB121807397003F139E /* LoginViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -830,6 +839,7 @@
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
+				28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */,
 				0186E64F216CE376008B6601 /* ResetPassword.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
 				01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */,
@@ -870,10 +880,12 @@
 				018B7AD1213D98BE002753B7 /* confirmFBBMove.swift in Sources */,
 				01F57B612153E1F0005F5F0C /* RoamingBundles.swift in Sources */,
 				01AC079020D7F2DD0034B6B8 /* AboutViewController.swift in Sources */,
+				28B3DBB221807397003F139E /* LoginViewController.swift in Sources */,
 				01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */,
 				017319762175870900989F8A /* ShakeScreen.swift in Sources */,
 				0199F5F121398FA000906580 /* fbbMove.swift in Sources */,
 				01A74FFB2141810500F86A65 /* confirmChangePlan.swift in Sources */,
+				28B3DBB0217F88A6003F139E /* RateUs.swift in Sources */,
 				014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */,
 				01A3434921496E1600B4A6A5 /* changePlanForm.swift in Sources */,
 				01709C60215E3103008C8C3E /* KeychainSwiftDistrib.swift in Sources */,
@@ -888,7 +900,7 @@
 				01709C62215EB110008C8C3E /* notifications.swift in Sources */,
 				01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */,
 				015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */,
-				0198E74E20DAB4B9000820F7 /* LoginViewController.swift in Sources */,
+				0198E74E20DAB4B9000820F7 /* OldLoginViewController.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				015A534A2163C8650040807E /* speedChecker.swift in Sources */,
 				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,

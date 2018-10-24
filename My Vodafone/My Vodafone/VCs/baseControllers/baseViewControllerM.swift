@@ -656,6 +656,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.adslBalance.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.P_ADVANCEPAYMENT.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.P_PLANNAME.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_accountUsageDet.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
@@ -721,9 +722,15 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToHome(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-        present(moveTo, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+//        present(moveTo, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "RateUs")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToLogout(){
@@ -832,9 +839,43 @@ class baseViewControllerM: UIViewController {
         moveTo.selectedOffer = "FBB"
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func openRatings(){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "RateUs")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+
+    }
+    
+    func showRatings(){
+        print("Showing ratings")
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "RateUs")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+
+    }
 
     @objc func closeModalB(){
         self.view.removeFromSuperview()
+    }
+    
+    @objc func openAppStore() {
+        if let url = URL(string: "https://itunes.apple.com/us/app/my-vodafone-ghana/id1058492752?ls=1&mt=8"),
+            UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url, options: [:]) { (opened) in
+                if(opened){
+                    print("App Store Opened")
+                }
+            }
+        } else {
+            print("Can't Open URL on Simulator")
+        }
     }
     
     func displayHiddenNetworks(){
@@ -984,6 +1025,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.defaultName.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.adslBalance.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.BB_Plan.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.BB_accountUsageDet.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

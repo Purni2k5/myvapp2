@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -136,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="10" y="-1011"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Old Login View Controller-->
         <scene sceneID="K4d-Jh-fdp">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="Tae-j8-n0g" customClass="LoginViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OldLoginViewController" id="Tae-j8-n0g" customClass="OldLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q1e-mr-N7W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -359,6 +358,21 @@
             </objects>
             <point key="canvasLocation" x="644" y="-1004"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="fXY-WH-CsH">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="6dW-OC-4Me" customClass="LoginViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yCi-Ha-oMS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="KtC-xX-UU2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8yB-qd-dwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="575" y="-285"/>
+        </scene>
         <!--HomeVC-->
         <scene sceneID="v3G-9u-2CM">
             <objects>
@@ -372,7 +386,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCf-1K-JP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1383" y="-296"/>
+            <point key="canvasLocation" x="1345" y="56"/>
         </scene>
         <!--Logout View Controller-->
         <scene sceneID="lB7-g3-HGB">
@@ -1088,7 +1102,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Tae-j8-n0g" kind="show" id="kEk-um-KRT"/>
+                                                            <segue destination="6dW-OC-4Me" kind="show" id="S9Y-Tz-KZq"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1187,7 +1201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ki-eW-zJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1297" y="-1005"/>
+            <point key="canvasLocation" x="1636" y="-939"/>
         </scene>
     </scenes>
     <resources>
@@ -1211,7 +1225,4 @@
         <image name="morning_bg_" width="375" height="845"/>
         <image name="new_close" width="24" height="24"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="hDS-5q-rs3"/>
-    </inferredMetricsTieBreakers>
 </document>
