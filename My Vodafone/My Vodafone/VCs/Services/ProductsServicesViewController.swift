@@ -22,6 +22,7 @@ class ProductsServicesViewController: UIViewController {
     var displayName = ""
     var displayNumber = ""
     var username = ""
+    var onlyType = ""
     
     @IBOutlet weak var motherView: UIView!
     
@@ -80,7 +81,7 @@ class ProductsServicesViewController: UIViewController {
                         displayName = dict.value(forKey: "DisplayName") as! String
                          displayNumber = dict.value(forKey: "primaryID") as! String
                          displayImage = dict.value(forKey: "DisplayImageUrl") as! String
-                        
+                         onlyType = dict.value(forKey: "Type") as! String
                         print("New:: \(displayName)")
                         print(displayNumber)
                         print("display Image:: \(displayImage)")
@@ -101,6 +102,7 @@ class ProductsServicesViewController: UIViewController {
                 onlyService.layer.shadowOpacity = 0.1
                 onlyService.msisdn = displayNumber
                 onlyService.displayName = displayName
+                onlyService.accountType = onlyType
                 let touchRec = UITapGestureRecognizer(target: self, action: #selector(goToDetails(_sender:)))
                 onlyService.addGestureRecognizer(touchRec)
                 //image on left of uiview
@@ -214,6 +216,7 @@ class ProductsServicesViewController: UIViewController {
                                 service.layer.shadowOpacity = 0.1
                             service.msisdn = ServiceID
                             service.displayName = serviceName
+                            service.accountType = type
                             let touchRec = UITapGestureRecognizer(target: self, action: #selector(goToDetails(_sender:)))
                             service.addGestureRecognizer(touchRec)
                             
@@ -376,7 +379,7 @@ class ProductsServicesViewController: UIViewController {
                                     var countView = 0
                                     var topAnchorConstraint: CGFloat = 22
                                     for obj in array {
-                                        
+                                        print("obj \(obj)")
                                         if let dict = obj as? NSDictionary {
                                             countView = countView + 1
                                             // Now reference the data you need using:
@@ -404,6 +407,7 @@ class ProductsServicesViewController: UIViewController {
                                             service.layer.shadowOpacity = 0.1
                                             service.msisdn = ServiceID
                                             service.displayName = serviceName
+                                            service.accountType = type
                                             
                                             let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToDetails(_sender:)))
                                             service.addGestureRecognizer(touchRec)
@@ -499,6 +503,7 @@ class ProductsServicesViewController: UIViewController {
         guard let gestureVariables = _sender.view as? UserDetailsCard else {return}
         moveTo.msisdn = gestureVariables.msisdn
         moveTo.displayName = gestureVariables.displayName
+        moveTo.accountType = gestureVariables.accountType
         present(moveTo, animated: true, completion: nil)
     }
 

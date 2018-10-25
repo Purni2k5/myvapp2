@@ -33,6 +33,7 @@ class StaffDataAllocation: UIView {
 class UserDetailsCard: UIView {
     var msisdn: String?
     var displayName: String?
+    var accountType: String?
 }
 
 class SingleVariable: UIView {

@@ -17,6 +17,8 @@ class userServiceDetails: baseViewControllerM {
     var promotion: String?
     var expirationDate: String?
     var promotionID: String?
+    var accountType: String?
+    var percentageUsed: Any?
     
     //closure for scroll view
     let scrollView: UIScrollView = {
@@ -345,8 +347,13 @@ class userServiceDetails: baseViewControllerM {
                                                                 
                                                                 let bucketValue = dict.value(forKey: "BucketValue") as! String
                                                                 let bucketUnit = dict.value(forKey: "BucketUnit") as! String
+                                                                print("Acctype:: \(self.accountType)")
+                                                                if self.accountType == "PHONE_MOBILE_HYBRID"{
+                                                                    self.percentageUsed = dict.value(forKey: "PercentageUsed") as! Int?
+                                                                }else{
+                                                                    self.percentageUsed = dict.value(forKey: "PercentageUsed") as! String?
+                                                                }
                                                                 
-                                                                let percentageUsed = dict.value(forKey: "PercentageUsed") as! String
                                                                 
                                                                 let lblActual = UILabel()
                                                                 cardView.addSubview(lblActual)
@@ -393,7 +400,7 @@ class userServiceDetails: baseViewControllerM {
                                                                 let lblPercentageused = UILabel()
                                                                 cardView.addSubview(lblPercentageused)
                                                                 lblPercentageused.translatesAutoresizingMaskIntoConstraints = false
-                                                                lblPercentageused.text = percentageUsed + "%"
+                                                                lblPercentageused.text = "\(self.percentageUsed ?? "")%"
                                                                 lblPercentageused.textColor = UIColor.black
                                                                 lblPercentageused.font = UIFont(name: String.defaultFontR, size: 15)
                                                                 //                                                        lblPercentageused.leadingAnchor.constraint(equalTo: lblBucket.trailingAnchor, constant: 10).isActive = true

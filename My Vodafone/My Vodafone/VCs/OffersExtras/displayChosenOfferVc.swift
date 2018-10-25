@@ -225,6 +225,9 @@ class displayChosenOfferVc: baseViewControllerM {
             cashRightArrowAgent.topAnchor.constraint(equalTo: vodaCashAgent.topAnchor, constant: 57).isActive = true
             cashRightArrowAgent.trailingAnchor.constraint(equalTo: vodaCashAgent.trailingAnchor, constant: -9).isActive = true
             
+            let vodaCashAgentRec = UITapGestureRecognizer(target: self, action: #selector(displayVodafoneCashAgentLocator))
+            vodaCashAgent.addGestureRecognizer(vodaCashAgentRec)
+            
             scrollView.contentSize.height = view.frame.size.height + vodaCashMenu.frame.size.height + vodaCashAgent.frame.size.height
             
         }else if selectedOffer == "Services" {
@@ -1443,6 +1446,13 @@ class displayChosenOfferVc: baseViewControllerM {
         self.view.addSubview(moveTo.view)
         moveTo.didMove(toParentViewController: self)
         //        present(moveTo!, animated: true, completion: nil)
+    }
+    
+    //Function to vodafone cash agent locator
+    @objc func displayVodafoneCashAgentLocator(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "StoreLocator", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "StoreLocatorVc")
+        present(moveTo, animated: true, completion: nil)
     }
     
     //Function make USSD call

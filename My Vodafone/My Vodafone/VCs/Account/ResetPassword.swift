@@ -360,7 +360,7 @@ class ResetPassword: baseViewControllerM {
                                                 self.errorDialog.isHidden = true
                                             }, completion: { (true) in
                                                 //go to home screen
-                                                let login_api = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/UserSvc")
+                                                let login_api = URL(string: String.MVA_LOGIN)
                                                 self.loginToAccount(url: login_api!, password: pass, username: self.username!)
                                             })
                                         }

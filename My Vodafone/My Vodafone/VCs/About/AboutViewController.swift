@@ -11,7 +11,7 @@ import UIKit
 class AboutViewController: baseViewControllerM {
     
     @IBOutlet weak var hamburger: UIButton!
-    @IBOutlet weak var btnBack: UIButton!
+    
     @IBOutlet weak var lblCopyRight: UILabel!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
@@ -40,7 +40,12 @@ class AboutViewController: baseViewControllerM {
     @IBOutlet weak var btnMessageTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuViewHeightConstraint: NSLayoutConstraint!
     
-    
+    // back button
+    let backButton: UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     var dropDownShowing = false
     
@@ -53,9 +58,15 @@ class AboutViewController: baseViewControllerM {
         
         // change hamburger colour.
         changeButtonColours()
+        setUpViewsAbout()
         
         //code to change image colours
         self.perform(#selector(changeMenuIconsToWhite), with: nil, afterDelay: 0)
+        if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
+            prePaidMenu()
+        }else{
+            prePaidMenu()
+        }
     }
 
     //change back button colour
@@ -65,10 +76,7 @@ class AboutViewController: baseViewControllerM {
         hamburger.setImage(tintedImage, for: .normal)
         hamburger.tintColor = UIColor.white
         
-        let back_btn = UIImage(named: "leftArrow")
-        let tintedImageB = back_btn?.withRenderingMode(.alwaysTemplate)
-        btnBack.setImage(tintedImageB, for: .normal)
-        btnBack.tintColor = UIColor.white
+        
         
         let close_image = UIImage(named: "new_close")
         let tintedImageC = close_image?.withRenderingMode(.alwaysTemplate)
@@ -188,5 +196,17 @@ class AboutViewController: baseViewControllerM {
         dropDownShowing = !dropDownShowing
     }
     
+    func setUpViewsAbout(){
+        view.addSubview(backButton)
+        let backImage = UIImage(named: "leftArrow")
+        let backTint = backImage?.withRenderingMode(.alwaysTemplate)
+        backButton.setImage(backTint, for: .normal)
+        backButton.tintColor = UIColor.white
+        backButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        backButton.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 10).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        backButton.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
+    }
 
 }

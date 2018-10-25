@@ -35,7 +35,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
     @IBOutlet weak var btnProceed: UIButton!
     
     //api urlhttp://testpay.vodafonecash.com.gh/MyVodafoneAPI/UserSvc
-    let topUpUrl = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MyVodafoneAPI/User")
+    let topUpUrl = URL(string: "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/User")
     var username:String = ""
     
     var registeredAccounts = [String]()
@@ -119,7 +119,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
         //hide keyboard
         txtTopUpNumber.resignFirstResponder()
         txtScratchNumber.resignFirstResponder()
-        let numberTopUp = txtTopUpNumber.text
+        let numberTopUp = txtHiddenPurchaseNum.text
         let scratchNumber = txtScratchNumber.text
         
         if numberTopUp == ""{
@@ -146,47 +146,94 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
                 //create nsurl request
                 let request = NSMutableURLRequest(url: topUpUrl!)
                 request.httpMethod = "POST"
-                let postParameters: Dictionary<String, Any> = [
-                    "action":"topUp",
-                    "msisdn":numberTopUp!,
-                    "pin":scratchNumber!,
-                    "username":username,
-                    "os":getAppVersion()
-                ]
-                if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                    request.httpBody = postData
-                    //creating task to send post data
-                    let task = URLSession.shared.dataTask(with: request as URLRequest){
-                        data, response, error in
-                        if error != nil {
-                            print("error is:: \(error!)")
-                            return;
-                        }
-                        //parsing the response
-                        do{
-                            //converting response to NSDictionary
-                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                            //parsing the json
-                            if let parseJSON = myJSON {
-                                var responseCode: Int!
-                                var responseMessage: String!
-                                //getting the json response
-//                                responseCode = parseJSON["RESPONSECODE"] as! Int?
-//                                responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
-                                print("responseJSON:: \(parseJSON)")
+                let postParameters = ["action":"topUp", "msisdn":numberTopUp!, "pin":scratchNumber!, "username":username, "os":getAppVersion()]
+                print("Pster: \(postParameters)")
+                
+                if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+                    
+                    let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                    
+                    let requestBody: Dictionary<String, Any> = [
+                        "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                    ]
+                    print("Pster: \(requestBody)")
+                    if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                        request.httpBody = postData
+                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                        var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                        session = session.replacingOccurrences(of: "-", with: "")
+                        
+                        request.addValue(session, forHTTPHeaderField: "session")
+                        request.addValue(username, forHTTPHeaderField: "username")
+                        
+                        //creating task to send post data
+                        let task = URLSession.shared.dataTask(with: request as URLRequest){
+                            data, response, error in
+                            if error != nil {
+                                print("error is:: \(error!)")
                                 DispatchQueue.main.async {
                                     self.stopAsyncLoader()
-                                    
                                 }
+                                return;
                             }
-                            
-                        }catch{
-                            print(error)
+                            //parsing the response
+                            do{
+                                //converting response to NSDictionary
+                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                //parsing the json
+                                if let parseJSON = myJSON {
+                                    var responseBody: String?
+                                    responseBody = parseJSON["responseBody"] as! String?
+                                    
+                                    let decrypt = self.decryptAsyncRequest(requestBody: responseBody!)
+                                    
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    var responseCode: Int!
+                                    var responseMessage: String!
+                                    
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    DispatchQueue.main.async {
+                                        if responseCode == 0 {
+                                            responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage ?? "")
+                                            }, completion: { (true) in
+                                                self.view.removeFromSuperview()
+                                            })
+                                        }else if responseCode == 1{
+                                            responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage ?? "")
+                                            }, completion: { (true) in
+                                                self.view.removeFromSuperview()
+                                            })
+                                        }else{
+                                            UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Could not process your request please try again...")
+                                            }, completion: { (true) in
+                                                self.view.removeFromSuperview()
+                                            })
+                                        }
+                                        self.stopAsyncLoader()
+                                        
+                                    }
+                                }
+                                
+                            }catch{
+                                DispatchQueue.main.async {
+                                    self.stopAsyncLoader()
+                                }
+                                print("error here")
+                                print(error.localizedDescription)
+                            }
                         }
+                        task.resume()
+                        
                     }
-                    task.resume()
-                    
                 }
+                
             }
         }
     }

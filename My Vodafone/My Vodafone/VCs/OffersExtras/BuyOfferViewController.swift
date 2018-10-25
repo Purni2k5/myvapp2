@@ -679,10 +679,10 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                                 if hasRated == true {
                                                     
                                                 }else{
-                                                    self.showRatings()
+                                                    self.preference.set(false, forKey: UserDefaultsKeys.hasRated.rawValue)
                                                 }
                                             }else {
-                                                self.showRatings()
+                                                self.preference.set(false, forKey: UserDefaultsKeys.hasRated.rawValue)
                                             }
 //                                            self.goToHome()
                                         })

@@ -84,6 +84,8 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
     var cellID = "cellID"
     var locationData = [CellData]()
     
+    var stackViewTabs = UIStackView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
@@ -271,9 +273,9 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         cardView.addSubview(btnListView)
         btnListView.translatesAutoresizingMaskIntoConstraints = false
         btnListView.backgroundColor = UIColor.white
-        btnListView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
-        btnListView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
-        btnListView.widthAnchor.constraint(equalToConstant: 187.5).isActive = true
+//        btnListView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
+//        btnListView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
+//        btnListView.widthAnchor.constraint(equalToConstant: 187.5).isActive = true
         btnListView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         btnListView.layer.cornerRadius = 2
         btnListView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -296,9 +298,9 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         cardView.addSubview(btnMapView)
         btnMapView.translatesAutoresizingMaskIntoConstraints = false
         btnMapView.backgroundColor = UIColor.white
-        btnMapView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
-        btnMapView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
-        btnMapView.widthAnchor.constraint(equalToConstant: 187.5).isActive = true
+//        btnMapView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
+//        btnMapView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
+//        btnMapView.widthAnchor.constraint(equalToConstant: 187.5).isActive = true
         btnMapView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         btnMapView.layer.cornerRadius = 2
         btnMapView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -331,6 +333,16 @@ class StoreLocatorVc: baseViewControllerM, MKMapViewDelegate {
         redViewLeft1?.isActive = true
         redViewTop1?.isActive = true
         redViewRight1?.isActive = true
+        
+        stackViewTabs = UIStackView(arrangedSubviews: [btnListView, btnMapView])
+        stackViewTabs.translatesAutoresizingMaskIntoConstraints = false
+        stackViewTabs.axis = .horizontal
+        stackViewTabs.spacing = 0
+        stackViewTabs.distribution = .fillEqually
+        cardView.addSubview(stackViewTabs)
+        stackViewTabs.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
+        stackViewTabs.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
+        stackViewTabs.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
         
         cardView.addSubview(storeTableView)
         storeTableView.translatesAutoresizingMaskIntoConstraints = false

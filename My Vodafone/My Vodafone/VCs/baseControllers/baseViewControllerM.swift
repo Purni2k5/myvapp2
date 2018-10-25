@@ -169,7 +169,7 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func showMenu(){
-        print("Clicked on menu")
+        
         if menuShowing {
             self.motherViewTrailing1?.isActive = true
             self.motherViewTrailing2?.isActive = false
@@ -722,15 +722,15 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToHome(){
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-//        present(moveTo, animated: true, completion: nil)
-        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "RateUs")
-        self.addChildViewController(moveTo)
-        moveTo.view.frame = self.view.frame
-        self.view.addSubview(moveTo.view)
-        moveTo.didMove(toParentViewController: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+        present(moveTo, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "RateUs")
+//        self.addChildViewController(moveTo)
+//        moveTo.view.frame = self.view.frame
+//        self.view.addSubview(moveTo.view)
+//        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToLogout(){
@@ -1067,17 +1067,21 @@ class baseViewControllerM: UIViewController {
                 do{
                     //converting response to NSDictionary
                     let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
                     //parsing the json
                     if let parseJSON = myJSON {
+                        print("here")
                         //creating variables to hold response
                         var responseCode: Int!
                         var responseMessage: String!
                         var responseData: NSDictionary!
+                        var responseSession: NSDictionary!
                         print(parseJSON)
                         //getting the json response
                         responseCode = parseJSON["RESPONSECODE"] as! Int?
-                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String
+                        responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
                         responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                        responseSession = parseJSON["SESSION"] as! NSDictionary?
                         
                         if responseData != nil {
                             self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
@@ -1102,7 +1106,6 @@ class baseViewControllerM: UIViewController {
                                                 self.AcctType = dict.value(forKey: "Type") as! String?
                                                 foundDefault = true
                                                 print("Got it")
-                                                
                                             }else{
                                                 print("this happened")
                                                 //Just pick one to display
@@ -1110,7 +1113,7 @@ class baseViewControllerM: UIViewController {
                                                 self.ServiceID = dict.value(forKey: "ID") as! String?
                                                 self.AcctType = dict.value(forKey: "Type") as! String?
                                                 self.primaryIDB = dict.value(forKey: "primaryID") as! String?
-                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
+                                                //                                                self.preference.set(self.ServiceID, forKey: "DefaultService")
                                                 //                            foundDefault = true
                                             }
                                         }
@@ -1123,7 +1126,18 @@ class baseViewControllerM: UIViewController {
                             let defaultNum = self.primaryIDB?.dropFirst(3)
                             self.primaryIDB = "0\(defaultNum!)"
                             self.preference.set(self.primaryIDB, forKey: "defaultMSISDN")
+                            self.preference.set(self.defaultAccNameB, forKey: UserDefaultsKeys.defaultName.rawValue)
+                            self.preference.set(self.ServiceID, forKey: UserDefaultsKeys.defaultName.rawValue)
                             print("Account stat: \(obj)")
+                            
+                            let session = responseSession["session"] as! String
+                            let secret = responseSession["secret"] as! String
+                            let key = responseSession["key"] as! String
+                            
+                            //Save secrets
+                            self.preference.set(session, forKey: UserDefaultsKeys.userSession.rawValue)
+                            self.preference.set(secret, forKey: UserDefaultsKeys.userSecret.rawValue)
+                            self.preference.set(key, forKey: UserDefaultsKeys.userKey.rawValue)
                         }
                         
                         
@@ -1134,31 +1148,58 @@ class baseViewControllerM: UIViewController {
                         DispatchQueue.main.async { // Correct
                             if responseCode == 0{
                                 
+//                                self.stop_activity_loader()
                                 self.preference.set("Yes", forKey: "loginStatus")
                                 self.preference.set(responseData, forKey: "responseData")
                                 
                                 self.keyChainB.set(password, forKey: keyChainKeys.secretPassword.rawValue)
                                 self.keyChainB.set(username, forKey: keyChainKeys.secretUser.rawValue)
+                                self.keyHardening()
                                 
+                                if(self.AcctType == "PHONE_MOBILE_PRE_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_POST_P"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else if(self.AcctType == "PHONE_MOBILE_HYBRID"){
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }else{
+                                    print("fbb here")
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
                                 
-                                //go to home screen
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                self.present(moveTo, animated: true, completion: nil)
                             }else{
-                                //go to Login screen
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                                self.present(moveTo, animated: true, completion: nil)
+                                print("Was zero \(responseCode)")
+//                                self.stop_activity_loader()
+                                //display error message
+//                                self.errorDialog.isHidden = false
+//                                self.lblErrorMessage.text = responseMessage
+//                                self.lblUsernameTop?.constant = 90
+//                                self.darkViewHeight?.constant = 660
+//                                self.scrollView.contentSize.height = (self.lblHeader.frame.size.height + self.darkView.frame.size.height) + 90
                             }
                         }
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        //go to Login screen
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                        self.present(moveTo, animated: true, completion: nil)
+//                        self.stop_activity_loader()
+//                        //display error message
+//                        self.errorDialog.isHidden = false
+//                        self.lblErrorMessage.text = error.localizedDescription
+//                        self.lblUsernameTop?.constant = 90
+//                        self.darkViewHeight?.constant = 660
+//                        self.scrollView.contentSize.height = (self.lblHeader.frame.size.height + self.darkView.frame.size.height) + 90
                     }
                     print(error)
                 }

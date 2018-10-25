@@ -142,7 +142,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let btnImage = UIImage(named: "top_up")
         btn.setImage(btnImage, for: .normal)
         btn.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
-        btn.addTarget(self, action: #selector(goToTopUp), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(goToOffers), for: .touchUpInside)
         return btn
     }()
     
