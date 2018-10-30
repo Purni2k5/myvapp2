@@ -612,7 +612,15 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                                 responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                             }, completion: { (true) in
                                                 self.view.removeFromSuperview()
-                                                
+                                                if let hasRated = self.hasRated {
+                                                    if hasRated == true {
+                                                        
+                                                    }else{
+                                                        self.showRatings()
+                                                    }
+                                                }else {
+                                                    self.showRatings()
+                                                }
                                                 self.goToHome()
                                             })
                                             
@@ -675,15 +683,7 @@ class BuyOfferViewController: baseViewControllerM, UIPickerViewDelegate, UIPicke
                                             responseView.backgroundColor = UIColor.black.withAlphaComponent(0.10)
                                         }, completion: { (true) in
                                             self.view.removeFromSuperview()
-                                            if let hasRated = self.hasRated {
-                                                if hasRated == true {
-                                                    
-                                                }else{
-                                                    self.preference.set(false, forKey: UserDefaultsKeys.hasRated.rawValue)
-                                                }
-                                            }else {
-                                                self.preference.set(false, forKey: UserDefaultsKeys.hasRated.rawValue)
-                                            }
+                                            
 //                                            self.goToHome()
                                         })
                                     }

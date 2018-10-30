@@ -76,6 +76,7 @@ extension String {
     static let MVA_FBBRELOCATIONURL = "http://fbb.vodafone.com.gh/relocation.php";
     static let MVA_PROFILEUPLOAD = "https://myvodafoneapp.vodafone.com.gh/voda_port/myvodafone/ProfilePic.php";
     static let MVA_SERVICEPICUPLOAD = "https://myvodafoneapp.vodafone.com.gh/voda_port/myvodafone/ServicePic.php";
+//    http://testpay.vodafonecash.com.gh/SpinAPI/index.jsp
     static let MVA_SPINGAME = "https://myvodafoneappmw.vodafone.com.gh/SpinAPI/index.jsp";
     static let MVA_SUPPPORT_EMAIL = "info.gh@vodafone.com";
     static let MVA_FBBMOVE = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/ProjectNkrumah";

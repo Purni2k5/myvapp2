@@ -296,15 +296,16 @@ class confirmShake: baseViewControllerM {
                                             }else if responseCode == 1 {
                                                 let responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
                                                 let sessionID = decryptedResponseBody["SESSIONID"] as! String?
-                                                let pid = decryptedResponseBody["BUNDLETOREMOVE"] as! String?
+                                                let bundleToRemove = decryptedResponseBody["BUNDLETOREMOVE"] as! String?
                                                 self.stop_activity_loader()
                                                 //Go to dialog and display successful message
                                                 let storyboard = UIStoryboard(name: "Shake", bundle: nil)
                                                 guard let moveTo = storyboard.instantiateViewController(withIdentifier: "ShakeDialog") as? ShakeDialog else { return }
                                                 moveTo.responseCode = responseCode
                                                 moveTo.responseMessage = responseMessage
-                                                moveTo.pid = pid
+                                                moveTo.pid = self.pid
                                                 moveTo.sessionID = sessionID
+                                                moveTo.bundleToRemove = bundleToRemove
                                                 self.addChildViewController(moveTo)
                                                 moveTo.view.frame = self.view.frame
                                                 self.view.addSubview(moveTo.view)

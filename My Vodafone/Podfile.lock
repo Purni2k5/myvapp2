@@ -1,5 +1,5 @@
 PODS:
-  - CryptoSwift (0.12.0)
+  - CryptoSwift (0.10.0)
   - FSPagerView (0.7.1)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
@@ -17,7 +17,7 @@ SPEC REPOS:
     - SDWebImage
 
 SPEC CHECKSUMS:
-  CryptoSwift: 1c07ca50843dd48bc54e6ea53d7a4dba3b645716
+  CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   FSPagerView: 958aba39684e1573755ddcfcc29f7eebb8413cee
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
 

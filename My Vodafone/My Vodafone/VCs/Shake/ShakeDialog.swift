@@ -17,6 +17,8 @@ class ShakeDialog: baseViewControllerM {
     var responseMessage: String?
     var pid: String?
     var sessionID: String?
+    var bundleToRemove: String?
+    var hasRated: Bool?
     
     //Display image
     let dialogImage: UIImageView = {
@@ -113,6 +115,9 @@ class ShakeDialog: baseViewControllerM {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
+        hasRated = preference.object(forKey: UserDefaultsKeys.hasRated.rawValue) as! Bool?
+        
+        
     }
     
     func setUpViewsShakeDialog(){
@@ -173,8 +178,12 @@ class ShakeDialog: baseViewControllerM {
             let async_call = URL(string: String.MVA_SHAKE_PROMOS)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
+//            print("pid \(pid)")
+//            print("username \(username)")
+//            print("sessionID \(sessionID)")
             
-            let postParameters = ["action":"ShakeBuyPackage","msisdn":msisdn!,"bundleid":pid!,"username":username!,"bundletoremove":"","sessionID":sessionID!,"os":getAppVersion()]
+            let postParameters = ["action":"ShakeBuyPackage","msisdn":msisdn!,"bundleid":pid!,"username":username!,"bundletoremove":bundleToRemove ?? "","sessionID":sessionID!,"os":getAppVersion()]
+            
             
             if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
                 let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
@@ -234,13 +243,23 @@ class ShakeDialog: baseViewControllerM {
                                                 }
                                             }, completion: { (true) in
                                                 // Go to home screen
-                                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                                let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                                self.present(moveTo, animated: true, completion: nil)
+                                                if self.hasRated == nil {
+                                                    self.showRatings()
+                                                }else if self.hasRated == false{
+                                                    self.showRatings()
+                                                }else{
+                                                    
+                                                }
                                             })
                                             
                                             
-                                        }else{
+                                        }else if responseCode == 1{
+                                            let rMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
+                                            print("error message: \(rMessage ?? "")")
+                                            self.stop_activity_loader()
+                                            self.changeDialogImage(statusCode: 2)
+                                            self.lblMessage.text = rMessage                                        }
+                                        else{
                                             let rMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
                                             print("error message: \(rMessage ?? "")")
                                             self.stop_activity_loader()

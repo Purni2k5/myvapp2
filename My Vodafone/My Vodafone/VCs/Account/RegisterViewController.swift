@@ -143,6 +143,7 @@ class RegisterViewController: baseViewControllerM {
                                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                                 guard let moveTo = storyboard.instantiateViewController(withIdentifier: "AccountConfViewController") as? AccountConfViewController else{return}
                                                 moveTo.username = username
+                                                moveTo.passClone = self.passClone
                                                 moveTo.responseMessage = responseMessage //A message containing a verification code has been sent to 0503088509. Use this code to activate your account within 5 minutes.
                                                 self.present(moveTo, animated: true, completion: nil)
                                             }

@@ -12,6 +12,7 @@ class AccountConfViewController: baseViewControllerM {
     
     var responseMessage:String?
     var username: String?
+    var passClone: String?
     var activationCode: String?
     var totalOTP: Int?
     
@@ -320,10 +321,13 @@ class AccountConfViewController: baseViewControllerM {
                                     var responseCode: Int!
                                     var responseData: NSDictionary!
                                     var responseMessage: String!
+//                                    var responseSession: NSDictionary!
+                                    print("parse:: \(parseJSON)")
                                     
                                     //getting the json response
                                     responseCode = parseJSON["RESPONSECODE"] as! Int?
                                     responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
+//                                    responseSession = parseJSON["SESSION"] as! NSDictionary?
                                     
                                     if responseCode == 1 {
                                         self.lblMessage.text = responseMessage
@@ -339,10 +343,9 @@ class AccountConfViewController: baseViewControllerM {
                                         self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
                                         self.preference.set(responseData, forKey: "responseData")
                                         self.stop_activity_loader()
-                                        //go to home screen
-                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                                        self.present(moveTo, animated: true, completion: nil)
+                                        
+                                        let login_api = URL(string: String.MVA_LOGIN)
+                                        self.loginToAccount(url: login_api!, password: self.passClone!, username: self.username!)
                                     }
                                 }
                             }

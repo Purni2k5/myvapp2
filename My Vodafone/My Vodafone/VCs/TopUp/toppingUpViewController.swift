@@ -25,6 +25,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
     let btnContacts = UIButton()
     var selectedAccount: String?
     var defaultNumber: String?
+    var hasRated: Bool?
     
     //contraints for labels
     @IBOutlet weak var lblMobileNoTopConstraint: NSLayoutConstraint!
@@ -52,6 +53,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         defaultNumber = preference.object(forKey: "defaultMSISDN") as! String
         username = UserData["Username"] as! String
+        hasRated = preference.object(forKey: UserDefaultsKeys.hasRated.rawValue) as? Bool
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray{
             var iterate = 0
@@ -208,6 +210,13 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
                                                 self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage ?? "")
                                             }, completion: { (true) in
                                                 self.view.removeFromSuperview()
+                                                if self.hasRated == nil {
+                                                    self.showRatings()
+                                                }else if self.hasRated == false{
+                                                    self.showRatings()
+                                                }else{
+                                                    
+                                                }
                                             })
                                         }else{
                                             UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {

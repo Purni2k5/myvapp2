@@ -13,34 +13,6 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-#if canImport(Darwin)
-import Darwin
-#else
-import Glibc
-#endif
-
-/// Worker cryptor/decryptor of `Updatable` types
-public protocol Cryptors: class {
-    associatedtype Encryptor: Cryptor
-    associatedtype Decryptor: Cryptor
-
-    /// Cryptor suitable for encryption
-    func makeEncryptor() throws -> Encryptor
-
-    /// Cryptor suitable for decryption
-    func makeDecryptor() throws -> Decryptor
-
-    /// Generate array of random bytes. Helper function.
-    static func randomIV(_ blockSize: Int) -> Array<UInt8>
-}
-
-extension Cryptors {
-    public static func randomIV(_ blockSize: Int) -> Array<UInt8> {
-        var randomIV: Array<UInt8> = Array<UInt8>()
-        randomIV.reserveCapacity(blockSize)
-        for randomByte in RandomBytesSequence(size: blockSize) {
-            randomIV.append(randomByte)
-        }
-        return randomIV
-    }
+protocol RandomAccessBlockModeWorker: BlockModeWorker {
+    var counter: UInt { set get }
 }

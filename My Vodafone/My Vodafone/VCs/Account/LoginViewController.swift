@@ -175,6 +175,7 @@ class LoginViewController: baseViewControllerM {
         btn.setTitle("Login with Fixed Broadband", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
+        btn.isHidden = true
         return btn
     }()
     
@@ -255,7 +256,7 @@ class LoginViewController: baseViewControllerM {
         darkView.leadingAnchor.constraint(equalTo: motherViewLogin.leadingAnchor, constant: 20).isActive = true
         darkView.topAnchor.constraint(equalTo: lblHeader.bottomAnchor, constant: 20).isActive = true
         darkView.trailingAnchor.constraint(equalTo: motherViewLogin.trailingAnchor, constant: -20).isActive = true
-        darkViewHeight = darkView.heightAnchor.constraint(equalToConstant: 600)
+        darkViewHeight = darkView.heightAnchor.constraint(equalToConstant: 550)
         darkViewHeight?.isActive = true
         
         //Error Dialog

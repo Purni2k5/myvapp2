@@ -23,6 +23,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var balanceLabel: String?
     var accountBalanceLabel: String?
     var dService: String?
+    var deviceWidth: CGFloat?
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
 //    var altServiceID: String?
@@ -134,6 +135,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var gaugeViewRawExpirationDuration: String?
     
     var lastUpdate: String?
+    var hasRated: Bool?
     
     let btnOffers: UIButton = {
         let btn = UIButton()
@@ -236,6 +238,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
         defaultAccName = preference.object(forKey: UserDefaultsKeys.defaultName.rawValue) as! String?
         print("begin defName \(defaultAccName)")
+        hasRated = preference.object(forKey: UserDefaultsKeys.hasRated.rawValue) as! Bool?
+        print("Has rated:: \(hasRated)")
+        
+        
         
 //        print("yos:: \(defaultService)")
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
@@ -398,7 +404,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                             var sessionAuth: String!
                             sessionAuth = parseJSON["SessionAuth"] as! String?
                             if sessionAuth == "true" {
-                                self.logout()
+                                DispatchQueue.main.async {
+                                    self.logout()
+                                }
+                                
                             }
                             var responseBody: String?
                             responseBody = parseJSON["responseBody"] as! String?
@@ -412,6 +421,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                 var responseCode: Int?
                                 var responseMessage: NSArray?
                                 responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                print("Device width:: \(self.deviceWidth)")
                                 DispatchQueue.main.async {
                                     if responseCode == 0 {
                                         responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSArray?
@@ -435,11 +445,19 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                     self.scrollView.addSubview(made4MeView)
                                                     made4MeView.translatesAutoresizingMaskIntoConstraints = false
                                                     made4MeView.backgroundColor = UIColor.black
-                                                    made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                                                    made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                                    if Int(self.deviceWidth!) <= 320{
+                                                        made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                                                        made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                                        made4MeView.layer.cornerRadius = 40
+                                                    }else{
+                                                        made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                                                        made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                                        made4MeView.layer.cornerRadius = 40
+                                                    }
+                                                    
                                                     made4MeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: viewLeading).isActive = true
                                                     made4MeView.topAnchor.constraint(equalTo: self.pagerView.bottomAnchor, constant: 40).isActive = true
-                                                    made4MeView.layer.cornerRadius = 40
+                                                    
                                                     made4MeView.layer.borderColor = UIColor.white.cgColor
                                                     made4MeView.layer.borderWidth = 1
                                                     made4MeView.name = made4MeName
@@ -485,8 +503,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                     lblDescripion.numberOfLines = 0
                                                     lblDescripion.lineBreakMode = .byWordWrapping
                                                     
+                                                    if Int(self.deviceWidth!) <= 320 {
+                                                        viewLeading = viewLeading + 100
+                                                    }else{
+                                                       viewLeading = viewLeading + 120
+                                                    }
                                                     
-                                                    viewLeading = viewLeading + 120
                                                 }
                                             }
                                             
@@ -507,6 +529,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     }
     
     func setUpViews1(){
+        deviceWidth = view.frame.width
         
         let bgImage = UIImageView()
         bgImage.translatesAutoresizingMaskIntoConstraints = false
@@ -668,9 +691,14 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
         
         
+        if Int(deviceWidth!) <= 320 {
+            defaultAccImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
+            defaultAccImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        }else{
+            defaultAccImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
+            defaultAccImage.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        }
         
-        defaultAccImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
-        defaultAccImage.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
         //account name
         scrollView.addSubview(defaultAccDisName)
@@ -694,7 +722,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultCallCreditView.backgroundColor = UIColor.white.withAlphaComponent(0.50)
         defaultCallCreditView.isOpaque = false
         defaultCallCreditViewLeading1 = defaultCallCreditView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 45)
-        defaultCallCreditViewLeading2 = defaultCallCreditView.widthAnchor.constraint(equalToConstant: 200)
+        if Int(deviceWidth!) <= 320 {
+            defaultCallCreditViewLeading2 = defaultCallCreditView.widthAnchor.constraint(equalToConstant: 180)
+        }else{
+            defaultCallCreditViewLeading2 = defaultCallCreditView.widthAnchor.constraint(equalToConstant: 200)
+        }
+        
         
         defaultCallCreditViewTrailing1 = defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -45)
         defaultCallCreditViewTrailing2 = defaultCallCreditView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10)
@@ -713,9 +746,19 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         defaultCallCreditView.addSubview(btnTopUp)
         btnTopUp.translatesAutoresizingMaskIntoConstraints = false
         btnTopUp.backgroundColor = UIColor.white
-        btnTopWidth = btnTopUp.widthAnchor.constraint(equalToConstant: 80)
+        if Int(deviceWidth!) <= 320 {
+            btnTopWidth = btnTopUp.widthAnchor.constraint(equalToConstant: 70)
+            btnTopHeight = btnTopUp.heightAnchor.constraint(equalToConstant: 70)
+            
+            btnTopUp.layer.cornerRadius = 35
+        }else{
+            btnTopWidth = btnTopUp.widthAnchor.constraint(equalToConstant: 80)
+            btnTopHeight = btnTopUp.heightAnchor.constraint(equalToConstant: 80)
+            btnTopUp.layer.cornerRadius = 40
+        }
+        
         btnTopWidth?.isActive = true
-        btnTopHeight = btnTopUp.heightAnchor.constraint(equalToConstant: 80)
+        
         btnTopHeight?.isActive = true
         btnTopUpTopConstraint1 = btnTopUp.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor)
         btnTopUpTopConstraint2 = btnTopUp.topAnchor.constraint(equalTo: defaultCallCreditView.topAnchor)
@@ -723,7 +766,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnTopUpTrailingConstraint1 =  btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor)
         btnTopUpTrailingConstraint2 =  btnTopUp.trailingAnchor.constraint(equalTo: defaultCallCreditView.trailingAnchor)
         btnTopUpTrailingConstraint1?.isActive = true
-        btnTopUp.layer.cornerRadius = 80 / 2
+        
+        
         btnTopUp.clipsToBounds = true
         let topupImage = UIImage(named: "top_up")
         btnTopUp.setImage(topupImage, for: .normal)
@@ -737,6 +781,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             lblCreditTitle.text = creditTitle
         }else{
             lblCreditTitle.text = "Credit remaining"
+        }
+        if Int(deviceWidth!) <= 320 {
+            lblCreditTitle.text = "Credit \nremaining"
         }
         
         lblCreditTitle.textColor = UIColor.black
@@ -788,7 +835,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         gaugeViewHolder.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         scrollView.addSubview(btnOffers)
-        btnOffers.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 230).isActive = true
+        if Int(deviceWidth!) <= 320 {
+            btnOffers.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 210).isActive = true
+        }else{
+            btnOffers.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 230).isActive = true
+        }
+        
         btnOffers.widthAnchor.constraint(equalToConstant: 60).isActive = true
         btnOffers.heightAnchor.constraint(equalToConstant: 60).isActive = true
         btnOffers.bottomAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 12).isActive = true
@@ -809,7 +861,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnDataIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
         btnDataIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btnDataIcon.topAnchor.constraint(equalTo: gaugeViewHolder.topAnchor, constant: 100).isActive = true
-        btnDataIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 30).isActive = true
+        if Int(deviceWidth!) <= 320 {
+           btnDataIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 10).isActive = true
+        }else{
+            btnDataIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 30).isActive = true
+        }
+        
         btnDataIcon.layer.cornerRadius = 20
         btnDataIcon.layer.borderWidth = 1
         btnDataIcon.layer.borderColor = UIColor.white.cgColor
@@ -819,7 +876,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         btnSMSIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
         btnSMSIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btnSMSIcon.topAnchor.constraint(equalTo: btnDataIcon.bottomAnchor, constant: 15).isActive = true
-        btnSMSIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 55).isActive = true
+        if Int(deviceWidth!) <= 320 {
+            btnSMSIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 30).isActive = true
+        }else{
+            btnSMSIcon.leadingAnchor.constraint(equalTo: gaugeViewHolder.leadingAnchor, constant: 55).isActive = true
+        }
+        
         btnSMSIcon.layer.cornerRadius = 20
         btnSMSIcon.layer.borderWidth = 1
         btnSMSIcon.layer.borderColor = UIColor.white.cgColor
@@ -995,7 +1057,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
             present(moveTo, animated: true, completion: nil)
         }
-//        showRatings()
+
+        
+        
         self.showSlider()
         
         let circularPath = UIBezierPath(arcCenter: .zero
@@ -1651,6 +1715,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                             if let balLabel = balance!["BalanceLabel"] as! String? {
                                                 self.balanceLabel = balLabel
                                                 self.preference.set(self.balanceLabel!, forKey: "balanceLabel")
+                                                if Int(self.deviceWidth!) <= 320 {
+                                                    self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 15)
+                                                }
                                                 self.lblCreditTitle.text = self.balanceLabel!
                                             }
                                             

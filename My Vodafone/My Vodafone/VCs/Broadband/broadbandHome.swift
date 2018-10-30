@@ -530,7 +530,10 @@ class broadbandHome: baseViewControllerM {
                             var sessionAuth: String!
                             sessionAuth = parseJSON["SessionAuth"] as! String?
                             if sessionAuth == "true" {
-                                self.logout()
+                                DispatchQueue.main.async {
+                                    self.logout()
+                                }
+                                
                             }
                             var responseBody: String?
                             var responseCode: Int!

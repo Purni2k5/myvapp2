@@ -866,11 +866,14 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func openAppStore() {
+        
         if let url = URL(string: "https://itunes.apple.com/us/app/my-vodafone-ghana/id1058492752?ls=1&mt=8"),
             UIApplication.shared.canOpenURL(url){
             UIApplication.shared.open(url, options: [:]) { (opened) in
                 if(opened){
                     print("App Store Opened")
+                    self.preference.set(true, forKey: UserDefaultsKeys.hasRated.rawValue)
+                    self.closeModalB()
                 }
             }
         } else {
