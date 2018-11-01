@@ -37,6 +37,8 @@ class baseViewControllerM: UIViewController {
     var motherViewTrailing2: NSLayoutConstraint?
     var menuShowing: Bool = false
     var networksShowing: Bool = false
+    var btnProductsTop: NSLayoutConstraint!
+    var pdtsImageTop: NSLayoutConstraint!
     
     //create a closure for background image
     let vcHomeImage: UIImageView = {
@@ -264,10 +266,12 @@ class baseViewControllerM: UIViewController {
         mobileIcon.setImage(mobileTintColor, for: .normal)
         mobileIcon.tintColor = UIColor.white
         mobileIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        mobileIcon.topAnchor.constraint(equalTo: homeIcon.bottomAnchor, constant: 20).isActive = true
+        pdtsImageTop = mobileIcon.topAnchor.constraint(equalTo: homeIcon.bottomAnchor, constant: 20)
+        pdtsImageTop.isActive = true
         mobileIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
         mobileIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
         mobileIcon.addTarget(self, action: #selector(goToProducts), for: .touchUpInside)
+        
         //My products and services
         let btnPdt = UIButton()
         scrollViewBase.addSubview(btnPdt)
@@ -276,8 +280,40 @@ class baseViewControllerM: UIViewController {
         btnPdt.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnPdt.setTitleColor(UIColor.white, for: .normal)
         btnPdt.leadingAnchor.constraint(equalTo: mobileIcon.trailingAnchor, constant: 16).isActive = true
-        btnPdt.topAnchor.constraint(equalTo: btnHome.bottomAnchor, constant: 21).isActive = true
+        btnProductsTop = btnPdt.topAnchor.constraint(equalTo: btnHome.bottomAnchor, constant: 21)
+        btnProductsTop.isActive = true
         btnPdt.addTarget(self, action: #selector(goToProducts), for: .touchUpInside)
+        
+        if AcctType == "PHONE_MOBILE_POST_P" {
+            
+            pdtsImageTop.constant = 40
+            btnProductsTop.constant = 41
+            //Mobile icon
+            let currentBillIcon = UIButton()
+            scrollViewBase.addSubview(currentBillIcon)
+            currentBillIcon.translatesAutoresizingMaskIntoConstraints = false
+            let currentBillImage = UIImage(named: "ic_mobile")
+            let currentBillTintColor = currentBillImage?.withRenderingMode(.alwaysTemplate)
+            currentBillIcon.setImage(currentBillTintColor, for: .normal)
+            currentBillIcon.tintColor = UIColor.white
+            currentBillIcon.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
+            currentBillIcon.topAnchor.constraint(equalTo: homeIcon.bottomAnchor, constant: 20).isActive = true
+            currentBillIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
+            currentBillIcon.heightAnchor.constraint(equalToConstant: 34).isActive = true
+            currentBillIcon.addTarget(self, action: #selector(goToProducts), for: .touchUpInside)
+            
+            let btnCurrentBill = UIButton()
+            scrollViewBase.addSubview(btnCurrentBill)
+            btnCurrentBill.translatesAutoresizingMaskIntoConstraints = false
+            btnCurrentBill.setTitle("Current spends and bills", for: .normal)
+            btnCurrentBill.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
+            btnCurrentBill.setTitleColor(UIColor.white, for: .normal)
+            btnCurrentBill.leadingAnchor.constraint(equalTo: homeIcon.trailingAnchor, constant: 16).isActive = true
+            btnCurrentBill.topAnchor.constraint(equalTo: scrollViewBase.topAnchor, constant: 55).isActive = true
+            btnCurrentBill.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
+        }
+        
+        
         
         //Offers and extras
         let extraIcon = UIButton()

@@ -1433,6 +1433,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                                     let bucketValue = bundleDict.value(forKey: "BucketValue") as! String
                                                                     let unit = bundleDict.value(forKey: "Unit") as! String
                                                                     let actualUnit = bundleDict.value(forKey: "ActualUnit") as! String
+                                                                    let rolledOver = bundleDict.value(forKey: "RolledOver") as! Int?
                                                                     print("Bucket Types: \(bucketType)")
                                                                     
                                                                     if totalBuckets >= 3 {
@@ -1589,7 +1590,14 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                                         promoBucketDetails.translatesAutoresizingMaskIntoConstraints = false
                                                                         promoBucketDetails.font = UIFont(name: String.defaultFontB, size: 22)
                                                                         promoBucketDetails.textColor = UIColor.white
-                                                                        promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left of \(actualValue)\(actualUnit)"
+                                                                        if let rollOver = rolledOver {
+                                                                            if rollOver == 1 {
+                                                                                promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left"
+                                                                            }else{
+                                                                                promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left of \(actualValue)\(actualUnit)"
+                                                                            }
+                                                                        }
+                                                                        
                                                                         promoBucketDetails.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
                                                                         promoBucketDetails.topAnchor.constraint(equalTo: lblPromotion.bottomAnchor, constant: 30).isActive = true
                                                                         promoBucketDetails.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -20).isActive = true
