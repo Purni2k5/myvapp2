@@ -186,6 +186,7 @@ extension UIViewController {
         case BB_LastUpdate
         case hasRated
         case BB_accountUsageDet
+        case postPaidOutBill
     }
     
     enum keyChainKeys: String {

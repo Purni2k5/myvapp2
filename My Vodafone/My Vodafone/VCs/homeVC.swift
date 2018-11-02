@@ -1056,6 +1056,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
             let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
             present(moveTo, animated: true, completion: nil)
+        }else if AcctType == "PHONE_MOBILE_POST_P"{
+            let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidHome")
+            present(moveTo, animated: true, completion: nil)
         }
 
         
@@ -1342,411 +1346,414 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     //Function to call balances
     func getMobileBalances() {
         
-        let postParameters = ["action":"subscriberSummary", "msisdn":msisdn!,"username":username!,"os":getAppVersion()]
-        let async_call = URL(string: String.userURL)
-        let request = NSMutableURLRequest(url: async_call!)
-        request.httpMethod = "POST"
-        
-        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+        if AcctType == "PHONE_MOBILE_POST_P"{
             
-            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+        }else{
+            let postParameters = ["action":"subscriberSummary", "msisdn":msisdn!,"username":username!,"os":getAppVersion()]
+            let async_call = URL(string: String.userURL)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
             
-            let requestBody: Dictionary<String, Any> = [
-                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
-            ]
-            print("printJJ:: \(requestBody)")
-            
-            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
-                request.httpBody = postData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                if let sess = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as? String{
-                    var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
-                    session = session.replacingOccurrences(of: "-", with: "")
-                    request.addValue(session, forHTTPHeaderField: "session")
-                    request.addValue(username!, forHTTPHeaderField: "username")
-                    
-                    let task = URLSession.shared.dataTask(with: request as URLRequest){
-                        data, response, error in
-                        if error != nil {
-                            print("Balance retriving error:: \(error!.localizedDescription)")
-                            return;
-                        }
+            if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted) {
+                
+                let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                
+                let requestBody: Dictionary<String, Any> = [
+                    "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                ]
+                print("printJJ:: \(requestBody)")
+                
+                if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    if let sess = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as? String{
+                        var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                        session = session.replacingOccurrences(of: "-", with: "")
+                        request.addValue(session, forHTTPHeaderField: "session")
+                        request.addValue(username!, forHTTPHeaderField: "username")
                         
-                        do {
-                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                            if let parseJSON = myJSON {
-                                var responseBody: String?
-                                responseBody = parseJSON["responseBody"] as! String?
-                                
-                                print("BalresponseBody:: \(responseBody)")
-                                if let resBody = responseBody {
-                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody)
-                                    print("Decrypted:: \(decrypt)")
-                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
-                                    print(decryptedResponseBody)
-                                    var responseCode: Int!
+                        let task = URLSession.shared.dataTask(with: request as URLRequest){
+                            data, response, error in
+                            if error != nil {
+                                print("Balance retriving error:: \(error!.localizedDescription)")
+                                return;
+                            }
+                            
+                            do {
+                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                if let parseJSON = myJSON {
+                                    var responseBody: String?
+                                    responseBody = parseJSON["responseBody"] as! String?
                                     
-                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
-                                    
-                                    DispatchQueue.main.async {
-                                        if responseCode == 0 {
-                                            let today = self.getTodayString()
-                                            print("Time: \(today)")
-                                            self.updateIcon.layer.removeAnimation(forKey: "rotate")
-                                            self.preference.set(today, forKey: UserDefaultsKeys.lastUpdate.rawValue)
-                                            self.lblLastUpdatedStatus.text = "Last updated \(today)"
-                                            let promotions = decryptedResponseBody["PROMOTIONS"] as! NSArray?
-                                            print("Promotions : \(promotions)")
-                                            
-                                            if let promotionsRip = promotions {
-                                                var extraPromoCardTop: CGFloat = 10
-                                                self.preference.set(promotionsRip, forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
-                                                for obj in promotionsRip{
-                                                    if let dict = obj as? NSDictionary{
-                                                        let planExpireDuration = dict.value(forKey: "ExpirationDuration") as! String
-                                                        let plan = dict.value(forKey: "Promotion") as! String
-                                                        
-                                                        let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String?
-                                                        
-                                                        self.lblPlanExpiration.text = planExpireDuration
-                                                        
-                                                        if let rawExpiree = rawExpireDuration as String? {
-                                                            if Int(rawExpiree)! < 7 {
-                                                                self.lblPlanMessage.textColor = UIColor.vodaRed
+                                    print("BalresponseBody:: \(responseBody)")
+                                    if let resBody = responseBody {
+                                        let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                        print("Decrypted:: \(decrypt)")
+                                        let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                        print(decryptedResponseBody)
+                                        var responseCode: Int!
+                                        
+                                        responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                        
+                                        DispatchQueue.main.async {
+                                            if responseCode == 0 {
+                                                let today = self.getTodayString()
+                                                print("Time: \(today)")
+                                                self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                                                self.preference.set(today, forKey: UserDefaultsKeys.lastUpdate.rawValue)
+                                                self.lblLastUpdatedStatus.text = "Last updated \(today)"
+                                                let promotions = decryptedResponseBody["PROMOTIONS"] as! NSArray?
+                                                print("Promotions : \(promotions)")
+                                                
+                                                if let promotionsRip = promotions {
+                                                    var extraPromoCardTop: CGFloat = 10
+                                                    self.preference.set(promotionsRip, forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
+                                                    for obj in promotionsRip{
+                                                        if let dict = obj as? NSDictionary{
+                                                            let planExpireDuration = dict.value(forKey: "ExpirationDuration") as! String
+                                                            let plan = dict.value(forKey: "Promotion") as! String
+                                                            
+                                                            let rawExpireDuration = dict.value(forKey: "RawExpirationDuration") as! String?
+                                                            
+                                                            self.lblPlanExpiration.text = planExpireDuration
+                                                            
+                                                            if let rawExpiree = rawExpireDuration as String? {
+                                                                if Int(rawExpiree)! < 7 {
+                                                                    self.lblPlanMessage.textColor = UIColor.vodaRed
+                                                                }
+                                                                
                                                             }
                                                             
-                                                        }
-                                                        
-                                                        let bundleDict = dict.value(forKey: "BundleDetails") as? NSArray
-                                                        if let array = bundleDict {
-                                                            let totalBuckets = array.count
-                                                            print("Total bucket:: \(totalBuckets)")
-                                                            for arrayObject in array {
-                                                                
-                                                                print("bundle arrays \(arrayObject)")
-                                                                if let bundleDict = arrayObject as? NSDictionary{
-                                                                    let bucketType = bundleDict.value(forKey: "Type") as! String
-                                                                    let actualValue = bundleDict.value(forKey: "ActualValue") as! String
-                                                                    let bucketUnit = bundleDict.value(forKey: "BucketUnit") as! String
-                                                                    let percentageUsed = bundleDict.value(forKey: "PercentageUsed") as! String
-                                                                    let bucketValue = bundleDict.value(forKey: "BucketValue") as! String
-                                                                    let unit = bundleDict.value(forKey: "Unit") as! String
-                                                                    let actualUnit = bundleDict.value(forKey: "ActualUnit") as! String
-                                                                    let rolledOver = bundleDict.value(forKey: "RolledOver") as! Int?
-                                                                    print("Bucket Types: \(bucketType)")
+                                                            let bundleDict = dict.value(forKey: "BundleDetails") as? NSArray
+                                                            if let array = bundleDict {
+                                                                let totalBuckets = array.count
+                                                                print("Total bucket:: \(totalBuckets)")
+                                                                for arrayObject in array {
                                                                     
-                                                                    if totalBuckets >= 3 {
-                                                                        print("show gauge")
-                                                                        // set isGauge to true
-                                                                        // TODO set preference for gaugevisible
-                                                                        self.isGaugeVisible = true
-                                                                        self.gaugeViewExpirationDuration = dict.value(forKey: "ExpirationDuration") as! String
-                                                                        self.gaugeViewPromotion = dict.value(forKey: "Promotion") as! String
-                                                                        self.gaugeViewRawExpirationDuration = dict.value(forKey: "RawExpirationDuration") as! String
+                                                                    print("bundle arrays \(arrayObject)")
+                                                                    if let bundleDict = arrayObject as? NSDictionary{
+                                                                        let bucketType = bundleDict.value(forKey: "Type") as! String
+                                                                        let actualValue = bundleDict.value(forKey: "ActualValue") as! String
+                                                                        let bucketUnit = bundleDict.value(forKey: "BucketUnit") as! String
+                                                                        let percentageUsed = bundleDict.value(forKey: "PercentageUsed") as! String
+                                                                        let bucketValue = bundleDict.value(forKey: "BucketValue") as! String
+                                                                        let unit = bundleDict.value(forKey: "Unit") as! String
+                                                                        let actualUnit = bundleDict.value(forKey: "ActualUnit") as! String
+                                                                        let rolledOver = bundleDict.value(forKey: "RolledOver") as! Int?
+                                                                        print("Bucket Types: \(bucketType)")
                                                                         
-                                                                        if bucketType == "data"{
-                                                                            self.gloBucketType = bucketType
-                                                                            self.dataUnit = unit
-                                                                            self.dataActualUnit = actualUnit
-                                                                            self.dataBucketUnit = bucketUnit
-                                                                            self.dataActualValue = actualValue
-                                                                            self.dataPercentUsed = percentageUsed
-                                                                            self.dataBucketValue = bucketValue
-                                                                            let convertActualValue = Double(actualValue)
-                                                                            let convBucketValue = Double(bucketValue)
-                                                                            self.dataActualValueSum += convertActualValue!
-                                                                            self.dataBucketValueSum += convBucketValue!
-                                                                            if bucketValue.contains("."){
-                                                                                //                                                                let removeDeci = bucketValue.dropLast(3)
-                                                                                self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
-                                                                            }else{
-                                                                                self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
-                                                                            }
-                                                                            self.lblGaugeActualValue.text = "of \(self.dataActualValueSum)\(actualUnit)"
+                                                                        if totalBuckets >= 3 {
+                                                                            print("show gauge")
+                                                                            // set isGauge to true
+                                                                            // TODO set preference for gaugevisible
+                                                                            self.isGaugeVisible = true
+                                                                            self.gaugeViewExpirationDuration = dict.value(forKey: "ExpirationDuration") as! String
+                                                                            self.gaugeViewPromotion = dict.value(forKey: "Promotion") as! String
+                                                                            self.gaugeViewRawExpirationDuration = dict.value(forKey: "RawExpirationDuration") as! String
                                                                             
-                                                                            if bucketUnit != "KB"{
-                                                                                self.bucketValueToKB = self.convertGBTOKB(passed: Double(bucketValue)!)
-                                                                                self.dataBucketInKB += self.bucketValueToKB
+                                                                            if bucketType == "data"{
+                                                                                self.gloBucketType = bucketType
+                                                                                self.dataUnit = unit
+                                                                                self.dataActualUnit = actualUnit
+                                                                                self.dataBucketUnit = bucketUnit
+                                                                                self.dataActualValue = actualValue
+                                                                                self.dataPercentUsed = percentageUsed
+                                                                                self.dataBucketValue = bucketValue
+                                                                                let convertActualValue = Double(actualValue)
+                                                                                let convBucketValue = Double(bucketValue)
+                                                                                self.dataActualValueSum += convertActualValue!
+                                                                                self.dataBucketValueSum += convBucketValue!
+                                                                                if bucketValue.contains("."){
+                                                                                    //                                                                let removeDeci = bucketValue.dropLast(3)
+                                                                                    self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
+                                                                                }else{
+                                                                                    self.lblGaugeViewLeft.text = "\(self.dataBucketValueSum)\(bucketUnit)"
+                                                                                }
+                                                                                self.lblGaugeActualValue.text = "of \(self.dataActualValueSum)\(actualUnit)"
                                                                                 
-                                                                            }else{
-                                                                                self.dataBucketInKB += Double(bucketValue)!
-                                                                            }
-                                                                            
-                                                                            if actualUnit != "KB" {
-                                                                                self.actualValueToKB = self.convertGBTOKB(passed: Double(actualValue)!)
+                                                                                if bucketUnit != "KB"{
+                                                                                    self.bucketValueToKB = self.convertGBTOKB(passed: Double(bucketValue)!)
+                                                                                    self.dataBucketInKB += self.bucketValueToKB
+                                                                                    
+                                                                                }else{
+                                                                                    self.dataBucketInKB += Double(bucketValue)!
+                                                                                }
                                                                                 
-                                                                                self.dataActualInKB += self.actualValueToKB
+                                                                                if actualUnit != "KB" {
+                                                                                    self.actualValueToKB = self.convertGBTOKB(passed: Double(actualValue)!)
+                                                                                    
+                                                                                    self.dataActualInKB += self.actualValueToKB
+                                                                                }else{
+                                                                                    self.dataActualInKB += Double(actualValue)!
+                                                                                }
+                                                                            }else if bucketType == "sms" {
+                                                                                print("Seen sms")
+                                                                                self.gloBucketType = "Sms"
+                                                                                self.smsUnit = unit
+                                                                                self.smsActualUnit = actualUnit
+                                                                                self.smsBucketUnit = bucketUnit
+                                                                                self.smsActualValue = actualValue
+                                                                                self.smsPercentUsed = percentageUsed
+                                                                                self.smsBucketValue = bucketValue
+                                                                            }else if bucketType == "offnet"{
+                                                                                print("Seen offnet")
+                                                                                self.gloBucketType = "Total Mins"
+                                                                                self.callsUnit = unit
+                                                                                self.callsActualUnit = actualUnit
+                                                                                self.callsBucketUnit = bucketUnit
+                                                                                self.callsActualValue = actualValue
+                                                                                self.callsPercentUsed = percentageUsed
+                                                                                self.callsBucketValue = bucketValue
+                                                                                let convertActualValue = Int(actualValue)
+                                                                                print("Actual valu \(actualValue)")
+                                                                                let convBucketValue = Double(bucketValue)
+                                                                                let convPercentValue = Double(percentageUsed)
+                                                                                self.callsActualValueSum += convertActualValue!
+                                                                                self.callsBucketValueSum += convBucketValue!
+                                                                                self.percentageCallsSum += convPercentValue!
+                                                                            }else if bucketType == "onnet"{
+                                                                                print("Seen onnet")
+                                                                                self.gloBucketType = "Total Mins"
+                                                                                self.callsUnit = unit
+                                                                                self.callsActualUnit = actualUnit
+                                                                                self.callsBucketUnit = bucketUnit
+                                                                                self.callsActualValue = actualValue
+                                                                                self.callsPercentUsed = percentageUsed
+                                                                                self.callsBucketValue = bucketValue
+                                                                                let convertActualValue = Int(actualValue)
+                                                                                let convBucketValue = Double(bucketValue)
+                                                                                let convPercentValue = Double(percentageUsed)
+                                                                                self.callsActualValueSum += convertActualValue!
+                                                                                self.callsBucketValueSum += convBucketValue!
+                                                                                self.percentageCallsSum += convPercentValue!
+                                                                            }else if bucketType == "idd"{
+                                                                                self.gloBucketType = "Total Mins"
+                                                                                self.callsUnit = unit
+                                                                                self.callsActualUnit = actualUnit
+                                                                                self.callsBucketUnit = bucketUnit
+                                                                                self.callsActualValue = actualValue
+                                                                                self.callsPercentUsed = percentageUsed
+                                                                                self.callsBucketValue = bucketValue
+                                                                                let convertActualValue = Int(actualValue)
+                                                                                let convBucketValue = Double(bucketValue)
+                                                                                let convPercentValue = Double(percentageUsed)
+                                                                                self.callsActualValueSum += convertActualValue!
+                                                                                self.callsBucketValueSum += convBucketValue!
+                                                                                self.percentageCallsSum += convPercentValue!
                                                                             }else{
-                                                                                self.dataActualInKB += Double(actualValue)!
+                                                                                self.gloBucketType = "Total Mins"
+                                                                                self.callsUnit = unit
+                                                                                self.callsActualUnit = actualUnit
+                                                                                self.callsBucketUnit = bucketUnit
+                                                                                self.callsActualValue = actualValue
+                                                                                self.callsPercentUsed = percentageUsed
+                                                                                self.callsBucketValue = bucketValue
+                                                                                let convertActualValue = Int(actualValue)
+                                                                                let convBucketValue = Double(bucketValue)
+                                                                                let convPercentValue = Double(percentageUsed)
+                                                                                self.callsActualValueSum += convertActualValue!
+                                                                                self.callsBucketValueSum += convBucketValue!
+                                                                                self.percentageCallsSum += convPercentValue!
                                                                             }
-                                                                        }else if bucketType == "sms" {
-                                                                            print("Seen sms")
-                                                                            self.gloBucketType = "Sms"
-                                                                            self.smsUnit = unit
-                                                                            self.smsActualUnit = actualUnit
-                                                                            self.smsBucketUnit = bucketUnit
-                                                                            self.smsActualValue = actualValue
-                                                                            self.smsPercentUsed = percentageUsed
-                                                                            self.smsBucketValue = bucketValue
-                                                                        }else if bucketType == "offnet"{
-                                                                            print("Seen offnet")
-                                                                            self.gloBucketType = "Total Mins"
-                                                                            self.callsUnit = unit
-                                                                            self.callsActualUnit = actualUnit
-                                                                            self.callsBucketUnit = bucketUnit
-                                                                            self.callsActualValue = actualValue
-                                                                            self.callsPercentUsed = percentageUsed
-                                                                            self.callsBucketValue = bucketValue
-                                                                            let convertActualValue = Int(actualValue)
-                                                                            print("Actual valu \(actualValue)")
-                                                                            let convBucketValue = Double(bucketValue)
-                                                                            let convPercentValue = Double(percentageUsed)
-                                                                            self.callsActualValueSum += convertActualValue!
-                                                                            self.callsBucketValueSum += convBucketValue!
-                                                                            self.percentageCallsSum += convPercentValue!
-                                                                        }else if bucketType == "onnet"{
-                                                                            print("Seen onnet")
-                                                                            self.gloBucketType = "Total Mins"
-                                                                            self.callsUnit = unit
-                                                                            self.callsActualUnit = actualUnit
-                                                                            self.callsBucketUnit = bucketUnit
-                                                                            self.callsActualValue = actualValue
-                                                                            self.callsPercentUsed = percentageUsed
-                                                                            self.callsBucketValue = bucketValue
-                                                                            let convertActualValue = Int(actualValue)
-                                                                            let convBucketValue = Double(bucketValue)
-                                                                            let convPercentValue = Double(percentageUsed)
-                                                                            self.callsActualValueSum += convertActualValue!
-                                                                            self.callsBucketValueSum += convBucketValue!
-                                                                            self.percentageCallsSum += convPercentValue!
-                                                                        }else if bucketType == "idd"{
-                                                                            self.gloBucketType = "Total Mins"
-                                                                            self.callsUnit = unit
-                                                                            self.callsActualUnit = actualUnit
-                                                                            self.callsBucketUnit = bucketUnit
-                                                                            self.callsActualValue = actualValue
-                                                                            self.callsPercentUsed = percentageUsed
-                                                                            self.callsBucketValue = bucketValue
-                                                                            let convertActualValue = Int(actualValue)
-                                                                            let convBucketValue = Double(bucketValue)
-                                                                            let convPercentValue = Double(percentageUsed)
-                                                                            self.callsActualValueSum += convertActualValue!
-                                                                            self.callsBucketValueSum += convBucketValue!
-                                                                            self.percentageCallsSum += convPercentValue!
                                                                         }else{
-                                                                            self.gloBucketType = "Total Mins"
-                                                                            self.callsUnit = unit
-                                                                            self.callsActualUnit = actualUnit
-                                                                            self.callsBucketUnit = bucketUnit
-                                                                            self.callsActualValue = actualValue
-                                                                            self.callsPercentUsed = percentageUsed
-                                                                            self.callsBucketValue = bucketValue
-                                                                            let convertActualValue = Int(actualValue)
-                                                                            let convBucketValue = Double(bucketValue)
-                                                                            let convPercentValue = Double(percentageUsed)
-                                                                            self.callsActualValueSum += convertActualValue!
-                                                                            self.callsBucketValueSum += convBucketValue!
-                                                                            self.percentageCallsSum += convPercentValue!
-                                                                        }
-                                                                    }else{
-                                                                        print("Didn't count")
-                                                                        
-                                                                        let extraPromoCard = UIView()
-                                                                        self.scrollView.addSubview(extraPromoCard)
-                                                                        extraPromoCard.translatesAutoresizingMaskIntoConstraints = false
-                                                                        extraPromoCard.backgroundColor = UIColor.black.withAlphaComponent(0.60)
-                                                                        extraPromoCard.heightAnchor.constraint(equalToConstant: 150).isActive = true
-                                                                        extraPromoCard.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-                                                                        extraPromoCard.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive  = true
-                                                                        extraPromoCard.topAnchor.constraint(equalTo: self.updateIcon.bottomAnchor, constant: extraPromoCardTop).isActive = true
-                                                                        
-                                                                        //Red image on offer view
-                                                                        let redImageView = UIImageView()
-                                                                        extraPromoCard.addSubview(redImageView)
-                                                                        redImageView.translatesAutoresizingMaskIntoConstraints = false
-                                                                        redImageView.backgroundColor = UIColor.vodaRed
-                                                                        redImageView.widthAnchor.constraint(equalToConstant: 5).isActive = true
-                                                                        redImageView.topAnchor.constraint(equalTo: extraPromoCard.topAnchor, constant: 8).isActive = true
-                                                                        redImageView.bottomAnchor.constraint(equalTo: extraPromoCard.bottomAnchor, constant: -8).isActive = true
-                                                                        redImageView.leadingAnchor.constraint(equalTo: extraPromoCard.leadingAnchor, constant: 10).isActive = true
-                                                                        
-                                                                        // Promotion label
-                                                                        let lblPromotion = UILabel()
-                                                                        
-                                                                        extraPromoCard.addSubview(lblPromotion)
-                                                                        lblPromotion.translatesAutoresizingMaskIntoConstraints = false
-                                                                        lblPromotion.text = plan
-                                                                        lblPromotion.textColor = UIColor.white
-                                                                        lblPromotion.font = UIFont(name: String.defaultFontR, size: 20)
-                                                                        lblPromotion.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
-                                                                        lblPromotion.topAnchor.constraint(equalTo: extraPromoCard.topAnchor, constant: 20).isActive = true
-                                                                        lblPromotion.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -10).isActive = true
-                                                                        lblPromotion.numberOfLines = 0
-                                                                        lblPromotion.lineBreakMode = .byWordWrapping
-                                                                        
-                                                                        let promoBucketDetails = UILabel()
-                                                                        extraPromoCard.addSubview(promoBucketDetails)
-                                                                        promoBucketDetails.translatesAutoresizingMaskIntoConstraints = false
-                                                                        promoBucketDetails.font = UIFont(name: String.defaultFontB, size: 22)
-                                                                        promoBucketDetails.textColor = UIColor.white
-                                                                        if let rollOver = rolledOver {
-                                                                            if rollOver == 1 {
-                                                                                promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left"
-                                                                            }else{
-                                                                                promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left of \(actualValue)\(actualUnit)"
+                                                                            print("Didn't count")
+                                                                            
+                                                                            let extraPromoCard = UIView()
+                                                                            self.scrollView.addSubview(extraPromoCard)
+                                                                            extraPromoCard.translatesAutoresizingMaskIntoConstraints = false
+                                                                            extraPromoCard.backgroundColor = UIColor.black.withAlphaComponent(0.60)
+                                                                            extraPromoCard.heightAnchor.constraint(equalToConstant: 150).isActive = true
+                                                                            extraPromoCard.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+                                                                            extraPromoCard.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive  = true
+                                                                            extraPromoCard.topAnchor.constraint(equalTo: self.updateIcon.bottomAnchor, constant: extraPromoCardTop).isActive = true
+                                                                            
+                                                                            //Red image on offer view
+                                                                            let redImageView = UIImageView()
+                                                                            extraPromoCard.addSubview(redImageView)
+                                                                            redImageView.translatesAutoresizingMaskIntoConstraints = false
+                                                                            redImageView.backgroundColor = UIColor.vodaRed
+                                                                            redImageView.widthAnchor.constraint(equalToConstant: 5).isActive = true
+                                                                            redImageView.topAnchor.constraint(equalTo: extraPromoCard.topAnchor, constant: 8).isActive = true
+                                                                            redImageView.bottomAnchor.constraint(equalTo: extraPromoCard.bottomAnchor, constant: -8).isActive = true
+                                                                            redImageView.leadingAnchor.constraint(equalTo: extraPromoCard.leadingAnchor, constant: 10).isActive = true
+                                                                            
+                                                                            // Promotion label
+                                                                            let lblPromotion = UILabel()
+                                                                            
+                                                                            extraPromoCard.addSubview(lblPromotion)
+                                                                            lblPromotion.translatesAutoresizingMaskIntoConstraints = false
+                                                                            lblPromotion.text = plan
+                                                                            lblPromotion.textColor = UIColor.white
+                                                                            lblPromotion.font = UIFont(name: String.defaultFontR, size: 20)
+                                                                            lblPromotion.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
+                                                                            lblPromotion.topAnchor.constraint(equalTo: extraPromoCard.topAnchor, constant: 20).isActive = true
+                                                                            lblPromotion.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -10).isActive = true
+                                                                            lblPromotion.numberOfLines = 0
+                                                                            lblPromotion.lineBreakMode = .byWordWrapping
+                                                                            
+                                                                            let promoBucketDetails = UILabel()
+                                                                            extraPromoCard.addSubview(promoBucketDetails)
+                                                                            promoBucketDetails.translatesAutoresizingMaskIntoConstraints = false
+                                                                            promoBucketDetails.font = UIFont(name: String.defaultFontB, size: 22)
+                                                                            promoBucketDetails.textColor = UIColor.white
+                                                                            if let rollOver = rolledOver {
+                                                                                if rollOver == 1 {
+                                                                                    promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left"
+                                                                                }else{
+                                                                                    promoBucketDetails.text = "\(bucketValue)\(bucketUnit) left of \(actualValue)\(actualUnit)"
+                                                                                }
                                                                             }
-                                                                        }
-                                                                        
-                                                                        promoBucketDetails.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
-                                                                        promoBucketDetails.topAnchor.constraint(equalTo: lblPromotion.bottomAnchor, constant: 30).isActive = true
-                                                                        promoBucketDetails.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -20).isActive = true
-                                                                        promoBucketDetails.numberOfLines = 0
-                                                                        promoBucketDetails.lineBreakMode = .byWordWrapping
-                                                                        
-                                                                        //Promotion expiration date
-                                                                        let lblPromotionExpire = UILabel()
-                                                                        extraPromoCard.addSubview(lblPromotionExpire)
-                                                                        lblPromotionExpire.translatesAutoresizingMaskIntoConstraints = false
-                                                                        if let rawExpireWrap = rawExpireDuration {
-                                                                            if Int(rawExpireWrap)! < 7 {
-                                                                                lblPromotionExpire.textColor = UIColor.vodaRed
-                                                                            }else{
-                                                                                lblPromotionExpire.textColor = UIColor.white
+                                                                            
+                                                                            promoBucketDetails.leadingAnchor.constraint(equalTo: redImageView.trailingAnchor, constant: 20).isActive = true
+                                                                            promoBucketDetails.topAnchor.constraint(equalTo: lblPromotion.bottomAnchor, constant: 30).isActive = true
+                                                                            promoBucketDetails.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -20).isActive = true
+                                                                            promoBucketDetails.numberOfLines = 0
+                                                                            promoBucketDetails.lineBreakMode = .byWordWrapping
+                                                                            
+                                                                            //Promotion expiration date
+                                                                            let lblPromotionExpire = UILabel()
+                                                                            extraPromoCard.addSubview(lblPromotionExpire)
+                                                                            lblPromotionExpire.translatesAutoresizingMaskIntoConstraints = false
+                                                                            if let rawExpireWrap = rawExpireDuration {
+                                                                                if Int(rawExpireWrap)! < 7 {
+                                                                                    lblPromotionExpire.textColor = UIColor.vodaRed
+                                                                                }else{
+                                                                                    lblPromotionExpire.textColor = UIColor.white
+                                                                                }
                                                                             }
+                                                                            
+                                                                            lblPromotionExpire.text = planExpireDuration
+                                                                            lblPromotionExpire.font = UIFont(name: String.defaultFontR, size: 17)
+                                                                            lblPromotionExpire.leadingAnchor.constraint(equalTo: redImageView.leadingAnchor, constant: 20).isActive = true
+                                                                            lblPromotionExpire.bottomAnchor.constraint(equalTo: extraPromoCard.bottomAnchor, constant: -20).isActive = true
+                                                                            lblPromotionExpire.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -10).isActive = true
+                                                                            lblPromotionExpire.numberOfLines = 0
+                                                                            lblPromotionExpire.lineBreakMode = .byWordWrapping
+                                                                            
+                                                                            extraPromoCardTop = extraPromoCardTop + 160
                                                                         }
-                                                                        
-                                                                        lblPromotionExpire.text = planExpireDuration
-                                                                        lblPromotionExpire.font = UIFont(name: String.defaultFontR, size: 17)
-                                                                        lblPromotionExpire.leadingAnchor.constraint(equalTo: redImageView.leadingAnchor, constant: 20).isActive = true
-                                                                        lblPromotionExpire.bottomAnchor.constraint(equalTo: extraPromoCard.bottomAnchor, constant: -20).isActive = true
-                                                                        lblPromotionExpire.trailingAnchor.constraint(equalTo: extraPromoCard.trailingAnchor, constant: -10).isActive = true
-                                                                        lblPromotionExpire.numberOfLines = 0
-                                                                        lblPromotionExpire.lineBreakMode = .byWordWrapping
-                                                                        
-                                                                        extraPromoCardTop = extraPromoCardTop + 160
                                                                     }
                                                                 }
-                                                            }
-                                                        } //The lasst
+                                                            } //The lasst
+                                                        }
+                                                    }
+                                                    print("total calls given \(self.callsActualValueSum)")
+                                                    print("total calls left \(self.callsBucketValueSum)")
+                                                    print("total calls percentage \(self.percentageCallsSum)")
+                                                    print("GaugeView Promo \(self.gaugeViewPromotion)")
+                                                    print("Sum actual in KB \(self.dataActualInKB)")
+                                                    print("Sum bucket in KB \(self.dataBucketInKB)")
+                                                    var dataUsed = (self.dataActualInKB - self.dataBucketInKB)
+                                                    dataUsed = (self.dataBucketInKB / self.dataActualInKB) * 100
+                                                    dataUsed = dataUsed / 100
+                                                    //Calls
+                                                    let intCallsActual = Double(self.callsActualValueSum)
+                                                    let intsCallsBucket = Double(self.callsBucketValueSum)
+                                                    var callsUsed = (intCallsActual - intsCallsBucket)
+                                                    callsUsed = (intsCallsBucket / intCallsActual) * 100
+                                                    callsUsed = callsUsed / 100
+                                                    //SMS
+                                                    if let intsmsActualOptional = self.smsActualValue{
+                                                        let intsmsActual = Double(intsmsActualOptional)!
+                                                        let intsmsBucket = Double(self.smsBucketValue!)!
+                                                        var SMSUsed = (intsmsActual - intsmsBucket)
+                                                        
+                                                        SMSUsed = (intsmsBucket / intsmsActual) * 100
+                                                        SMSUsed = SMSUsed / 100
+                                                        
+                                                        if dataUsed < 0.25 && callsUsed < 0.25 && SMSUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of DATA, VOICE, SMS"
+                                                        }else if dataUsed < 0.25 && callsUsed < 0.25{
+                                                            self.lblPlanMessage.text = "You are running out of DATA, VOICE"
+                                                        }else if dataUsed < 0.25 && SMSUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of DATA, SMS"
+                                                        }else if callsUsed < 0.25 && SMSUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of VOICE, SMS"
+                                                        }else if dataUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of DATA"
+                                                        }else if callsUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of VOICE"
+                                                        }else if SMSUsed < 0.25 {
+                                                            self.lblPlanMessage.text = "You are running out of SMS"
+                                                        }
+                                                    }
+                                                    if self.gaugeViewPromotion == nil {
+                                                        print("Dont show gauge again")
+                                                        self.isGaugeVisible = false
+                                                        
+                                                    }
+                                                    if !self.isGaugeVisible {
+                                                        self.gaugeViewHolder.isHidden = true
+                                                        self.btnGoFBB.isHidden = true
+                                                        self.btnCallDataIcon.isHidden = true
+                                                        self.btnOffers.isHidden = true
+                                                        
+                                                    }else{
+                                                        self.defaultCallCreditViewTop1?.isActive = false
+                                                        self.defaultCallCreditViewTop2?.isActive = true
+                                                        self.defaultCallCreditViewLeading1?.isActive = false
+                                                        self.defaultCallCreditViewLeading2?.isActive = true
+                                                        self.defaultCallCreditViewTrailing1?.isActive = false
+                                                        self.defaultCallCreditViewTrailing2?.isActive = true
+                                                        self.yendiAgoroTop1?.isActive = false
+                                                        self.yendiAgoroTop2?.isActive = true
+                                                        self.supportTop1?.isActive = false
+                                                        self.supportTop2?.isActive = true
+                                                        self.gaugeViewHolder.isHidden = false
+                                                        self.lblPlan.text = self.gaugeViewPromotion
+                                                        self.lblPlanExpiration.text = self.gaugeViewExpirationDuration
+                                                        if Int(self.gaugeViewRawExpirationDuration!)! < 7 {
+                                                            self.lblPlanExpiration.textColor = UIColor.vodaRed
+                                                        }
+                                                        
+                                                        self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 17)
+                                                        self.lblCreditRem.font = UIFont(name: String.defaultFontB, size: 17)
+                                                        self.btnCallDataIcon.isHidden = false
+                                                        self.btnGoFBB.isHidden = false
+                                                        self.btnOffers.isHidden = false
+                                                        self.activateDataGauge()
+                                                        self.shapeLayer.strokeEnd = CGFloat(dataUsed)
                                                     }
                                                 }
-                                                print("total calls given \(self.callsActualValueSum)")
-                                                print("total calls left \(self.callsBucketValueSum)")
-                                                print("total calls percentage \(self.percentageCallsSum)")
-                                                print("GaugeView Promo \(self.gaugeViewPromotion)")
-                                                print("Sum actual in KB \(self.dataActualInKB)")
-                                                print("Sum bucket in KB \(self.dataBucketInKB)")
-                                                var dataUsed = (self.dataActualInKB - self.dataBucketInKB)
-                                                dataUsed = (self.dataBucketInKB / self.dataActualInKB) * 100
-                                                dataUsed = dataUsed / 100
-                                                //Calls
-                                                let intCallsActual = Double(self.callsActualValueSum)
-                                                let intsCallsBucket = Double(self.callsBucketValueSum)
-                                                var callsUsed = (intCallsActual - intsCallsBucket)
-                                                callsUsed = (intsCallsBucket / intCallsActual) * 100
-                                                callsUsed = callsUsed / 100
-                                                //SMS
-                                                if let intsmsActualOptional = self.smsActualValue{
-                                                    let intsmsActual = Double(intsmsActualOptional)!
-                                                    let intsmsBucket = Double(self.smsBucketValue!)!
-                                                    var SMSUsed = (intsmsActual - intsmsBucket)
-                                                    
-                                                    SMSUsed = (intsmsBucket / intsmsActual) * 100
-                                                    SMSUsed = SMSUsed / 100
-                                                    
-                                                    if dataUsed < 0.25 && callsUsed < 0.25 && SMSUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE, SMS"
-                                                    }else if dataUsed < 0.25 && callsUsed < 0.25{
-                                                        self.lblPlanMessage.text = "You are running out of DATA, VOICE"
-                                                    }else if dataUsed < 0.25 && SMSUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of DATA, SMS"
-                                                    }else if callsUsed < 0.25 && SMSUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of VOICE, SMS"
-                                                    }else if dataUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of DATA"
-                                                    }else if callsUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of VOICE"
-                                                    }else if SMSUsed < 0.25 {
-                                                        self.lblPlanMessage.text = "You are running out of SMS"
+                                                let balance = decryptedResponseBody["BALANCE"] as! NSDictionary?
+                                                
+                                                if let accBalance = balance!["AccountBalance"] as! String? {
+                                                    self.accountBalance = accBalance
+                                                    self.preference.set(self.accountBalance!, forKey: "accountBalance")
+                                                }
+                                                if let accBalanceLabel = balance!["AccountBalanceLabel"] as! String? {
+                                                    self.accountBalanceLabel = accBalanceLabel
+                                                    self.preference.set(self.accountBalanceLabel!, forKey: "accBalanceLabel")
+                                                    self.lblCreditRem.text = self.accountBalanceLabel!
+                                                }
+                                                if let balLabel = balance!["BalanceLabel"] as! String? {
+                                                    self.balanceLabel = balLabel
+                                                    self.preference.set(self.balanceLabel!, forKey: "balanceLabel")
+                                                    if Int(self.deviceWidth!) <= 320 {
+                                                        self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 15)
                                                     }
+                                                    self.lblCreditTitle.text = self.balanceLabel!
                                                 }
-                                                if self.gaugeViewPromotion == nil {
-                                                    print("Dont show gauge again")
-                                                    self.isGaugeVisible = false
-                                                    
-                                                }
-                                                if !self.isGaugeVisible {
-                                                    self.gaugeViewHolder.isHidden = true
-                                                    self.btnGoFBB.isHidden = true
-                                                    self.btnCallDataIcon.isHidden = true
-                                                    self.btnOffers.isHidden = true
-                                                    
-                                                }else{
-                                                    self.defaultCallCreditViewTop1?.isActive = false
-                                                    self.defaultCallCreditViewTop2?.isActive = true
-                                                    self.defaultCallCreditViewLeading1?.isActive = false
-                                                    self.defaultCallCreditViewLeading2?.isActive = true
-                                                    self.defaultCallCreditViewTrailing1?.isActive = false
-                                                    self.defaultCallCreditViewTrailing2?.isActive = true
-                                                    self.yendiAgoroTop1?.isActive = false
-                                                    self.yendiAgoroTop2?.isActive = true
-                                                    self.supportTop1?.isActive = false
-                                                    self.supportTop2?.isActive = true
-                                                    self.gaugeViewHolder.isHidden = false
-                                                    self.lblPlan.text = self.gaugeViewPromotion
-                                                    self.lblPlanExpiration.text = self.gaugeViewExpirationDuration
-                                                    if Int(self.gaugeViewRawExpirationDuration!)! < 7 {
-                                                        self.lblPlanExpiration.textColor = UIColor.vodaRed
-                                                    }
-                                                    
-                                                    self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 17)
-                                                    self.lblCreditRem.font = UIFont(name: String.defaultFontB, size: 17)
-                                                    self.btnCallDataIcon.isHidden = false
-                                                    self.btnGoFBB.isHidden = false
-                                                    self.btnOffers.isHidden = false
-                                                    self.activateDataGauge()
-                                                    self.shapeLayer.strokeEnd = CGFloat(dataUsed)
-                                                }
-                                            }
-                                            let balance = decryptedResponseBody["BALANCE"] as! NSDictionary?
-                                            
-                                            if let accBalance = balance!["AccountBalance"] as! String? {
-                                                self.accountBalance = accBalance
-                                                self.preference.set(self.accountBalance!, forKey: "accountBalance")
-                                            }
-                                            if let accBalanceLabel = balance!["AccountBalanceLabel"] as! String? {
-                                                self.accountBalanceLabel = accBalanceLabel
-                                                self.preference.set(self.accountBalanceLabel!, forKey: "accBalanceLabel")
-                                                self.lblCreditRem.text = self.accountBalanceLabel!
-                                            }
-                                            if let balLabel = balance!["BalanceLabel"] as! String? {
-                                                self.balanceLabel = balLabel
-                                                self.preference.set(self.balanceLabel!, forKey: "balanceLabel")
-                                                if Int(self.deviceWidth!) <= 320 {
-                                                    self.lblCreditTitle.font = UIFont(name: String.defaultFontR, size: 15)
-                                                }
-                                                self.lblCreditTitle.text = self.balanceLabel!
+                                                
                                             }
                                             
                                         }
-                                        
                                     }
                                 }
+                            }catch{
+                                print("Balance retriving error:: \(error.localizedDescription)")
                             }
-                        }catch{
-                            print("Balance retriving error:: \(error.localizedDescription)")
                         }
+                        task.resume()
+                    }else{
+                        logout()
                     }
-                    task.resume()
-                }else{
-                    logout()
+                    
                 }
                 
             }
-            
         }
-        
     }
     
     @objc func updateHome(){

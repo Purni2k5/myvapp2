@@ -130,6 +130,8 @@
 		01F7388521369BBE00A30C1C /* baseViewControllerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7388421369BBE00A30C1C /* baseViewControllerM.swift */; };
 		01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F738862137360600A30C1C /* displayChosenOfferVc.swift */; };
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
+		28180955218B3EB50001AA70 /* PostPaid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28180954218B3EB50001AA70 /* PostPaid.storyboard */; };
+		28180958218B3F010001AA70 /* postPaidHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28180957218B3F010001AA70 /* postPaidHome.swift */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
 		281F8FC32146CC91000B39A3 /* creditTransferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F8FC22146CC91000B39A3 /* creditTransferVc.swift */; };
 		28472E47216E16F70001BBB0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28472E45216E16F70001BBB0 /* Contacts.framework */; };
@@ -272,6 +274,8 @@
 		01F738862137360600A30C1C /* displayChosenOfferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayChosenOfferVc.swift; sourceTree = "<group>"; };
 		01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkFBBBalance.swift; sourceTree = "<group>"; };
 		04E81B81CBD9B8057781B417 /* Pods-My Vodafone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.debug.xcconfig"; sourceTree = "<group>"; };
+		28180954218B3EB50001AA70 /* PostPaid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostPaid.storyboard; sourceTree = "<group>"; };
+		28180957218B3F010001AA70 /* postPaidHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postPaidHome.swift; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
 		281F8FC22146CC91000B39A3 /* creditTransferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = creditTransferVc.swift; sourceTree = "<group>"; };
 		28472E45216E16F70001BBB0 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
@@ -505,6 +509,7 @@
 				015A53462163C80D0040807E /* NetPerform.storyboard */,
 				01731972217586BA00989F8A /* Shake.storyboard */,
 				019F1361217A1B1F00E0B02C /* Broadband.storyboard */,
+				28180954218B3EB50001AA70 /* PostPaid.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -568,6 +573,7 @@
 		01F57B5721510CCE005F5F0C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				28180956218B3ED60001AA70 /* PostPaid */,
 				019F1363217A1BC700E0B02C /* Broadband */,
 				01731974217586D700989F8A /* Shake */,
 				015A53482163C82F0040807E /* NetPerform */,
@@ -633,6 +639,14 @@
 				B8A29F7972C8550F82E74458 /* Pods-My Vodafone.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		28180956218B3ED60001AA70 /* PostPaid */ = {
+			isa = PBXGroup;
+			children = (
+				28180957218B3F010001AA70 /* postPaidHome.swift */,
+			);
+			path = PostPaid;
 			sourceTree = "<group>";
 		};
 		281F8FC12146CC1A000B39A3 /* Services */ = {
@@ -764,6 +778,7 @@
 				0173197821759EB000989F8A /* shake.wav in Resources */,
 				01C0234F20C9C957003E48CC /* simswap.html in Resources */,
 				01C0233B20C9C940003E48CC /* VodafoneLt.ttf in Resources */,
+				28180955218B3EB50001AA70 /* PostPaid.storyboard in Resources */,
 				01C0233F20C9C940003E48CC /* VodafoneRg.ttf in Resources */,
 				01F57B4B2151029F005F5F0C /* OffersExtras.storyboard in Resources */,
 				01C0235320C9C957003E48CC /* data_permissions.html in Resources */,
@@ -865,6 +880,7 @@
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,
 				01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */,
+				28180958218B3F010001AA70 /* postPaidHome.swift in Sources */,
 				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
 				017319842177965D00989F8A /* CryptoHelper.swift in Sources */,
 				0186E64B216B9736008B6601 /* unsubscribeVc.swift in Sources */,

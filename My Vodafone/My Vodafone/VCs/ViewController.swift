@@ -101,7 +101,12 @@ class ViewController: UIViewController {
                             let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
                             let moveTo = storyboard.instantiateViewController(withIdentifier: "broadbandHome")
                             present(moveTo, animated: true, completion: nil)
-                        }else{
+                        }else if AcctType == "PHONE_MOBILE_POST_P"{
+                            let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                            let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidHome")
+                            present(moveTo, animated: true, completion: nil)
+                        }
+                        else{
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
                             present(moveTo, animated: true, completion: nil)

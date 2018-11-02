@@ -558,7 +558,12 @@ class LoginViewController: baseViewControllerM {
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
                                     self.present(moveTo, animated: true, completion: nil)
-                                }else{
+                                }else if self.AcctType == "PHONE_MOBILE_POST_P"{
+                                    let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidHome")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
+                                else{
                                     print("fbb here")
                                     //go to home screen
                                     let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
@@ -820,7 +825,12 @@ class LoginViewController: baseViewControllerM {
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
                                     self.present(moveTo, animated: true, completion: nil)
-                                }else{
+                                }else if self.AcctType == "PHONE_MOBILE_POST_P"{
+                                    let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidHome")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
+                                else{
                                     print("fbb here")
                                     //go to home screen
                                     let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
