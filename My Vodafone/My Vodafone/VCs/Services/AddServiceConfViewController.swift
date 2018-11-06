@@ -260,7 +260,7 @@ class AddServiceConfViewController: baseViewControllerM {
                                 }
                             }
                         }catch{
-                            print(error.localizedDescription)
+                            print("printing error \(error.localizedDescription)")
                             DispatchQueue.main.async {
                                 self.stop_activity_loader()
                                 self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: error.localizedDescription)

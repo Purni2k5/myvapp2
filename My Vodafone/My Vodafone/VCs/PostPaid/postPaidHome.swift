@@ -50,6 +50,9 @@ class postPaidHome: baseViewControllerM {
         return view
     }()
     
+    let updateIcon = UIButton()
+    let lblLastUpdatedStatus = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,6 +62,7 @@ class postPaidHome: baseViewControllerM {
         //        print(dService)
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
+        lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
         
         lastUpdate = preference.object(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue) as? String
         if let serviceArray = services as? NSArray{
@@ -253,6 +257,10 @@ class postPaidHome: baseViewControllerM {
         btnTopUp.trailingAnchor.constraint(equalTo: creditView.trailingAnchor).isActive = true
         btnTopUp.bottomAnchor.constraint(equalTo: creditView.bottomAnchor).isActive = true
         btnTopUp.layer.cornerRadius = 50
+        let btnTopUpImage = UIImage(named: "top_up")
+        btnTopUp.setImage(btnTopUpImage, for: .normal)
+        btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(25, 25, 25, 25)
+        btnTopUp.addTarget(self, action: #selector(goToTopUp), for: .touchUpInside)
         
         let lblOutBill = UILabel()
         creditView.addSubview(lblOutBill)
@@ -265,22 +273,59 @@ class postPaidHome: baseViewControllerM {
         lblOutBill.numberOfLines = 0
         lblOutBill.lineBreakMode = .byWordWrapping
         
+        //24/7
+        let twoFourSeven = UIImageView()
+        scrollView.addSubview(twoFourSeven)
+        twoFourSeven.translatesAutoresizingMaskIntoConstraints = false
+        twoFourSeven.image = UIImage(named: "support")
+        twoFourSeven.topAnchor.constraint(equalTo: creditView.bottomAnchor, constant: 40).isActive = true
+        twoFourSeven.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -3).isActive = true
+        twoFourSeven.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        twoFourSeven.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        twoFourSeven.isUserInteractionEnabled = true
+        let twoFourSevenRec = UITapGestureRecognizer(target: self, action: #selector(goToSupport))
+        twoFourSeven.addGestureRecognizer(twoFourSevenRec)
+        
+        scrollView.addSubview(updateIcon)
+        updateIcon.translatesAutoresizingMaskIntoConstraints = false
+        let update_image = UIImage(named: "progressarrow")
+        updateIcon.setImage(update_image, for: .normal)
+        updateIcon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
+        updateIcon.topAnchor.constraint(equalTo: twoFourSeven.bottomAnchor, constant: 20).isActive = true
+        updateIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        updateIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        //Last updated label
+        scrollView.addSubview(lblLastUpdatedStatus)
+        lblLastUpdatedStatus.translatesAutoresizingMaskIntoConstraints = false
+        if let lastUpdate = lastUpdate {
+            lblLastUpdatedStatus.text = "Last updated on \(lastUpdate)"
+        }else{
+            lblLastUpdatedStatus.text = "Last updated on ........."
+        }
+        
+        lblLastUpdatedStatus.font = UIFont(name: String.defaultFontR, size: 14)
+        lblLastUpdatedStatus.textColor = UIColor.white
+        lblLastUpdatedStatus.leadingAnchor.constraint(equalTo: updateIcon.trailingAnchor, constant: 10).isActive = true
+        lblLastUpdatedStatus.topAnchor.constraint(equalTo: twoFourSeven.bottomAnchor, constant: 25).isActive = true
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.contentSize.height = 1000
+    }
+    @objc func goToTopUp(){
+        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "toppingUpViewController")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    @objc func goToSupport(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Support", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
+        present(moveTo, animated: true, completion: nil)
     }
 }
