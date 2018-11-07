@@ -22,6 +22,7 @@ class postPaidHome: baseViewControllerM {
     var callsAmt: String?
     var internetAmt: String?
     var smsAmt: String?
+    var msisdn: String?
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -105,6 +106,7 @@ class postPaidHome: baseViewControllerM {
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
         lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
+        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         
         lastUpdate = preference.object(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue) as? String
         if let serviceArray = services as? NSArray{
@@ -141,6 +143,11 @@ class postPaidHome: baseViewControllerM {
             prePaidMenu()
         }
         checkConnection()
+        if CheckInternet.Connection(){
+            loadPostPaidDetails()
+            
+        }
+        
     }
 
     func setUpViewsPostPaid(){
@@ -490,23 +497,11 @@ class postPaidHome: baseViewControllerM {
         lblRoaming.textColor = UIColor.black
         lblRoaming.text = "GHS 0"
         lblRoaming.leadingAnchor.constraint(equalTo: roamingView.trailingAnchor, constant: 20).isActive = true
-        lblRoaming.topAnchor.constraint(equalTo: roamingLinker.bottomAnchor, constant: 8).isActive = true
+        lblRoaming.topAnchor.constraint(equalTo: roamingLinker.bottomAnchor, constant: 25).isActive = true
         lblRoaming.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
         lblRoaming.numberOfLines = 0
         lblRoaming.lineBreakMode = .byWordWrapping
         lblRoaming.font = UIFont(name: String.defaultFontB, size: 20)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         let roamingImage = UIImageView()
         roamingView.addSubview(roamingImage)
@@ -551,6 +546,17 @@ class postPaidHome: baseViewControllerM {
         lblCallsDesc.topAnchor.constraint(equalTo: callsLinker.bottomAnchor, constant: 5).isActive = true
         lblCallsDesc.trailingAnchor.constraint(equalTo: callsView.leadingAnchor, constant: -30).isActive = true
         
+        postPaidDetailsCard.addSubview(lblCalls)
+        lblCalls.translatesAutoresizingMaskIntoConstraints = false
+        lblCalls.textColor = UIColor.black
+        lblCalls.text = "GHS 0"
+        lblCalls.leadingAnchor.constraint(equalTo: callsView.trailingAnchor, constant: 20).isActive = true
+        lblCalls.topAnchor.constraint(equalTo: callsLinker.bottomAnchor, constant: 25).isActive = true
+        lblCalls.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
+        lblCalls.numberOfLines = 0
+        lblCalls.lineBreakMode = .byWordWrapping
+        lblCalls.font = UIFont(name: String.defaultFontB, size: 20)
+        
         let callsImage = UIImageView(image: #imageLiteral(resourceName: "call_icon"))
         callsView.addSubview(callsImage)
         callsImage.translatesAutoresizingMaskIntoConstraints = false
@@ -589,6 +595,17 @@ class postPaidHome: baseViewControllerM {
         lblInternetDesc.leadingAnchor.constraint(equalTo: postPaidDetailsCard.leadingAnchor, constant: 30).isActive = true
         lblInternetDesc.topAnchor.constraint(equalTo: internetLinker.bottomAnchor, constant: 25).isActive = true
         lblInternetDesc.trailingAnchor.constraint(equalTo: internetView.leadingAnchor, constant: -30).isActive = true
+        
+        postPaidDetailsCard.addSubview(lblInternet)
+        lblInternet.translatesAutoresizingMaskIntoConstraints = false
+        lblInternet.textColor = UIColor.black
+        lblInternet.text = "GHS 0"
+        lblInternet.leadingAnchor.constraint(equalTo: internetView.trailingAnchor, constant: 20).isActive = true
+        lblInternet.topAnchor.constraint(equalTo: internetLinker.bottomAnchor, constant: 25).isActive = true
+        lblInternet.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
+        lblInternet.numberOfLines = 0
+        lblInternet.lineBreakMode = .byWordWrapping
+        lblInternet.font = UIFont(name: String.defaultFontB, size: 20)
         
         let dataImage = UIImageView(image: #imageLiteral(resourceName: "data_icon"))
         internetView.addSubview(dataImage)
@@ -629,6 +646,17 @@ class postPaidHome: baseViewControllerM {
         lblSMSDesc.topAnchor.constraint(equalTo: smsLinker.bottomAnchor, constant: 25).isActive = true
         lblSMSDesc.trailingAnchor.constraint(equalTo: smsView.leadingAnchor, constant: -30).isActive = true
         
+        postPaidDetailsCard.addSubview(lblSMS)
+        lblSMS.translatesAutoresizingMaskIntoConstraints = false
+        lblSMS.textColor = UIColor.black
+        lblSMS.text = "GHS 0"
+        lblSMS.leadingAnchor.constraint(equalTo: smsView.trailingAnchor, constant: 20).isActive = true
+        lblSMS.topAnchor.constraint(equalTo: smsLinker.bottomAnchor, constant: 25).isActive = true
+        lblSMS.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
+        lblSMS.numberOfLines = 0
+        lblSMS.lineBreakMode = .byWordWrapping
+        lblSMS.font = UIFont(name: String.defaultFontB, size: 20)
+        
         let smsImage = UIImageView()
         smsView.addSubview(smsImage)
         let sms_image = UIImage(named: "sms")
@@ -665,13 +693,68 @@ class postPaidHome: baseViewControllerM {
         btnBillHistory.topAnchor.constraint(equalTo: btnItemisedSpend.bottomAnchor, constant: 20).isActive = true
         btnBillHistory.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
-        scrollView.contentSize.height = viewHeight + 150 + 780
+        if Int(viewWidth) <= 320 {
+            scrollView.contentSize.height = viewHeight + 150 + 820
+        }else{
+            scrollView.contentSize.height = viewHeight + 150 + 780
+        }
+        
+        
         
         
         
         
         
     }
+    
+    // Function to load post paid details
+    func loadPostPaidDetails(){
+        let async_call = URL(string: String.userURL)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        let postParameters = ["action":"subscriberSummary", "username":username!, "msisdn": msisdn!, "os":getAppVersion()]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is: \(error!.localizedDescription)")
+                    }
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            var sessionAuth: String!
+                            sessionAuth = parseJSON["SessionAuth"] as! String?
+                            if sessionAuth == "true" {
+                                DispatchQueue.main.async {
+                                    self.logout()
+                                }
+                                
+                            }
+                            print("parse \(parseJSON)")
+                        }
+                    }catch{
+                        print("postPaid Balance error \(error.localizedDescription)")
+                    }
+                }
+                task.resume()
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

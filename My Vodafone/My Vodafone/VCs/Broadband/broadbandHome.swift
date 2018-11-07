@@ -499,7 +499,7 @@ class broadbandHome: baseViewControllerM {
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         
-        let postParameters = ["action":"fbbBalance", "username":username!, "userid": userID!, "accountnumber": accountNumber!]
+        let postParameters = ["action":"fbbBalance", "username":username!, "userid": userID!, "accountnumber": accountNumber!, "os":getAppVersion()]
         if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
             let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
             let requestBody: Dictionary<String, Any> = [
