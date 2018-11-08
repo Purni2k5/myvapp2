@@ -1109,6 +1109,8 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.P_PLANNAME.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.BB_accountUsageDet.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
@@ -1166,8 +1168,10 @@ class baseViewControllerM: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "EE"
         let dayInWeek = formatter.string(from: date)
-        
-        let today_string = String(dayInWeek) + "," + String(day!) + " " + String(month!) + " " + String(year!)  + " " + String(hour!) + ":" +  String(minute!) + ":" + String(second!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "LLL"
+        let strMonth = dateFormatter.string(from: date)
+        let today_string = String(dayInWeek) + "," + String(day!) + " " + String(strMonth) + " " + String(year!)  + " " + String(hour!) + ":" +  String(minute!) + ":" + String(second!)
         
         return today_string
         
@@ -1482,6 +1486,8 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.BB_Plan.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.BB_accountUsageDet.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)

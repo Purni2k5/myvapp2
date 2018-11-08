@@ -22,7 +22,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZs-nW-763" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-374" y="-220"/>
+            <point key="canvasLocation" x="-1286" y="-394"/>
+        </scene>
+        <!--Post Paid Login-->
+        <scene sceneID="Tyl-xY-NVh">
+            <objects>
+                <viewController storyboardIdentifier="postPaidLogin" id="gRo-tW-0VK" customClass="postPaidLogin" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NPi-Sb-Wej">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="UF9-9t-MaX"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cLg-m6-XTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-628" y="-394"/>
         </scene>
     </scenes>
 </document>

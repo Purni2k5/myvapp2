@@ -1,3 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://a64289a751529c25114b3e4f3f02f0960c1048e1@github.vodafone.com/TSS-MyVodafone-CoreApp/iOS-CocoaPods.git'
+
+
 # Uncomment the next line to define a global platform for your project
  platform :ios, '9.0'
 
@@ -7,7 +11,7 @@ target 'My Vodafone' do
   pod 'SDWebImage', '~> 4.0'
   pod 'FSPagerView'
   pod 'CryptoSwift'
-  pod 'VFGSplash'
+  pod 'VFGSplash', '2.0.7'
 
   # Pods for My Vodafone
 

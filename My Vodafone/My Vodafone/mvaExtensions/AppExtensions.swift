@@ -187,6 +187,8 @@ extension UIViewController {
         case hasRated
         case BB_accountUsageDet
         case postPaidOutBill
+        case postPaidBreakDown
+        case isSensitiveDataAllowed
     }
     
     enum keyChainKeys: String {

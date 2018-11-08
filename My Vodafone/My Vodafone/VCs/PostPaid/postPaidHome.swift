@@ -17,12 +17,30 @@ class postPaidHome: baseViewControllerM {
     var userID: String?
     var accountNumber: String?
     var currentSpend: String?
+    var currSpendDesc: String?
+    var currSpendCircle: String?
     var outBill: String?
+    var outPlan: String?
+    var balanceLabel: String?
     var roamingAmt: String?
     var callsAmt: String?
     var internetAmt: String?
     var smsAmt: String?
     var msisdn: String?
+    var lblOutBill = UILabel()
+    let lblExclude = UILabel()
+    let lblOutPlan = UILabel()
+    let lblRoamingDesc = UILabel()
+    let lblInternetDesc = UILabel()
+    let lblCallsDesc = UILabel()
+    let lblSMSDesc = UILabel()
+    var roamingDesc: String?
+    var callsDesc: String?
+    var internetDesc: String?
+    var smsDesc: String?
+    
+    var allowSensitiveData: Bool?
+    var isBreakDownShowing: Bool = false
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -106,9 +124,96 @@ class postPaidHome: baseViewControllerM {
         let responseData = preference.object(forKey: "responseData") as! NSDictionary
         username = responseData["Username"] as? String
         lastUpdate = preference.object(forKey: UserDefaultsKeys.lastUpdate.rawValue) as! String?
-        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         
-        lastUpdate = preference.object(forKey: UserDefaultsKeys.BB_LastUpdate.rawValue) as? String
+        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
+        allowSensitiveData = preference.object(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue) as? Bool
+        
+        
+        let outBillData = preference.object(forKey: UserDefaultsKeys.postPaidOutBill.rawValue) as? String
+        if outBillData != nil {
+            let resBody = outBillData
+            let decrypt = decryptAsyncRequest(requestBody: resBody!)
+            var postBalance: NSDictionary!
+            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+//            print(decryptedResponseBody)
+            postBalance = decryptedResponseBody["BALANCE"] as! NSDictionary?
+            balanceLabel = postBalance["BalanceLabel"] as! String?
+            outBill = postBalance["AccountBalanceLabel"] as! String?
+            
+        }else{
+            
+        }
+        let postBillBreakData = preference.object(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue) as? String
+        if postBillBreakData != nil {
+            let resBody = postBillBreakData
+            let decrypt = decryptAsyncRequest(requestBody: resBody!)
+            var postBreakDown: NSDictionary!
+            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+            print("Decry \(decryptedResponseBody)")
+            postBreakDown = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
+            //                                        print(responseMessage)
+            let currentSpendData = postBreakDown["CurrentSpend"] as! NSDictionary?
+            let outOfPlanSpend = postBreakDown["OutOfPlanSpend"] as! NSDictionary?
+            
+            if let currSpendData = currentSpendData {
+                currentSpend = currSpendData["Amount"] as! String?
+                currSpendDesc = currSpendData["Desc"] as! String?
+                lblCurrSpend.text = currentSpend
+                lblExclude.text = currSpendDesc
+            }
+            
+            if let currOutOfPlanSpend = outOfPlanSpend {
+                
+                currSpendCircle = currOutOfPlanSpend["Total"] as! String?
+                
+                outPlan = currOutOfPlanSpend["Desc"] as! String?
+                let components = currOutOfPlanSpend["Components"] as! NSArray?
+                if let array = components {
+                    //                                                let totalArray = array.count
+                    var counter = 0
+                    for obj in array {
+                        if let dict = obj as? NSDictionary{
+                            counter = counter + 1
+                            let description = dict.value(forKey: "Desc") as? String
+                            let planType = dict.value(forKey: "Type") as? String
+                            let planAmt = dict.value(forKey: "Amount") as? String
+                            if counter == 1 {
+                                if let desc = description {
+                                    roamingDesc = desc
+                                    roamingAmt = planAmt
+                                    lblRoamingDesc.text = roamingDesc
+                                    lblRoaming.text = roamingAmt
+                                }
+                            }else if counter == 2 {
+                                if let desc = description {
+                                    callsDesc = desc
+                                    callsAmt = planAmt
+                                    lblCallsDesc.text = callsDesc
+                                    lblCalls.text = callsAmt
+                                }
+                            }else if counter == 3 {
+                                if let desc = description {
+                                    internetDesc = desc
+                                    internetAmt = planAmt
+                                    lblInternetDesc.text = internetDesc
+                                    lblInternet.text = internetAmt
+                                }
+                            }else if counter == 4 {
+                                if let desc = description {
+                                    smsDesc = desc
+                                    smsAmt = planAmt
+                                    lblSMSDesc.text = smsDesc
+                                    lblSMS.text = smsAmt
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }else{
+            
+        }
         if let serviceArray = services as? NSArray{
             var foundDefault = false
             for obj in serviceArray{
@@ -312,11 +417,16 @@ class postPaidHome: baseViewControllerM {
         btnTopUp.imageEdgeInsets = UIEdgeInsetsMake(25, 25, 25, 25)
         btnTopUp.addTarget(self, action: #selector(goToTopUp), for: .touchUpInside)
         
-        let lblOutBill = UILabel()
+        
         creditView.addSubview(lblOutBill)
         lblOutBill.translatesAutoresizingMaskIntoConstraints = false
         lblOutBill.font = UIFont(name: String.defaultFontR, size: 20)
-        lblOutBill.text = "Outstanding bill"
+        if let balanceLabel = balanceLabel {
+            lblOutBill.text = balanceLabel
+        }else{
+            lblOutBill.text = "Outstanding bill"
+        }
+        
         lblOutBill.leadingAnchor.constraint(equalTo: creditView.leadingAnchor, constant: 30).isActive = true
         lblOutBill.topAnchor.constraint(equalTo: creditView.topAnchor, constant: 30).isActive = true
         lblOutBill.trailingAnchor.constraint(equalTo: btnTopUp.leadingAnchor, constant: 10).isActive = true
@@ -324,8 +434,12 @@ class postPaidHome: baseViewControllerM {
         lblOutBill.lineBreakMode = .byWordWrapping
         
         creditView.addSubview(lblBill)
+        if let outBill = outBill{
+            lblBill.text = outBill
+        }else{
+            lblBill.text = "GHS --- -- --"
+        }
         
-        lblBill.text = "GHS 100,372.53"
         lblBill.leadingAnchor.constraint(equalTo: creditView.leadingAnchor, constant: 30).isActive = true
         lblBill.topAnchor.constraint(equalTo: lblOutBill.bottomAnchor, constant: 10).isActive = true
         lblBill.trailingAnchor.constraint(equalTo: btnTopUp.leadingAnchor, constant: -2).isActive = true
@@ -360,9 +474,12 @@ class postPaidHome: baseViewControllerM {
         updateIcon.topAnchor.constraint(equalTo: twoFourSeven.bottomAnchor, constant: 20).isActive = true
         updateIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
         updateIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        updateIcon.addTarget(self, action: #selector(updateDetails), for: .touchUpInside)
+        
         //Last updated label
         scrollView.addSubview(lblLastUpdatedStatus)
         lblLastUpdatedStatus.translatesAutoresizingMaskIntoConstraints = false
+        
         if let lastUpdate = lastUpdate {
             lblLastUpdatedStatus.text = "Last updated on \(lastUpdate)"
         }else{
@@ -405,12 +522,22 @@ class postPaidHome: baseViewControllerM {
         lblCurrSpend.leadingAnchor.constraint(equalTo: redView.trailingAnchor, constant: 20).isActive = true
         lblCurrSpend.topAnchor.constraint(equalTo: lblCurr.bottomAnchor, constant: 20).isActive = true
         lblCurrSpend.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -10).isActive = true
-        lblCurrSpend.text = "GHS 54.73"
+        if let currentSpend = currentSpend{
+            lblCurrSpend.text = currentSpend
+        }else{
+            lblCurrSpend.text = "GHS -- --- --"
+        }
         
-        let lblExclude = UILabel()
+        
+        
         darkView.addSubview(lblExclude)
         lblExclude.translatesAutoresizingMaskIntoConstraints = false
-        lblExclude.text = "Excluding in plan charges"
+        if let currSpendDesc = currSpendDesc {
+            lblExclude.text = currSpendDesc
+        }else{
+            lblExclude.text = "-- -- --"
+        }
+        
         lblExclude.textColor = UIColor.white
         lblExclude.font = UIFont(name: String.defaultFontR, size: 16)
         lblExclude.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
@@ -426,6 +553,7 @@ class postPaidHome: baseViewControllerM {
         btnDropDown.heightAnchor.constraint(equalToConstant: 18).isActive = true
         btnDropDown.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 50).isActive = true
         btnDropDown.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
+        btnDropDown.addTarget(self, action: #selector(showBreakDown), for: .touchUpInside)
         
         let viewHeight = view.frame.height
         scrollView.addSubview(postPaidDetailsCard)
@@ -433,11 +561,17 @@ class postPaidHome: baseViewControllerM {
         postPaidDetailsCard.topAnchor.constraint(equalTo: darkView.bottomAnchor).isActive = true
         postPaidDetailsCard.trailingAnchor.constraint(equalTo: darkView.trailingAnchor).isActive = true
         postPaidDetailsCard.heightAnchor.constraint(equalToConstant: 780).isActive = true
+        postPaidDetailsCard.isHidden = true
         
-        let lblOutPlan = UILabel()
+        
         postPaidDetailsCard.addSubview(lblOutPlan)
         lblOutPlan.translatesAutoresizingMaskIntoConstraints = false
-        lblOutPlan.text = "Out of plan spend"
+        if let outPlan = outPlan {
+            lblOutPlan.text = outPlan
+        }else{
+            lblOutPlan.text = "----------"
+        }
+        
         lblOutPlan.textColor = UIColor.support_dark_voilet
         lblOutPlan.font = UIFont(name: String.defaultFontR, size: 15)
         lblOutPlan.topAnchor.constraint(equalTo: postPaidDetailsCard.topAnchor, constant: 20).isActive = true
@@ -458,7 +592,12 @@ class postPaidHome: baseViewControllerM {
         lblCurrSpendCircle.font = UIFont(name: String.defaultFontR, size: 22)
         lblCurrSpendCircle.centerXAnchor.constraint(equalTo: totalSpendView.centerXAnchor).isActive = true
         lblCurrSpendCircle.centerYAnchor.constraint(equalTo: totalSpendView.centerYAnchor).isActive = true
-        lblCurrSpendCircle.text = "GHS 54.73"
+        if let currSpendCircle = currSpendCircle {
+            lblCurrSpendCircle.text = currSpendCircle
+        }else{
+            lblCurrSpendCircle.text = "GHS -- -- --"
+        }
+        
         lblCurrSpendCircle.textColor = UIColor.white
         
         let roamingLinker = UIView()
@@ -480,10 +619,15 @@ class postPaidHome: baseViewControllerM {
         roamingView.backgroundColor = UIColor.support_dark_voilet
         roamingView.layer.cornerRadius = 35
         
-        let lblRoamingDesc = UILabel()
+        
         postPaidDetailsCard.addSubview(lblRoamingDesc)
         lblRoamingDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblRoamingDesc.text = "Making or receiving calls whilst roaming abroad"
+        if let roamingDesc = roamingDesc {
+            lblRoamingDesc.text = roamingDesc
+        }else{
+            lblRoamingDesc.text = ""
+        }
+        
         lblRoamingDesc.font = UIFont(name: String.defaultFontR, size: 16)
         lblRoamingDesc.textColor = UIColor.black
         lblRoamingDesc.numberOfLines = 0
@@ -495,7 +639,12 @@ class postPaidHome: baseViewControllerM {
         postPaidDetailsCard.addSubview(lblRoaming)
         lblRoaming.translatesAutoresizingMaskIntoConstraints = false
         lblRoaming.textColor = UIColor.black
-        lblRoaming.text = "GHS 0"
+        if let roamingAmt = roamingAmt {
+           lblRoaming.text = roamingAmt
+        }else{
+            lblRoaming.text = "GHS 0"
+        }
+        
         lblRoaming.leadingAnchor.constraint(equalTo: roamingView.trailingAnchor, constant: 20).isActive = true
         lblRoaming.topAnchor.constraint(equalTo: roamingLinker.bottomAnchor, constant: 25).isActive = true
         lblRoaming.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
@@ -534,10 +683,15 @@ class postPaidHome: baseViewControllerM {
         callsView.backgroundColor = UIColor.support_dark_voilet
         callsView.layer.cornerRadius = 35
         
-        let lblCallsDesc = UILabel()
+        
         postPaidDetailsCard.addSubview(lblCallsDesc)
         lblCallsDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblCallsDesc.text = "Making or receiving calls locally or abroad without roaming"
+        if let callsDesc = callsDesc {
+            lblCallsDesc.text = callsDesc
+        }else{
+            lblCallsDesc.text = ""
+        }
+        
         lblCallsDesc.font = UIFont(name: String.defaultFontR, size: 16)
         lblCallsDesc.textColor = UIColor.black
         lblCallsDesc.numberOfLines = 0
@@ -549,7 +703,12 @@ class postPaidHome: baseViewControllerM {
         postPaidDetailsCard.addSubview(lblCalls)
         lblCalls.translatesAutoresizingMaskIntoConstraints = false
         lblCalls.textColor = UIColor.black
-        lblCalls.text = "GHS 0"
+        if let callsAmt = callsAmt {
+            lblCalls.text = callsAmt
+        }else {
+            lblCalls.text = "GHS 0"
+        }
+        
         lblCalls.leadingAnchor.constraint(equalTo: callsView.trailingAnchor, constant: 20).isActive = true
         lblCalls.topAnchor.constraint(equalTo: callsLinker.bottomAnchor, constant: 25).isActive = true
         lblCalls.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
@@ -584,10 +743,15 @@ class postPaidHome: baseViewControllerM {
         internetView.backgroundColor = UIColor.support_dark_voilet
         internetView.layer.cornerRadius = 35
         
-        let lblInternetDesc = UILabel()
+        
         postPaidDetailsCard.addSubview(lblInternetDesc)
         lblInternetDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblInternetDesc.text = "Using the internet"
+        if let internetDesc = internetDesc {
+            lblInternetDesc.text = internetDesc
+        }else{
+            lblInternetDesc.text = ""
+        }
+        
         lblInternetDesc.font = UIFont(name: String.defaultFontR, size: 16)
         lblInternetDesc.textColor = UIColor.black
         lblInternetDesc.numberOfLines = 0
@@ -599,7 +763,12 @@ class postPaidHome: baseViewControllerM {
         postPaidDetailsCard.addSubview(lblInternet)
         lblInternet.translatesAutoresizingMaskIntoConstraints = false
         lblInternet.textColor = UIColor.black
-        lblInternet.text = "GHS 0"
+        if let internetAmt = internetAmt {
+            lblInternet.text = internetAmt
+        }else{
+            lblInternet.text = "GHS 0"
+        }
+        
         lblInternet.leadingAnchor.constraint(equalTo: internetView.trailingAnchor, constant: 20).isActive = true
         lblInternet.topAnchor.constraint(equalTo: internetLinker.bottomAnchor, constant: 25).isActive = true
         lblInternet.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
@@ -634,10 +803,15 @@ class postPaidHome: baseViewControllerM {
         smsView.backgroundColor = UIColor.support_dark_voilet
         smsView.layer.cornerRadius = 35
         
-        let lblSMSDesc = UILabel()
+        
         postPaidDetailsCard.addSubview(lblSMSDesc)
         lblSMSDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblSMSDesc.text = "Sending sms"
+        if let smsDesc = smsDesc {
+            lblSMSDesc.text = smsDesc
+        }else{
+            lblSMSDesc.text = ""
+        }
+        
         lblSMSDesc.font = UIFont(name: String.defaultFontR, size: 16)
         lblSMSDesc.textColor = UIColor.black
         lblSMSDesc.numberOfLines = 0
@@ -649,7 +823,12 @@ class postPaidHome: baseViewControllerM {
         postPaidDetailsCard.addSubview(lblSMS)
         lblSMS.translatesAutoresizingMaskIntoConstraints = false
         lblSMS.textColor = UIColor.black
-        lblSMS.text = "GHS 0"
+        if let smsAmt = smsAmt {
+            lblSMS.text = smsAmt
+        }else{
+            lblSMS.text = "GHS 0"
+        }
+        
         lblSMS.leadingAnchor.constraint(equalTo: smsView.trailingAnchor, constant: 20).isActive = true
         lblSMS.topAnchor.constraint(equalTo: smsLinker.bottomAnchor, constant: 25).isActive = true
         lblSMS.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -10).isActive = true
@@ -680,6 +859,7 @@ class postPaidHome: baseViewControllerM {
         btnItemisedSpend.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -20).isActive = true
         btnItemisedSpend.topAnchor.constraint(equalTo: smsView.bottomAnchor, constant: 20).isActive = true
         btnItemisedSpend.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnItemisedSpend.addTarget(self, action: #selector(showItemised), for: .touchUpInside)
         
         let btnBillHistory = UIButton()
         postPaidDetailsCard.addSubview(btnBillHistory)
@@ -692,11 +872,13 @@ class postPaidHome: baseViewControllerM {
         btnBillHistory.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -20).isActive = true
         btnBillHistory.topAnchor.constraint(equalTo: btnItemisedSpend.bottomAnchor, constant: 20).isActive = true
         btnBillHistory.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnBillHistory.addTarget(self, action: #selector(showBillHistory), for: .touchUpInside)
         
         if Int(viewWidth) <= 320 {
-            scrollView.contentSize.height = viewHeight + 150 + 820
+            scrollView.contentSize.height = viewHeight + 150
         }else{
-            scrollView.contentSize.height = viewHeight + 150 + 780
+            scrollView.contentSize.height = viewHeight + 150
+//            780 820
         }
         
         
@@ -708,12 +890,13 @@ class postPaidHome: baseViewControllerM {
     }
     
     // Function to load post paid details
-    func loadPostPaidDetails(){
+    fileprivate func outstandingBill() {
         let async_call = URL(string: String.userURL)
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         
         let postParameters = ["action":"subscriberSummary", "username":username!, "msisdn": msisdn!, "os":getAppVersion()]
+        
         if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
             let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
             let requestBody: Dictionary<String, Any> = [
@@ -732,10 +915,14 @@ class postPaidHome: baseViewControllerM {
                     data, response, error in
                     if error != nil {
                         print("error is: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                        }
                     }
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                         if let parseJSON = myJSON {
+                            print("responseBody: \(parseJSON)")
                             var sessionAuth: String!
                             sessionAuth = parseJSON["SessionAuth"] as! String?
                             if sessionAuth == "true" {
@@ -744,10 +931,43 @@ class postPaidHome: baseViewControllerM {
                                 }
                                 
                             }
-                            print("parse \(parseJSON)")
+                            var responseBody: String?
+                            var responseCode: Int!
+                            var balance: NSDictionary!
+                            responseBody = parseJSON["responseBody"] as! String?
+                            if responseBody != nil {
+                                //cache data
+                                self.preference.removeObject(forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
+                                self.preference.set(responseBody, forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
+                                DispatchQueue.main.async {
+                                    let resBody = responseBody
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody!)
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    if responseCode == 0 {
+                                        self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                                        let today = self.getTodayString()
+                                        self.preference.set(today, forKey: UserDefaultsKeys.lastUpdate.rawValue)
+                                        balance = decryptedResponseBody["BALANCE"] as! NSDictionary?
+                                        self.balanceLabel = balance["BalanceLabel"] as! String?
+                                        self.outBill = balance["AccountBalanceLabel"] as! String?
+                                        self.lblOutBill.text = self.balanceLabel
+                                        self.lblBill.text = self.outBill
+                                        self.lblLastUpdatedStatus.text = "Last updated on \(today)"
+                                    }else{
+                                        self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not update your bill. Try later")
+                                    }
+                                }
+                            }
+                            
                         }
                     }catch{
                         print("postPaid Balance error \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                        }
                     }
                 }
                 task.resume()
@@ -755,8 +975,176 @@ class postPaidHome: baseViewControllerM {
         }
     }
     
+    fileprivate func billBreakDown(){
+        let async_call = URL(string: String.userURL)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        let postParameters = ["action":"getUnbilled", "username":username!, "msisdn": msisdn!, "os":getAppVersion()]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                        }
+                    }
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            print("responseBody: \(parseJSON)")
+                            
+                            var responseBody: String?
+                            var responseCode: Int!
+                            var responseMessage: NSDictionary!
+                            responseBody = parseJSON["responseBody"] as! String?
+                            if responseBody != nil {
+                                //cache data
+                                self.preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
+                                self.preference.set(responseBody, forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
+                                DispatchQueue.main.async {
+                                    let resBody = responseBody
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody!)
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+//                                    print("breakDown \(decryptedResponseBody)")
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    if responseCode == 0 {
+                                        
+                                        responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
+//                                        print(responseMessage)
+                                        let currentSpendData = responseMessage["CurrentSpend"] as! NSDictionary?
+                                        let outOfPlanSpend = responseMessage["OutOfPlanSpend"] as! NSDictionary?
+                                        
+                                        if let currSpendData = currentSpendData {
+                                            self.currentSpend = currSpendData["Amount"] as! String?
+                                            self.currSpendDesc = currSpendData["Desc"] as! String?
+                                            self.lblCurrSpend.text = self.currentSpend
+                                            self.lblExclude.text = self.currSpendDesc
+                                        }
+                                        
+                                        if let currOutOfPlanSpend = outOfPlanSpend {
+                                            self.currSpendCircle = currOutOfPlanSpend["Total"] as! String?
+                                            self.outPlan = currOutOfPlanSpend["Desc"] as! String?
+                                            self.lblCurrSpendCircle.text = self.currSpendCircle
+                                            self.lblOutPlan.text = self.outPlan
+                                            let components = currOutOfPlanSpend["Components"] as! NSArray?
+                                            if let array = components {
+//                                                let totalArray = array.count
+                                                var counter = 0
+                                                for obj in array {
+                                                    if let dict = obj as? NSDictionary{
+                                                        counter = counter + 1
+                                                        let description = dict.value(forKey: "Desc") as? String
+                                                        let planType = dict.value(forKey: "Type") as? String
+                                                        let planAmt = dict.value(forKey: "Amount") as? String
+                                                        if counter == 1 {
+                                                            if let desc = description {
+                                                                self.lblRoamingDesc.text = desc
+                                                                self.lblRoaming.text = planAmt
+                                                            }
+                                                        }else if counter == 2 {
+                                                            if let desc = description {
+                                                                self.lblCallsDesc.text = desc
+                                                                self.lblCalls.text = planAmt
+                                                            }
+                                                        }else if counter == 3 {
+                                                            if let desc = description {
+                                                                self.lblInternetDesc.text = desc
+                                                                self.lblInternet.text = planAmt
+                                                            }
+                                                        }else if counter == 4 {
+                                                            if let desc = description {
+                                                                self.lblSMSDesc.text = desc
+                                                                self.lblSMS.text = planAmt
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                        
+                                    }else{
+                                        
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }catch{
+                        print("postPaid break down error \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.updateIcon.layer.removeAnimation(forKey: "rotate")
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+    }
+    
+    func loadPostPaidDetails(){
+        outstandingBill()
+        billBreakDown()
+    }
+    
+    @objc func showBreakDown(){
+        let viewWidth = view.frame.width
+        let viewHeight = view.frame.height
+        if isBreakDownShowing {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.btnDropDown.transform = self.btnDropDown.transform.rotated(by: CGFloat(Double.pi / -1))
+            })
+            postPaidDetailsCard.isHidden = true
+            if Int(viewWidth) <= 320 {
+                scrollView.contentSize.height = viewHeight + 150
+            }else{
+                scrollView.contentSize.height = viewHeight + 150
+            }
+        }else{
+            UIView.animate(withDuration: 0.5, animations: {
+                self.btnDropDown.transform = self.btnDropDown.transform.rotated(by: CGFloat(Double.pi / -1))
+                self.scrollView.setContentOffset(CGPoint(x: 0, y: 900), animated: true)
+            })
+            
+            postPaidDetailsCard.isHidden = false
+            if Int(viewWidth) <= 320 {
+                scrollView.contentSize.height = viewHeight + 150 + 820
+            }else{
+                scrollView.contentSize.height = viewHeight + 150 + 780
+            }
+        }
+        
+        isBreakDownShowing = !isBreakDownShowing
+    }
+    
+    func animateRefreshBtn(){
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(.pi * 2.0)
+        rotateAnimation.duration = 1.0
+        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+        
+        updateIcon.layer.add(rotateAnimation, forKey: "rotate")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        animateRefreshBtn()
         
     }
     @objc func goToTopUp(){
@@ -773,4 +1161,62 @@ class postPaidHome: baseViewControllerM {
         let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
         present(moveTo, animated: true, completion: nil)
     }
+    
+    @objc func updateDetails(){
+        animateRefreshBtn()
+        loadPostPaidDetails()
+    }
+    
+    @objc func showItemised(){
+        if allowSensitiveData != nil {
+            if allowSensitiveData == true {
+                
+            }else{
+                print("it is false so show")
+                let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
+                self.addChildViewController(moveTo)
+                moveTo.view.frame = self.view.frame
+                view.addSubview(moveTo.view)
+                moveTo.didMove(toParentViewController: self)
+            }
+        }else{
+            print("it is nil")
+            let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
+            self.addChildViewController(moveTo)
+            moveTo.view.frame = self.view.frame
+            view.addSubview(moveTo.view)
+            moveTo.didMove(toParentViewController: self)
+        }
+        
+    }
+    
+    @objc func showBillHistory(){
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -129,6 +129,7 @@
 		01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F57B6421540CA7005F5F0C /* RoamingPartners.swift */; };
 		01F7388521369BBE00A30C1C /* baseViewControllerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7388421369BBE00A30C1C /* baseViewControllerM.swift */; };
 		01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F738862137360600A30C1C /* displayChosenOfferVc.swift */; };
+		01FA869B2194567F00346A8D /* postPaidLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA869A2194567F00346A8D /* postPaidLogin.swift */; };
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
 		28180955218B3EB50001AA70 /* PostPaid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28180954218B3EB50001AA70 /* PostPaid.storyboard */; };
 		28180958218B3F010001AA70 /* postPaidHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28180957218B3F010001AA70 /* postPaidHome.swift */; };
@@ -272,6 +273,7 @@
 		01F57B6421540CA7005F5F0C /* RoamingPartners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingPartners.swift; sourceTree = "<group>"; };
 		01F7388421369BBE00A30C1C /* baseViewControllerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseViewControllerM.swift; sourceTree = "<group>"; };
 		01F738862137360600A30C1C /* displayChosenOfferVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = displayChosenOfferVc.swift; sourceTree = "<group>"; };
+		01FA869A2194567F00346A8D /* postPaidLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postPaidLogin.swift; sourceTree = "<group>"; };
 		01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkFBBBalance.swift; sourceTree = "<group>"; };
 		04E81B81CBD9B8057781B417 /* Pods-My Vodafone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.debug.xcconfig"; sourceTree = "<group>"; };
 		28180954218B3EB50001AA70 /* PostPaid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostPaid.storyboard; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				28180957218B3F010001AA70 /* postPaidHome.swift */,
+				01FA869A2194567F00346A8D /* postPaidLogin.swift */,
 			);
 			path = PostPaid;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */,
 				015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */,
 				0198E74E20DAB4B9000820F7 /* OldLoginViewController.swift in Sources */,
+				01FA869B2194567F00346A8D /* postPaidLogin.swift in Sources */,
 				01941D9D2119F34B00B7D207 /* CheckInternet.swift in Sources */,
 				015A534A2163C8650040807E /* speedChecker.swift in Sources */,
 				016CC5A3211D23BD002B37E5 /* AccountConfViewController.swift in Sources */,
