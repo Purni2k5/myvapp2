@@ -111,6 +111,7 @@
 		01CFCF9D215BFDA50048D56E /* ChangePasswordInApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */; };
 		01E63B1521624233006CA19D /* personliseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E63B1421624233006CA19D /* personliseApp.swift */; };
 		01E63B1721624E00006CA19D /* chooseDefaultService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E63B1621624E00006CA19D /* chooseDefaultService.swift */; };
+		01EF2E0A219585E800FD9320 /* currentSpendsBills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EF2E09219585E800FD9320 /* currentSpendsBills.swift */; };
 		01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5044F2125D28000359657 /* AddServiceConfViewController.swift */; };
 		01F57B412150356C005F5F0C /* FBB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B402150356C005F5F0C /* FBB.storyboard */; };
 		01F57B432150FC49005F5F0C /* Services.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F57B422150FC49005F5F0C /* Services.storyboard */; };
@@ -255,6 +256,7 @@
 		01CFCF9C215BFDA50048D56E /* ChangePasswordInApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInApp.swift; sourceTree = "<group>"; };
 		01E63B1421624233006CA19D /* personliseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personliseApp.swift; sourceTree = "<group>"; };
 		01E63B1621624E00006CA19D /* chooseDefaultService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseDefaultService.swift; sourceTree = "<group>"; };
+		01EF2E09219585E800FD9320 /* currentSpendsBills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = currentSpendsBills.swift; sourceTree = "<group>"; };
 		01F5044F2125D28000359657 /* AddServiceConfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceConfViewController.swift; sourceTree = "<group>"; };
 		01F57B402150356C005F5F0C /* FBB.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FBB.storyboard; sourceTree = "<group>"; };
 		01F57B422150FC49005F5F0C /* Services.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Services.storyboard; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 			children = (
 				28180957218B3F010001AA70 /* postPaidHome.swift */,
 				01FA869A2194567F00346A8D /* postPaidLogin.swift */,
+				01EF2E09219585E800FD9320 /* currentSpendsBills.swift */,
 			);
 			path = PostPaid;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
 				28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */,
+				01EF2E0A219585E800FD9320 /* currentSpendsBills.swift in Sources */,
 				0186E64F216CE376008B6601 /* ResetPassword.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
 				01F57B6521540CA7005F5F0C /* RoamingPartners.swift in Sources */,

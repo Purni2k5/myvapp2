@@ -19,9 +19,9 @@ class postPaidHome: baseViewControllerM {
     var currentSpend: String?
     var currSpendDesc: String?
     var currSpendCircle: String?
-    var outBill: String?
+    var outBill: String!
     var outPlan: String?
-    var balanceLabel: String?
+    var balanceLabel: String!
     var roamingAmt: String?
     var callsAmt: String?
     var internetAmt: String?
@@ -131,8 +131,10 @@ class postPaidHome: baseViewControllerM {
         
         let outBillData = preference.object(forKey: UserDefaultsKeys.postPaidOutBill.rawValue) as? String
         if outBillData != nil {
+            
             let resBody = outBillData
             let decrypt = decryptAsyncRequest(requestBody: resBody!)
+            
             var postBalance: NSDictionary!
             let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
 //            print(decryptedResponseBody)
@@ -428,7 +430,7 @@ class postPaidHome: baseViewControllerM {
         }
         
         lblOutBill.leadingAnchor.constraint(equalTo: creditView.leadingAnchor, constant: 30).isActive = true
-        lblOutBill.topAnchor.constraint(equalTo: creditView.topAnchor, constant: 30).isActive = true
+        lblOutBill.topAnchor.constraint(equalTo: creditView.topAnchor, constant: 20).isActive = true
         lblOutBill.trailingAnchor.constraint(equalTo: btnTopUp.leadingAnchor, constant: 10).isActive = true
         lblOutBill.numberOfLines = 0
         lblOutBill.lineBreakMode = .byWordWrapping
@@ -876,7 +878,10 @@ class postPaidHome: baseViewControllerM {
         
         if Int(viewWidth) <= 320 {
             scrollView.contentSize.height = viewHeight + 150
-        }else{
+        }else if Int(viewWidth) == 375 {
+            scrollView.contentSize.height = viewHeight + 210
+        }
+        else{
             scrollView.contentSize.height = viewHeight + 150
 //            780 820
         }
@@ -1124,7 +1129,10 @@ class postPaidHome: baseViewControllerM {
             postPaidDetailsCard.isHidden = false
             if Int(viewWidth) <= 320 {
                 scrollView.contentSize.height = viewHeight + 150 + 820
-            }else{
+            }else if Int(viewWidth) == 375 {
+                scrollView.contentSize.height = viewHeight + 150 + 850
+            }
+            else{
                 scrollView.contentSize.height = viewHeight + 150 + 780
             }
         }
@@ -1170,9 +1178,11 @@ class postPaidHome: baseViewControllerM {
     @objc func showItemised(){
         if allowSensitiveData != nil {
             if allowSensitiveData == true {
-                
+                let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills")
+                present(moveTo, animated: true, completion: nil)
             }else{
-                print("it is false so show")
+                
                 let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
                 let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
                 self.addChildViewController(moveTo)
@@ -1181,7 +1191,7 @@ class postPaidHome: baseViewControllerM {
                 moveTo.didMove(toParentViewController: self)
             }
         }else{
-            print("it is nil")
+            
             let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
             let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
             self.addChildViewController(moveTo)

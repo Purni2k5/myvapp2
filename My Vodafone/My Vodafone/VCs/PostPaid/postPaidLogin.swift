@@ -14,6 +14,8 @@ class postPaidLogin: baseViewControllerM {
     var username: String?
     var msisdn: String?
     
+    let keyChain = KeychainSwift()
+    
     let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -149,11 +151,12 @@ class postPaidLogin: baseViewControllerM {
     //Function to stopIndicator
     func stop_activity_loader(){
         activity_loader.stopAnimating()
-        btnCancel.isHidden = false
+        btnConfirm.isHidden = false
     }
 
     func setUpViewsPPLogin(){
         let viewWidth = view.frame.width
+        let viewHeight = view.frame.height
         view.addSubview(bgImage)
         let timeOfDay = greetings()
         if timeOfDay == "morning"{
@@ -314,7 +317,7 @@ class postPaidLogin: baseViewControllerM {
         
         
         
-        scrollView.contentSize.height = 1000
+        scrollView.contentSize.height = viewHeight + 60
     }
     /*//Function to report touch ID Error
     func checkForTouchID(error: NSError)-> Bool{
@@ -394,7 +397,7 @@ class postPaidLogin: baseViewControllerM {
                 "os":getAppVersion()
             ]
             
-            let async_call = URL(string: String.userSVC)
+            let async_call = URL(string: String.oldUserSVC)
             let request = NSMutableURLRequest(url: async_call!)
             request.httpMethod = "POST"
             if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
@@ -425,25 +428,18 @@ class postPaidLogin: baseViewControllerM {
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
                             responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
                             responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
-                            responseSession = parseJSON["SESSION"] as! NSDictionary?
                             
-                            let session = responseSession["session"] as! String
-                            let secret = responseSession["secret"] as! String
-                            let key = responseSession["key"] as! String
+                            
                             
                             DispatchQueue.main.async {
                                 if responseCode == 0 {
-                                    //Save secrets
-                                    self.preference.removeObject(forKey: UserDefaultsKeys.userSession.rawValue)
-                                    self.preference.removeObject(forKey: UserDefaultsKeys.userSecret.rawValue)
-                                    self.preference.removeObject(forKey: UserDefaultsKeys.userKey.rawValue)
-                                    self.preference.set(session, forKey: UserDefaultsKeys.userSession.rawValue)
-                                    self.preference.set(secret, forKey: UserDefaultsKeys.userSecret.rawValue)
-                                    self.preference.set(key, forKey: UserDefaultsKeys.userKey.rawValue)
-                                    self.keyHardening()
+                                    
                                     if self.isChecked == true {
                                         self.preference.set(true, forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
                                     }
+                                    let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills")
+                                    self.present(moveTo, animated: true, completion: nil)
                                 }else if responseCode == 1 {
                                     self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
                                 }else{
