@@ -200,9 +200,13 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
                                         if responseCode == 0 {
                                             responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
                                             UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {
-                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage ?? "")
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: responseMessage ?? "")
                                             }, completion: { (true) in
-                                                self.view.removeFromSuperview()
+                                                if self.hasRated == nil || self.hasRated == false {
+                                                    self.showRatings()
+                                                }else{
+                                                    self.view.removeFromSuperview()
+                                                }
                                             })
                                         }else if responseCode == 1{
                                             responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! String?
@@ -210,13 +214,7 @@ class toppingUpViewController: baseViewControllerM, UIPickerViewDelegate, UIPick
                                                 self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage ?? "")
                                             }, completion: { (true) in
                                                 self.view.removeFromSuperview()
-                                                if self.hasRated == nil {
-                                                    self.showRatings()
-                                                }else if self.hasRated == false{
-                                                    self.showRatings()
-                                                }else{
-                                                    
-                                                }
+                                                
                                             })
                                         }else{
                                             UIView.animate(withDuration: 1, delay: 2, options: .curveEaseIn, animations: {

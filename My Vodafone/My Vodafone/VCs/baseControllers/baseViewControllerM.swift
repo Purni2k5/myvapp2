@@ -1278,9 +1278,15 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToSpeedChecker(_sender: UITapGestureRecognizer){
-        let storyboard = UIStoryboard(name: "NetPerform", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
-        present(moveTo, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "NetPerform", bundle: nil)
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
+//        present(moveTo, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "FreeSHS")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToLogin(_sender: UITapGestureRecognizer){
@@ -1323,7 +1329,7 @@ class baseViewControllerM: UIViewController {
     
     @objc func openAppStore() {
         
-        if let url = URL(string: "https://itunes.apple.com/us/app/my-vodafone-ghana/id1058492752?ls=1&mt=8"),
+        if let url = URL(string: "https://itunes.apple.com/us/app/my-vodafone-ghana/id1440915381?ls=1&mt=8"),
             UIApplication.shared.canOpenURL(url){
             UIApplication.shared.open(url, options: [:]) { (opened) in
                 if(opened){

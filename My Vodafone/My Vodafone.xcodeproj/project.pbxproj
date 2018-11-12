@@ -40,6 +40,7 @@
 		01731980217677D800989F8A /* ShakeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173197F217677D800989F8A /* ShakeDialog.swift */; };
 		017319822177616D00989F8A /* ShakeListOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319812177616D00989F8A /* ShakeListOther.swift */; };
 		017319842177965D00989F8A /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017319832177965D00989F8A /* CryptoHelper.swift */; };
+		017A62512199EEA30047C812 /* FreeSHS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A62502199EEA30047C812 /* FreeSHS.swift */; };
 		017DAC83216DF31C00BB3F0F /* DisplayContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */; };
 		01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */; };
 		01853EBA20CFD81E002DEB7D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01853EB920CFD81E002DEB7D /* CardView.swift */; };
@@ -182,6 +183,7 @@
 		0173197F217677D800989F8A /* ShakeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDialog.swift; sourceTree = "<group>"; };
 		017319812177616D00989F8A /* ShakeListOther.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeListOther.swift; sourceTree = "<group>"; };
 		017319832177965D00989F8A /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
+		017A62502199EEA30047C812 /* FreeSHS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSHS.swift; sourceTree = "<group>"; };
 		017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContacts.swift; sourceTree = "<group>"; };
 		01853EB720CFD19A002DEB7D /* ProductsServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServicesViewController.swift; sourceTree = "<group>"; };
 		01853EB920CFD81E002DEB7D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				016DE601214FE09E00BEB882 /* staffCreditRedeeming.swift */,
 				0186E650216D3DFB008B6601 /* TopUpHistory.swift */,
 				017DAC82216DF31C00BB3F0F /* DisplayContacts.swift */,
+				017A62502199EEA30047C812 /* FreeSHS.swift */,
 			);
 			path = TopUp;
 			sourceTree = "<group>";
@@ -930,6 +933,7 @@
 				01E63B1721624E00006CA19D /* chooseDefaultService.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,
 				0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */,
+				017A62512199EEA30047C812 /* FreeSHS.swift in Sources */,
 				01709C62215EB110008C8C3E /* notifications.swift in Sources */,
 				01709C64215EC2AF008C8C3E /* settingsPrivacy.swift in Sources */,
 				015CEB012155512C00341BA9 /* RoamingFaultReporting.swift in Sources */,

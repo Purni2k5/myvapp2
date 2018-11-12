@@ -428,9 +428,7 @@ class postPaidLogin: baseViewControllerM {
                             responseCode = parseJSON["RESPONSECODE"] as! Int?
                             responseMessage = parseJSON["RESPONSEMESSAGE"] as! String?
                             responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
-                            
-                            
-                            
+                           
                             DispatchQueue.main.async {
                                 if responseCode == 0 {
                                     

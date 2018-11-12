@@ -923,6 +923,7 @@ class postPaidHome: baseViewControllerM {
                         DispatchQueue.main.async {
                             self.updateIcon.layer.removeAnimation(forKey: "rotate")
                         }
+                        return;
                     }
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
