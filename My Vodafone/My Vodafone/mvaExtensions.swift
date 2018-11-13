@@ -22,6 +22,8 @@ extension UIColor {
     static let support_white1 = UIColor().colourFromHex("F4F4F4")
     static let support_light_gray = UIColor().colourFromHex("CCCCCC")
     static let support_voilet = UIColor().colourFromHex("9C2AA0")
+    static let support_brown = UIColor().colourFromHex("990000")
+    static let support_blue = UIColor().colourFromHex("00B0CA")
     static let support_dark_voilet = UIColor().colourFromHex("5E2750")
     static let support_dark_gray1 = UIColor().colourFromHex("999999")
     static let support_dark_gray2 = UIColor().colourFromHex("666666")

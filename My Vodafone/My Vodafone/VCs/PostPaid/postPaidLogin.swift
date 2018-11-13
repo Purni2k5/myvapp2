@@ -13,6 +13,8 @@ class postPaidLogin: baseViewControllerM {
     
     var username: String?
     var msisdn: String?
+    var currentSpend: String?
+    var excludeValue: String?
     
     let keyChain = KeychainSwift()
     
@@ -436,7 +438,8 @@ class postPaidLogin: baseViewControllerM {
                                         self.preference.set(true, forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
                                     }
                                     let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
-                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills")
+                                    guard let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills") as? currentSpendsBills else {return}
+                                    moveTo.currSpend = self.currentSpend
                                     self.present(moveTo, animated: true, completion: nil)
                                 }else if responseCode == 1 {
                                     self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)

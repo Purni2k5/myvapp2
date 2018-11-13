@@ -13,6 +13,8 @@ class currentSpendsBills: baseViewControllerM {
     var y_end: Int?
     var y_interval: Int?
     var y_unit: String?
+    var currSpend: String?
+    var excludeValue: String?
     
     var username: String?
     var msisdn: String?
@@ -84,6 +86,14 @@ class currentSpendsBills: baseViewControllerM {
     }()
     
     let lblYourPlan: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.white
+        view.font = UIFont(name: String.defaultFontR, size: 13)
+        return view
+    }()
+    
+    let lblYourPlanValue: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textColor = UIColor.white
@@ -164,12 +174,79 @@ class currentSpendsBills: baseViewControllerM {
         return view
     }()
     let lblAverage = UILabel()
+    let lblPrevSpend = UILabel()
+    
     let firstMonthBar: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.support_voilet
-        view.widthAnchor.constraint(equalToConstant: 13).isActive = true
-        view.layer.cornerRadius = 2
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let secondMonthBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let thirdMonthBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let fourthMonthBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let fifthMonthBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let sixthMonthBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let yourPlanCircle: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_blue
+        view.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let yourAvgCircle: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.support_voilet
+        view.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        view.layer.cornerRadius = 10
         return view
     }()
 
@@ -210,7 +287,7 @@ class currentSpendsBills: baseViewControllerM {
         scrollView.topAnchor.constraint(equalTo: baseView.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: baseView.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: baseView.bottomAnchor).isActive = true
-        scrollView.contentSize.height = 1000
+        
         
         scrollView.addSubview(topImage)
         let timeOfDay = greetings()
@@ -274,10 +351,7 @@ class currentSpendsBills: baseViewControllerM {
         lblYEnd.numberOfLines = 0
         lblYEnd.lineBreakMode = .byWordWrapping
         
-        darkView.addSubview(yEndView)
-        yEndView.leadingAnchor.constraint(equalTo: lblYEnd.trailingAnchor, constant: 10).isActive = true
-        yEndView.topAnchor.constraint(equalTo: lblAverage.bottomAnchor, constant: 38).isActive = true
-        yEndView.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -15).isActive = true
+        
         
         darkView.addSubview(lblYInterval)
         lblYInterval.text = "GHS -- -- --"
@@ -286,18 +360,216 @@ class currentSpendsBills: baseViewControllerM {
         lblYInterval.numberOfLines = 0
         lblYInterval.lineBreakMode = .byWordWrapping
         
+        
+        
+        darkView.addSubview(lblFirstMonth)
+        lblFirstMonth.leadingAnchor.constraint(equalTo: lblYInterval.trailingAnchor, constant: 10).isActive = true
+        lblFirstMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblFirstMonth.text = ""
+        
+        darkView.addSubview(lblSecondMonth)
+        lblSecondMonth.leadingAnchor.constraint(equalTo: lblFirstMonth.trailingAnchor, constant: 30).isActive = true
+        lblSecondMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblSecondMonth.text = ""
+        
+        darkView.addSubview(lblThirdMonth)
+        lblThirdMonth.leadingAnchor.constraint(equalTo: lblSecondMonth.trailingAnchor, constant: 30).isActive = true
+        lblThirdMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblThirdMonth.text = ""
+        
+        darkView.addSubview(lblFourthMonth)
+        lblFourthMonth.leadingAnchor.constraint(equalTo: lblThirdMonth.trailingAnchor, constant: 30).isActive = true
+        lblFourthMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblFourthMonth.text = ""
+        
+        darkView.addSubview(lblFifthMonth)
+        lblFifthMonth.leadingAnchor.constraint(equalTo: lblFourthMonth.trailingAnchor, constant: 30).isActive = true
+        lblFifthMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblFifthMonth.text = ""
+        
+        darkView.addSubview(lblSixthMonth)
+        lblSixthMonth.leadingAnchor.constraint(equalTo: lblFifthMonth.trailingAnchor, constant: 30).isActive = true
+        lblSixthMonth.topAnchor.constraint(equalTo: lblYInterval.bottomAnchor, constant: 130).isActive = true
+        lblSixthMonth.text = ""
+        
+        darkView.addSubview(firstMonthBar)
+        firstMonthBar.leadingAnchor.constraint(equalTo: lblFirstMonth.leadingAnchor, constant: 2).isActive = true
+        firstMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        firstMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        firstMonthBar.isOpaque = false
+        
+        darkView.addSubview(secondMonthBar)
+        secondMonthBar.leadingAnchor.constraint(equalTo: lblSecondMonth.leadingAnchor, constant: 2).isActive = true
+        secondMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        secondMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        secondMonthBar.isOpaque = false
+        
+        darkView.addSubview(thirdMonthBar)
+        thirdMonthBar.leadingAnchor.constraint(equalTo: lblThirdMonth.leadingAnchor, constant: 2).isActive = true
+        thirdMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        thirdMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        thirdMonthBar.isOpaque = false
+        
+        darkView.addSubview(fourthMonthBar)
+        fourthMonthBar.leadingAnchor.constraint(equalTo: lblFourthMonth.leadingAnchor, constant: 2).isActive = true
+        fourthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        fourthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        fourthMonthBar.isOpaque = false
+        
+        darkView.addSubview(fifthMonthBar)
+        fifthMonthBar.leadingAnchor.constraint(equalTo: lblFifthMonth.leadingAnchor, constant: 2).isActive = true
+        fifthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        fifthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        fifthMonthBar.isOpaque = false
+        
+        darkView.addSubview(sixthMonthBar)
+        sixthMonthBar.leadingAnchor.constraint(equalTo: lblSixthMonth.leadingAnchor, constant: 2).isActive = true
+        sixthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        sixthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
+        sixthMonthBar.isOpaque = false
+        
+        darkView.addSubview(yEndView)
+        yEndView.leadingAnchor.constraint(equalTo: lblYEnd.trailingAnchor, constant: 10).isActive = true
+        yEndView.topAnchor.constraint(equalTo: lblAverage.bottomAnchor, constant: 38).isActive = true
+        yEndView.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -15).isActive = true
+        
         darkView.addSubview(yIntervalView)
         yIntervalView.leadingAnchor.constraint(equalTo: lblYInterval.trailingAnchor, constant: 10).isActive = true
         yIntervalView.topAnchor.constraint(equalTo: lblYEnd.bottomAnchor, constant: 98).isActive = true
         yIntervalView.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -15).isActive = true
         
-        darkView.addSubview(lblFirstMonth)
-        lblFirstMonth.leadingAnchor.constraint(equalTo: lblYInterval.trailingAnchor, constant: 10).isActive = true
-        lblFirstMonth.topAnchor.constraint(equalTo: yIntervalView.bottomAnchor, constant: 160).isActive = true
-        lblFirstMonth.text = "May"
+        let separator1 = UIView()
+        separator1.translatesAutoresizingMaskIntoConstraints = false
+        darkView.addSubview(separator1)
+        separator1.backgroundColor = UIColor.white
+        separator1.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        separator1.leadingAnchor.constraint(equalTo: darkView.leadingAnchor).isActive = true
+        separator1.trailingAnchor.constraint(equalTo: darkView.trailingAnchor).isActive = true
+        separator1.topAnchor.constraint(equalTo: lblFirstMonth.bottomAnchor, constant: 10).isActive = true
+        
+        darkView.addSubview(yourPlanCircle)
+        yourPlanCircle.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        yourPlanCircle.topAnchor.constraint(equalTo: separator1.bottomAnchor, constant: 10).isActive = true
+        
+        darkView.addSubview(lblYourPlan)
+        lblYourPlan.text = "Your plan"
+        lblYourPlan.leadingAnchor.constraint(equalTo: yourPlanCircle.trailingAnchor, constant: 10).isActive = true
+        lblYourPlan.topAnchor.constraint(equalTo: separator1.bottomAnchor, constant: 16).isActive = true
+        
+        darkView.addSubview(lblYourPlanValue)
+        lblYourPlanValue.text = "..."
+        lblYourPlanValue.topAnchor.constraint(equalTo: separator1.bottomAnchor, constant: 16).isActive = true
+        lblYourPlanValue.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -10).isActive = true
+        
+        let separator2 = UIView()
+        separator2.translatesAutoresizingMaskIntoConstraints = false
+        darkView.addSubview(separator2)
+        separator2.backgroundColor = UIColor.white
+        separator2.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        separator2.leadingAnchor.constraint(equalTo: darkView.leadingAnchor).isActive = true
+        separator2.trailingAnchor.constraint(equalTo: darkView.trailingAnchor).isActive = true
+        separator2.topAnchor.constraint(equalTo: lblYourPlan.bottomAnchor, constant: 10).isActive = true
+        
+        darkView.addSubview(yourAvgCircle)
+        yourAvgCircle.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
+        yourAvgCircle.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 10).isActive = true
+        
+        darkView.addSubview(lblAvgOutSpend)
+        lblAvgOutSpend.text = "Average out of plan spend"
+        lblAvgOutSpend.leadingAnchor.constraint(equalTo: yourAvgCircle.trailingAnchor, constant: 10).isActive = true
+        lblAvgOutSpend.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 16).isActive = true
+        
+        darkView.addSubview(lblAvgOutSpendValue)
+        lblAvgOutSpendValue.text = "..."
+        lblAvgOutSpendValue.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 16).isActive = true
+        lblAvgOutSpendValue.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -10).isActive = true
+        
+        let lblAllCurrSpend = UILabel()
+        scrollView.addSubview(lblAllCurrSpend)
+        lblAllCurrSpend.translatesAutoresizingMaskIntoConstraints = false
+        lblAllCurrSpend.text = "All current spend"
+        lblAllCurrSpend.textColor = UIColor.support_brown
+        lblAllCurrSpend.font = UIFont(name: String.defaultFontR, size: 31)
+        lblAllCurrSpend.numberOfLines = 0
+        lblAllCurrSpend.lineBreakMode = .byWordWrapping
+        lblAllCurrSpend.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 10).isActive = true
+        lblAllCurrSpend.centerXAnchor.constraint(equalTo: baseView.centerXAnchor).isActive = true
+        
+        let allSpendDarkView = UIView()
+        scrollView.addSubview(allSpendDarkView)
+        allSpendDarkView.translatesAutoresizingMaskIntoConstraints = false
+        allSpendDarkView.backgroundColor = UIColor.black
+        allSpendDarkView.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 20).isActive = true
+        allSpendDarkView.topAnchor.constraint(equalTo: lblAllCurrSpend.bottomAnchor, constant: 20).isActive = true
+        allSpendDarkView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        allSpendDarkView.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -20).isActive = true
+        
+        let redView = UIImageView()
+        allSpendDarkView.addSubview(redView)
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        redView.backgroundColor = UIColor.vodaRed
+        redView.leadingAnchor.constraint(equalTo: allSpendDarkView.leadingAnchor).isActive = true
+        redView.topAnchor.constraint(equalTo: allSpendDarkView.topAnchor).isActive = true
+        redView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        redView.bottomAnchor.constraint(equalTo: allSpendDarkView.bottomAnchor).isActive = true
+        
+        let lblSinceLastBill = UILabel()
+        allSpendDarkView.addSubview(lblSinceLastBill)
+        lblSinceLastBill.translatesAutoresizingMaskIntoConstraints = false
+        lblSinceLastBill.text = "Since last bill"
+        lblSinceLastBill.textColor = UIColor.white
+        lblSinceLastBill.leadingAnchor.constraint(equalTo: redView.trailingAnchor, constant: 20).isActive = true
+        lblSinceLastBill.topAnchor.constraint(equalTo: allSpendDarkView.topAnchor, constant: 20).isActive = true
+        lblSinceLastBill.numberOfLines = 0
+        lblSinceLastBill.lineBreakMode = .byWordWrapping
+        lblSinceLastBill.font = UIFont(name: String.defaultFontR, size: 16)
+        
+        let lblCurrSpendValue = UILabel()
+        allSpendDarkView.addSubview(lblCurrSpendValue)
+        lblCurrSpendValue.translatesAutoresizingMaskIntoConstraints = false
+        lblCurrSpendValue.textColor = UIColor.white
+        lblCurrSpendValue.font = UIFont(name: String.defaultFontR, size: 32)
+        if let currSpend = currSpend {
+            lblCurrSpendValue.text = currSpend
+        }
+        lblCurrSpendValue.leadingAnchor.constraint(equalTo: redView.trailingAnchor, constant: 20).isActive = true
+        lblCurrSpendValue.topAnchor.constraint(equalTo: lblSinceLastBill.bottomAnchor, constant: 20).isActive = true
+        lblCurrSpendValue.numberOfLines = 0
+        lblCurrSpendValue.trailingAnchor.constraint(equalTo: allSpendDarkView.trailingAnchor, constant: -10).isActive = true
+        lblCurrSpendValue.lineBreakMode = .byWordWrapping
+        
+        let lblExclude = UILabel()
+        allSpendDarkView.addSubview(lblExclude)
+        lblExclude.translatesAutoresizingMaskIntoConstraints = false
+        lblExclude.textColor = UIColor.white
+        lblExclude.font = UIFont(name: String.defaultFontR, size: 16)
+        if let excludeValue = excludeValue{
+            lblExclude.text = excludeValue
+        }
+        lblExclude.leadingAnchor.constraint(equalTo: redView.trailingAnchor, constant: 20).isActive = true
+        lblExclude.topAnchor.constraint(equalTo: lblCurrSpendValue.bottomAnchor, constant: 30).isActive = true
+        lblExclude.numberOfLines = 0
+        lblExclude.trailingAnchor.constraint(equalTo: allSpendDarkView.trailingAnchor, constant: -10).isActive = true
+        lblExclude.lineBreakMode = .byWordWrapping
+        
+        let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+        allSpendDarkView.addSubview(rightArrow)
+        rightArrow.translatesAutoresizingMaskIntoConstraints = false
+        rightArrow.topAnchor.constraint(equalTo: allSpendDarkView.topAnchor, constant: 60).isActive = true
+        rightArrow.trailingAnchor.constraint(equalTo: allSpendDarkView.trailingAnchor, constant: -20).isActive = true
+        rightArrow.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         
-        
+        scrollView.addSubview(lblPrevSpend)
+        lblPrevSpend.translatesAutoresizingMaskIntoConstraints = false
+        lblPrevSpend.text = "Previous spend"
+        lblPrevSpend.textColor = UIColor.support_brown
+        lblPrevSpend.font = UIFont(name: String.defaultFontR, size: 31)
+        lblPrevSpend.numberOfLines = 0
+        lblPrevSpend.lineBreakMode = .byWordWrapping
+        lblPrevSpend.topAnchor.constraint(equalTo: allSpendDarkView.bottomAnchor, constant: 30).isActive = true
+        lblPrevSpend.centerXAnchor.constraint(equalTo: baseView.centerXAnchor).isActive = true
     }
     
     func loadCurrentSpend(){
@@ -358,8 +630,13 @@ class currentSpendsBills: baseViewControllerM {
                                         responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? NSDictionary
                                         let graph = responseMessage["GRAPH"] as? NSDictionary
                                         let desc = responseMessage["DESC"] as? String
+                                        let avgoutOfPlanSpend = responseMessage["AverageOutOfPlanSpend"] as? String
                                         if let descWrapped = desc {
                                             self.lblAverage.text = descWrapped
+                                        }
+                                        
+                                        if let avgOutWrapped = avgoutOfPlanSpend {
+                                            self.lblAvgOutSpendValue.text = avgOutWrapped
                                         }
                                         if let graphWrapped = graph {
                                             self.y_end = graphWrapped["Y_End"] as! Int?
@@ -374,12 +651,69 @@ class currentSpendsBills: baseViewControllerM {
                                         }
                                         let history = responseMessage["HISTORY"] as? NSArray
                                         if let array = history {
+                                            var monthCounter = 0
+                                            var prevTopConstraint: CGFloat = 20
                                             for obj in array {
                                                 if let dict = obj as? NSDictionary{
+                                                    monthCounter = monthCounter + 1
                                                     let billMonth = dict.value(forKey: "BillMonth") as! String?
-                                                    print(billMonth)
+                                                    
+                                                    if monthCounter == 6 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblFirstMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    if monthCounter == 5 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblSecondMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    if monthCounter == 4 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblThirdMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    if monthCounter == 3 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblFourthMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    if monthCounter == 2 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblFifthMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    if monthCounter == 1 {
+                                                        if let billMonth = billMonth{
+                                                            self.lblSixthMonth.text = billMonth
+                                                        }
+                                                    }
+                                                    let billAmt = dict.value(forKey: "Amount") as! String?
+                                                    let billDate = dict.value(forKey: "BillDate") as! String?
+                                                    let dueNote = dict.value(forKey: "DueNote") as! String?
+                                                    
+                                                    let previousSpendCard = UIView()
+                                                    self.scrollView.addSubview(previousSpendCard)
+                                                    previousSpendCard.translatesAutoresizingMaskIntoConstraints = false
+                                                    previousSpendCard.leadingAnchor.constraint(equalTo: self.baseView.leadingAnchor, constant: 20).isActive = true
+                                                    previousSpendCard.topAnchor.constraint(equalTo: self.lblPrevSpend.bottomAnchor, constant: prevTopConstraint).isActive = true
+                                                    previousSpendCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                                                    previousSpendCard.trailingAnchor.constraint(equalTo: self.baseView.trailingAnchor, constant: -20).isActive = true
+                                                    previousSpendCard.backgroundColor = UIColor.white
+                                                    
+                                                    
+                                                    
+                                                    prevTopConstraint = prevTopConstraint + 150
+                                                    
                                                 }
+                                                
                                             }
+                                            var viewHeight = self.view.frame.size.height
+                                            
+                                            print("array size \(array.count)")
+                                            print("array size \(viewHeight)")
+                                            let totalScrollHeight = prevTopConstraint + viewHeight + 60
+                                            self.scrollView.contentSize.height = CGFloat(totalScrollHeight)
                                         }
                                     } else if responseCode == 1 {
                                         self.stop_activity_loader()

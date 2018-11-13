@@ -1180,12 +1180,16 @@ class postPaidHome: baseViewControllerM {
         if allowSensitiveData != nil {
             if allowSensitiveData == true {
                 let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
-                let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills")
+                guard let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills") as? currentSpendsBills else {return}
+                moveTo.currSpend = currentSpend
+                moveTo.excludeValue = currSpendDesc
                 present(moveTo, animated: true, completion: nil)
             }else{
                 
                 let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
-                let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
+                guard let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin") as? postPaidLogin else {return}
+                moveTo.currentSpend = currentSpend
+                moveTo.excludeValue = currSpendDesc
                 self.addChildViewController(moveTo)
                 moveTo.view.frame = self.view.frame
                 view.addSubview(moveTo.view)
@@ -1194,7 +1198,9 @@ class postPaidHome: baseViewControllerM {
         }else{
             
             let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
-            let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin")
+            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLogin") as? postPaidLogin else {return}
+            moveTo.currentSpend = currentSpend
+            moveTo.excludeValue = currSpendDesc
             self.addChildViewController(moveTo)
             moveTo.view.frame = self.view.frame
             view.addSubview(moveTo.view)
