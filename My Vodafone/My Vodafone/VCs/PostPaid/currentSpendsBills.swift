@@ -18,6 +18,7 @@ class currentSpendsBills: baseViewControllerM {
     
     var username: String?
     var msisdn: String?
+    var cacheCurrSpend: String?
     
     let baseView: UIView = {
         let view = UIView()
@@ -170,11 +171,13 @@ class currentSpendsBills: baseViewControllerM {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.color = UIColor.vodaRed
         view.hidesWhenStopped = true
         return view
     }()
     let lblAverage = UILabel()
     let lblPrevSpend = UILabel()
+    var viewWidth: CGFloat?
     
     let firstMonthBar: UIView = {
         let view = UIView()
@@ -249,6 +252,7 @@ class currentSpendsBills: baseViewControllerM {
         view.layer.cornerRadius = 10
         return view
     }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,8 +262,179 @@ class currentSpendsBills: baseViewControllerM {
         username = responseData["Username"] as? String
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
 
+        viewWidth = view.frame.size.width
         setUpViewsCurrSp()
-        loadCurrentSpend()
+        cacheCurrSpend = preference.object(forKey: UserDefaultsKeys.postPaidCurrentSpend.rawValue) as? String
+        if let cacheCurrSpend = cacheCurrSpend {
+            var responseMessage: NSDictionary!
+            let decrypt = self.decryptAsyncRequest(requestBody: cacheCurrSpend)
+            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+            responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? NSDictionary
+            let graph = responseMessage["GRAPH"] as? NSDictionary
+            let desc = responseMessage["DESC"] as? String
+            let avgoutOfPlanSpend = responseMessage["AverageOutOfPlanSpend"] as? String
+            if let descWrapped = desc {
+                lblAverage.text = descWrapped
+            }
+            
+            if let avgOutWrapped = avgoutOfPlanSpend {
+                lblAvgOutSpendValue.text = avgOutWrapped
+            }
+            if let graphWrapped = graph {
+                y_end = graphWrapped["Y_End"] as! Int?
+                y_interval = graphWrapped["Y_Interval"] as! Int?
+                y_unit = graphWrapped["Y_Unit"] as! String?
+                if let y_end = y_end{
+                    lblYEnd.text = "GHS \(String(y_end))"
+                }
+                if let y_interval = self.y_interval{
+                    lblYInterval.text = "GHS \(String(y_interval))"
+                }
+            }
+            let history = responseMessage["HISTORY"] as? NSArray
+            if let array = history {
+                var monthCounter = 0
+                var prevTopConstraint: CGFloat = 20
+                for obj in array {
+                    if let dict = obj as? NSDictionary{
+                        monthCounter = monthCounter + 1
+                        let billMonth = dict.value(forKey: "BillMonth") as! String?
+                        
+                        if monthCounter == 6 {
+                            if let billMonth = billMonth{
+                                lblFirstMonth.text = billMonth
+                            }
+                        }
+                        if monthCounter == 5 {
+                            if let billMonth = billMonth{
+                                lblSecondMonth.text = billMonth
+                            }
+                        }
+                        if monthCounter == 4 {
+                            if let billMonth = billMonth{
+                                lblThirdMonth.text = billMonth
+                            }
+                        }
+                        if monthCounter == 3 {
+                            if let billMonth = billMonth{
+                                lblFourthMonth.text = billMonth
+                            }
+                        }
+                        if monthCounter == 2 {
+                            if let billMonth = billMonth{
+                                lblFifthMonth.text = billMonth
+                            }
+                        }
+                        if monthCounter == 1 {
+                            if let billMonth = billMonth{
+                                lblSixthMonth.text = billMonth
+                            }
+                        }
+                        let billAmt = dict.value(forKey: "Amount") as! String?
+                        let billDate = dict.value(forKey: "BillDate") as! String?
+                        let dueNote = dict.value(forKey: "DueNote") as! String?
+                        
+                        let previousSpendCard = UIView()
+                        scrollView.addSubview(previousSpendCard)
+                        previousSpendCard.translatesAutoresizingMaskIntoConstraints = false
+                        previousSpendCard.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 20).isActive = true
+                        previousSpendCard.topAnchor.constraint(equalTo: lblPrevSpend.bottomAnchor, constant: prevTopConstraint).isActive = true
+                        previousSpendCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+                        previousSpendCard.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -20).isActive = true
+                        previousSpendCard.backgroundColor = UIColor.white
+                        
+                        let purpleView = UIView()
+                        scrollView.addSubview(purpleView)
+                        purpleView.translatesAutoresizingMaskIntoConstraints = false
+                        purpleView.backgroundColor = UIColor.support_voilet
+                        purpleView.leadingAnchor.constraint(equalTo: previousSpendCard.leadingAnchor).isActive = true
+                        purpleView.topAnchor.constraint(equalTo: previousSpendCard.topAnchor).isActive = true
+                        purpleView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                        purpleView.bottomAnchor.constraint(equalTo: previousSpendCard.bottomAnchor).isActive = true
+                        
+                        let lblBillDate = UILabel()
+                        previousSpendCard.addSubview(lblBillDate)
+                        lblBillDate.translatesAutoresizingMaskIntoConstraints = false
+                        lblBillDate.textColor = UIColor.black
+                        if let billDate = billDate {
+                            lblBillDate.text = billDate
+                        }
+                        lblBillDate.font = UIFont(name: String.defaultFontR, size: 13)
+                        lblBillDate.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                        lblBillDate.topAnchor.constraint(equalTo: purpleView.topAnchor, constant: 20).isActive = true
+                        lblBillDate.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                        lblBillDate.numberOfLines = 0
+                        lblBillDate.lineBreakMode = .byWordWrapping
+                        
+                        let lblBillAmt = UILabel()
+                        previousSpendCard.addSubview(lblBillAmt)
+                        lblBillAmt.translatesAutoresizingMaskIntoConstraints = false
+                        lblBillAmt.textColor = UIColor.black
+                        if let billAmt = billAmt {
+                            lblBillAmt.text = billAmt
+                        }
+                        if Int(viewWidth!) < 414{
+                            lblBillAmt.font = UIFont(name: String.defaultFontR, size: 20)
+                        }else{
+                            lblBillAmt.font = UIFont(name: String.defaultFontR, size: 30)
+                        }
+                        
+                        lblBillAmt.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                        lblBillAmt.topAnchor.constraint(equalTo: lblBillDate.bottomAnchor, constant: 10).isActive = true
+                        lblBillAmt.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                        lblBillAmt.numberOfLines = 0
+                        lblBillAmt.lineBreakMode = .byWordWrapping
+                        
+                        let lblDueDate = UILabel()
+                        previousSpendCard.addSubview(lblDueDate)
+                        lblDueDate.translatesAutoresizingMaskIntoConstraints = false
+                        lblDueDate.textColor = UIColor.black
+                        if let dueNote = dueNote {
+                            lblDueDate.text = dueNote
+                        }
+                        lblDueDate.font = UIFont(name: String.defaultFontR, size: 13)
+                        lblDueDate.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                        lblDueDate.topAnchor.constraint(equalTo: lblBillAmt.bottomAnchor, constant: 25).isActive = true
+                        lblDueDate.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                        lblDueDate.numberOfLines = 0
+                        lblDueDate.lineBreakMode = .byWordWrapping
+                        
+                        let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                        scrollView.addSubview(rightArrow)
+                        rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                        rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                        rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                        rightArrow.topAnchor.constraint(equalTo: previousSpendCard.topAnchor, constant: 57).isActive = true
+                        rightArrow.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -9).isActive = true
+                        
+                        prevTopConstraint = prevTopConstraint + 150
+                        
+                    }
+                    
+                }
+                let viewHeight = self.view.frame.size.height
+                
+                
+                
+                var totalScrollHeight = prevTopConstraint + viewHeight + 60
+                if Int(viewWidth!) < 414 {
+                    totalScrollHeight = prevTopConstraint + viewHeight + 140
+                }else{
+                    
+                }
+                
+                scrollView.contentSize.height = CGFloat(totalScrollHeight)
+            }
+        }else{
+            
+        }
+        if CheckInternet.Connection(){
+            start_activity_loader()
+            loadCurrentSpend()
+        }else{
+            
+        }
+        
         checkConnection()
     }
     
@@ -326,15 +501,22 @@ class currentSpendsBills: baseViewControllerM {
         lblHeader.lineBreakMode = .byWordWrapping
         
         topImage.addSubview(darkView)
-        darkView.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 20).isActive = true
+        if Int(viewWidth!) < 414{
+            darkView.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 10).isActive = true
+            darkView.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -10).isActive = true
+        }else{
+            darkView.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 20).isActive = true
+            darkView.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -20).isActive = true
+        }
+        
         darkView.topAnchor.constraint(equalTo: lblHeader.bottomAnchor, constant: 10).isActive = true
-        darkView.trailingAnchor.constraint(equalTo: topImage.trailingAnchor, constant: -20).isActive = true
+        
         darkView.bottomAnchor.constraint(equalTo: topImage.bottomAnchor, constant: -35).isActive = true
         
         
         darkView.addSubview(lblAverage)
         lblAverage.translatesAutoresizingMaskIntoConstraints = false
-        lblAverage.text = ""
+        
         lblAverage.textColor = UIColor.white
         lblAverage.textAlignment = .center
         lblAverage.font = UIFont(name: String.defaultFontR, size: 16)
@@ -345,7 +527,7 @@ class currentSpendsBills: baseViewControllerM {
         lblAverage.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -50).isActive = true
         
         darkView.addSubview(lblYEnd)
-        lblYEnd.text = "GHS -- -- --"
+        
         lblYEnd.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 10).isActive = true
         lblYEnd.topAnchor.constraint(equalTo: lblAverage.bottomAnchor, constant: 30).isActive = true
         lblYEnd.numberOfLines = 0
@@ -354,7 +536,7 @@ class currentSpendsBills: baseViewControllerM {
         
         
         darkView.addSubview(lblYInterval)
-        lblYInterval.text = "GHS -- -- --"
+        
         lblYInterval.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 10).isActive = true
         lblYInterval.topAnchor.constraint(equalTo: lblYEnd.bottomAnchor, constant: 90).isActive = true
         lblYInterval.numberOfLines = 0
@@ -480,7 +662,7 @@ class currentSpendsBills: baseViewControllerM {
         lblAvgOutSpend.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 16).isActive = true
         
         darkView.addSubview(lblAvgOutSpendValue)
-        lblAvgOutSpendValue.text = "..."
+        
         lblAvgOutSpendValue.topAnchor.constraint(equalTo: separator2.bottomAnchor, constant: 16).isActive = true
         lblAvgOutSpendValue.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -10).isActive = true
         
@@ -570,6 +752,12 @@ class currentSpendsBills: baseViewControllerM {
         lblPrevSpend.lineBreakMode = .byWordWrapping
         lblPrevSpend.topAnchor.constraint(equalTo: allSpendDarkView.bottomAnchor, constant: 30).isActive = true
         lblPrevSpend.centerXAnchor.constraint(equalTo: baseView.centerXAnchor).isActive = true
+        
+        scrollView.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: baseView.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: lblPrevSpend.bottomAnchor, constant: 30).isActive = true
+        
+        scrollView.contentSize.height = view.frame.size.height + 300
     }
     
     func loadCurrentSpend(){
@@ -627,6 +815,7 @@ class currentSpendsBills: baseViewControllerM {
                                     responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
                                     if responseCode == 0 {
                                         self.stop_activity_loader()
+                                        self.preference.set(responseBody, forKey: UserDefaultsKeys.postPaidCurrentSpend.rawValue)
                                         responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? NSDictionary
                                         let graph = responseMessage["GRAPH"] as? NSDictionary
                                         let desc = responseMessage["DESC"] as? String
@@ -701,7 +890,69 @@ class currentSpendsBills: baseViewControllerM {
                                                     previousSpendCard.trailingAnchor.constraint(equalTo: self.baseView.trailingAnchor, constant: -20).isActive = true
                                                     previousSpendCard.backgroundColor = UIColor.white
                                                     
+                                                    let purpleView = UIView()
+                                                    self.scrollView.addSubview(purpleView)
+                                                    purpleView.translatesAutoresizingMaskIntoConstraints = false
+                                                    purpleView.backgroundColor = UIColor.support_voilet
+                                                    purpleView.leadingAnchor.constraint(equalTo: previousSpendCard.leadingAnchor).isActive = true
+                                                    purpleView.topAnchor.constraint(equalTo: previousSpendCard.topAnchor).isActive = true
+                                                    purpleView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                                                    purpleView.bottomAnchor.constraint(equalTo: previousSpendCard.bottomAnchor).isActive = true
                                                     
+                                                    let lblBillDate = UILabel()
+                                                    previousSpendCard.addSubview(lblBillDate)
+                                                    lblBillDate.translatesAutoresizingMaskIntoConstraints = false
+                                                    lblBillDate.textColor = UIColor.black
+                                                    if let billDate = billDate {
+                                                        lblBillDate.text = billDate
+                                                    }
+                                                    lblBillDate.font = UIFont(name: String.defaultFontR, size: 13)
+                                                    lblBillDate.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                                                    lblBillDate.topAnchor.constraint(equalTo: purpleView.topAnchor, constant: 20).isActive = true
+                                                    lblBillDate.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                                                    lblBillDate.numberOfLines = 0
+                                                    lblBillDate.lineBreakMode = .byWordWrapping
+                                                    
+                                                    let lblBillAmt = UILabel()
+                                                    previousSpendCard.addSubview(lblBillAmt)
+                                                    lblBillAmt.translatesAutoresizingMaskIntoConstraints = false
+                                                    lblBillAmt.textColor = UIColor.black
+                                                    if let billAmt = billAmt {
+                                                        lblBillAmt.text = billAmt
+                                                    }
+                                                    if Int(self.viewWidth!) < 414{
+                                                        lblBillAmt.font = UIFont(name: String.defaultFontR, size: 20)
+                                                    }else{
+                                                        lblBillAmt.font = UIFont(name: String.defaultFontR, size: 30)
+                                                    }
+                                                    
+                                                    lblBillAmt.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                                                    lblBillAmt.topAnchor.constraint(equalTo: lblBillDate.bottomAnchor, constant: 10).isActive = true
+                                                    lblBillAmt.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                                                    lblBillAmt.numberOfLines = 0
+                                                    lblBillAmt.lineBreakMode = .byWordWrapping
+                                                    
+                                                    let lblDueDate = UILabel()
+                                                    previousSpendCard.addSubview(lblDueDate)
+                                                    lblDueDate.translatesAutoresizingMaskIntoConstraints = false
+                                                    lblDueDate.textColor = UIColor.black
+                                                    if let dueNote = dueNote {
+                                                        lblDueDate.text = dueNote
+                                                    }
+                                                    lblDueDate.font = UIFont(name: String.defaultFontR, size: 13)
+                                                    lblDueDate.leadingAnchor.constraint(equalTo: purpleView.trailingAnchor, constant: 20).isActive = true
+                                                    lblDueDate.topAnchor.constraint(equalTo: lblBillAmt.bottomAnchor, constant: 25).isActive = true
+                                                    lblDueDate.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -10).isActive = true
+                                                    lblDueDate.numberOfLines = 0
+                                                    lblDueDate.lineBreakMode = .byWordWrapping
+                                                    
+                                                    let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+                                                    self.scrollView.addSubview(rightArrow)
+                                                    rightArrow.translatesAutoresizingMaskIntoConstraints = false
+                                                    rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+                                                    rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+                                                    rightArrow.topAnchor.constraint(equalTo: previousSpendCard.topAnchor, constant: 57).isActive = true
+                                                    rightArrow.trailingAnchor.constraint(equalTo: previousSpendCard.trailingAnchor, constant: -9).isActive = true
                                                     
                                                     prevTopConstraint = prevTopConstraint + 150
                                                     
@@ -710,9 +961,16 @@ class currentSpendsBills: baseViewControllerM {
                                             }
                                             var viewHeight = self.view.frame.size.height
                                             
+                                            
                                             print("array size \(array.count)")
-                                            print("array size \(viewHeight)")
-                                            let totalScrollHeight = prevTopConstraint + viewHeight + 60
+                                            print("array size \(self.viewWidth)")
+                                            var totalScrollHeight = prevTopConstraint + viewHeight + 60
+                                            if Int(self.viewWidth!) < 414 {
+                                                totalScrollHeight = prevTopConstraint + viewHeight + 140
+                                            }else{
+                                                
+                                            }
+                                            
                                             self.scrollView.contentSize.height = CGFloat(totalScrollHeight)
                                         }
                                     } else if responseCode == 1 {

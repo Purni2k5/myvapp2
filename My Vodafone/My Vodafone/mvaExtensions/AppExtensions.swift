@@ -189,6 +189,7 @@ extension UIViewController {
         case postPaidOutBill
         case postPaidBreakDown
         case isSensitiveDataAllowed
+        case postPaidCurrentSpend
     }
     
     enum keyChainKeys: String {

@@ -130,89 +130,96 @@ class postPaidHome: baseViewControllerM {
         
         
         let outBillData = preference.object(forKey: UserDefaultsKeys.postPaidOutBill.rawValue) as? String
+        print(outBillData)
         if outBillData != nil {
-            
-            let resBody = outBillData
-            let decrypt = decryptAsyncRequest(requestBody: resBody!)
-            
-            var postBalance: NSDictionary!
-            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
-//            print(decryptedResponseBody)
-            postBalance = decryptedResponseBody["BALANCE"] as! NSDictionary?
-            balanceLabel = postBalance["BalanceLabel"] as! String?
-            outBill = postBalance["AccountBalanceLabel"] as! String?
+            if outBillData == "" {
+                
+            }else{
+                let resBody = outBillData
+                let decrypt = decryptAsyncRequest(requestBody: resBody!)
+                
+                var postBalance: NSDictionary!
+                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                postBalance = decryptedResponseBody["BALANCE"] as! NSDictionary?
+                balanceLabel = postBalance["BalanceLabel"] as! String?
+                outBill = postBalance["AccountBalanceLabel"] as! String?
+            }
             
         }else{
             
         }
         let postBillBreakData = preference.object(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue) as? String
         if postBillBreakData != nil {
-            let resBody = postBillBreakData
-            let decrypt = decryptAsyncRequest(requestBody: resBody!)
-            var postBreakDown: NSDictionary!
-            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
-            print("Decry \(decryptedResponseBody)")
-            postBreakDown = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
-            //                                        print(responseMessage)
-            let currentSpendData = postBreakDown["CurrentSpend"] as! NSDictionary?
-            let outOfPlanSpend = postBreakDown["OutOfPlanSpend"] as! NSDictionary?
-            
-            if let currSpendData = currentSpendData {
-                currentSpend = currSpendData["Amount"] as! String?
-                currSpendDesc = currSpendData["Desc"] as! String?
-                lblCurrSpend.text = currentSpend
-                lblExclude.text = currSpendDesc
-            }
-            
-            if let currOutOfPlanSpend = outOfPlanSpend {
+            if postBillBreakData == "" {
                 
-                currSpendCircle = currOutOfPlanSpend["Total"] as! String?
+            }else{
+                let resBody = postBillBreakData
+                let decrypt = decryptAsyncRequest(requestBody: resBody!)
+                var postBreakDown: NSDictionary!
+                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                print("Decry \(decryptedResponseBody)")
+                postBreakDown = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
+                //                                        print(responseMessage)
+                let currentSpendData = postBreakDown["CurrentSpend"] as! NSDictionary?
+                let outOfPlanSpend = postBreakDown["OutOfPlanSpend"] as! NSDictionary?
                 
-                outPlan = currOutOfPlanSpend["Desc"] as! String?
-                let components = currOutOfPlanSpend["Components"] as! NSArray?
-                if let array = components {
-                    //                                                let totalArray = array.count
-                    var counter = 0
-                    for obj in array {
-                        if let dict = obj as? NSDictionary{
-                            counter = counter + 1
-                            let description = dict.value(forKey: "Desc") as? String
-                            let planType = dict.value(forKey: "Type") as? String
-                            let planAmt = dict.value(forKey: "Amount") as? String
-                            if counter == 1 {
-                                if let desc = description {
-                                    roamingDesc = desc
-                                    roamingAmt = planAmt
-                                    lblRoamingDesc.text = roamingDesc
-                                    lblRoaming.text = roamingAmt
-                                }
-                            }else if counter == 2 {
-                                if let desc = description {
-                                    callsDesc = desc
-                                    callsAmt = planAmt
-                                    lblCallsDesc.text = callsDesc
-                                    lblCalls.text = callsAmt
-                                }
-                            }else if counter == 3 {
-                                if let desc = description {
-                                    internetDesc = desc
-                                    internetAmt = planAmt
-                                    lblInternetDesc.text = internetDesc
-                                    lblInternet.text = internetAmt
-                                }
-                            }else if counter == 4 {
-                                if let desc = description {
-                                    smsDesc = desc
-                                    smsAmt = planAmt
-                                    lblSMSDesc.text = smsDesc
-                                    lblSMS.text = smsAmt
+                if let currSpendData = currentSpendData {
+                    currentSpend = currSpendData["Amount"] as! String?
+                    currSpendDesc = currSpendData["Desc"] as! String?
+                    lblCurrSpend.text = currentSpend
+                    lblExclude.text = currSpendDesc
+                }
+                if let currOutOfPlanSpend = outOfPlanSpend {
+                    
+                    currSpendCircle = currOutOfPlanSpend["Total"] as! String?
+                    
+                    outPlan = currOutOfPlanSpend["Desc"] as! String?
+                    let components = currOutOfPlanSpend["Components"] as! NSArray?
+                    if let array = components {
+                        //                                                let totalArray = array.count
+                        var counter = 0
+                        for obj in array {
+                            if let dict = obj as? NSDictionary{
+                                counter = counter + 1
+                                let description = dict.value(forKey: "Desc") as? String
+                                let planType = dict.value(forKey: "Type") as? String
+                                let planAmt = dict.value(forKey: "Amount") as? String
+                                if counter == 1 {
+                                    if let desc = description {
+                                        roamingDesc = desc
+                                        roamingAmt = planAmt
+                                        lblRoamingDesc.text = roamingDesc
+                                        lblRoaming.text = roamingAmt
+                                    }
+                                }else if counter == 2 {
+                                    if let desc = description {
+                                        callsDesc = desc
+                                        callsAmt = planAmt
+                                        lblCallsDesc.text = callsDesc
+                                        lblCalls.text = callsAmt
+                                    }
+                                }else if counter == 3 {
+                                    if let desc = description {
+                                        internetDesc = desc
+                                        internetAmt = planAmt
+                                        lblInternetDesc.text = internetDesc
+                                        lblInternet.text = internetAmt
+                                    }
+                                }else if counter == 4 {
+                                    if let desc = description {
+                                        smsDesc = desc
+                                        smsAmt = planAmt
+                                        lblSMSDesc.text = smsDesc
+                                        lblSMS.text = smsAmt
+                                    }
                                 }
                             }
                         }
                     }
+                    
                 }
-                
             }
+            
         }else{
             
         }

@@ -1111,6 +1111,20 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.postPaidCurrentSpend.rawValue)
+        let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
+        if let array = Services as? NSArray {
+            for obj in array {
+                if let dict = obj as? NSDictionary {
+                    
+                    let displayNumber = dict.value(forKey: "primaryID") as! String
+                    let userNumber = displayNumber.dropFirst(3)
+                    let firstPin = "0\(userNumber)"
+                    preference.removeObject(forKey: "\(firstPin)_topUpHistory")
+                    preference.removeObject(forKey: "\(firstPin)_serviceBreakDown")
+                }
+            }
+        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
@@ -1494,6 +1508,7 @@ class baseViewControllerM: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.postPaidOutBill.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.postPaidCurrentSpend.rawValue)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         present(moveTo, animated: true, completion: nil)
