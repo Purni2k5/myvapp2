@@ -109,7 +109,7 @@ class ViewController: UIViewController {
                         else{
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-                            present(moveTo, animated: true, completion: nil)
+                            present(moveTo, animated: false, completion: nil)
                         }
                         
                     }else{

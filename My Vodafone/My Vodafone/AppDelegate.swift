@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VFGSplash
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Get the app's main bundle
+        let mainBundle = Bundle.main
+        
+        let storyboardName = "Main"
+        let viewControllerID = "ViewController"
+        let targetBundle = mainBundle
+        let durationInSeconds = 4
+        
+        runVodafoneSplash(storyboardName: storyboardName,
+        viewControllerId: viewControllerID,
+        targetBundle: targetBundle,
+        durationInSeconds: durationInSeconds)
+        
         return true
     }
 
@@ -39,6 +53,104 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func runVodafoneSplash(storyboardName storyboard: String, viewControllerId vcId: String, targetBundle bundle: Bundle, durationInSeconds timeout: Int){
+        
+        let nextViewController = viewControllerWith(storyboardID: storyboard,
+                                                    viewControllerID: vcId,
+                                                    targetBundle: bundle)
+        
+        playSplashAnimation(withTimeout: timeout)
+        {   [weak self] in
+            
+            self?.moveToNext(ViewController: nextViewController)
+        }
+    }
+    
+    /*
+     utility method to get a specified viewController from a target bundle
+     */
+    func viewControllerWith<T: UIViewController>(storyboardID storyboard: String, viewControllerID viewController: String, targetBundle bundle: Bundle) -> T{
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: storyboard, bundle: bundle)
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: viewController) as! T
+        return initialViewController
+    }
+    
+    /*
+     This function plays the animation of the splash
+     */
+    func playSplashAnimation(withTimeout timeout: Int, onCompletion: @escaping () -> Void){
+        
+        //get the viewController of splash from the component
+        let splashViewController = VFGAnimatedSplash.sharedInstance.returnViewController()
+        
+        //set it as root
+        setRoot(ViewController: splashViewController)
+        
+        //play the animation with the given timeout
+        VFGAnimatedSplash.sharedInstance.runSplashAnimationFor(timeOut: timeout)
+        
+        
+        var image = UIImage()
+        let timeOfDay = greetings()
+        if timeOfDay == "morning"{
+            image = UIImage(named: "morning_bg_")!
+        }else if timeOfDay == "afternoon" {
+            image = UIImage(named: "bg_afternoon")!
+        }else{
+            image = UIImage(named: "evening_bg_")!
+        }
+        
+        let imageView = UIImageView.init(image: image)
+        VFGAnimatedSplash.sharedInstance.splashInstance = splashViewController
+        VFGAnimatedSplash.sharedInstance.DashBoardBackgroundImage(imageView: imageView)
+        
+        let xPos: CGFloat = 10
+        let yPos: CGFloat = 30
+        VFGAnimatedSplash.sharedInstance.setFinalLogoPosition(positionX: xPos, positionY: yPos)
+        
+        VFGAnimatedSplash.sharedInstance.setStatusBarStyle(statusBarStyle: .lightContent)
+        
+        //set your completion block which should be called once the animation finishes and the splash disappears
+        VFGAnimatedSplash.sharedInstance.setComplitionHandler(completionHandler: {(completed) in
+            if completed { onCompletion() }})
+    }
+    
+    func greetings() -> String{
+        var time: String = "Unknown"
+        let now = Date()
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: now as Date)
+        let hourInt = Int(currentHour.description)!
+        if hourInt >= 0 && hourInt <= 11 {
+            time = "morning"
+        }else if hourInt >= 12 && hourInt <= 15 {
+            time = "afternoon"
+        }else{
+            time = "evening"
+        }
+        return time
+    }
+    
+    /*
+     removes splashViewController from the root and set the root with nextViewController
+     */
+    func moveToNext(ViewController nextVC: UIViewController){
+        VFGAnimatedSplash.sharedInstance.removeSplashView { [weak self](completed) in
+            if completed {
+                self?.setRoot(ViewController: nextVC)
+            }
+        }
+    }
+    
+    /*
+     replaces the rootView controller of your application with the given one passed in it's params.
+     */
+    func setRoot(ViewController viewController: UIViewController){
+        
+        self.window?.rootViewController = viewController
     }
 
 

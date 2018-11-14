@@ -40,6 +40,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     let defaultAccDisName = UILabel()
     let yendiagoro = UIImageView()
     let twoFourSeven = UIImageView()
+    let freeshsImage = UIImageView()
     let updateIcon = UIButton()
     let lblLastUpdatedStatus = UILabel()
     let lblShakeHeader = UILabel()
@@ -93,6 +94,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     fileprivate var yendiAgoroTop2: NSLayoutConstraint?
     fileprivate var supportTop1: NSLayoutConstraint?
     fileprivate var supportTop2: NSLayoutConstraint?
+    
+    fileprivate var freeshsTop1: NSLayoutConstraint?
+    fileprivate var freeshsTop2: NSLayoutConstraint?
     
     //Variables for gauge
     var gloBucketType: String?
@@ -919,7 +923,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         yendiagoro.translatesAutoresizingMaskIntoConstraints = false
         yendiagoro.image = UIImage(named: "spinlogo")
         yendiagoro.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
-        yendiAgoroTop1 = yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 150)
+        yendiAgoroTop1 = yendiagoro.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 190)
         yendiAgoroTop2 = yendiagoro.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 80)
         
         yendiagoro.heightAnchor.constraint(equalToConstant: 58).isActive = true
@@ -929,11 +933,27 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let yendiAgoroRec = UITapGestureRecognizer(target: self, action: #selector(goToYendiAgoro))
         yendiagoro.addGestureRecognizer(yendiAgoroRec)
         
+        //Free shs
+        scrollView.addSubview(freeshsImage)
+        freeshsImage.translatesAutoresizingMaskIntoConstraints = false
+        freeshsImage.image = UIImage(named: "freeshs")
+        freeshsTop1 = freeshsImage.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 110)
+        freeshsTop2 = freeshsImage.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: -5)
+        freeshsImage.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
+        freeshsImage.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        freeshsImage.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        freeshsImage.backgroundColor = UIColor.white
+        freeshsImage.isUserInteractionEnabled = true
+        freeshsImage.layer.cornerRadius = 35
+        
+        let freeshsRec = UITapGestureRecognizer(target: self, action: #selector(goToFreeSHS))
+        freeshsImage.addGestureRecognizer(freeshsRec)
+        
         //24/7
         scrollView.addSubview(twoFourSeven)
         twoFourSeven.translatesAutoresizingMaskIntoConstraints = false
         twoFourSeven.image = UIImage(named: "support")
-        supportTop1 = twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 140)
+        supportTop1 = twoFourSeven.topAnchor.constraint(equalTo: defaultAccDisName.bottomAnchor, constant: 190)
         supportTop2 = twoFourSeven.topAnchor.constraint(equalTo: gaugeViewHolder.bottomAnchor, constant: 70)
         twoFourSeven.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -3).isActive = true
         twoFourSeven.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -1022,6 +1042,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             defaultCallCreditViewTrailing2?.isActive = true
             yendiAgoroTop2?.isActive = true
             supportTop2?.isActive = true
+            freeshsTop2?.isActive = true
             gaugeViewHolder.isHidden = false
         }else{
             defaultCallCreditViewTop1?.isActive = true
@@ -1029,6 +1050,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             defaultCallCreditViewTrailing1?.isActive = true
             yendiAgoroTop1?.isActive = true
             supportTop1?.isActive = true
+            freeshsTop1?.isActive = true
             gaugeViewHolder.isHidden = true
             btnGoFBB.isHidden = true
             btnCallDataIcon.isHidden = true
@@ -1700,6 +1722,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                         self.yendiAgoroTop2?.isActive = true
                                                         self.supportTop1?.isActive = false
                                                         self.supportTop2?.isActive = true
+                                                        self.freeshsTop1?.isActive = false
+                                                        self.freeshsTop2?.isActive = true
                                                         self.gaugeViewHolder.isHidden = false
                                                         self.lblPlan.text = self.gaugeViewPromotion
                                                         self.lblPlanExpiration.text = self.gaugeViewExpirationDuration
@@ -1899,6 +1923,15 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let storyboard = UIStoryboard(name: "Support", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "supportVC")
         present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToFreeSHS(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "FreeSHS")
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToYendiAgoro(_sender: UITapGestureRecognizer){

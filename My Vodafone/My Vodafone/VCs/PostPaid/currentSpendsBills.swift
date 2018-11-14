@@ -16,6 +16,8 @@ class currentSpendsBills: baseViewControllerM {
     var currSpend: String?
     var excludeValue: String?
     
+    var firstPlotHeight: Double?
+    
     var username: String?
     var msisdn: String?
     var cacheCurrSpend: String?
@@ -188,6 +190,13 @@ class currentSpendsBills: baseViewControllerM {
         return view
     }()
     
+    fileprivate var firstMonthBarHeight: NSLayoutConstraint!
+    fileprivate var secondMonthBarHeight: NSLayoutConstraint!
+    fileprivate var thirdMonthBarHeight: NSLayoutConstraint!
+    fileprivate var fourthMonthBarHeight: NSLayoutConstraint!
+    fileprivate var fifthMonthBarHeight: NSLayoutConstraint!
+    fileprivate var sixthMonthBarHeight: NSLayoutConstraint!
+    
     let secondMonthBar: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -295,39 +304,69 @@ class currentSpendsBills: baseViewControllerM {
             if let array = history {
                 var monthCounter = 0
                 var prevTopConstraint: CGFloat = 20
+                
+                var highiestAmount: Double = 0
+                let SetHeight: Double = 240
+                //Find the highest raw amount
+                for obj in array {
+                    if let dict = obj as? NSDictionary{
+                        var AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+                        if let AmountRaw = AmountRaw{
+                            if(AmountRaw > highiestAmount){
+                                highiestAmount = AmountRaw
+                            }
+                        }
+                    }
+                }
+                
                 for obj in array {
                     if let dict = obj as? NSDictionary{
                         monthCounter = monthCounter + 1
                         let billMonth = dict.value(forKey: "BillMonth") as! String?
-                        
+                        let AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+                        let firstPlotHeight: Double? = (SetHeight * AmountRaw!) / highiestAmount
+                        print("firstPlotHeight:\(firstPlotHeight)")
+                        print("AmountRaw:\(AmountRaw)")
                         if monthCounter == 6 {
                             if let billMonth = billMonth{
+                                firstMonthBarHeight = firstMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                firstMonthBarHeight.isActive = true
                                 lblFirstMonth.text = billMonth
                             }
                         }
                         if monthCounter == 5 {
                             if let billMonth = billMonth{
                                 lblSecondMonth.text = billMonth
+                                secondMonthBarHeight = secondMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                secondMonthBarHeight.isActive = true
                             }
                         }
                         if monthCounter == 4 {
                             if let billMonth = billMonth{
                                 lblThirdMonth.text = billMonth
+                                thirdMonthBarHeight = thirdMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                thirdMonthBarHeight.isActive = true
                             }
                         }
                         if monthCounter == 3 {
                             if let billMonth = billMonth{
                                 lblFourthMonth.text = billMonth
+                                fourthMonthBarHeight = fourthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                fourthMonthBarHeight.isActive = true
                             }
                         }
                         if monthCounter == 2 {
                             if let billMonth = billMonth{
                                 lblFifthMonth.text = billMonth
+                                fifthMonthBarHeight = fifthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                fifthMonthBarHeight.isActive = true
                             }
                         }
                         if monthCounter == 1 {
                             if let billMonth = billMonth{
                                 lblSixthMonth.text = billMonth
+                                sixthMonthBarHeight = sixthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                sixthMonthBarHeight.isActive = true
                             }
                         }
                         let billAmt = dict.value(forKey: "Amount") as! String?
@@ -576,37 +615,31 @@ class currentSpendsBills: baseViewControllerM {
         
         darkView.addSubview(firstMonthBar)
         firstMonthBar.leadingAnchor.constraint(equalTo: lblFirstMonth.leadingAnchor, constant: 2).isActive = true
-        firstMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         firstMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         firstMonthBar.isOpaque = false
         
         darkView.addSubview(secondMonthBar)
         secondMonthBar.leadingAnchor.constraint(equalTo: lblSecondMonth.leadingAnchor, constant: 2).isActive = true
-        secondMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         secondMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         secondMonthBar.isOpaque = false
         
         darkView.addSubview(thirdMonthBar)
         thirdMonthBar.leadingAnchor.constraint(equalTo: lblThirdMonth.leadingAnchor, constant: 2).isActive = true
-        thirdMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         thirdMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         thirdMonthBar.isOpaque = false
         
         darkView.addSubview(fourthMonthBar)
         fourthMonthBar.leadingAnchor.constraint(equalTo: lblFourthMonth.leadingAnchor, constant: 2).isActive = true
-        fourthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         fourthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         fourthMonthBar.isOpaque = false
         
         darkView.addSubview(fifthMonthBar)
         fifthMonthBar.leadingAnchor.constraint(equalTo: lblFifthMonth.leadingAnchor, constant: 2).isActive = true
-        fifthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         fifthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         fifthMonthBar.isOpaque = false
         
         darkView.addSubview(sixthMonthBar)
         sixthMonthBar.leadingAnchor.constraint(equalTo: lblSixthMonth.leadingAnchor, constant: 2).isActive = true
-        sixthMonthBar.heightAnchor.constraint(equalToConstant: 136).isActive = true
         sixthMonthBar.bottomAnchor.constraint(equalTo: lblFirstMonth.topAnchor, constant: -5).isActive = true
         sixthMonthBar.isOpaque = false
         
@@ -842,38 +875,51 @@ class currentSpendsBills: baseViewControllerM {
                                         if let array = history {
                                             var monthCounter = 0
                                             var prevTopConstraint: CGFloat = 20
+                                            
+                                            var highiestAmount: Double = 0
+                                            let SetHeight: Double = 240
                                             for obj in array {
                                                 if let dict = obj as? NSDictionary{
                                                     monthCounter = monthCounter + 1
                                                     let billMonth = dict.value(forKey: "BillMonth") as! String?
+                                                    let AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+                                                    let firstPlotHeight: Double? = (SetHeight * AmountRaw!) / highiestAmount
+                                                    print("firstPlotHeight:\(firstPlotHeight)")
+                                                    print("AmountRaw:\(AmountRaw)")
                                                     
                                                     if monthCounter == 6 {
                                                         if let billMonth = billMonth{
+//                                                            self.firstMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblFirstMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 5 {
                                                         if let billMonth = billMonth{
+//                                                            self.secondMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblSecondMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 4 {
                                                         if let billMonth = billMonth{
+//                                                            self.thirdMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblThirdMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 3 {
                                                         if let billMonth = billMonth{
+//                                                            self.fourthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblFourthMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 2 {
                                                         if let billMonth = billMonth{
+//                                                            self.fifthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblFifthMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 1 {
                                                         if let billMonth = billMonth{
+//                                                            self.sixthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblSixthMonth.text = billMonth
                                                         }
                                                     }

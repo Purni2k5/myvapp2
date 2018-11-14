@@ -204,6 +204,14 @@ class FreeSHS: baseViewControllerM {
         lblHeader.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 100).isActive = true
         lblHeader.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
         
+        let freeshsLogo = UIImageView(image: #imageLiteral(resourceName: "freeshs"))
+        freeshsLogo.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(freeshsLogo)
+        freeshsLogo.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        freeshsLogo.heightAnchor.constraint(equalToConstant:200).isActive = true
+        freeshsLogo.topAnchor.constraint(equalTo: darkView.bottomAnchor, constant: 3).isActive = true
+        freeshsLogo.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
+        
         let lblDesc = UILabel()
         view.addSubview(lblDesc)
         lblDesc.translatesAutoresizingMaskIntoConstraints = false
@@ -211,7 +219,7 @@ class FreeSHS: baseViewControllerM {
         lblDesc.textColor = UIColor.white
         lblDesc.font = UIFont(name: String.defaultFontR, size: 15)
         lblDesc.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        lblDesc.topAnchor.constraint(equalTo: darkView.bottomAnchor, constant: 50).isActive = true
+        lblDesc.topAnchor.constraint(equalTo: freeshsLogo.bottomAnchor, constant: 5).isActive = true
         
         view.addSubview(txtMobileNumber)
         txtMobileNumber.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
@@ -327,7 +335,7 @@ class FreeSHS: baseViewControllerM {
                 let request = NSMutableURLRequest(url: async_call!)
                 request.httpMethod = "POST"
                 
-                let postParameters = ["action":"Donation", "msisdn":msisdn, "amt":amt, "username":username!, "os":getAppVersion()]
+                let postParameters = ["action":"Donation", "msisdn":msisdn, "amount":amt, "username":username!, "os":getAppVersion()]
                 if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
                     let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
                     let requestBody: Dictionary<String, Any> = [

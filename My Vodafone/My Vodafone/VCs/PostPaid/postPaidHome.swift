@@ -1015,6 +1015,7 @@ class postPaidHome: baseViewControllerM {
                         DispatchQueue.main.async {
                             self.updateIcon.layer.removeAnimation(forKey: "rotate")
                         }
+                        return
                     }
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
@@ -1149,13 +1150,18 @@ class postPaidHome: baseViewControllerM {
     }
     
     func animateRefreshBtn(){
-        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotateAnimation.fromValue = 0.0
-        rotateAnimation.toValue = CGFloat(.pi * 2.0)
-        rotateAnimation.duration = 1.0
-        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+        if CheckInternet.Connection(){
+            let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotateAnimation.fromValue = 0.0
+            rotateAnimation.toValue = CGFloat(.pi * 2.0)
+            rotateAnimation.duration = 1.0
+            rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+            
+            updateIcon.layer.add(rotateAnimation, forKey: "rotate")
+        }else{
+            displayNoInternet()
+        }
         
-        updateIcon.layer.add(rotateAnimation, forKey: "rotate")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1179,8 +1185,13 @@ class postPaidHome: baseViewControllerM {
     }
     
     @objc func updateDetails(){
-        animateRefreshBtn()
-        loadPostPaidDetails()
+        if !CheckInternet.Connection(){
+            displayNoInternet()
+        }else{
+            animateRefreshBtn()
+            loadPostPaidDetails()
+        }
+        
     }
     
     @objc func showItemised(){
