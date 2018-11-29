@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboardName = "Main"
         let viewControllerID = "ViewController"
         let targetBundle = mainBundle
-        let durationInSeconds = 4
+        let durationInSeconds = 3
         
         runVodafoneSplash(storyboardName: storyboardName,
         viewControllerId: viewControllerID,

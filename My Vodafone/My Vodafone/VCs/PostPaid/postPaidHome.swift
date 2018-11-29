@@ -262,6 +262,7 @@ class postPaidHome: baseViewControllerM {
             
         }
         
+        checkConnection()
     }
 
     func setUpViewsPostPaid(){

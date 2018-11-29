@@ -719,6 +719,9 @@ class currentSpendsBills: baseViewControllerM {
         allSpendDarkView.heightAnchor.constraint(equalToConstant: 140).isActive = true
         allSpendDarkView.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -20).isActive = true
         
+        let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.goToSinceLastBill(_sender:)))
+        allSpendDarkView.addGestureRecognizer(gestureRec)
+        
         let redView = UIImageView()
         allSpendDarkView.addSubview(redView)
         redView.translatesAutoresizingMaskIntoConstraints = false
@@ -772,9 +775,8 @@ class currentSpendsBills: baseViewControllerM {
         rightArrow.translatesAutoresizingMaskIntoConstraints = false
         rightArrow.topAnchor.constraint(equalTo: allSpendDarkView.topAnchor, constant: 60).isActive = true
         rightArrow.trailingAnchor.constraint(equalTo: allSpendDarkView.trailingAnchor, constant: -20).isActive = true
-        rightArrow.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        rightArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
         rightArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
         
         scrollView.addSubview(lblPrevSpend)
         lblPrevSpend.translatesAutoresizingMaskIntoConstraints = false
@@ -878,49 +880,66 @@ class currentSpendsBills: baseViewControllerM {
                                             
                                             var highiestAmount: Double = 0
                                             let SetHeight: Double = 240
+                                            //Find the highest raw amount
+                                            for obj in array {
+                                                if let dict = obj as? NSDictionary{
+                                                    var AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+                                                    if let AmountRaw = AmountRaw{
+                                                        if(AmountRaw > highiestAmount){
+                                                            highiestAmount = AmountRaw
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
                                             for obj in array {
                                                 if let dict = obj as? NSDictionary{
                                                     monthCounter = monthCounter + 1
                                                     let billMonth = dict.value(forKey: "BillMonth") as! String?
                                                     let AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
                                                     let firstPlotHeight: Double? = (SetHeight * AmountRaw!) / highiestAmount
-                                                    print("firstPlotHeight:\(firstPlotHeight)")
+                                                    print("firstPlotHeights:\(firstPlotHeight)")
                                                     print("AmountRaw:\(AmountRaw)")
-                                                    
                                                     if monthCounter == 6 {
                                                         if let billMonth = billMonth{
-//                                                            self.firstMonthBarHeight.constant = CGFloat(firstPlotHeight!)
+                                                            self.firstMonthBarHeight = self.firstMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.firstMonthBarHeight.isActive = true
                                                             self.lblFirstMonth.text = billMonth
                                                         }
                                                     }
                                                     if monthCounter == 5 {
                                                         if let billMonth = billMonth{
-//                                                            self.secondMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblSecondMonth.text = billMonth
+                                                            self.secondMonthBarHeight = self.secondMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.secondMonthBarHeight.isActive = true
                                                         }
                                                     }
                                                     if monthCounter == 4 {
                                                         if let billMonth = billMonth{
-//                                                            self.thirdMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblThirdMonth.text = billMonth
+                                                            self.thirdMonthBarHeight = self.thirdMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.thirdMonthBarHeight.isActive = true
                                                         }
                                                     }
                                                     if monthCounter == 3 {
                                                         if let billMonth = billMonth{
-//                                                            self.fourthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblFourthMonth.text = billMonth
+                                                            self.fourthMonthBarHeight = self.fourthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.fourthMonthBarHeight.isActive = true
                                                         }
                                                     }
                                                     if monthCounter == 2 {
                                                         if let billMonth = billMonth{
-//                                                            self.fifthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblFifthMonth.text = billMonth
+                                                            self.fifthMonthBarHeight = self.fifthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.fifthMonthBarHeight.isActive = true
                                                         }
                                                     }
                                                     if monthCounter == 1 {
                                                         if let billMonth = billMonth{
-//                                                            self.sixthMonthBarHeight.constant = CGFloat(firstPlotHeight!)
                                                             self.lblSixthMonth.text = billMonth
+                                                            self.sixthMonthBarHeight = self.sixthMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
+                                                            self.sixthMonthBarHeight.isActive = true
                                                         }
                                                     }
                                                     let billAmt = dict.value(forKey: "Amount") as! String?
@@ -1005,11 +1024,10 @@ class currentSpendsBills: baseViewControllerM {
                                                 }
                                                 
                                             }
-                                            var viewHeight = self.view.frame.size.height
+                                            let viewHeight = self.view.frame.size.height
                                             
                                             
-                                            print("array size \(array.count)")
-                                            print("array size \(self.viewWidth)")
+                                            
                                             var totalScrollHeight = prevTopConstraint + viewHeight + 60
                                             if Int(self.viewWidth!) < 414 {
                                                 totalScrollHeight = prevTopConstraint + viewHeight + 140
@@ -1048,6 +1066,12 @@ class currentSpendsBills: baseViewControllerM {
     @objc func goToPostHome(){
         let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidHome")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToSinceLastBill(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "SinceLastBill")
         present(moveTo, animated: true, completion: nil)
     }
 

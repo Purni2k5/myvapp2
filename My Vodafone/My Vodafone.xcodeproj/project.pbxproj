@@ -144,7 +144,9 @@
 		28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */; };
 		28B3DBB0217F88A6003F139E /* RateUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAF217F88A6003F139E /* RateUs.swift */; };
 		28B3DBB221807397003F139E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBB121807397003F139E /* LoginViewController.swift */; };
+		28DC5B2821B0173E0061C320 /* itemisedBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5B2721B0173E0061C320 /* itemisedBill.swift */; };
 		28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4B19020E966BF00336B1B /* TopUpViewController.swift */; };
+		28E8C53C21AC3D2E0021B277 /* SinceLastBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E8C53B21AC3D2E0021B277 /* SinceLastBill.swift */; };
 		5C678538021AB6C93B3B8EED /* Pods_My_Vodafone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */; };
 /* End PBXBuildFile section */
 
@@ -292,7 +294,9 @@
 		28B3DBAF217F88A6003F139E /* RateUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateUs.swift; sourceTree = "<group>"; };
 		28B3DBB121807397003F139E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		28D82963218A306800756ABB /* My Vodafone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "My Vodafone.entitlements"; sourceTree = "<group>"; };
+		28DC5B2721B0173E0061C320 /* itemisedBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemisedBill.swift; sourceTree = "<group>"; };
 		28E4B19020E966BF00336B1B /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
+		28E8C53B21AC3D2E0021B277 /* SinceLastBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastBill.swift; sourceTree = "<group>"; };
 		5AA0038E529ED64F7D0CAE19 /* Pods_My_Vodafone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Vodafone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A29F7972C8550F82E74458 /* Pods-My Vodafone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.release.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -654,6 +658,8 @@
 				28180957218B3F010001AA70 /* postPaidHome.swift */,
 				01FA869A2194567F00346A8D /* postPaidLogin.swift */,
 				01EF2E09219585E800FD9320 /* currentSpendsBills.swift */,
+				28E8C53B21AC3D2E0021B277 /* SinceLastBill.swift */,
+				28DC5B2721B0173E0061C320 /* itemisedBill.swift */,
 			);
 			path = PostPaid;
 			sourceTree = "<group>";
@@ -873,6 +879,7 @@
 				0160449F21187759008BD98F /* GestureView.swift in Sources */,
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
+				28DC5B2821B0173E0061C320 /* itemisedBill.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0186E651216D3DFB008B6601 /* TopUpHistory.swift in Sources */,
 				01CFCF99215B97A30048D56E /* Messages.swift in Sources */,
@@ -890,6 +897,7 @@
 				28E4B19120E966BF00336B1B /* TopUpViewController.swift in Sources */,
 				016DE602214FE09E00BEB882 /* staffCreditRedeeming.swift in Sources */,
 				28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */,
+				28E8C53C21AC3D2E0021B277 /* SinceLastBill.swift in Sources */,
 				01EF2E0A219585E800FD9320 /* currentSpendsBills.swift in Sources */,
 				0186E64F216CE376008B6601 /* ResetPassword.swift in Sources */,
 				016CC59F211C9EBD002B37E5 /* RegisterViewController.swift in Sources */,
