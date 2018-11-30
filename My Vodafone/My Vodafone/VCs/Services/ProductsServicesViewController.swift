@@ -23,6 +23,7 @@ class ProductsServicesViewController: UIViewController {
     var displayNumber = ""
     var username = ""
     var onlyType = ""
+    var defaultSrve: String?
     
     @IBOutlet weak var motherView: UIView!
     
@@ -328,9 +329,15 @@ class ProductsServicesViewController: UIViewController {
     
 
     @objc func goToHome(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-        present(moveTo, animated: true, completion: nil)
+        let defaultService = self.preference.object(forKey: "DefaultService") as? String
+        if let defaultSrve = defaultSrve{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+            present(moveTo, animated: true, completion: nil)
+        }else{
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Please add a services to proceed")
+        }
+        
     }
     
     func appVersion() -> String {

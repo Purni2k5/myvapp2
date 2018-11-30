@@ -89,7 +89,7 @@ class baseViewControllerM: UIViewController {
         
         
         if let UserData = preference.object(forKey: "responseData") as! NSDictionary?{
-            defaultService = UserData["DefaultService"] as! String
+            defaultService = UserData["DefaultService"] as? String
         }
         
         if let defaultServices = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {

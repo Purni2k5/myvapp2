@@ -23,6 +23,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var balanceLabel: String?
     var accountBalanceLabel: String?
     var dService: String?
+    
     var deviceWidth: CGFloat?
 //    let preference = UserDefaults.standard
 //    var altDisplayName: String?
@@ -235,6 +236,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             print("Do this")
             logout()
         }
+        
+        
         username = UserData["Username"] as! String?
         msisdn = preference.object(forKey: "defaultMSISDN") as! String?
         balanceLabel = preference.object(forKey: "balanceLabel") as! String?

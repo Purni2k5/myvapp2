@@ -16,6 +16,7 @@ class LoginViewController: baseViewControllerM {
     var defaultMSISDN: String?
     var username: String?
     var password: String?
+    var defaultSrve: String?
     
     let login_api = URL(string: String.MVA_LOGIN)
     
@@ -474,9 +475,22 @@ class LoginViewController: baseViewControllerM {
                             self.preference.set(responseData["ServiceList"] as! NSArray, forKey: UserDefaultsKeys.ServiceList.rawValue)
                             let obj = responseData["AccountStatus"] as! String
                             let Services = self.preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
-                            let default_service = responseData["DefaultService"] as! String
+                            let default_service = responseData["DefaultService"] as? String
                             self.preference.set(default_service, forKey: "DefaultService")
-                            let defaultService = self.preference.object(forKey: "DefaultService") as! String
+                            let defaultService = self.preference.object(forKey: "DefaultService") as? String
+                            if let defaultSrve = defaultService {
+                                print("defaultSrve \(defaultSrve)")
+                            }else{
+                                print("Doing this")
+                                DispatchQueue.main.async {
+                                    self.preference.set(responseData, forKey: "responseData")
+                                    //go to home screen
+                                    let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
+                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "ProductsServicesViewController")
+                                    self.present(moveTo, animated: true, completion: nil)
+                                }
+                                return
+                            }
                             if let array = Services as? NSArray {
                                 var foundDefault = false
                                 
