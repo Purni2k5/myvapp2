@@ -77,12 +77,40 @@ class itemisedBill: baseViewControllerM {
         return view
     }()
     
+    //create a closure for activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
+        return view
+    }()
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+       
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
 
         setUpViewsItemisedBill()
         checkConnection()
+        
+        if CheckInternet.Connection(){
+            getBillHistory()
+        }
     }
     
     func setUpViewsItemisedBill(){
@@ -188,10 +216,19 @@ class itemisedBill: baseViewControllerM {
         cardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         cardView.heightAnchor.constraint(equalToConstant: 600).isActive = true
-        print(view.frame.height)
+        
+        //activity loader
+        scrollView.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40).isActive = true
+        
         scrollView.contentSize.height = view.frame.height + 20 + 350
         
         
+    }
+    
+    func getBillHistory(){
+        start_activity_loader()
     }
     
     @objc func goToSinceLastBill(){
