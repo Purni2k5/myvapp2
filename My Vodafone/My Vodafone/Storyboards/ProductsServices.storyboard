@@ -162,19 +162,19 @@
                                                 <state key="normal" image="leftArrow"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your products and services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MN2-1d-DAe">
-                                                <rect key="frame" x="20" y="48" width="335" height="29.5"/>
+                                                <rect key="frame" x="20" y="48" width="335" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUW-z8-8O3">
-                                                <rect key="frame" x="20" y="180" width="335" height="29.5"/>
+                                                <rect key="frame" x="20" y="180" width="335" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="25"/>
                                                 <color key="textColor" red="0.61176470589999998" green="0.1647058824" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9A2-eX-Qzr" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="236" width="335" height="145"/>
+                                                <rect key="frame" x="20" y="228" width="335" height="145"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-ry-1Ah">
                                                         <rect key="frame" x="0.0" y="0.0" width="12" height="145"/>
@@ -191,7 +191,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add A Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veD-Lq-r9v">
-                                                        <rect key="frame" x="110" y="39" width="180" height="24.5"/>
+                                                        <rect key="frame" x="110" y="39" width="180" height="18"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="21"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -204,7 +204,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new number or Fixed Broadband account to be managed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kch-vg-HyX">
-                                                        <rect key="frame" x="110" y="71.5" width="205" height="63"/>
+                                                        <rect key="frame" x="110" y="65" width="205" height="46.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -229,7 +229,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBJ-au-npq" customClass="CardView" customModule="My_Vodafone" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="403" width="335" height="145"/>
+                                                <rect key="frame" x="20" y="395" width="335" height="145"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dch-9f-Sr1">
                                                         <rect key="frame" x="0.0" y="0.0" width="12" height="145"/>
@@ -246,7 +246,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHEF's phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KO-ak-4Xs">
-                                                        <rect key="frame" x="110" y="50" width="195" height="26"/>
+                                                        <rect key="frame" x="110" y="50" width="195" height="19"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -259,7 +259,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0208342557" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQY-wj-XdW">
-                                                        <rect key="frame" x="110" y="84" width="215" height="23.5"/>
+                                                        <rect key="frame" x="110" y="77" width="215" height="17.5"/>
                                                         <fontDescription key="fontDescription" name="VodafoneRg-Regular" family="Vodafone Rg" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

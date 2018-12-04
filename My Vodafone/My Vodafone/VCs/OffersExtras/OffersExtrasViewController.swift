@@ -355,6 +355,7 @@ class OffersExtrasViewController: baseViewControllerM {
     
     //Function to go to Vodafone X controller
     @objc func goToVodafoneX(_sender: UITapGestureRecognizer){
+        
         let storyboard = UIStoryboard(name: "OffersExtras", bundle: nil)
         guard let moveTo = storyboard.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {
             return
