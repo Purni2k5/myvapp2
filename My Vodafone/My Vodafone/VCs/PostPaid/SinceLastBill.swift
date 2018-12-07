@@ -683,6 +683,7 @@ class SinceLastBill: baseViewControllerM {
         btnSetConsumptionLimit.setTitleColor(UIColor.black, for: .normal)
         btnSetConsumptionLimit.titleLabel?.font = UIFont(name: String.defaultFontR, size: 21)
         btnSetConsumptionLimit.backgroundColor = UIColor.support_light_gray
+        btnSetConsumptionLimit.addTarget(self, action: #selector(goToSetConsumption), for: .touchUpInside)
         
         scrollView.contentSize.height = view.frame.height + 20
         
@@ -755,6 +756,14 @@ class SinceLastBill: baseViewControllerM {
         guard let moveTo = storyboard.instantiateViewController(withIdentifier: "itemisedBill") as? itemisedBill else{return}
         moveTo.parsedDate = darkViewDate
         moveTo.displayName = displayName
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToSetConsumption(){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "SetConsumptionLimit") as? SetConsumptionLimit else{return}
+//        moveTo.parsedDate = darkViewDate
+//        moveTo.displayName = displayName
         present(moveTo, animated: true, completion: nil)
     }
 }

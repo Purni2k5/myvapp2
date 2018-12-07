@@ -103,6 +103,87 @@ class CustomCell: UITableViewCell {
     }
 }
 
+class PostPaidBillHistoryCells: UITableViewCell {
+    var recipient: String?
+    var timeStamp: String?
+    var charge: String?
+    
+    var lblRecipient: UILabel = {
+        var view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var lblTimeStamp: UILabel = {
+        var view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var lblCharge: UILabel = {
+        var view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var separator: UIView = {
+        var separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        return separator
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.addSubview(lblRecipient)
+        self.addSubview(lblTimeStamp)
+        self.addSubview(lblCharge)
+        self.addSubview(separator)
+        
+        lblRecipient.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        lblRecipient.topAnchor.constraint(equalTo: self.topAnchor, constant: 30).isActive = true
+        lblRecipient.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50).isActive = true
+        lblRecipient.font = UIFont(name: String.defaultFontB, size: 17)
+        lblRecipient.numberOfLines = 0
+        lblRecipient.lineBreakMode = .byWordWrapping
+        
+        lblCharge.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+        lblCharge.topAnchor.constraint(equalTo: self.topAnchor, constant: 40).isActive = true
+        lblCharge.lineBreakMode = .byWordWrapping
+        lblCharge.numberOfLines = 0
+        lblRecipient.font = UIFont(name: String.defaultFontB, size: 13)
+        
+        lblTimeStamp.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        lblTimeStamp.topAnchor.constraint(equalTo: lblRecipient.bottomAnchor, constant: 5).isActive = true
+        lblTimeStamp.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        lblTimeStamp.font = UIFont(name: String.defaultFontR, size: 13)
+        
+        separator.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        separator.topAnchor.constraint(equalTo: lblTimeStamp.bottomAnchor, constant: 20).isActive = true
+        separator.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        separator.backgroundColor = UIColor.black
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let recipient = recipient{
+            lblRecipient.text = recipient
+        }
+        
+        if let charge = charge {
+            lblCharge.text = charge
+        }
+        
+        if let timeStamp = timeStamp {
+            lblTimeStamp.text = timeStamp
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class TopUpHistoryCells: UITableViewCell {
     var date: String?
     var mainIcon: UIImage?

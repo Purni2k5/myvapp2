@@ -65,6 +65,7 @@ class LogoutViewController: UIViewController {
         preference.removeObject(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.isSensitiveDataAllowed.rawValue)
         preference.removeObject(forKey: UserDefaultsKeys.postPaidCurrentSpend.rawValue)
+        preference.removeObject(forKey: UserDefaultsKeys.postPaidBillHistory.rawValue)
         
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {

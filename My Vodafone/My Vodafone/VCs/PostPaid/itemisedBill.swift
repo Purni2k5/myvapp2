@@ -8,10 +8,23 @@
 
 import UIKit
 
+struct BillHistoryDataCells{
+    let recipinet: String?
+    let charge: String?
+    let timeStamp: String?
+}
 class itemisedBill: baseViewControllerM {
 
     var parsedDate: String?
     var displayName: String?
+    var username: String?
+    var beginTime: String?
+    var endTime: String?
+    var msisdn: String?
+    
+    var eventDesc: String?
+    var timeStamp: String?
+    var charge: String?
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -77,6 +90,13 @@ class itemisedBill: baseViewControllerM {
         return view
     }()
     
+    //table
+    let historyTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     //create a closure for activity loader
     let activity_loader: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
@@ -101,9 +121,33 @@ class itemisedBill: baseViewControllerM {
        
     }
     
+    var cellID = "cellID"
+    var billHistoryData = [BillHistoryDataCells]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
+        
+        let UserData = preference.object(forKey: "responseData") as! NSDictionary
+        username = UserData["Username"] as? String
+        msisdn = preference.object(forKey: "defaultMSISDN") as! String?
+        let billHistory = preference.object(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue) as? String
+        if let billHistoryWrapped = billHistory {
+            let decrypt = decryptAsyncRequest(requestBody: billHistoryWrapped)
+            let decryptedResponse = convertToNSDictionary(decrypt: decrypt)
+            let responseMessage = decryptedResponse["RESPONSEMESSAGE"] as? NSDictionary
+            if let responMess = responseMessage {
+                let currentSpend = responMess["CurrentSpend"] as? NSDictionary
+                if let currentSpend = currentSpend{
+                    self.beginTime = currentSpend["UsageBeginTimeRaw"] as? String
+                    self.endTime = currentSpend["UsageEndTimeRaw"] as? String
+                    
+                }
+            }
+            
+            
+        }
+        
 
         setUpViewsItemisedBill()
         checkConnection()
@@ -215,20 +259,119 @@ class itemisedBill: baseViewControllerM {
         cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         cardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        cardView.heightAnchor.constraint(equalToConstant: 600).isActive = true
+        cardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        cardView.addSubview(historyTableView)
+        historyTableView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor).isActive = true
+        historyTableView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
+        historyTableView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor).isActive = true
+        historyTableView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor).isActive = true
+        historyTableView.backgroundColor = UIColor.clear
+        historyTableView.separatorStyle = .none
+        historyTableView.register(PostPaidBillHistoryCells.self, forCellReuseIdentifier: cellID)
+        historyTableView.tag = 999
+        historyTableView.delegate = self
+        historyTableView.dataSource = self
         
         //activity loader
         scrollView.addSubview(activity_loader)
         activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activity_loader.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40).isActive = true
         
-        scrollView.contentSize.height = view.frame.height + 20 + 350
+        
         
         
     }
     
     func getBillHistory(){
         start_activity_loader()
+        let async_call = URL(string: String.userURL)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        
+        let postParameters = ["action":"getUsageHistory", "username":username!, "msisdn":msisdn!, "accountType":"Post-Paid Account", "beginTime":beginTime!, "endTime":endTime!, "beginRow":"0", "os":getAppVersion()]
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not process your request. Try again later")
+                        }
+                        return
+                    }
+                    
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            print("myJSON \(parseJSON)")
+                            
+                            var responseBody: String?
+                            var responseCode: Int!
+                            var responseMessage: NSDictionary!
+                            responseBody = parseJSON["responseBody"] as? String
+                            if let responseBody = responseBody {
+                                DispatchQueue.main.async {
+                                    let decrypt = self.decryptAsyncRequest(requestBody: responseBody)
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    if responseCode == 0 {
+                                        self.preference.set(responseBody, forKey: UserDefaultsKeys.postPaidBillHistory.rawValue)
+                                        responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? NSDictionary
+//                                        print("decrypt \(responseMessage)")
+                                        let historyDictionary = responseMessage["HISTORY"] as? NSDictionary
+                                        if let historyDictionary = historyDictionary{
+                                            let historyAll = historyDictionary["ALL"] as? NSArray
+                                            if let array = historyAll {
+                                                for obj in array {
+                                                    print(obj)
+                                                    if let dict = obj as? NSDictionary {
+                                                        self.eventDesc = dict.value(forKey: "EventDesc") as? String
+                                                        self.charge = dict.value(forKey: "Charge") as? String
+                                                        self.timeStamp = dict.value(forKey: "TimeStamp") as? String
+                                                        
+                                                        let historyAppend = BillHistoryDataCells(recipinet: self.eventDesc ?? "", charge: self.charge ?? "", timeStamp: self.timeStamp ?? "")
+                                                        self.billHistoryData.append(historyAppend)
+                                                    }
+                                                }
+                                                self.historyTableView.reloadData()
+                                            }
+                                        }
+                                        
+                                    }
+                                    
+                                    self.stop_activity_loader()
+                                    self.scrollView.contentSize.height = self.view.frame.height + 20 + self.cardView.frame.height
+                                }
+                                
+                            }
+                        }
+                    }catch{
+                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not process your request. Try again later")
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        
     }
     
     @objc func goToSinceLastBill(){
@@ -237,4 +380,24 @@ class itemisedBill: baseViewControllerM {
         present(moveTo, animated: true, completion: nil)
     }
 
+}
+
+extension itemisedBill: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return billHistoryData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = historyTableView.dequeueReusableCell(withIdentifier: cellID) as! PostPaidBillHistoryCells
+        cell.recipient = billHistoryData[indexPath.row].recipinet
+        cell.charge = billHistoryData[indexPath.row].charge
+        cell.timeStamp = billHistoryData[indexPath.row].timeStamp
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        return cell
+    }
+    
+    
 }
