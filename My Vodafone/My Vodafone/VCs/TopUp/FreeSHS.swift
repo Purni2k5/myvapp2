@@ -15,6 +15,13 @@ class FreeSHS: baseViewControllerM {
     var selectedAmt: String?
     var hasRated: Bool?
     
+    let scrollView: UIScrollView = {
+       let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
     let darkView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -174,9 +181,15 @@ class FreeSHS: baseViewControllerM {
     }
     
     func setUpViewsFreeSHS(){
-        view.addSubview(darkView)
+        view.addSubview(scrollView)
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        scrollView.addSubview(darkView)
         darkView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        darkView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        darkView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         darkView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         darkView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         //close button
@@ -206,14 +219,14 @@ class FreeSHS: baseViewControllerM {
         
         let freeshsLogo = UIImageView(image: #imageLiteral(resourceName: "freeshs"))
         freeshsLogo.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(freeshsLogo)
+        scrollView.addSubview(freeshsLogo)
         freeshsLogo.widthAnchor.constraint(equalToConstant: 200).isActive = true
         freeshsLogo.heightAnchor.constraint(equalToConstant:200).isActive = true
         freeshsLogo.topAnchor.constraint(equalTo: darkView.bottomAnchor, constant: 3).isActive = true
         freeshsLogo.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
         
         let lblDesc = UILabel()
-        view.addSubview(lblDesc)
+        scrollView.addSubview(lblDesc)
         lblDesc.translatesAutoresizingMaskIntoConstraints = false
         lblDesc.text = "Mobile number you want to donate from"
         lblDesc.textColor = UIColor.white
@@ -221,7 +234,7 @@ class FreeSHS: baseViewControllerM {
         lblDesc.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         lblDesc.topAnchor.constraint(equalTo: freeshsLogo.bottomAnchor, constant: 5).isActive = true
         
-        view.addSubview(txtMobileNumber)
+        scrollView.addSubview(txtMobileNumber)
         txtMobileNumber.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         txtMobileNumber.topAnchor.constraint(equalTo: lblDesc.bottomAnchor, constant: 5).isActive = true
         txtMobileNumber.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
@@ -234,14 +247,14 @@ class FreeSHS: baseViewControllerM {
         dropDown.topAnchor.constraint(equalTo: txtMobileNumber.topAnchor, constant: 5).isActive = true
         dropDown.trailingAnchor.constraint(equalTo: txtMobileNumber.trailingAnchor, constant: -10).isActive = true
         
-        view.addSubview(txtMobileNumberHidden)
+        scrollView.addSubview(txtMobileNumberHidden)
         txtMobileNumberHidden.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         txtMobileNumberHidden.topAnchor.constraint(equalTo: lblDesc.bottomAnchor, constant: 30).isActive = true
         txtMobileNumberHidden.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         txtMobileNumberHidden.isHidden = true
         
         let lblAmtDesc = UILabel()
-        view.addSubview(lblAmtDesc)
+        scrollView.addSubview(lblAmtDesc)
         lblAmtDesc.translatesAutoresizingMaskIntoConstraints = false
         lblAmtDesc.text = "Select how much to donate"
         lblAmtDesc.textColor = UIColor.white
@@ -249,7 +262,7 @@ class FreeSHS: baseViewControllerM {
         lblAmtDesc.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         lblAmtDesc.topAnchor.constraint(equalTo: txtMobileNumber.bottomAnchor, constant: 30).isActive = true
         
-        view.addSubview(txtAmt)
+        scrollView.addSubview(txtAmt)
         txtAmt.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         txtAmt.topAnchor.constraint(equalTo: lblAmtDesc.bottomAnchor, constant: 5).isActive = true
         txtAmt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
@@ -262,13 +275,13 @@ class FreeSHS: baseViewControllerM {
         dropDown2.topAnchor.constraint(equalTo: txtAmt.topAnchor, constant: 5).isActive = true
         dropDown2.trailingAnchor.constraint(equalTo: txtAmt.trailingAnchor, constant: -10).isActive = true
         
-        view.addSubview(txtAmtHidden)
+        scrollView.addSubview(txtAmtHidden)
         txtAmtHidden.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         txtAmtHidden.topAnchor.constraint(equalTo: txtAmt.bottomAnchor, constant: 10).isActive = true
         txtAmtHidden.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         txtAmtHidden.isHidden = true
         
-        view.addSubview(btnSubmit)
+        scrollView.addSubview(btnSubmit)
         btnSubmit.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         btnSubmitTop = btnSubmit.topAnchor.constraint(equalTo: txtAmt.bottomAnchor, constant: 30)
         btnSubmitTop.isActive = true
@@ -276,18 +289,18 @@ class FreeSHS: baseViewControllerM {
         btnSubmit.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnSubmit.addTarget(self, action: #selector(submitPayment), for: .touchUpInside)
         
-        view.addSubview(btnCancel)
+        scrollView.addSubview(btnCancel)
         btnCancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         btnCancel.topAnchor.constraint(equalTo: btnSubmit.bottomAnchor, constant: 10).isActive = true
         btnCancel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         btnCancel.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         //activity loader
-        view.addSubview(activity_loader)
+        scrollView.addSubview(activity_loader)
         activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activity_loader.topAnchor.constraint(equalTo: txtAmt.bottomAnchor, constant: 30).isActive = true
         
-        
+        scrollView.contentSize.height = view.frame.height + 120
         
         
         
