@@ -276,7 +276,7 @@ class baseViewControllerM: UIViewController {
         btnCurrentSpend.setTitleColor(UIColor.white, for: .normal)
         btnCurrentSpend.leadingAnchor.constraint(equalTo: homeIcon.trailingAnchor, constant: 16).isActive = true
         btnCurrentSpend.topAnchor.constraint(equalTo: btnHome.bottomAnchor, constant: 21).isActive = true
-        btnCurrentSpend.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
+        btnCurrentSpend.addTarget(self, action: #selector(goToCurrentSpend), for: .touchUpInside)
         
         //Mobile icon
         let mobileIcon = UIButton()
@@ -1325,6 +1325,12 @@ class baseViewControllerM: UIViewController {
         self.view.addSubview(moveTo.view)
         moveTo.didMove(toParentViewController: self)
 
+    }
+    
+    @objc func goToCurrentSpend(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills")
+        present(moveTo, animated: true, completion: nil)
     }
     
     func showRatings(){

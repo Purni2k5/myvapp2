@@ -52,11 +52,90 @@ class SetConsumptionLimit: baseViewControllerM {
         return view
     }()
     
+    let lblCardViewConHeader: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.black
+        return view
+    }()
+    
+    let txtIDType: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtIDNo: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtLimitAmt: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtStrtDate: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtendDate: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtaltNo: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        view.font = UIFont(name: String.defaultFontR, size: 15)
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let btnSubmit: UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.grayButton
+        view.setTitle("Submit", for: .normal)
+        view.setTitleColor(UIColor.white, for: .normal)
+        view.titleLabel?.font = UIFont(name: String.defaultFontR, size: 22)
+        view.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
 
         setUpViewsSetConsumption()
+        hideKeyboardWhenTappedAround()
         checkConnection()
     }
     
@@ -126,6 +205,76 @@ class SetConsumptionLimit: baseViewControllerM {
         profileImage.topAnchor.constraint(equalTo: cardViewConsumption.topAnchor, constant: 20).isActive = true
         profileImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
         profileImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        cardViewConsumption.addSubview(lblCardViewConHeader)
+        lblCardViewConHeader.text = "Your current consumption limit"
+        lblCardViewConHeader.font = UIFont(name: String.defaultFontR, size: 18)
+        lblCardViewConHeader.numberOfLines = 0
+        lblCardViewConHeader.lineBreakMode = .byWordWrapping
+        lblCardViewConHeader.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 10).isActive = true
+        lblCardViewConHeader.topAnchor.constraint(equalTo: cardViewConsumption.topAnchor, constant: 20).isActive = true
+        lblCardViewConHeader.trailingAnchor.constraint(equalTo: cardViewConsumption.trailingAnchor, constant: -10).isActive = true
+        
+        let lblFrmHeader = UILabel()
+        lblFrmHeader.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(lblFrmHeader)
+        lblFrmHeader.textColor = UIColor.support_voilet
+        lblFrmHeader.text = "Set Consumption Limit"
+        lblFrmHeader.font = UIFont(name: String.defaultFontR, size: 31)
+        lblFrmHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        lblFrmHeader.topAnchor.constraint(equalTo: cardViewConsumption.bottomAnchor, constant: 30).isActive = true
+        lblFrmHeader.numberOfLines = 0
+        lblFrmHeader.lineBreakMode = .byWordWrapping
+        
+        scrollView.addSubview(cardViewForm)
+        cardViewForm.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        cardViewForm.topAnchor.constraint(equalTo: lblFrmHeader.bottomAnchor, constant: 20).isActive = true
+        cardViewForm.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        cardViewForm.heightAnchor.constraint(equalToConstant: 700).isActive = true
+        
+        let lblIDType = UILabel()
+        cardViewForm.addSubview(lblIDType)
+        lblIDType.translatesAutoresizingMaskIntoConstraints = false
+        lblIDType.text = "ID Type"
+        lblIDType.textColor = UIColor.black
+        lblIDType.font = UIFont(name: String.defaultFontR, size: 15)
+        lblIDType.numberOfLines = 0
+        lblIDType.lineBreakMode = .byWordWrapping
+        lblIDType.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        lblIDType.topAnchor.constraint(equalTo: cardViewForm.topAnchor, constant: 30).isActive = true
+        lblIDType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        
+        cardViewForm.addSubview(txtIDType)
+        txtIDType.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        txtIDType.topAnchor.constraint(equalTo: lblIDType.bottomAnchor, constant: 10).isActive = true
+        txtIDType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        
+        let dropDownImage = UIImageView()
+        txtIDType.addSubview(dropDownImage)
+        dropDownImage.translatesAutoresizingMaskIntoConstraints = false
+        let dropImage = UIImage(named: "dropdown")
+        dropDownImage.image = dropImage?.withRenderingMode(.alwaysTemplate)
+        dropDownImage.tintColor = UIColor.black
+        dropDownImage.topAnchor.constraint(equalTo: txtIDType.topAnchor, constant: 20).isActive = true
+        dropDownImage.trailingAnchor.constraint(equalTo: txtIDType.trailingAnchor, constant: -20).isActive = true
+        dropDownImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        dropDownImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        
+        scrollView.contentSize.height = view.frame.height + 640
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
