@@ -882,7 +882,7 @@ class postPaidHome: baseViewControllerM {
         btnBillHistory.trailingAnchor.constraint(equalTo: postPaidDetailsCard.trailingAnchor, constant: -20).isActive = true
         btnBillHistory.topAnchor.constraint(equalTo: btnItemisedSpend.bottomAnchor, constant: 20).isActive = true
         btnBillHistory.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        btnBillHistory.addTarget(self, action: #selector(showBillHistory), for: .touchUpInside)
+        btnBillHistory.addTarget(self, action: #selector(showItemised), for: .touchUpInside)
         
         if Int(viewWidth) <= 320 {
             scrollView.contentSize.height = viewHeight + 150
@@ -1229,7 +1229,11 @@ class postPaidHome: baseViewControllerM {
     }
     
     @objc func showBillHistory(){
-        
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills") as? currentSpendsBills else {return}
+        moveTo.currSpend = currentSpend
+        moveTo.excludeValue = currSpendDesc
+        present(moveTo, animated: true, completion: nil)
     }
     
     
