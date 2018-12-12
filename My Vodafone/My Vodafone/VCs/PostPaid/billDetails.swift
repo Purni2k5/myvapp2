@@ -1,28 +1,36 @@
 //
-//  SinceLastBill.swift
+//  billDetails.swift
 //  My Vodafone
 //
-//  Created by Chef Dennis Barimah on 26/11/2018.
+//  Created by Chef Dennis Barimah on 12/12/2018.
 //  Copyright © 2018 Chef Dennis Barimah. All rights reserved.
 //
 
 import UIKit
 
-class SinceLastBill: baseViewControllerM {
+class billDetails: baseViewControllerM {
 
-    var darkViewDate: String?
+    var variableDictionary: NSDictionary?
+    var currentSpend: String?
+    var currSpendDesc: String?
+    var billMonth: String?
+    var AmountRaw: Double?
+    var billAmt: String?
+    var billDate: String?
+    var dueNote: String?
+    var billPeriod: String?
+    var billDateDesc: String?
+    var displayName: String?
+    var dService: String?
+    var msisdn: String?
     var totalAmt: String?
     var planDesc: String?
-    var lastUpdated: String?
-    var displayName: String?
-    var msisdn: String?
-    var username: String?
-    var dService: String?
+    var darkViewDate: String?
+    var outPlanCollapseAmt: String?
     var spentOnCall: String?
     var spentOnData: String?
     var spentOnTexts: String?
     var spentOnOther: String?
-    var outPlanCollapseAmt: String?
     
     var isBreakDownShowing: Bool = false
     var isOutPlanShowing: Bool = false
@@ -207,14 +215,12 @@ class SinceLastBill: baseViewControllerM {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = UIColor.grayBackground
-        let lastBillDetails = preference.object(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue) as? String
-        
+
         let services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         //        print(services)
-        dService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as? String
         
+        dService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as? String
         msisdn = preference.object(forKey: "defaultMSISDN") as? String
         
         if let serviceArray = services as? NSArray{
@@ -228,7 +234,7 @@ class SinceLastBill: baseViewControllerM {
                         
                         if id == dService{
                             displayName = dict.value(forKey: "DisplayName") as? String
-                            AcctType = dict.value(forKey: "Type") as! String?
+//                            AcctType = dict.value(forKey: "Type") as! String?
                             foundDefault = true
                             
                         }
@@ -238,76 +244,94 @@ class SinceLastBill: baseViewControllerM {
             }
         }
         
-        if let lastBillDetailsWrapped = lastBillDetails {
-            let decrypt = decryptAsyncRequest(requestBody: lastBillDetailsWrapped)
-            let decryptedResponse = convertToNSDictionary(decrypt: decrypt)
+        
+        let outBillData = preference.object(forKey: UserDefaultsKeys.postPaidOutBill.rawValue) as? String
+        
+        if outBillData != nil {
+            if outBillData == "" {
+                
+            }else{
+                let resBody = outBillData
+                let decrypt = decryptAsyncRequest(requestBody: resBody!)
+                
+                var postBalance: NSDictionary!
+                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                postBalance = decryptedResponseBody["BALANCE"] as! NSDictionary?
+                
+            }
             
-            let responseCode = decryptedResponse["RESPONSECODE"] as? Int
-            if responseCode == 0 {
-                let responseMessage = decryptedResponse["RESPONSEMESSAGE"] as? NSDictionary
-                if let resMessage = responseMessage {
-                    let currentSpendData = resMessage["CurrentSpend"] as! NSDictionary?
-                    let outOfPlanSpend = resMessage["OutOfPlanSpend"] as! NSDictionary?
-                    if let outOfPlanSpendWrapped = outOfPlanSpend {
-                        totalAmt = outOfPlanSpendWrapped["Total"] as? String
-                        if let totalAmt = totalAmt {
-                            lblAmtSpent.text = totalAmt
-                        }
-                    }
-                    if let currSpendData = currentSpendData {
-                        planDesc = currSpendData["Desc"] as? String
-                        if let planDesc = planDesc {
-                            lblPlanDesc.text = planDesc
-                        }
-                        lastUpdated = currSpendData["LastUpdateDesc"] as? String
-                        darkViewDate = currSpendData["LastUpdated"] as? String
-                        if let lastUpdated = lastUpdated {
-                            lblLastUpdated.text = lastUpdated
-                        }
-                        if let darkViewDate = darkViewDate {
-                            lblDate.text = darkViewDate
-                        }
-                        let currentSpendBkDown = currSpendData["Breakdown"] as? NSArray
-                        if let bkArray = currentSpendBkDown{
-                            for bkObj in bkArray{
-                                print("bkObj \(bkObj)")
-                                if let dict1 = bkObj as? NSDictionary{
-                                    let type = dict1.value(forKey: "Type") as? String
-                                    if type == "Out of plan"{
-                                        outPlanCollapseAmt = dict1.value(forKey: "Total") as? String
-                                        let summaryArray = dict1.value(forKey: "Summary") as? NSArray
-                                        if let summArray = summaryArray {
-                                            for sumObj in summArray{
-                                                if let dict2 = sumObj as? NSDictionary{
-                                                    let type2 = dict2.value(forKey: "Type") as? String
-                                                    if type2 == "Calls"{
-                                                        spentOnCall = dict2.value(forKey: "Amount") as? String
-                                                    }else if type2 == "Texts"{
-                                                        spentOnTexts = dict2.value(forKey: "Amount") as? String
-                                                    }else if type2 == "Data"{
-                                                        spentOnData = dict2.value(forKey: "Amount") as? String
-                                                    }else {
-                                                        spentOnOther = dict2.value(forKey: "Amount") as? String
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
+        }else{
+            
+        }
+        let postBillBreakData = preference.object(forKey: UserDefaultsKeys.postPaidBreakDown.rawValue) as? String
+        if postBillBreakData != nil {
+            if postBillBreakData == "" {
+                
+            }else{
+                let resBody = postBillBreakData
+                let decrypt = decryptAsyncRequest(requestBody: resBody!)
+                var postBreakDown: NSDictionary!
+                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                postBreakDown = decryptedResponseBody["RESPONSEMESSAGE"] as! NSDictionary?
+                let currentSpendData = postBreakDown["CurrentSpend"] as! NSDictionary?
+                
+                
+                if let currSpendData = currentSpendData {
+                    currentSpend = currSpendData["Amount"] as! String?
+                    currSpendDesc = currSpendData["Desc"] as! String?
+                    
                 }
             }
         }
+
         
-        setUpViewsSinceLastBill()
+        if let dict = variableDictionary {
+//            print(dict)
+            billMonth = dict.value(forKey: "BillMonth") as! String?
+            AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+            billAmt = dict.value(forKey: "Amount") as! String?
+            billDate = dict.value(forKey: "BillDate") as! String?
+            dueNote = dict.value(forKey: "DueNote") as! String?
+            billPeriod = dict.value(forKey: "BillPeriod") as! String?
+            billDateDesc = dict.value(forKey: "BillDateDesc") as! String?
+            
+            let breakDown = dict.value(forKey: "Breakdown") as? NSArray
+            if let breakDownW = breakDown {
+                for bkObj in breakDownW{
+                    
+                    if let dict1 = bkObj as? NSDictionary{
+                        let type = dict1.value(forKey: "Type") as? String
+                        if type == "Out of plan"{
+                            outPlanCollapseAmt = dict1.value(forKey: "Total") as? String
+                            let summaryArray = dict1.value(forKey: "Summary") as? NSArray
+                            if let summArray = summaryArray {
+                                for sumObj in summArray{
+                                    if let dict2 = sumObj as? NSDictionary{
+                                        let type2 = dict2.value(forKey: "Type") as? String
+                                        if type2 == "Calls"{
+                                            spentOnCall = dict2.value(forKey: "Amount") as? String
+                                        }else if type2 == "Texts"{
+                                            spentOnTexts = dict2.value(forKey: "Amount") as? String
+                                        }else if type2 == "Data"{
+                                            spentOnData = dict2.value(forKey: "Amount") as? String
+                                        }else {
+                                            spentOnOther = dict2.value(forKey: "Amount") as? String
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
+        setUpViewsBillDetails()
         checkConnection()
-        
     }
     
-    func setUpViewsSinceLastBill(){
+    func setUpViewsBillDetails(){
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -338,12 +362,15 @@ class SinceLastBill: baseViewControllerM {
         backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         backButton.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 20).isActive = true
         backButton.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 10).isActive = true
-        backButton.addTarget(self, action: #selector(goToCurrentSpendsBills), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         let lblHeader = UILabel()
         scrollView.addSubview(lblHeader)
         lblHeader.translatesAutoresizingMaskIntoConstraints = false
-        lblHeader.text = "Since last bill"
+        if let header = billMonth {
+            lblHeader.text = "\(header) bill"
+        }
+//        lblHeader.text = "Since last bill"
         lblHeader.textColor = UIColor.white
         lblHeader.font = UIFont(name: String.defaultFontR, size: 31)
         lblHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -358,17 +385,26 @@ class SinceLastBill: baseViewControllerM {
         darkView.bottomAnchor.constraint(equalTo: topImage.bottomAnchor, constant: -21).isActive = true
         
         darkView.addSubview(lblDate)
+        if let billPeriod = billPeriod {
+            lblDate.text = billPeriod
+        }
 //        lblDate.text = "27 Nov 2018"
         lblDate.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
         lblDate.topAnchor.constraint(equalTo: darkView.topAnchor, constant: 20).isActive = true
         
         darkView.addSubview(lblAmtSpent)
+        if let billAmt = billAmt {
+            lblAmtSpent.text = billAmt
+        }
 //        lblAmtSpent.text = "GHS 491.6"
         lblAmtSpent.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
         lblAmtSpent.topAnchor.constraint(equalTo: lblDate.bottomAnchor, constant: 10).isActive = true
         
         darkView.addSubview(lblPlanDesc)
-//        lblPlanDesc.text = "Excluding in plan charges"
+        if let dueNote = dueNote{
+            lblPlanDesc.text = dueNote
+        }
+        
         lblPlanDesc.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
         lblPlanDesc.topAnchor.constraint(equalTo: lblAmtSpent.bottomAnchor, constant: 10).isActive = true
         
@@ -382,6 +418,9 @@ class SinceLastBill: baseViewControllerM {
         separator.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
         
         darkView.addSubview(lblLastUpdated)
+        if let billedOn = billDateDesc {
+            lblLastUpdated.text = billedOn
+        }
 //        lblLastUpdated.text = "Last Updated 27 Nov 2018"
         lblLastUpdated.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
         lblLastUpdated.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 10).isActive = true
@@ -394,10 +433,6 @@ class SinceLastBill: baseViewControllerM {
         collapseCardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         collapseCardView.heightAnchor.constraint(equalToConstant: 140).isActive = true
         collapseCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-//        collapseCardView.layer.cornerRadius = 0.3
-//        collapseCardView.layer.shadowOpacity = 0.3
-//        collapseCardView.layer.shadowColor = UIColor.black.cgColor
-//        collapseCardView.layer.shadowOffset = CGSize(width: 0, height: 5)
         
         let redView = UIImageView()
         collapseCardView.addSubview(redView)
@@ -433,8 +468,8 @@ class SinceLastBill: baseViewControllerM {
         lblMSISDN.lineBreakMode = .byWordWrapping
         
         collapseCardView.addSubview(lblCardAmt)
-        if let totalAmt = totalAmt {
-            lblCardAmt.text = totalAmt
+        if let billAmt = billAmt {
+            lblCardAmt.text = billAmt
         }
         lblCardAmt.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
         lblCardAmt.topAnchor.constraint(equalTo: lblMSISDN.bottomAnchor, constant: 10).isActive = true
@@ -443,8 +478,8 @@ class SinceLastBill: baseViewControllerM {
         lblCardAmt.lineBreakMode = .byWordWrapping
         
         collapseCardView.addSubview(lblCardDesc)
-        if let planDesc = planDesc {
-            lblCardDesc.text = planDesc
+        if let dueNote = dueNote {
+            lblCardDesc.text = dueNote
         }
         
         lblCardDesc.leadingAnchor.constraint(equalTo: cardImage.trailingAnchor, constant: 10).isActive = true
@@ -482,7 +517,7 @@ class SinceLastBill: baseViewControllerM {
         if let outPlanCollapseAmt = outPlanCollapseAmt {
             lblOutPlanCollapseAmt.text = outPlanCollapseAmt
         }
-//        lblOutPlanCollapseAmt.text = "GHS 488"
+        //        lblOutPlanCollapseAmt.text = "GHS 488"
         lblOutPlanCollapseAmt.trailingAnchor.constraint(equalTo: collapsedView.trailingAnchor, constant: -90).isActive = true
         lblOutPlanCollapseAmt.topAnchor.constraint(equalTo: collapsedView.topAnchor, constant: 30).isActive = true
         lblOutPlanCollapseAmt.numberOfLines = 0
@@ -521,7 +556,7 @@ class SinceLastBill: baseViewControllerM {
         if let spentOnCall = spentOnCall {
             lblCallsAmt.text = spentOnCall
         }
-//        lblCallsAmt.text = "GHS 376.18"
+        //        lblCallsAmt.text = "GHS 376.18"
         lblCallsAmt.textColor = UIColor.black
         lblCallsAmt.topAnchor.constraint(equalTo: callsView.topAnchor, constant: 20).isActive = true
         lblCallsAmt.trailingAnchor.constraint(equalTo: callsView.trailingAnchor, constant: -10).isActive = true
@@ -552,7 +587,7 @@ class SinceLastBill: baseViewControllerM {
         if let spentOnData = spentOnData{
             lblDataAmt.text = spentOnData
         }
-//        lblDataAmt.text = "GHS 81.49"
+        //        lblDataAmt.text = "GHS 81.49"
         lblDataAmt.textColor = UIColor.black
         lblDataAmt.topAnchor.constraint(equalTo: DataView.topAnchor, constant: 20).isActive = true
         lblDataAmt.trailingAnchor.constraint(equalTo: DataView.trailingAnchor, constant: -10).isActive = true
@@ -583,7 +618,7 @@ class SinceLastBill: baseViewControllerM {
         if let spentOnTexts = spentOnTexts {
             lblTextAmt.text = spentOnTexts
         }
-//        lblTextAmt.text = "GHS 30.33"
+        //        lblTextAmt.text = "GHS 30.33"
         lblTextAmt.textColor = UIColor.black
         lblTextAmt.topAnchor.constraint(equalTo: textsView.topAnchor, constant: 20).isActive = true
         lblTextAmt.trailingAnchor.constraint(equalTo: textsView.trailingAnchor, constant: -10).isActive = true
@@ -614,7 +649,7 @@ class SinceLastBill: baseViewControllerM {
         if let spentOnOther = spentOnOther{
             lblOtherAmt.text = spentOnOther
         }
-//        lblOtherAmt.text = "GHS 30.33"
+        //        lblOtherAmt.text = "GHS 30.33"
         lblOtherAmt.textColor = UIColor.black
         lblOtherAmt.topAnchor.constraint(equalTo: otherView.topAnchor, constant: 20).isActive = true
         lblOtherAmt.trailingAnchor.constraint(equalTo: otherView.trailingAnchor, constant: -10).isActive = true
@@ -686,8 +721,14 @@ class SinceLastBill: baseViewControllerM {
         btnSetConsumptionLimit.addTarget(self, action: #selector(goToSetConsumption), for: .touchUpInside)
         
         scrollView.contentSize.height = view.frame.height + 20
-        
-        
+    }
+    
+    @objc func goBack(){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills") as? currentSpendsBills else {return}
+        moveTo.currSpend = currentSpend
+        moveTo.excludeValue = currSpendDesc
+        present(moveTo, animated: true, completion: nil)
     }
     
     @objc func showBreakDown(){
@@ -742,14 +783,6 @@ class SinceLastBill: baseViewControllerM {
         }
         isOutPlanShowing = !isOutPlanShowing
     }
-
-    @objc func goToCurrentSpendsBills(){
-        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
-        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "currentSpendsBills") as? currentSpendsBills else {return}
-        moveTo.currSpend = totalAmt
-        moveTo.excludeValue = planDesc
-        present(moveTo, animated: true, completion: nil)
-    }
     
     @objc func goToItemisedSpend(){
         let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
@@ -762,8 +795,9 @@ class SinceLastBill: baseViewControllerM {
     @objc func goToSetConsumption(){
         let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
         guard let moveTo = storyboard.instantiateViewController(withIdentifier: "SetConsumptionLimit") as? SetConsumptionLimit else{return}
-//        moveTo.parsedDate = darkViewDate
-//        moveTo.displayName = displayName
+        //        moveTo.parsedDate = darkViewDate
+        //        moveTo.displayName = displayName
         present(moveTo, animated: true, completion: nil)
     }
+
 }

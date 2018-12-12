@@ -307,7 +307,7 @@ class postPaidLogin: baseViewControllerM {
         btnUserTouchID.leadingAnchor.constraint(equalTo: darkView.leadingAnchor, constant: 20).isActive = true
         btnUserTouchID.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 20).isActive = true
         btnUserTouchID.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
-//        btnUserTouchID.addTarget(self, action: #selector(closeModalB), for: .touchUpInside)
+        btnUserTouchID.addTarget(self, action: #selector(goToTouchID), for: .touchUpInside)
         
         darkView.addSubview(activity_loader)
         activity_loader.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
@@ -459,6 +459,17 @@ class postPaidLogin: baseViewControllerM {
                 task.resume()
             }
         }
+    }
+    
+    @objc func goToTouchID(){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "postPaidLoginTouchID") as? postPaidLoginTouchID else {return}
+        moveTo.currentSpend = currentSpend
+        moveTo.excludeValue = excludeValue
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
     }
     
     override var prefersStatusBarHidden: Bool{

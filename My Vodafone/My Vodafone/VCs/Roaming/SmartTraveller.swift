@@ -38,13 +38,18 @@ class SmartTraveller: baseViewControllerM {
         return view
     }()
     
+    let faultReportCard = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         setUpViewSmart()
         if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
             prePaidMenu()
-        }else{
+        }else if AcctType == "PHONE_MOBILE_POST_P" {
+            postPaidMenu()
+        }
+        else{
             prePaidMenu()
         }
     }
@@ -232,7 +237,7 @@ class SmartTraveller: baseViewControllerM {
         roamingTDesc.lineBreakMode = .byWordWrapping
         
         //Report Fault
-        let faultReportCard = UIView()
+        
         scrollView.addSubview(faultReportCard)
         faultReportCard.translatesAutoresizingMaskIntoConstraints = false
         faultReportCard.backgroundColor = UIColor.white
@@ -281,14 +286,196 @@ class SmartTraveller: baseViewControllerM {
         faultDesc.numberOfLines = 0
         faultDesc.lineBreakMode = .byWordWrapping
         
+        if AcctType == "PHONE_MOBILE_POST_P" {
+            // Roaming Header
+            let lblRInfo = UILabel()
+            scrollView.addSubview(lblRInfo)
+            lblRInfo.translatesAutoresizingMaskIntoConstraints = false
+            lblRInfo.text = "Roaming Requests"
+            lblRInfo.textColor = UIColor.support_voilet
+            lblRInfo.textAlignment = .center
+            lblRInfo.font = UIFont(name: String.defaultFontR, size: 33)
+            lblRInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+            lblRInfo.topAnchor.constraint(equalTo: faultReportCard.bottomAnchor, constant: 40).isActive = true
+            lblRInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+            lblRInfo.numberOfLines = 0
+            lblRInfo.lineBreakMode = .byWordWrapping
+            
+            //Roaming Request
+            let requestRoamingCard = UIView()
+            scrollView.addSubview(requestRoamingCard)
+            requestRoamingCard.translatesAutoresizingMaskIntoConstraints = false
+            requestRoamingCard.backgroundColor = UIColor.white
+            requestRoamingCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            requestRoamingCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            requestRoamingCard.topAnchor.constraint(equalTo: lblRInfo.bottomAnchor, constant: 20).isActive = true
+            requestRoamingCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            requestRoamingCard.layer.cornerRadius = 2
+            requestRoamingCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            requestRoamingCard.layer.shadowColor = UIColor.black.cgColor
+            requestRoamingCard.layer.shadowOpacity = 0.2
+            
+            let requestRoamingRec = UITapGestureRecognizer(target: self, action: #selector(gotToRequestRoaming(_sender:)))
+            requestRoamingCard.addGestureRecognizer(requestRoamingRec)
+            
+            let requestRoamingLeft = UIImageView()
+            requestRoamingCard.addSubview(requestRoamingLeft)
+            requestRoamingLeft.translatesAutoresizingMaskIntoConstraints = false
+            requestRoamingLeft.backgroundColor = UIColor.cardImageColour
+            requestRoamingLeft.leadingAnchor.constraint(equalTo: requestRoamingCard.leadingAnchor).isActive = true
+            requestRoamingLeft.topAnchor.constraint(equalTo: requestRoamingCard.topAnchor).isActive = true
+            requestRoamingLeft.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            requestRoamingLeft.bottomAnchor.constraint(equalTo: requestRoamingCard.bottomAnchor).isActive = true
+            
+            let requestRoamingLabel = UILabel()
+            requestRoamingCard.addSubview(requestRoamingLabel)
+            requestRoamingLabel.translatesAutoresizingMaskIntoConstraints = false
+            requestRoamingLabel.text = "Request Roaming"
+            requestRoamingLabel.textColor = UIColor.black
+            requestRoamingLabel.font = UIFont(name: String.defaultFontR, size: 26)
+            requestRoamingLabel.leadingAnchor.constraint(equalTo: requestRoamingLeft.trailingAnchor, constant: 10).isActive = true
+            requestRoamingLabel.topAnchor.constraint(equalTo: requestRoamingCard.topAnchor, constant: 30).isActive = true
+            requestRoamingLabel.trailingAnchor.constraint(equalTo: requestRoamingCard.trailingAnchor, constant: -5).isActive = true
+            requestRoamingLabel.numberOfLines = 0
+            requestRoamingLabel.lineBreakMode = .byWordWrapping
+            
+            let requestRoamingDesc = UILabel()
+            requestRoamingCard.addSubview(requestRoamingDesc)
+            requestRoamingDesc.translatesAutoresizingMaskIntoConstraints = false
+            requestRoamingDesc.text = "Request for roaming activation"
+            requestRoamingDesc.textColor = UIColor.black
+            requestRoamingDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            requestRoamingDesc.leadingAnchor.constraint(equalTo: requestRoamingLeft.trailingAnchor, constant: 10).isActive = true
+            requestRoamingDesc.topAnchor.constraint(equalTo: requestRoamingLabel.bottomAnchor, constant: 10).isActive = true
+            requestRoamingDesc.trailingAnchor.constraint(equalTo: requestRoamingCard.trailingAnchor, constant: -5).isActive = true
+            requestRoamingDesc.numberOfLines = 0
+            requestRoamingDesc.lineBreakMode = .byWordWrapping
+            
+            //Set consumption limit
+            let consumptionCard = UIView()
+            scrollView.addSubview(consumptionCard)
+            consumptionCard.translatesAutoresizingMaskIntoConstraints = false
+            consumptionCard.backgroundColor = UIColor.white
+            consumptionCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            consumptionCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            consumptionCard.topAnchor.constraint(equalTo: requestRoamingCard.bottomAnchor, constant: 20).isActive = true
+            consumptionCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            consumptionCard.layer.cornerRadius = 2
+            consumptionCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            consumptionCard.layer.shadowColor = UIColor.black.cgColor
+            consumptionCard.layer.shadowOpacity = 0.2
+            
+            let consumptionRec = UITapGestureRecognizer(target: self, action: #selector(gotToSetConsumption(_sender:)))
+            consumptionCard.addGestureRecognizer(consumptionRec)
+            
+            let consumptionLeft = UIImageView()
+            consumptionCard.addSubview(consumptionLeft)
+            consumptionLeft.translatesAutoresizingMaskIntoConstraints = false
+            consumptionLeft.backgroundColor = UIColor.cardImageColour
+            consumptionLeft.leadingAnchor.constraint(equalTo: consumptionCard.leadingAnchor).isActive = true
+            consumptionLeft.topAnchor.constraint(equalTo: consumptionCard.topAnchor).isActive = true
+            consumptionLeft.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            consumptionLeft.bottomAnchor.constraint(equalTo: consumptionCard.bottomAnchor).isActive = true
+            
+            let consumptionLabel = UILabel()
+            consumptionCard.addSubview(consumptionLabel)
+            consumptionLabel.translatesAutoresizingMaskIntoConstraints = false
+            consumptionLabel.text = "Set Consumption Limit"
+            consumptionLabel.textColor = UIColor.black
+            consumptionLabel.font = UIFont(name: String.defaultFontR, size: 26)
+            consumptionLabel.leadingAnchor.constraint(equalTo: consumptionLeft.trailingAnchor, constant: 10).isActive = true
+            consumptionLabel.topAnchor.constraint(equalTo: consumptionCard.topAnchor, constant: 30).isActive = true
+            consumptionLabel.trailingAnchor.constraint(equalTo: consumptionCard.trailingAnchor, constant: -5).isActive = true
+            consumptionLabel.numberOfLines = 0
+            consumptionLabel.lineBreakMode = .byWordWrapping
+            
+            let consumptionDesc = UILabel()
+            consumptionCard.addSubview(consumptionDesc)
+            consumptionDesc.translatesAutoresizingMaskIntoConstraints = false
+            consumptionDesc.text = "Send a request to adjust your consumption limit"
+            consumptionDesc.textColor = UIColor.black
+            consumptionDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            consumptionDesc.leadingAnchor.constraint(equalTo: consumptionLeft.trailingAnchor, constant: 10).isActive = true
+            consumptionDesc.topAnchor.constraint(equalTo: consumptionLabel.bottomAnchor, constant: 10).isActive = true
+            consumptionDesc.trailingAnchor.constraint(equalTo: consumptionCard.trailingAnchor, constant: -5).isActive = true
+            consumptionDesc.numberOfLines = 0
+            consumptionDesc.lineBreakMode = .byWordWrapping
+            
+            //Enable Disable Roaming
+            let enableDisableCard = UIView()
+            scrollView.addSubview(enableDisableCard)
+            enableDisableCard.translatesAutoresizingMaskIntoConstraints = false
+            enableDisableCard.backgroundColor = UIColor.white
+            enableDisableCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            enableDisableCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            enableDisableCard.topAnchor.constraint(equalTo: consumptionCard.bottomAnchor, constant: 20).isActive = true
+            enableDisableCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            enableDisableCard.layer.cornerRadius = 2
+            enableDisableCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            enableDisableCard.layer.shadowColor = UIColor.black.cgColor
+            enableDisableCard.layer.shadowOpacity = 0.2
+            
+            let enableDisableCardRec = UITapGestureRecognizer(target: self, action: #selector(gotToEnableDisable(_sender:)))
+            enableDisableCard.addGestureRecognizer(enableDisableCardRec)
+            
+            let enableDisableLeft = UIImageView()
+            enableDisableCard.addSubview(enableDisableLeft)
+            enableDisableLeft.translatesAutoresizingMaskIntoConstraints = false
+            enableDisableLeft.backgroundColor = UIColor.cardImageColour
+            enableDisableLeft.leadingAnchor.constraint(equalTo: enableDisableCard.leadingAnchor).isActive = true
+            enableDisableLeft.topAnchor.constraint(equalTo: enableDisableCard.topAnchor).isActive = true
+            enableDisableLeft.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            enableDisableLeft.bottomAnchor.constraint(equalTo: enableDisableCard.bottomAnchor).isActive = true
+            
+            let enableDisableLabel = UILabel()
+            enableDisableCard.addSubview(enableDisableLabel)
+            enableDisableLabel.translatesAutoresizingMaskIntoConstraints = false
+            enableDisableLabel.text = "Enable or Disable Roaming"
+            enableDisableLabel.textColor = UIColor.black
+            enableDisableLabel.font = UIFont(name: String.defaultFontR, size: 26)
+            enableDisableLabel.leadingAnchor.constraint(equalTo: enableDisableLeft.trailingAnchor, constant: 10).isActive = true
+            enableDisableLabel.topAnchor.constraint(equalTo: enableDisableCard.topAnchor, constant: 30).isActive = true
+            enableDisableLabel.trailingAnchor.constraint(equalTo: enableDisableCard.trailingAnchor, constant: -5).isActive = true
+            enableDisableLabel.numberOfLines = 0
+            enableDisableLabel.lineBreakMode = .byWordWrapping
+            
+            let enableDisableDesc = UILabel()
+            enableDisableCard.addSubview(enableDisableDesc)
+            enableDisableDesc.translatesAutoresizingMaskIntoConstraints = false
+            enableDisableDesc.text = "Send a request to enable or disable roaming"
+            enableDisableDesc.textColor = UIColor.black
+            enableDisableDesc.font = UIFont(name: String.defaultFontR, size: 15)
+            enableDisableDesc.leadingAnchor.constraint(equalTo: enableDisableLeft.trailingAnchor, constant: 10).isActive = true
+            enableDisableDesc.topAnchor.constraint(equalTo: enableDisableLabel.bottomAnchor, constant: 10).isActive = true
+            enableDisableDesc.trailingAnchor.constraint(equalTo: enableDisableCard.trailingAnchor, constant: -5).isActive = true
+            enableDisableDesc.numberOfLines = 0
+            enableDisableDesc.lineBreakMode = .byWordWrapping
+            
+            scrollView.contentSize.height = 680 + 550
+        }else{
+            scrollView.contentSize.height = 680
+        }
         
-        scrollView.contentSize.height = 680
+        
+        
         
     }
     
     @objc func gotToRoamingBundles(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "RoamingBundles")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func gotToRequestRoaming(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "requestRoaming")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func gotToEnableDisable(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Roaming", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "disableEnableRoaming")
         present(moveTo, animated: true, completion: nil)
     }
     
@@ -304,6 +491,11 @@ class SmartTraveller: baseViewControllerM {
         present(moveTo, animated: true, completion: nil)
     }
     
+    @objc func gotToSetConsumption(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "SetConsumptionLimit")
+        present(moveTo, animated: true, completion: nil)
+    }
     
     
     

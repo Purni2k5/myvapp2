@@ -325,8 +325,8 @@ class currentSpendsBills: baseViewControllerM {
                         let billMonth = dict.value(forKey: "BillMonth") as! String?
                         let AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
                         let firstPlotHeight: Double? = (SetHeight * AmountRaw!) / highiestAmount
-                        print("firstPlotHeight:\(firstPlotHeight)")
-                        print("AmountRaw:\(AmountRaw)")
+//                        print("firstPlotHeight:\(firstPlotHeight)")
+//                        print("AmountRaw:\(AmountRaw)")
                         if monthCounter == 6 {
                             if let billMonth = billMonth{
                                 firstMonthBarHeight = firstMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
@@ -373,7 +373,7 @@ class currentSpendsBills: baseViewControllerM {
                         let billDate = dict.value(forKey: "BillDate") as! String?
                         let dueNote = dict.value(forKey: "DueNote") as! String?
                         
-                        let previousSpendCard = UIView()
+                        let previousSpendCard = previousSpendCards()
                         scrollView.addSubview(previousSpendCard)
                         previousSpendCard.translatesAutoresizingMaskIntoConstraints = false
                         previousSpendCard.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 20).isActive = true
@@ -381,6 +381,10 @@ class currentSpendsBills: baseViewControllerM {
                         previousSpendCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
                         previousSpendCard.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -20).isActive = true
                         previousSpendCard.backgroundColor = UIColor.white
+                        previousSpendCard.variableDictionary = dict
+                        
+                        let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.viewBillDetails(_sender:)))
+                        previousSpendCard.addGestureRecognizer(gestureRec)
                         
                         let purpleView = UIView()
                         scrollView.addSubview(purpleView)
@@ -524,7 +528,7 @@ class currentSpendsBills: baseViewControllerM {
         backButton.tintColor = UIColor.white
         backButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        backButton.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 10).isActive = true
+        backButton.topAnchor.constraint(equalTo: topImage.topAnchor, constant: 20).isActive = true
         backButton.leadingAnchor.constraint(equalTo: topImage.leadingAnchor, constant: 10).isActive = true
         backButton.addTarget(self, action: #selector(goToPostHome), for: .touchUpInside)
         
@@ -830,7 +834,7 @@ class currentSpendsBills: baseViewControllerM {
                     do {
                         let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                         if let parseJSON = myJSON {
-                            print("responseBodys: \(parseJSON)")
+//                            print("responseBodys: \(parseJSON)")
                             var sessionAuth: String!
                             sessionAuth = parseJSON["SessionAuth"] as! String?
                             if sessionAuth == "true" {
@@ -846,7 +850,7 @@ class currentSpendsBills: baseViewControllerM {
                                 DispatchQueue.main.async {
                                     let decrypt = self.decryptAsyncRequest(requestBody: responseBody)
                                     let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
-//                                    print(decryptedResponseBody)
+                                    print(decryptedResponseBody)
                                     responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
                                     if responseCode == 0 {
                                         self.stop_activity_loader()
@@ -893,13 +897,15 @@ class currentSpendsBills: baseViewControllerM {
                                             }
                                             
                                             for obj in array {
+                                                print("obj \(obj)")
                                                 if let dict = obj as? NSDictionary{
                                                     monthCounter = monthCounter + 1
                                                     let billMonth = dict.value(forKey: "BillMonth") as! String?
                                                     let AmountRaw = dict.value(forKey: "AmountRaw") as! Double?
+                                                    
                                                     let firstPlotHeight: Double? = (SetHeight * AmountRaw!) / highiestAmount
-                                                    print("firstPlotHeights:\(firstPlotHeight)")
-                                                    print("AmountRaw:\(AmountRaw)")
+//                                                    print("firstPlotHeights:\(firstPlotHeight)")
+//                                                    print("AmountRaw:\(AmountRaw)")
                                                     if monthCounter == 6 {
                                                         if let billMonth = billMonth{
                                                             self.firstMonthBarHeight = self.firstMonthBar.heightAnchor.constraint(equalToConstant: CGFloat(firstPlotHeight!))
@@ -946,7 +952,7 @@ class currentSpendsBills: baseViewControllerM {
                                                     let billDate = dict.value(forKey: "BillDate") as! String?
                                                     let dueNote = dict.value(forKey: "DueNote") as! String?
                                                     
-                                                    let previousSpendCard = UIView()
+                                                    let previousSpendCard = previousSpendCards()
                                                     self.scrollView.addSubview(previousSpendCard)
                                                     previousSpendCard.translatesAutoresizingMaskIntoConstraints = false
                                                     previousSpendCard.leadingAnchor.constraint(equalTo: self.baseView.leadingAnchor, constant: 20).isActive = true
@@ -954,6 +960,10 @@ class currentSpendsBills: baseViewControllerM {
                                                     previousSpendCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
                                                     previousSpendCard.trailingAnchor.constraint(equalTo: self.baseView.trailingAnchor, constant: -20).isActive = true
                                                     previousSpendCard.backgroundColor = UIColor.white
+                                                    previousSpendCard.variableDictionary = dict
+                                                    
+                                                    let gestureRec = UITapGestureRecognizer(target: self, action: #selector(self.viewBillDetails(_sender:)))
+                                                    previousSpendCard.addGestureRecognizer(gestureRec)
                                                     
                                                     let purpleView = UIView()
                                                     self.scrollView.addSubview(purpleView)
@@ -1072,6 +1082,15 @@ class currentSpendsBills: baseViewControllerM {
     @objc func goToSinceLastBill(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "SinceLastBill")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func viewBillDetails(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "PostPaid", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "billDetails") as? billDetails else {return}
+        
+        guard let gestVariables = _sender.view as? previousSpendCards else {return}
+        moveTo.variableDictionary = gestVariables.variableDictionary
         present(moveTo, animated: true, completion: nil)
     }
 

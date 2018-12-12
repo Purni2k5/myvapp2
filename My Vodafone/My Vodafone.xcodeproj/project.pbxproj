@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0104517A21C119FA0040955B /* billDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104517921C119FA0040955B /* billDetails.swift */; };
+		0104517C21C148160040955B /* postPaidLoginTouchID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104517B21C148160040955B /* postPaidLoginTouchID.swift */; };
+		0104517E21C174F20040955B /* requestRoaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104517D21C174F20040955B /* requestRoaming.swift */; };
+		0104518021C175200040955B /* disableEnableRoaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104517F21C175200040955B /* disableEnableRoaming.swift */; };
 		0117A47E21148617003EBE09 /* BuyOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117A47D21148617003EBE09 /* BuyOfferViewController.swift */; };
 		0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7B213E9090009B71C8 /* fbbShareVc.swift */; };
 		0119AF7F213F08C3009B71C8 /* fbbPayVoucherVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */; };
@@ -152,6 +156,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0104517921C119FA0040955B /* billDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billDetails.swift; sourceTree = "<group>"; };
+		0104517B21C148160040955B /* postPaidLoginTouchID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postPaidLoginTouchID.swift; sourceTree = "<group>"; };
+		0104517D21C174F20040955B /* requestRoaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestRoaming.swift; sourceTree = "<group>"; };
+		0104517F21C175200040955B /* disableEnableRoaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = disableEnableRoaming.swift; sourceTree = "<group>"; };
 		0117A47D21148617003EBE09 /* BuyOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyOfferViewController.swift; sourceTree = "<group>"; };
 		0119AF7B213E9090009B71C8 /* fbbShareVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbShareVc.swift; sourceTree = "<group>"; };
 		0119AF7E213F08C3009B71C8 /* fbbPayVoucherVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fbbPayVoucherVc.swift; sourceTree = "<group>"; };
@@ -633,6 +641,8 @@
 				01F57B6421540CA7005F5F0C /* RoamingPartners.swift */,
 				015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */,
 				015CEB002155512C00341BA9 /* RoamingFaultReporting.swift */,
+				0104517D21C174F20040955B /* requestRoaming.swift */,
+				0104517F21C175200040955B /* disableEnableRoaming.swift */,
 			);
 			path = Roaming;
 			sourceTree = "<group>";
@@ -663,6 +673,8 @@
 				28E8C53B21AC3D2E0021B277 /* SinceLastBill.swift */,
 				28DC5B2721B0173E0061C320 /* itemisedBill.swift */,
 				0120AECA21B8257B005F40B2 /* SetConsumptionLimit.swift */,
+				0104517921C119FA0040955B /* billDetails.swift */,
+				0104517B21C148160040955B /* postPaidLoginTouchID.swift */,
 			);
 			path = PostPaid;
 			sourceTree = "<group>";
@@ -883,6 +895,7 @@
 				018BB2DC21009B490004D697 /* mvaExtensions.swift in Sources */,
 				01A74FF621413BC900F86A65 /* FBBPackages.swift in Sources */,
 				28DC5B2821B0173E0061C320 /* itemisedBill.swift in Sources */,
+				0104517E21C174F20040955B /* requestRoaming.swift in Sources */,
 				01C022FE20C99304003E48CC /* AppDelegate.swift in Sources */,
 				0186E651216D3DFB008B6601 /* TopUpHistory.swift in Sources */,
 				01CFCF99215B97A30048D56E /* Messages.swift in Sources */,
@@ -894,6 +907,7 @@
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */,
+				0104517A21C119FA0040955B /* billDetails.swift in Sources */,
 				016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */,
 				016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */,
 				01853EB820CFD19A002DEB7D /* ProductsServicesViewController.swift in Sources */,
@@ -919,6 +933,7 @@
 				01CFCF94215B8FD70048D56E /* GetDirectionToStore.swift in Sources */,
 				28180958218B3F010001AA70 /* postPaidHome.swift in Sources */,
 				0185F8F1215A67E300CC2F22 /* CustomTableViewForStoreLocator.swift in Sources */,
+				0104518021C175200040955B /* disableEnableRoaming.swift in Sources */,
 				017319842177965D00989F8A /* CryptoHelper.swift in Sources */,
 				0186E64B216B9736008B6601 /* unsubscribeVc.swift in Sources */,
 				01A3434B214A6C9400B4A6A5 /* FBBPayExpressPay.swift in Sources */,
@@ -957,6 +972,7 @@
 				01CFCF9D215BFDA50048D56E /* ChangePasswordInApp.swift in Sources */,
 				0199F5EF21396DB400906580 /* displayFBBBalance.swift in Sources */,
 				018B7ACF213D48C9002753B7 /* linkFBBVc.swift in Sources */,
+				0104517C21C148160040955B /* postPaidLoginTouchID.swift in Sources */,
 				01A95809212ADCD200F4D7C9 /* supportVC.swift in Sources */,
 				01E63B1721624E00006CA19D /* chooseDefaultService.swift in Sources */,
 				28937EE620EF96D20061F82B /* RoundView.swift in Sources */,

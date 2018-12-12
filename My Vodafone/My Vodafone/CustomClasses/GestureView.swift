@@ -67,5 +67,8 @@ class made4MeVariables: UIView {
     var currency: String?
     var validity: String?
     var long: String?
-    
+}
+
+class previousSpendCards: UIView {
+    var variableDictionary: NSDictionary?
 }
