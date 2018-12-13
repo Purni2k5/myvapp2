@@ -68,6 +68,7 @@ class requestRoaming: baseViewControllerM {
         return view
     }()
     
+    
     let txtIDType: UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -222,7 +223,8 @@ class requestRoaming: baseViewControllerM {
     private var strtDatePicker: UIDatePicker?
     private var endDatePicker: UIDatePicker?
     
-    let IDTypeArray = ["Enable Roaming", "Disable Roaming"]
+    let IDTypeArray = ["Driving License", "Health ID", "National ID Card", "Passport", "Voter ID Card"]
+    let requestTypeArray = ["Enable Roaming", "Disable Roaming"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -239,6 +241,7 @@ class requestRoaming: baseViewControllerM {
         
         hideKeyboardWhenTappedAround()
         createPickerView()
+        createPickerView2()
         createToolBar()
         checkConnection()
     }
@@ -251,6 +254,13 @@ class requestRoaming: baseViewControllerM {
         txtIDType.inputView = picker
     }
     
+    func createPickerView2(){
+        let picker2 = UIPickerView()
+        picker2.delegate = self
+        picker2.tag = 2
+        txtRequestType.inputView = picker2
+    }
+    
     //Function to create a tool bar
     func createToolBar(){
         let toolBar = UIToolbar()
@@ -261,6 +271,7 @@ class requestRoaming: baseViewControllerM {
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         txtIDType.inputAccessoryView =  toolBar
+        txtRequestType.inputAccessoryView = toolBar
     }
     
     //Function to dismiss keyboard
@@ -316,7 +327,36 @@ class requestRoaming: baseViewControllerM {
         cardViewForm.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         cardViewForm.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         cardViewForm.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        cardViewForm.heightAnchor.constraint(equalToConstant: 700).isActive = true
+        cardViewForm.heightAnchor.constraint(equalToConstant: 880).isActive = true
+        
+        let lblRequestType = UILabel()
+        cardViewForm.addSubview(lblRequestType)
+        lblRequestType.translatesAutoresizingMaskIntoConstraints = false
+        lblRequestType.text = "Request Type"
+        lblRequestType.textColor = UIColor.black
+        lblRequestType.font = UIFont(name: String.defaultFontR, size: 15)
+        lblRequestType.numberOfLines = 0
+        lblRequestType.lineBreakMode = .byWordWrapping
+        lblRequestType.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        lblRequestType.topAnchor.constraint(equalTo: cardViewForm.topAnchor, constant: 30).isActive = true
+        lblRequestType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        
+        cardViewForm.addSubview(txtRequestType)
+        txtRequestType.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        txtRequestType.topAnchor.constraint(equalTo: lblRequestType.bottomAnchor, constant: 10).isActive = true
+        txtRequestType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        txtRequestType.text = requestTypeArray[0]
+        
+        let dropDownImage = UIImageView()
+        txtRequestType.addSubview(dropDownImage)
+        dropDownImage.translatesAutoresizingMaskIntoConstraints = false
+        let dropImage = UIImage(named: "dropdown")
+        dropDownImage.image = dropImage?.withRenderingMode(.alwaysTemplate)
+        dropDownImage.tintColor = UIColor.black
+        dropDownImage.topAnchor.constraint(equalTo: txtRequestType.topAnchor, constant: 20).isActive = true
+        dropDownImage.trailingAnchor.constraint(equalTo: txtRequestType.trailingAnchor, constant: -20).isActive = true
+        dropDownImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        dropDownImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         let lblIDType = UILabel()
         cardViewForm.addSubview(lblIDType)
@@ -327,7 +367,7 @@ class requestRoaming: baseViewControllerM {
         lblIDType.numberOfLines = 0
         lblIDType.lineBreakMode = .byWordWrapping
         lblIDType.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
-        lblIDType.topAnchor.constraint(equalTo: cardViewForm.topAnchor, constant: 30).isActive = true
+        lblIDType.topAnchor.constraint(equalTo: txtRequestType.bottomAnchor, constant: 30).isActive = true
         lblIDType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
         
         cardViewForm.addSubview(txtIDType)
@@ -336,16 +376,16 @@ class requestRoaming: baseViewControllerM {
         txtIDType.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
         txtIDType.text = IDTypeArray[0]
         
-        let dropDownImage = UIImageView()
-        txtIDType.addSubview(dropDownImage)
-        dropDownImage.translatesAutoresizingMaskIntoConstraints = false
-        let dropImage = UIImage(named: "dropdown")
-        dropDownImage.image = dropImage?.withRenderingMode(.alwaysTemplate)
-        dropDownImage.tintColor = UIColor.black
-        dropDownImage.topAnchor.constraint(equalTo: txtIDType.topAnchor, constant: 20).isActive = true
-        dropDownImage.trailingAnchor.constraint(equalTo: txtIDType.trailingAnchor, constant: -20).isActive = true
-        dropDownImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        dropDownImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        let dropDownImage2 = UIImageView()
+        txtIDType.addSubview(dropDownImage2)
+        dropDownImage2.translatesAutoresizingMaskIntoConstraints = false
+        let dropImage2 = UIImage(named: "dropdown")
+        dropDownImage2.image = dropImage2?.withRenderingMode(.alwaysTemplate)
+        dropDownImage2.tintColor = UIColor.black
+        dropDownImage2.topAnchor.constraint(equalTo: txtIDType.topAnchor, constant: 20).isActive = true
+        dropDownImage2.trailingAnchor.constraint(equalTo: txtIDType.trailingAnchor, constant: -20).isActive = true
+        dropDownImage2.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        dropDownImage2.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         let lblIDNo = UILabel()
         cardViewForm.addSubview(lblIDNo)
@@ -363,11 +403,12 @@ class requestRoaming: baseViewControllerM {
         txtIDNo.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
         txtIDNo.topAnchor.constraint(equalTo: lblIDNo.bottomAnchor, constant: 10).isActive = true
         txtIDNo.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        txtIDNo.placeholder = "eg: G832hr34"
         
         let lblLimitAmt = UILabel()
         cardViewForm.addSubview(lblLimitAmt)
         lblLimitAmt.translatesAutoresizingMaskIntoConstraints = false
-        lblLimitAmt.text = "Limit Amount"
+        lblLimitAmt.text = "Deposit Amount"
         lblLimitAmt.textColor = UIColor.black
         lblLimitAmt.font = UIFont(name: String.defaultFontR, size: 15)
         lblLimitAmt.numberOfLines = 0
@@ -382,6 +423,24 @@ class requestRoaming: baseViewControllerM {
         txtDepositAmt.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
         txtDepositAmt.keyboardType = .numbersAndPunctuation
         
+        let lblCreditAmt = UILabel()
+        cardViewForm.addSubview(lblCreditAmt)
+        lblCreditAmt.translatesAutoresizingMaskIntoConstraints = false
+        lblCreditAmt.text = "Credit Limit"
+        lblCreditAmt.textColor = UIColor.black
+        lblCreditAmt.font = UIFont(name: String.defaultFontR, size: 15)
+        lblCreditAmt.numberOfLines = 0
+        lblCreditAmt.lineBreakMode = .byWordWrapping
+        lblCreditAmt.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        lblCreditAmt.topAnchor.constraint(equalTo: txtDepositAmt.bottomAnchor, constant: 30).isActive = true
+        lblCreditAmt.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        
+        cardViewForm.addSubview(txtCreditLimit)
+        txtCreditLimit.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
+        txtCreditLimit.topAnchor.constraint(equalTo: lblCreditAmt.bottomAnchor, constant: 10).isActive = true
+        txtCreditLimit.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        txtCreditLimit.keyboardType = .numbersAndPunctuation
+        
         let lbStrDate = UILabel()
         cardViewForm.addSubview(lbStrDate)
         lbStrDate.translatesAutoresizingMaskIntoConstraints = false
@@ -391,7 +450,7 @@ class requestRoaming: baseViewControllerM {
         lbStrDate.numberOfLines = 0
         lbStrDate.lineBreakMode = .byWordWrapping
         lbStrDate.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
-        lbStrDate.topAnchor.constraint(equalTo: txtDepositAmt.bottomAnchor, constant: 30).isActive = true
+        lbStrDate.topAnchor.constraint(equalTo: txtCreditLimit.bottomAnchor, constant: 30).isActive = true
         lbStrDate.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
         
         cardViewForm.addSubview(txtStrtDate)
@@ -479,7 +538,109 @@ class requestRoaming: baseViewControllerM {
     }
     
     @objc func sendRequest(){
+        let idNumber = txtIDNo.text
+        let idType = txtIDType.text
+        let depositAmount = txtDepositAmt.text
+        let creditLimit = txtCreditLimit.text
+        let startDate = txtStrtDate.text
+        let endDate = txtendDate.text
+        let altMsisdn = txtaltNo.text
+        let requestType = txtRequestType.text
         
+        if idNumber == "" || idType == "" || depositAmount == "" || creditLimit == "" || startDate == "" || endDate == "" || altMsisdn == "" {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are mandatory")
+        }else if altMsisdn!.count < 10 {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Alternate msisdn can't be less than 10 digits")
+        }else{
+            if CheckInternet.Connection(){
+                start_activity_loader()
+                let async_call = URL(string: String.userURL)
+                let request = NSMutableURLRequest(url: async_call!)
+                request.httpMethod = "POST"
+                var turnOn: String?
+                if requestType == "Enable Romaing"{
+                    turnOn = "true"
+                }else{
+                    turnOn = "false"
+                }
+                let postParameters = ["action":"alterRoamingOptisdssnSR", "msisdn":msisdn!, "username":username!, "depositAmount":depositAmount!, "creditlimit":creditLimit!, "startDate":startDate, "endDate":endDate, "altMsisdn":altMsisdn, "turnON":turnOn, "idType":idType, "idNumber":idNumber!, "os":getAppVersion()]
+                if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+                    let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                    let requestBody: Dictionary<String, Any> = [
+                        "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                    ]
+                    if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                        request.httpBody = postData
+                        request.addValue("application/json", forHTTPHeaderField: "Content-Accept")
+                        request.addValue("application/json", forHTTPHeaderField: "Accept")
+                        var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                        session = session.replacingOccurrences(of: "-", with: "")
+                        request.addValue(session, forHTTPHeaderField: "session")
+                        request.addValue(username!, forHTTPHeaderField: "username")
+                        
+                        let task = URLSession.shared.dataTask(with: request as URLRequest){
+                            data, response, error in
+                            if error != nil {
+                                print("error is: \(error!.localizedDescription)")
+                                DispatchQueue.main.async {
+                                    self.stop_activity_loader()
+                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                }
+                                return
+                            }
+                            
+                            do {
+                                let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                if let parseJSON = myJSON {
+                                    DispatchQueue.main.async {
+                                        self.stop_activity_loader()
+                                        var sessionAuth: String!
+                                        sessionAuth = parseJSON["SessionAuth"] as! String?
+                                        if sessionAuth == "true" {
+                                            self.logout()
+                                        }
+                                        var responseBody: String?
+                                        var responseCode: Int!
+                                        var responseMessage: String!
+                                        responseBody = parseJSON["responseBody"] as? String
+                                        if let responseBody = responseBody {
+                                            let decrypt = self.decryptAsyncRequest(requestBody: responseBody)
+                                            let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                            print(decryptedResponseBody)
+                                            responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                            if responseCode == 0{
+                                                responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? String
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                                if self.hasRated == nil || self.hasRated == false {
+                                                    self.showRatings()
+                                                }else{
+                                                    
+                                                }
+                                                
+                                            }else if responseCode == 1 {
+                                                responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? String
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                            }else{
+                                                self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                            }
+                                        }
+                                    }
+                                }
+                            }catch{
+                                print(error.localizedDescription)
+                                DispatchQueue.main.async {
+                                    self.stop_activity_loader()
+                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                }
+                            }
+                        }
+                        task.resume()
+                    }
+                }
+            }else{
+                displayNoInternet()
+            }
+        }
     }
 
 }
@@ -490,15 +651,30 @@ extension requestRoaming: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return IDTypeArray.count
+        if pickerView.tag == 1{
+            return IDTypeArray.count
+        }else{
+            return requestTypeArray.count
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return IDTypeArray[row]
+        if pickerView.tag == 1{
+            return IDTypeArray[row]
+        }else{
+            return requestTypeArray[row]
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        txtIDType.text = IDTypeArray[row]
+        if pickerView.tag == 1{
+            txtIDType.text = IDTypeArray[row]
+        }else{
+            txtRequestType.text = requestTypeArray[row]
+        }
+        
     }
     
 }

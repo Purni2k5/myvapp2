@@ -412,6 +412,7 @@ class SetConsumptionLimit: baseViewControllerM {
         txtIDNo.leadingAnchor.constraint(equalTo: cardViewForm.leadingAnchor, constant: 20).isActive = true
         txtIDNo.topAnchor.constraint(equalTo: lblIDNo.bottomAnchor, constant: 10).isActive = true
         txtIDNo.trailingAnchor.constraint(equalTo: cardViewForm.trailingAnchor, constant: -20).isActive = true
+        txtIDNo.placeholder = "eg: G832hr34"
         
         let lblLimitAmt = UILabel()
         cardViewForm.addSubview(lblLimitAmt)
@@ -524,7 +525,10 @@ class SetConsumptionLimit: baseViewControllerM {
         
         if idNumber == "" || idType == "" || limitAmount == "" || startDate == "" || endDate == "" || altMsisdn == "" {
             toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "All fields are mandatory")
-        }else{
+        }else if altMsisdn!.count < 10 {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Alternate msisdn can't be less than 10 digits")
+        }
+        else{
             if CheckInternet.Connection(){
                 start_activity_loader()
                 let async_call = URL(string: String.userURL)
