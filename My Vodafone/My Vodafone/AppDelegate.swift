@@ -8,9 +8,10 @@
 
 import UIKit
 import VFGSplash
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
@@ -29,6 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         viewControllerId: viewControllerID,
         targetBundle: targetBundle,
         durationInSeconds: durationInSeconds)
+        
+        //Push Notifications
+        UNUserNotificationCenter.current().delegate = self
+        
+        
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            print("granted: \(granted)")
+        }
         
         return true
     }
