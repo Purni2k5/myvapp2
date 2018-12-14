@@ -10,6 +10,9 @@ import UIKit
 
 class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var username: String?
+//    var msisdn: String?
+    var hasRated: Bool?
     
     let preferences = UserDefaults.standard
     //create a closure for motherView
@@ -47,6 +50,62 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         return view
     }()
     
+    let txtAccountNumber: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let txtUserID: UITextField = {
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.borderStyle = .roundedRect
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    let lblUserID: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.black
+        view.font = UIFont(name: String.defaultFontR, size: 17)
+        return view
+    }()
+    
+    let lblAccountNumber: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.black
+        view.font = UIFont(name: String.defaultFontR, size: 17)
+        return view
+    }()
+    
+    //create a closure for activity loader
+    let activity_loader: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.hidesWhenStopped = true
+        view.color = UIColor.vodaRed
+        return view
+    }()
+    
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        btnSend.isHidden = true
+    }
+    
+    //Function to stopIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        btnSend.isHidden = false
+    }
+    
     let btnSend = UIButton()
     let txtMSISDN = UITextField()
     let txtReportType = UITextField()
@@ -55,12 +114,13 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
     let txtAltNumber = UITextField()
     let cheviDown = UIImageView()
 
-    let reportTypeList = ["Mobile", "Fixed Line", "IP Services", "Fixed Broadband", "Vodafone Cash"]
+    let reportTypeList = ["Select you report type","Mobile", "Fixed Line", "IP Services", "Fixed Broadband", "Vodafone Cash"]
     let iPServiceList = ["Select you report category","Fixed IP removal", "Fixed IP request", "Fixed IP not working"]
     let FBBList = ["Select you report category","Link is down", "FBB Data refund", "Create E-Mail", "Cannot access Web selfcare portal", "Cannot send and recive E-Mail", "Connection is slow"]
     let mobileList = ["Select your report category","Cannot Bundle", "Bundle Refunds", "Cannot Recharge", "Over Scratched Card", "Recharge Not Reflecting", "SMS Issues", "Cannot Send SMS", "Cannot Make Calls", "Cannot Receive Calls", "Roaming Issues"]
     let vodaCashList = ["Select your report category","Cash Not Dispense-ATM", "Request for account suspension", "Account Balance Challenges", "Change Account Details", "Request To close Account", "Account Reactivate", "Request to Freeze Account", "Airtime Purchase complaints", "Bill payment issues", "Online payment issues", "Fraudulent issue", "Request For Reversal", "Cannot Receive SMS Notification", "First time PIN Activation", "Customer Voucher complaints", "Customer Voucher complaints", "PIN Management"]
     let fixedLineList = ["Select your report category","Noise on Fixedline", "Cannot make calls", "Call forwarding request", "Call hunting request", "Caller ID presentation request", "Password request", "Call baring request", "IDD/International call request", "Cannot recharge", "Cannot receive calls", "No dial tone"]
+    var reportCatArray = [String]()
     var msisdn: String?
     var reportType: String?
     var reportCat: String?
@@ -68,12 +128,18 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
     var altNum: String?
     var listToReturn: Int?
     var returnTypeString: String?
+    var userID: String?
+    
+    fileprivate var lblReportTypeTop: NSLayoutConstraint!
+    fileprivate var cardViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayBackground
         checkConnection()
         
+        let responseData = preference.object(forKey: "responseData") as! NSDictionary
+        username = responseData["Username"] as? String
         msisdn = preferences.object(forKey: "defaultMSISDN") as! String?
         setUpViewsReportFault()
         
@@ -176,14 +242,34 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         cardView.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 20).isActive = true
         cardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 30).isActive = true
         cardView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -20).isActive = true
-        cardView.heightAnchor.constraint(equalToConstant: 700).isActive = true
+        cardViewHeight = cardView.heightAnchor.constraint(equalToConstant: 700)
+        cardViewHeight.isActive = true
         cardView.layer.cornerRadius = 2
         cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.2
         
-        //txt msisdn
+        scrollView.addSubview(lblUserID)
+        lblUserID.text = "Mobile Number"
+        lblUserID.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
+        lblUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 30).isActive = true
+        lblUserID.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -10).isActive = true
+        lblUserID.numberOfLines = 0
+        lblUserID.lineBreakMode = .byWordWrapping
         
+        //txt User id
+        scrollView.addSubview(txtUserID)
+        txtUserID.translatesAutoresizingMaskIntoConstraints = false
+        txtUserID.backgroundColor = UIColor.white
+        txtUserID.borderStyle = .roundedRect
+        txtUserID.font = UIFont(name: String.defaultFontR, size: 17)
+        txtUserID.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        txtUserID.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
+        txtUserID.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 50).isActive = true
+        txtUserID.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        txtUserID.isHidden = true
+        
+        //txt msisdn
         scrollView.addSubview(txtMSISDN)
         txtMSISDN.translatesAutoresizingMaskIntoConstraints = false
         txtMSISDN.backgroundColor = UIColor.white
@@ -195,6 +281,29 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         txtMSISDN.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         txtMSISDN.text = msisdn!
         
+        // label for account number
+        scrollView.addSubview(lblAccountNumber)
+        lblAccountNumber.translatesAutoresizingMaskIntoConstraints = false
+        lblAccountNumber.textColor = UIColor.black
+        lblAccountNumber.text = "Account Number"
+        lblAccountNumber.font = UIFont(name: String.defaultFontR, size: 17)
+        lblAccountNumber.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
+        lblAccountNumber.topAnchor.constraint(equalTo: txtMSISDN.bottomAnchor, constant: 30).isActive = true
+        lblAccountNumber.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        lblAccountNumber.isHidden = true
+        
+        //txt account number
+        scrollView.addSubview(txtAccountNumber)
+        txtAccountNumber.translatesAutoresizingMaskIntoConstraints = false
+        txtAccountNumber.backgroundColor = UIColor.white
+        txtAccountNumber.borderStyle = .roundedRect
+        txtAccountNumber.font = UIFont(name: String.defaultFontR, size: 17)
+        txtAccountNumber.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        txtAccountNumber.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
+        txtAccountNumber.topAnchor.constraint(equalTo: lblAccountNumber.bottomAnchor, constant: 10).isActive = true
+        txtAccountNumber.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
+        txtAccountNumber.isHidden = true
+        
         // label for report type
         let lblReportType = UILabel()
         scrollView.addSubview(lblReportType)
@@ -203,7 +312,8 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         lblReportType.text = "Report Type"
         lblReportType.font = UIFont(name: String.defaultFontR, size: 17)
         lblReportType.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20).isActive = true
-        lblReportType.topAnchor.constraint(equalTo: txtMSISDN.bottomAnchor, constant: 30).isActive = true
+        lblReportTypeTop = lblReportType.topAnchor.constraint(equalTo: txtMSISDN.bottomAnchor, constant: 30)
+        lblReportTypeTop.isActive = true
         lblReportType.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         
         //txt report Type
@@ -320,7 +430,11 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         btnSend.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20).isActive = true
         btnSend.heightAnchor.constraint(equalToConstant: 55).isActive = true
         btnSend.addTarget(self, action: #selector(sendFault), for: .touchUpInside)
-        scrollView.contentSize.height = 920
+        
+        scrollView.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: cardView.centerXAnchor).isActive = true
+        activity_loader.topAnchor.constraint(equalTo: txtAltNumber.bottomAnchor, constant: 30).isActive = true
+        scrollView.contentSize.height = 1100
         
     }
     
@@ -330,7 +444,7 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         reportCat = txtReportCat.text
         reportCom = txtReportCom.text
         altNum = txtAltNumber.text
-        print(altNum!.count)
+        
         if msisdn == "" || msisdn!.count < 10 || reportType == "" || reportCom == "" || altNum == "" || altNum!.count < 10 {
             btnSend.backgroundColor = UIColor.grayButton
         }else{
@@ -344,46 +458,91 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         let countReportType = reportTypeList.count
-        let countReportCat = mobileList.count
-        if txtReportType.isEditing{
-            listToReturn = countReportType
-        }else if txtReportCat.isEditing{
-            listToReturn = countReportCat
+        let countReportCat = reportCatArray.count
+        if pickerView.tag == 1{
+            
+            return countReportType
+        }else {
+            return countReportCat
         }
-        return listToReturn!
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if txtReportType.isEditing {
-            let rType = reportTypeList[row]
-            returnTypeString = rType
-        }else if txtReportCat.isEditing{
-            if txtReportType.text == "Fixed Line" {
-                let catType = fixedLineList[row]
-                returnTypeString = catType
-            }
+        if pickerView.tag == 1{
             
+            
+            return reportTypeList[row]
+            
+        }else{
+            return reportCatArray[row]
         }
-        return returnTypeString
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("here")
-        if txtReportType.isEditing {
-            reportType = reportTypeList[row]
-            txtReportType.text = reportType
-            if txtReportType.text == "Fixed Line" {
-                reportType = fixedLineList[row]
-                txtReportCat.text = reportType
+        if pickerView.tag == 1 {
+            txtReportType.text = reportTypeList[row]
+            reportCatArray.removeAll()
+            txtReportCat.text = ""
+            if txtReportType.text == "Mobile"{
+                lblAccountNumber.isHidden = true
+                txtAccountNumber.isHidden = true
+                txtUserID.isHidden = true
+                txtMSISDN.isHidden = false
+                lblReportTypeTop.constant = 30
+                cardViewHeight.constant = 700
+                lblUserID.text = "Mobile Number"
+                for element in mobileList{
+                    reportCatArray.append(element)
+                }
+            }else if txtReportType.text == "Fixed Line"{
+                lblAccountNumber.isHidden = false
+                txtAccountNumber.isHidden = false
+                txtUserID.isHidden = false
+                txtMSISDN.isHidden = true
+                lblReportTypeTop.constant = 125
+                cardViewHeight.constant = 780
+                for element in fixedLineList{
+                    reportCatArray.append(element)
+                }
+            }else if txtReportType.text == "IP Services"{
+                lblAccountNumber.isHidden = false
+                txtAccountNumber.isHidden = false
+                txtUserID.isHidden = false
+                txtMSISDN.isHidden = true
+                lblReportTypeTop.constant = 125
+                cardViewHeight.constant = 780
+                lblUserID.text = "User ID"
+                for element in iPServiceList{
+                    reportCatArray.append(element)
+                }
+            }else if txtReportType.text == "Fixed Broadband"{
+                lblAccountNumber.isHidden = false
+                txtAccountNumber.isHidden = false
+                txtUserID.isHidden = false
+                txtMSISDN.isHidden = true
+                lblReportTypeTop.constant = 125
+                cardViewHeight.constant = 780
+                lblUserID.text = "User ID"
+                for element in FBBList{
+                    reportCatArray.append(element)
+                }
+            }else if txtReportType.text == "Vodafone Cash"{
+                lblAccountNumber.isHidden = true
+                txtAccountNumber.isHidden = true
+                txtUserID.isHidden = true
+                txtMSISDN.isHidden = false
+                lblReportTypeTop.constant = 30
+                cardViewHeight.constant = 700
+                lblUserID.text = "Mobile Number"
+                for element in vodaCashList{
+                    reportCatArray.append(element)
+                }
+            }else{
+                reportCatArray.removeAll()
             }
+        }else{
+            txtReportCat.text = reportCatArray[row]
         }
-        
-        /*
-         else if txtReportCat.isEditing{
-         reportType = mobileList[row]
-         txtReportCat.text = reportType
-         }
-         */
         
     }
     
@@ -391,6 +550,7 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
     func createPickerView(){
         let accountPicker = UIPickerView()
         accountPicker.delegate = self
+        accountPicker.tag = 1
         txtReportType.inputView = accountPicker
     }
     
@@ -398,6 +558,7 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
     func createCatPicker(){
         let catPicker = UIPickerView()
         catPicker.delegate = self
+        catPicker.tag = 2
         txtReportCat.inputView = catPicker
     }
     //Function to create a tool bar
@@ -420,6 +581,12 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
         reportCat = txtReportCat.text
         reportCom = txtReportCom.text
         altNum = txtAltNumber.text
+        if reportCat == "Fixed Line"{
+            userID = txtUserID.text
+        }else{
+            userID = msisdn
+        }
+        let accountNumber = txtAccountNumber.text
         if msisdn == "" || msisdn!.count < 10{
             toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Provide phone number or a valid phone number")
         }else{
@@ -440,14 +607,88 @@ class reportFaultVc: baseViewControllerM, UIPickerViewDelegate, UIPickerViewData
                             }else{
                                 //check for internet connectivity
                                 if !CheckInternet.Connection(){
-                                    let storyboard = UIStoryboard(name: "Support", bundle: nil)
-                                    let moveTo = storyboard.instantiateViewController(withIdentifier: "NointernetViewController")
-                                    self.addChildViewController(moveTo)
-                                    moveTo.view.frame = self.view.frame
-                                    self.view.addSubview(moveTo.view)
-                                    moveTo.didMove(toParentViewController: self)
+                                    displayNoInternet()
                                 }else{
+                                    start_activity_loader()
+                                    let async_call = URL(string: String.userURL)
+                                    let request = NSMutableURLRequest(url: async_call!)
+                                    request.httpMethod = "POST"
                                     
+                                    
+                                    let postParameters = ["action": "faultReporting", "alternativecontact": altNum!, "reporttype": reportType!, "reportcategory": reportCat, "accountnumber": accountNumber ?? "", "comment": reportCom!, "msisdn":msisdn!, "userid":userID!, "username":username!, "os":getAppVersion()]
+                                    if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+                                        let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                                        let requestBody: Dictionary<String, Any> = [
+                                            "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                                        ]
+                                        if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                                            request.httpBody = postData
+                                            request.addValue("application/json", forHTTPHeaderField: "Content-Accept")
+                                            request.addValue("application/json", forHTTPHeaderField: "Accept")
+                                            var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                                            session = session.replacingOccurrences(of: "-", with: "")
+                                            request.addValue(session, forHTTPHeaderField: "session")
+                                            request.addValue(username!, forHTTPHeaderField: "username")
+                                            
+                                            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                                                data, response, error in
+                                                if error != nil {
+                                                    print("error is: \(error!.localizedDescription)")
+                                                    DispatchQueue.main.async {
+                                                        self.stop_activity_loader()
+                                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                                    }
+                                                    return
+                                                }
+                                                
+                                                do {
+                                                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                                    if let parseJSON = myJSON {
+                                                        DispatchQueue.main.async {
+                                                            self.stop_activity_loader()
+                                                            var sessionAuth: String!
+                                                            sessionAuth = parseJSON["SessionAuth"] as! String?
+                                                            if sessionAuth == "true" {
+                                                                self.logout()
+                                                            }
+                                                            var responseBody: String?
+                                                            var responseCode: Int!
+                                                            var responseMessage: String!
+                                                            responseBody = parseJSON["responseBody"] as? String
+                                                            if let responseBody = responseBody {
+                                                                let decrypt = self.decryptAsyncRequest(requestBody: responseBody)
+                                                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                                                print(decryptedResponseBody)
+                                                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                                                if responseCode == 0{
+                                                                    responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? String
+                                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                                                    if self.hasRated == nil || self.hasRated == false {
+                                                                        self.showRatings()
+                                                                    }else{
+                                                                        
+                                                                    }
+                                                                    
+                                                                }else if responseCode == 1 {
+                                                                    responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as? String
+                                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: responseMessage)
+                                                                }else{
+                                                                    self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }catch{
+                                                    print(error.localizedDescription)
+                                                    DispatchQueue.main.async {
+                                                        self.stop_activity_loader()
+                                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry couldn't process your request. Please try again later...")
+                                                    }
+                                                }
+                                            }
+                                            task.resume()
+                                        }
+                                    }
                                 }
                             }
                         }
