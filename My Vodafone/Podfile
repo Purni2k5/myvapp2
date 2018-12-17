@@ -12,6 +12,8 @@ target 'My Vodafone' do
   pod 'FSPagerView'
   pod 'CryptoSwift'
   pod 'VFGSplash', '2.0.7'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
 
   # Pods for My Vodafone
 

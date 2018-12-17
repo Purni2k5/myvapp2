@@ -9,6 +9,7 @@
 import UIKit
 import VFGSplash
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -62,6 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         //This will register for push notification
         UIApplication.shared.registerForRemoteNotifications()
+        
+        FirebaseApp.configure()
         
         return true
     }

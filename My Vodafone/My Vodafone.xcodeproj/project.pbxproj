@@ -21,6 +21,7 @@
 		0148E06320D915E9003D3F54 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06220D915E9003D3F54 /* LogoutViewController.swift */; };
 		0148E06520D9237E003D3F54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148E06420D9237E003D3F54 /* SettingsViewController.swift */; };
 		014E311720ECCD03004ACE9A /* toppingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E311620ECCD03004ACE9A /* toppingUpViewController.swift */; };
+		01544B2621C7CA020057A364 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01544B2521C7CA020057A364 /* GoogleService-Info.plist */; };
 		015A53472163C80D0040807E /* NetPerform.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 015A53462163C80D0040807E /* NetPerform.storyboard */; };
 		015A534A2163C8650040807E /* speedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A53492163C8650040807E /* speedChecker.swift */; };
 		015CEAFF215532DF00341BA9 /* ratesDiscounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */; };
@@ -171,6 +172,7 @@
 		0148E06220D915E9003D3F54 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		0148E06420D9237E003D3F54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		014E311620ECCD03004ACE9A /* toppingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toppingUpViewController.swift; sourceTree = "<group>"; };
+		01544B2521C7CA020057A364 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		015A53462163C80D0040807E /* NetPerform.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NetPerform.storyboard; sourceTree = "<group>"; };
 		015A53492163C8650040807E /* speedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = speedChecker.swift; sourceTree = "<group>"; };
 		015CEAFE215532DF00341BA9 /* ratesDiscounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratesDiscounts.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				01C0230420C99304003E48CC /* Assets.xcassets */,
 				01C0230620C99304003E48CC /* LaunchScreen.storyboard */,
 				01C0230920C99304003E48CC /* Info.plist */,
+				01544B2521C7CA020057A364 /* GoogleService-Info.plist */,
 				01885B2120CED5B100D0A325 /* homePrePaidViewController.swift */,
 				0198E74F20DAE303000820F7 /* My Vodafone-Bridging-Header.h */,
 				019538622108C5EB00E492A7 /* mvaConfig.swift */,
@@ -818,6 +821,7 @@
 				01C0230520C99304003E48CC /* Assets.xcassets in Resources */,
 				01C0230320C99304003E48CC /* Main.storyboard in Resources */,
 				01731973217586BA00989F8A /* Shake.storyboard in Resources */,
+				01544B2621C7CA020057A364 /* GoogleService-Info.plist in Resources */,
 				01F57B492151011E005F5F0C /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,6 +857,8 @@
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/EDSunriseSet/EDSunriseSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/RBBAnimation/RBBAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -861,12 +867,15 @@
 				"${PODS_ROOT}/VFGCommonUtils/VFGCommonUtils/VFGCommonUtils.framework",
 				"${PODS_ROOT}/VFGSplash/VFGSplash/VFGSplash.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EDSunriseSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RBBAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -875,6 +884,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VFGCommonUtils.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VFGSplash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
