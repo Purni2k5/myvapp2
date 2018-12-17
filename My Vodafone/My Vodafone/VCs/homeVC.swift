@@ -228,7 +228,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
         
-        let content = UNMutableNotificationContent()
+        // local notification
+        /*let content = UNMutableNotificationContent()
         content.title = "My Vodafone App"
         content.body = "Body"
         content.sound = UNNotificationSound.default()
@@ -237,7 +238,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)*/
         
         if let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {
             dService = defaultService
