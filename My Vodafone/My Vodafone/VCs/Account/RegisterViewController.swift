@@ -21,6 +21,7 @@ class RegisterViewController: baseViewControllerM {
     @IBOutlet weak var usernameTopConstraints: NSLayoutConstraint!
     
     
+    
     var username:String?
     var password:String?
     var passClone:String?
@@ -48,6 +49,8 @@ class RegisterViewController: baseViewControllerM {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        txtUsername.addTarget(self, action: #selector(checkInputFields), for: .editingChanged)
+        txtPassword.addTarget(self, action: #selector(checkInputFields), for: .editingChanged)
         txtPhoneNumber.addTarget(self, action: #selector(checkInputFields), for: .editingChanged)
         activity_loader.isHidden = true
     }
@@ -74,7 +77,7 @@ class RegisterViewController: baseViewControllerM {
                 if username!.contains(" "){
                     displayErrorMessage(errorMess: "Username should not contain spaces")
                 }else{
-                    print("Here now")
+//                    print("Here now")
                     start_activity_loader()
                     // secure pass
                     username = username?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -176,6 +179,7 @@ class RegisterViewController: baseViewControllerM {
         view.addSubview(activity_loader)
         activity_loader.topAnchor.constraint(equalTo: txtPhoneNumber.bottomAnchor, constant: 30).isActive = true
         activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        txtPhoneNumber.placeholder = "eg 0201122334"
     }
     
     @objc func checkInputFields(){
@@ -183,12 +187,13 @@ class RegisterViewController: baseViewControllerM {
         totalmsisdn = msisdn?.count
         password = txtPassword.text
         totalPassChar = password?.count
-        if totalmsisdn! == 10 && totalPassChar! >= 5 && password != "" && username != "" {
+        username = txtUsername.text
+        if totalmsisdn! >= 10 && totalPassChar! >= 5 && password != "" && username != "" {
             register.backgroundColor = UIColor.vodaRed
-            register.isEnabled = true
+            
         }else{
             register.backgroundColor = UIColor.grayButton
-            register.isEnabled = false
+            
         }
         
     }
