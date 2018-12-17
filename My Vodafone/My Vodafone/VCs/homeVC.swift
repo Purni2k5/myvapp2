@@ -8,6 +8,7 @@
 
 import UIKit
 import FSPagerView
+import UserNotifications
 
 
 class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
@@ -227,6 +228,16 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         print(UserData)
         
+        let content = UNMutableNotificationContent()
+        content.title = "My Vodafone App"
+        content.body = "Body"
+        content.sound = UNNotificationSound.default()
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 6, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
         if let defaultService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as! String? {
             dService = defaultService
