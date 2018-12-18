@@ -35,6 +35,8 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     var fontSizeForCredit: CGFloat = 30
     var fontSizeForCreditTitle: CGFloat = 19
     
+    fileprivate var scrollViewHeight: CGFloat!
+    
     let defaultAccImage = UIImageView()
     let defaultCallCreditView = UIView()
     let lblCreditTitle = UILabel()
@@ -280,8 +282,9 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                             defaultAccName = dict.value(forKey: "DisplayName") as! String?
                             primaryID = dict.value(forKey: "primaryID") as! String?
                             AcctType = dict.value(forKey: "Type") as! String?
+                            defaultImageUrl = dict.value(forKey: "DisplayImageUrl") as? String
                             foundDefault = true
-                            print("Got it")
+                            
 //                            print("found defName \(defaultAccName)")
                             
                         }else{
@@ -291,6 +294,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                             AcctType = dict.value(forKey: "Type") as! String?
                             primaryID = dict.value(forKey: "primaryID") as! String?
 //                            foundDefault = true
+                            print("Got it \(defaultImageUrl)")
                         }
                     }
                 }
@@ -584,6 +588,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: motherView.safeTopAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: motherView.safeBottomAnchor).isActive = true
+        scrollViewHeight = view.frame.height
+        scrollViewHeight = scrollViewHeight + 200
+        scrollView.contentSize.height = scrollViewHeight
+        
         
         //app logo
         let app_logo = UIImageView(image: #imageLiteral(resourceName: "voda_logo"))
@@ -698,12 +706,14 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         if !isMade4MePresent {
             defaultAccImage.translatesAutoresizingMaskIntoConstraints = false
-            defaultAccImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "default_profile"), options: [.continueInBackground, .progressiveDownload])
+            defaultAccImage.clipsToBounds = true
+            defaultAccImage.sd_setImage(with: URL(string: defaultImageUrl ?? ""), placeholderImage: UIImage(named: "default_profile"), options: [.continueInBackground, .progressiveDownload])
             
             defaultAccImage.leadingAnchor.constraint(equalTo: motherView.leadingAnchor, constant: 30).isActive = true
             defaultImageTopConstraint1 = defaultAccImage.topAnchor.constraint(equalTo: pagerView.bottomAnchor, constant: 30)
             defaultImageTopConstraint1?.isActive = true
             loadMade4Me()
+            scrollView.contentSize.height = scrollViewHeight + 200
         }else{
             defaultImageTopConstraint2?.isActive = true
             print("Yes load local")
@@ -1150,7 +1160,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         //        trackLayer.position = centerForGauge
         gaugeViewHolder.layer.addSublayer(shapeLayer)
 //        scrollView.resizeScrollViewContentSize()
-        scrollView.contentSize.height = 1500
+//        scrollView.contentSize.height = 1500
     }
     
     func backgroundCalls(){
@@ -1445,6 +1455,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                 
                                                 if let promotionsRip = promotions {
                                                     var extraPromoCardTop: CGFloat = 10
+                                                    var extraPromoHeight: CGFloat = 0
                                                     self.preference.set(promotionsRip, forKey: UserDefaultsKeys.userSubscriberSummary.rawValue)
                                                     for obj in promotionsRip{
                                                         if let dict = obj as? NSDictionary{
@@ -1669,6 +1680,14 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                                                                             lblPromotionExpire.lineBreakMode = .byWordWrapping
                                                                             
                                                                             extraPromoCardTop = extraPromoCardTop + 160
+                                                                            if Int(self.deviceWidth!) <= 375 {
+                                                                                extraPromoHeight = extraPromoHeight + 400
+                                                                            }else{
+                                                                                extraPromoHeight = extraPromoHeight + 340
+                                                                            }
+                                                                            
+                                                                            print("extraPromo height \(self.scrollViewHeight)")
+                                                                            self.scrollView.contentSize.height = self.scrollViewHeight + extraPromoHeight
                                                                         }
                                                                     }
                                                                 }
