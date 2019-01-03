@@ -1418,6 +1418,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
                         var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
                         session = session.replacingOccurrences(of: "-", with: "")
                         request.addValue(session, forHTTPHeaderField: "session")
+                        print("session \(session)")
                         request.addValue(username!, forHTTPHeaderField: "username")
                         
                         let task = URLSession.shared.dataTask(with: request as URLRequest){

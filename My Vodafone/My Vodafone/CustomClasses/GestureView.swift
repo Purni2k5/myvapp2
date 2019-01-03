@@ -34,6 +34,10 @@ class UserDetailsCard: UIView {
     var msisdn: String?
     var displayName: String?
     var accountType: String?
+    var userID: String?
+    var accountNumber: String?
+    var ID: String?
+    var displayImageUrl: String?
 }
 
 class SingleVariable: UIView {

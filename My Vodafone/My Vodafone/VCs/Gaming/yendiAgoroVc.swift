@@ -20,8 +20,8 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
     }()
     
     //create a closure for refresh button
-    let btnRefresh: UIImageView = {
-        let view = UIImageView(image: #imageLiteral(resourceName: "progressarrow"))
+    let btnRefresh: UIButton = {
+        let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -53,6 +53,7 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
         let escapedParam = param.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) //https://www.youtube.com/watch?v=OuG3K8vLWXg&pbjreload=10
         let fullURLString = "\(String.MVA_SPINGAME)\(escapedParam!)"
         start_activity_loader()
+        animateRefreshBtn()
         yendiWebView.navigationDelegate = self
         if let url = URL(string: fullURLString){
             print(url)
@@ -80,6 +81,7 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
         didFinish navigation: WKNavigation!) {
         stop_activity_loader()
+        
     }
 
     //Function to startIndicator
@@ -92,6 +94,7 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
     //Function to startIndicator
     func stop_activity_loader(){
         activity_loader.stopAnimating()
+        self.btnRefresh.layer.removeAnimation(forKey: "rotate")
     }
     
     func setUpViewsYen(){
@@ -120,6 +123,11 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
         btnRefresh.heightAnchor.constraint(equalToConstant: 30).isActive = true
         btnRefresh.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         btnRefresh.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 10).isActive = true
+        let btnImage = UIImage(named: "progressarrow")
+        let tintImage = btnImage?.withRenderingMode(.alwaysTemplate)
+        btnRefresh.setImage(tintImage, for: .normal)
+        btnRefresh.tintColor = UIColor.white
+        btnRefresh.addTarget(self, action: #selector(refreshPage), for: .touchUpInside)
         
         view.addSubview(yendiWebView)
         yendiWebView.isOpaque = false
@@ -133,5 +141,20 @@ class yendiAgoroVc: baseViewControllerM, WKNavigationDelegate {
         view.addSubview(activity_loader)
         activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activity_loader.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    func animateRefreshBtn(){
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(.pi * 2.0)
+        rotateAnimation.duration = 1.0
+        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude;
+        
+        btnRefresh.layer.add(rotateAnimation, forKey: "rotate")
+    }
+    
+    @objc func refreshPage(){
+        animateRefreshBtn()
+        
     }
 }

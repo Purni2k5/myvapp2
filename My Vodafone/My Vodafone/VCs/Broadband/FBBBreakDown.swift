@@ -17,6 +17,7 @@ class FBBBreakDown: baseViewControllerM {
     var dService: String?
     var primaryID: String?
     var bbUsageDetails: String?
+    var pushAccType: String?
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -681,31 +682,38 @@ class FBBBreakDown: baseViewControllerM {
         checkConnection()
         
         
+        
         let UserData = preference.object(forKey: "responseData") as! NSDictionary
         username = UserData["Username"] as? String
         let services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         dService = preference.object(forKey: UserDefaultsKeys.DefaultService.rawValue) as? String
 //        print(dService)
-        if let serviceArray = services as? NSArray{
-            var foundDefault = false
-            for obj in serviceArray{
-                print(foundDefault)
-                print(obj)
-                if foundDefault == false{
-                    if let dict = obj as? NSDictionary {
-                        displayName = dict.value(forKey: "DisplayName") as? String
-                        let id = dict.value(forKey: "ID") as! String?
-//                        print("ID: \(id)")
-                        if id == dService{
+        if let pushAcct = pushAccType{
+            if pushAcct.contains("BB_FIXED"){
+                
+            }
+        }else{
+            if let serviceArray = services as? NSArray{
+                var foundDefault = false
+                for obj in serviceArray{
+                    print(foundDefault)
+                    print(obj)
+                    if foundDefault == false{
+                        if let dict = obj as? NSDictionary {
                             displayName = dict.value(forKey: "DisplayName") as? String
-                            userID = dict.value(forKey: "primaryID") as? String
-                            accountNumber = dict.value(forKey: "SecondaryID") as? String
-                            primaryID = dict.value(forKey: "primaryID") as? String
-                            foundDefault = true
+                            let id = dict.value(forKey: "ID") as! String?
+                            //                        print("ID: \(id)")
+                            if id == dService{
+                                displayName = dict.value(forKey: "DisplayName") as? String
+                                userID = dict.value(forKey: "primaryID") as? String
+                                accountNumber = dict.value(forKey: "SecondaryID") as? String
+                                primaryID = dict.value(forKey: "primaryID") as? String
+                                foundDefault = true
+                            }
                         }
                     }
+                    
                 }
-                
             }
         }
         
@@ -831,7 +839,9 @@ class FBBBreakDown: baseViewControllerM {
         let request = NSMutableURLRequest(url: async_call!)
         request.httpMethod = "POST"
         
+        
         let postParameters = ["action":"fbbBalance", "username":username!, "userid": userID!, "accountnumber": accountNumber!]
+        print(postParameters)
         if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
             let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
             let requestBody: Dictionary<String, Any> = [

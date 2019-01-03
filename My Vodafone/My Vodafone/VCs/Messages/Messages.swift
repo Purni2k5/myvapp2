@@ -10,6 +10,8 @@ import UIKit
 
 class Messages: baseViewControllerM {
 
+    var username: String?
+    
     //closure for scroll view
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -58,6 +60,20 @@ class Messages: baseViewControllerM {
         return view
     }()
     
+    //Function to startIndicator
+    func start_activity_loader(){
+        activity_loader.isHidden = false
+        activity_loader.hidesWhenStopped = true
+        activity_loader.startAnimating()
+        
+    }
+    
+    //Function to startIndicator
+    func stop_activity_loader(){
+        activity_loader.stopAnimating()
+        
+    }
+    
     var msisdn: String?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,9 +82,17 @@ class Messages: baseViewControllerM {
         SetUpViewMessages()
         if let defaultMSISDN = preference.object(forKey: "defaultMSISDN") as! String?{
             msisdn = defaultMSISDN
-            print(msisdn!)
+            
         }
+        let responseData = preference.object(forKey: "responseData") as! NSDictionary
+        username = responseData["Username"] as? String
         
+        if CheckInternet.Connection(){
+            start_activity_loader()
+            fetchMessages()
+        }else{
+            
+        }
         
         if AcctType == "PHONE_MOBILE_PRE_P" || AcctType == "BB_FIXED_PRE_P"{
             prePaidMenu()
@@ -151,5 +175,92 @@ class Messages: baseViewControllerM {
         cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         cardView.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
+        //activity loader
+        scrollView.addSubview(activity_loader)
+        activity_loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activity_loader.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
+    }
+    
+    func fetchMessages(){
+        let postParameters:Dictionary<String, Any> = [
+            "username":username!,
+            "action":"getNotifications",
+            "os":getAppVersion()
+        ]
+        
+        let async_call = URL(string: String.offers)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted){
+            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+            let requestBody: Dictionary<String, Any> = [
+                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+            ]
+            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                request.httpBody = postData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                session = session.replacingOccurrences(of: "-", with: "")
+                request.addValue(session, forHTTPHeaderField: "session")
+                request.addValue(username!, forHTTPHeaderField: "username")
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest){
+                    data, response, error in
+                    if error != nil {
+                        print("error is: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.stop_activity_loader()
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not proccess your request try again later...")
+                        }
+                        return;
+                    }
+                    do {
+                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = myJSON {
+                            print("responseBody: \(parseJSON)")
+                            var sessionAuth: String!
+                            sessionAuth = parseJSON["SessionAuth"] as! String?
+                            if sessionAuth == "true" {
+                                DispatchQueue.main.async {
+                                    self.logout()
+                                }
+                                
+                            }
+                            var responseBody: String?
+                            var responseCode: Int!
+                            
+                            responseBody = parseJSON["responseBody"] as! String?
+                            if responseBody != nil {
+                                //cache data
+                                
+                                DispatchQueue.main.async {
+                                    let resBody = responseBody
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody!)
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    if responseCode == 0 {
+                                        
+                                    }else{
+                                        
+                                        self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry could not update your bill. Try later")
+                                    }
+                                    self.stop_activity_loader()
+                                }
+                            }
+                            
+                        }
+                    }catch{
+                        print("postPaid Balance error \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
     }
 }

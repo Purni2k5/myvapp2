@@ -130,8 +130,8 @@ class personliseApp: baseViewControllerM {
         cardView1.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
         cardView1.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         cardView1.heightAnchor.constraint(equalToConstant: 130).isActive = true
-//        let card1Rec = UITapGestureRecognizer(target: self, action: #selector(goToSelDefaultService))
-//        cardView1.addGestureRecognizer(card1Rec)
+        let card1Rec = UITapGestureRecognizer(target: self, action: #selector(goToListServices))
+        cardView1.addGestureRecognizer(card1Rec)
         
         //Left Image
         let autoLeftImage = UIImageView()
@@ -229,6 +229,12 @@ class personliseApp: baseViewControllerM {
     @objc func goToSelDefaultService(){
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "chooseDefaultService")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    @objc func goToListServices(){
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "ListServices")
         present(moveTo, animated: true, completion: nil)
     }
     

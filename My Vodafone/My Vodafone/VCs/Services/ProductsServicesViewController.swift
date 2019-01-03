@@ -195,6 +195,7 @@ class ProductsServicesViewController: UIViewController {
                             // Now reference the data you need using:
                             let serviceName = dict.value(forKey: "DisplayName") as! String
                             var ServiceID = dict.value(forKey: "primaryID") as! String
+                            let secondaryID = dict.value(forKey: "SecondaryID") as? String
                             let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
                             let type = dict.value(forKey: "Type") as! String
                             
@@ -218,6 +219,7 @@ class ProductsServicesViewController: UIViewController {
                             service.msisdn = ServiceID
                             service.displayName = serviceName
                             service.accountType = type
+                            service.accountNumber = secondaryID
                             let touchRec = UITapGestureRecognizer(target: self, action: #selector(goToDetails(_sender:)))
                             service.addGestureRecognizer(touchRec)
                             
@@ -397,7 +399,7 @@ class ProductsServicesViewController: UIViewController {
                                             var ServiceID = dict.value(forKey: "primaryID") as! String
                                             let DisplayImageUrl = dict.value(forKey: "DisplayImageUrl") as! String
                                             let type = dict.value(forKey: "Type") as! String
-                                            
+                                            let accountNumber = dict.value(forKey: "SecondaryID") as? String
                     
                                             //                            print("int to string \(stringCountView)")
                                             let service = UserDetailsCard()
@@ -418,6 +420,7 @@ class ProductsServicesViewController: UIViewController {
                                             service.msisdn = ServiceID
                                             service.displayName = serviceName
                                             service.accountType = type
+                                            service.accountNumber = accountNumber
                                             
                                             let touchRec = UITapGestureRecognizer(target: self, action: #selector(self.goToDetails(_sender:)))
                                             service.addGestureRecognizer(touchRec)
@@ -509,12 +512,24 @@ class ProductsServicesViewController: UIViewController {
     
     @objc func goToDetails(_sender: UITapGestureRecognizer){
         let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
-        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "userServiceDetails") as? userServiceDetails else {return}
+        
         guard let gestureVariables = _sender.view as? UserDetailsCard else {return}
-        moveTo.msisdn = gestureVariables.msisdn
-        moveTo.displayName = gestureVariables.displayName
-        moveTo.accountType = gestureVariables.accountType
-        present(moveTo, animated: true, completion: nil)
+        if (gestureVariables.accountType?.contains("BB_FIXED"))!{
+            let storyboard = UIStoryboard(name: "Broadband", bundle: nil)
+            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "FBBBreakDown") as? FBBBreakDown else {return}
+            moveTo.accountNumber = gestureVariables.accountNumber
+            moveTo.userID = gestureVariables.msisdn
+            moveTo.pushAccType = gestureVariables.accountType
+            
+            present(moveTo, animated: true, completion: nil)
+        }else{
+            guard let moveTo = storyboard.instantiateViewController(withIdentifier: "userServiceDetails") as? userServiceDetails else {return}
+            moveTo.msisdn = gestureVariables.msisdn
+            moveTo.displayName = gestureVariables.displayName
+            moveTo.accountType = gestureVariables.accountType
+            present(moveTo, animated: true, completion: nil)
+        }
+        
     }
 
 }

@@ -19,6 +19,9 @@ class userServiceDetails: baseViewControllerM {
     var promotionID: String?
     var accountType: String?
     var percentageUsed: Any?
+    var userID: String?
+    var accountNumber: String?
+    var ffbAccountName: String?
     
     //closure for scroll view
     let scrollView: UIScrollView = {
