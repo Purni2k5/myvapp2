@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class supportModalVc: UIViewController {
 
@@ -138,10 +139,12 @@ class supportModalVc: UIViewController {
     let ussdCode = code!
         if ussdCode.contains("https") || ussdCode.contains("http"){
             UIApplication.shared.open(URL(string: "\(ussdCode)")! as URL, options: [:], completionHandler: nil)
-        }else if ussdCode.contains("info"){
-            UIApplication.shared.open(URL(string: "mailto:\(ussdCode)")! as URL, options: [:], completionHandler: nil)
+        }else if ussdCode.contains("@"){
+            showMailComposer(emailAdd: ussdCode)
         }
-        else{
+        else if ussdCode.contains("info"){
+            UIApplication.shared.open(URL(string: "mailto:\(ussdCode)")! as URL, options: [:], completionHandler: nil)
+        }else{
             let url = URL(string: "telprompt://\(ussdCode)")
             UIApplication.shared.open(url!)
 
@@ -151,5 +154,41 @@ class supportModalVc: UIViewController {
     override var prefersStatusBarHidden: Bool{
         return true
     }
+    
+    func showMailComposer(emailAdd: String){
+        guard MFMailComposeViewController.canSendMail() else {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry your device can't send mail. Please go to settings and set up an email client")
+            return
+        }
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients([emailAdd])
+        present(composer, animated: true, completion: {
+            self.view.removeFromSuperview()
+        })
+    }
 
+}
+
+extension supportModalVc: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Sorry, kindly try again")
+            controller.dismiss(animated: true)
+            return
+        }
+        
+        switch result {
+        case .sent:
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: "Message sent successfully")
+        case .saved:
+            print("Saved")
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "correct")), toast_message: "Message saved successfully")
+        case .cancelled:
+            print("Cancelled")
+        case .failed:
+            print("failed")
+        }
+        controller.dismiss(animated: true)
+    }
 }
