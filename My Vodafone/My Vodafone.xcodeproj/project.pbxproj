@@ -139,6 +139,7 @@
 		01F738872137360600A30C1C /* displayChosenOfferVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F738862137360600A30C1C /* displayChosenOfferVc.swift */; };
 		01FA869B2194567F00346A8D /* postPaidLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA869A2194567F00346A8D /* postPaidLogin.swift */; };
 		01FDDD5D21388AEC00F71249 /* checkFBBBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */; };
+		2804E9B821DE37630002FB36 /* FBBLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804E9B721DE37630002FB36 /* FBBLogin.swift */; };
 		28180955218B3EB50001AA70 /* PostPaid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28180954218B3EB50001AA70 /* PostPaid.storyboard */; };
 		28180958218B3F010001AA70 /* postPaidHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28180957218B3F010001AA70 /* postPaidHome.swift */; };
 		281AB50920E6713200AFE4A6 /* OffersExtrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */; };
@@ -296,6 +297,7 @@
 		01FA869A2194567F00346A8D /* postPaidLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postPaidLogin.swift; sourceTree = "<group>"; };
 		01FDDD5C21388AEC00F71249 /* checkFBBBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkFBBBalance.swift; sourceTree = "<group>"; };
 		04E81B81CBD9B8057781B417 /* Pods-My Vodafone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Vodafone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Vodafone/Pods-My Vodafone.debug.xcconfig"; sourceTree = "<group>"; };
+		2804E9B721DE37630002FB36 /* FBBLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBLogin.swift; sourceTree = "<group>"; };
 		28180954218B3EB50001AA70 /* PostPaid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostPaid.storyboard; sourceTree = "<group>"; };
 		28180957218B3F010001AA70 /* postPaidHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postPaidHome.swift; sourceTree = "<group>"; };
 		281AB50820E6713200AFE4A6 /* OffersExtrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersExtrasViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 			children = (
 				019F1364217A1BEC00E0B02C /* broadbandHome.swift */,
 				28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */,
+				2804E9B721DE37630002FB36 /* FBBLogin.swift */,
 			);
 			path = Broadband;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				01F504502125D28000359657 /* AddServiceConfViewController.swift in Sources */,
 				01853EBE20D05957002DEB7D /* UserProductsViewController.swift in Sources */,
 				01A34351214AF40900B4A6A5 /* appointmentsVc.swift in Sources */,
+				2804E9B821DE37630002FB36 /* FBBLogin.swift in Sources */,
 				018AC082211208E1002691E4 /* DialVodaCashViewController.swift in Sources */,
 				28F634C721CBD67600E31F46 /* ListServices.swift in Sources */,
 				013C528E213FF79700A9E67C /* linkFBBUpdateVc.swift in Sources */,

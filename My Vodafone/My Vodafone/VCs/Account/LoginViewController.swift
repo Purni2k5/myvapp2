@@ -176,7 +176,7 @@ class LoginViewController: baseViewControllerM {
         btn.setTitle("Login with Fixed Broadband", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-        btn.isHidden = true
+        
         return btn
     }()
     
@@ -257,7 +257,7 @@ class LoginViewController: baseViewControllerM {
         darkView.leadingAnchor.constraint(equalTo: motherViewLogin.leadingAnchor, constant: 20).isActive = true
         darkView.topAnchor.constraint(equalTo: lblHeader.bottomAnchor, constant: 20).isActive = true
         darkView.trailingAnchor.constraint(equalTo: motherViewLogin.trailingAnchor, constant: -20).isActive = true
-        darkViewHeight = darkView.heightAnchor.constraint(equalToConstant: 550)
+        darkViewHeight = darkView.heightAnchor.constraint(equalToConstant: 580)
         darkViewHeight?.isActive = true
         
         //Error Dialog
@@ -321,7 +321,7 @@ class LoginViewController: baseViewControllerM {
         scrollView.addSubview(lblRegister)
         lblRegister.translatesAutoresizingMaskIntoConstraints = false
         lblRegister.textColor = UIColor.white
-        lblRegister.text = "Not registered with \nMY Vodafone?"
+        lblRegister.text = "Not registered with \nMy Vodafone?"
         lblRegister.textAlignment = .center
         lblRegister.numberOfLines = 0
         lblRegister.lineBreakMode = .byWordWrapping
@@ -342,6 +342,7 @@ class LoginViewController: baseViewControllerM {
         btnFBBLogin.topAnchor.constraint(equalTo: btnRegister.bottomAnchor, constant: 10).isActive = true
         btnFBBLogin.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -20).isActive = true
         btnFBBLogin.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        btnFBBLogin.addTarget(self, action: #selector(goToFBBLogin), for: .touchUpInside)
         
         darkView.addSubview(activity_loader)
         activity_loader.centerXAnchor.constraint(equalTo: darkView.centerXAnchor).isActive = true
@@ -374,6 +375,12 @@ class LoginViewController: baseViewControllerM {
         present(moveTo, animated: true, completion: nil)
     }
     
+    @objc func goToFBBLogin(){
+        let storyboard = UIStoryboard(name: "FBB", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "FBBLogin")
+        present(moveTo, animated: true, completion: nil)
+    }
+    
     @objc func goToRegister(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let moveTo = storyboard.instantiateViewController(withIdentifier: "RegisterViewController")
@@ -391,7 +398,7 @@ class LoginViewController: baseViewControllerM {
             errorDialog.isHidden = false
             lblErrorMessage.text = "Provide Username / Password"
             darkViewHeight?.constant = 660
-            scrollView.contentSize.height = (lblHeader.frame.size.height + darkView.frame.size.height) + 90
+            scrollView.contentSize.height = (lblHeader.frame.size.height + darkView.frame.size.height) + 120
         }else {
             lblUsernameTop?.constant = 20
             errorDialog.isHidden = true
