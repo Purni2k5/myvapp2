@@ -86,13 +86,13 @@ class supportVC: baseViewControllerM {
         scrollView.topAnchor.constraint(equalTo: motherView.safeTopAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: motherView.safeBottomAnchor).isActive = true
-        scrollView.contentSize.height = 1310
+        scrollView.contentSize.height = 1330
         
         scrollView.addSubview(cardView)
         cardView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 25).isActive = true
         cardView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 40).isActive = true
         cardView.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -25).isActive = true
-        cardView.heightAnchor.constraint(equalToConstant: 1200).isActive = true
+        
         cardView.layer.cornerRadius = 30
         
         scrollView.addSubview(supportHView)
@@ -396,7 +396,7 @@ class supportVC: baseViewControllerM {
         onlineSupport.backgroundColor = UIColor.white
         onlineSupport.leadingAnchor.constraint(equalTo: darkGrayCard.leadingAnchor, constant: 20).isActive = true
         onlineSupport.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
-        onlineSupport.topAnchor.constraint(equalTo: twitter.bottomAnchor, constant: 20).isActive = true
+        onlineSupport.topAnchor.constraint(equalTo: youtube.bottomAnchor, constant: 20).isActive = true
         onlineSupport.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
         let onlineSupportRec = UITapGestureRecognizer(target: self, action: #selector(self.openSupport(_sender:)))
@@ -523,6 +523,7 @@ class supportVC: baseViewControllerM {
         faults.trailingAnchor.constraint(equalTo: darkGrayCard.trailingAnchor, constant: -20).isActive = true
         faults.topAnchor.constraint(equalTo: faultRep.bottomAnchor, constant: 20).isActive = true
         faults.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        cardView.bottomAnchor.constraint(equalTo: faults.bottomAnchor, constant: 60).isActive = true
         
         // icon
         let faultsIcon = UIImageView(image: #imageLiteral(resourceName: "ic_action__search"))
