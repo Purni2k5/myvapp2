@@ -265,7 +265,7 @@ class ForgotPassword: baseViewControllerM {
                                         let responseUserName = responseInfo["Username"] as! String
                                     
                                     
-                                    if let responseMessage = parseJSON["RESPONSEMESSAGE"] as! String? {
+                                    if let responseMessage = parseJSON["RESPONSEMESSAGE"] as? String {
                                         UIView.animate(withDuration: 0.5, delay: 3, options: .curveEaseIn, animations: {
                                             self.lblEnterUserTopConstraint?.constant = 80
                                             self.lblResponseMessage.text = responseMessage
@@ -285,6 +285,11 @@ class ForgotPassword: baseViewControllerM {
                                         self.errorDialog.isHidden = false
                                     }
                                 }
+                                }else if responseCode == 1{
+                                    if let responseMessage = parseJSON["RESPONSEMESSAGE"] as? String {
+                                        self.lblResponseMessage.text = responseMessage
+                                        self.errorDialog.isHidden = false
+                                    }
                                 }
                                 self.stop_activity_loader()
                             }
@@ -292,6 +297,9 @@ class ForgotPassword: baseViewControllerM {
                     }catch{
                         DispatchQueue.main.async {
                             self.stop_activity_loader()
+                            self.lblEnterUserTopConstraint?.constant = 80
+                            self.lblResponseMessage.text = "The My Vodafone Service is busy right now. Please try again later."
+                            self.errorDialog.isHidden = false
                             print("error is:: \(error.localizedDescription)")
                         }
                     }

@@ -625,6 +625,21 @@
             </objects>
             <point key="canvasLocation" x="4711" y="627"/>
         </scene>
+        <!--Choose Upload Image Type-->
+        <scene sceneID="oTr-tE-cvu">
+            <objects>
+                <viewController storyboardIdentifier="chooseUploadImageType" id="6QF-4F-oy3" customClass="chooseUploadImageType" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ANA-cn-4Qk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="tL1-jA-MFx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="amW-kA-3au" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5336" y="604"/>
+        </scene>
         <!--Settings Privacy-->
         <scene sceneID="vtH-M6-GLz">
             <objects>

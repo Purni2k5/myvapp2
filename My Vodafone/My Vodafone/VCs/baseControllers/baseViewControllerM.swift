@@ -139,6 +139,7 @@ class baseViewControllerM: UIViewController {
         if AcctType == "PHONE_MOBILE_PRE_P" {
             prePaidMenu()
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

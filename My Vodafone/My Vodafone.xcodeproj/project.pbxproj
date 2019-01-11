@@ -148,6 +148,7 @@
 		28472E48216E16F70001BBB0 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28472E46216E16F70001BBB0 /* ContactsUI.framework */; };
 		285A1D072129C37600EBA1EC /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A1D062129C37600EBA1EC /* homeVC.swift */; };
 		28937EE620EF96D20061F82B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28937EE520EF96D20061F82B /* RoundView.swift */; };
+		28A99C2E21E4E7B5001123C1 /* chooseUploadImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99C2D21E4E7B5001123C1 /* chooseUploadImageType.swift */; };
 		28B3DBAE217F0F59003F139E /* FBBBreakDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */; };
 		28B3DBB0217F88A6003F139E /* RateUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBAF217F88A6003F139E /* RateUs.swift */; };
 		28B3DBB221807397003F139E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3DBB121807397003F139E /* LoginViewController.swift */; };
@@ -306,6 +307,7 @@
 		28472E46216E16F70001BBB0 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		285A1D062129C37600EBA1EC /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		28937EE520EF96D20061F82B /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
+		28A99C2D21E4E7B5001123C1 /* chooseUploadImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseUploadImageType.swift; sourceTree = "<group>"; };
 		28B3DBAD217F0F59003F139E /* FBBBreakDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBBreakDown.swift; sourceTree = "<group>"; };
 		28B3DBAF217F88A6003F139E /* RateUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateUs.swift; sourceTree = "<group>"; };
 		28B3DBB121807397003F139E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				28B3DBAF217F88A6003F139E /* RateUs.swift */,
 				28F634C621CBD67600E31F46 /* ListServices.swift */,
 				28F634C821CC007800E31F46 /* UpdateProfile.swift */,
+				28A99C2D21E4E7B5001123C1 /* chooseUploadImageType.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -929,6 +932,7 @@
 				285A1D072129C37600EBA1EC /* homeVC.swift in Sources */,
 				01853EBC20D00CB4002DEB7D /* AddServiceViewController.swift in Sources */,
 				0119AF7C213E9090009B71C8 /* fbbShareVc.swift in Sources */,
+				28A99C2E21E4E7B5001123C1 /* chooseUploadImageType.swift in Sources */,
 				0104517A21C119FA0040955B /* billDetails.swift in Sources */,
 				016CC5A1211CFC48002B37E5 /* NointernetViewController.swift in Sources */,
 				016CC59D211C48A7002B37E5 /* offlineNotifViewController.swift in Sources */,

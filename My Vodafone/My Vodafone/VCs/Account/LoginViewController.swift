@@ -491,7 +491,7 @@ class LoginViewController: baseViewControllerM {
                                 print("Doing this")
                                 DispatchQueue.main.async {
                                     self.preference.set(responseData, forKey: "responseData")
-                                    //go to home screen
+                                    
                                     let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
                                     let moveTo = storyboard.instantiateViewController(withIdentifier: "ProductsServicesViewController")
                                     self.present(moveTo, animated: true, completion: nil)

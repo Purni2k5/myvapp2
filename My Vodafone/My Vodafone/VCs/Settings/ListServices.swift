@@ -236,7 +236,7 @@ class ListServices: baseViewControllerM {
         guard let moveTo = storyboard.instantiateViewController(withIdentifier: "UpdateProfile") as? UpdateProfile else {return}
         guard let gestureVariable = _sender.view as? UserDetailsCard else {return}
         print(gestureVariable.ID)
-        moveTo.msisdn = gestureVariable.msisdn
+        moveTo.displayMsisdn = gestureVariable.msisdn
         moveTo.displayName = gestureVariable.displayName
         moveTo.displayImage = gestureVariable.displayImageUrl
         moveTo.id = gestureVariable.ID

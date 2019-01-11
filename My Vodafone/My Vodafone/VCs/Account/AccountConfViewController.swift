@@ -351,6 +351,8 @@ class AccountConfViewController: baseViewControllerM {
                             }
                         }catch{
                             print("catch:: \(error.localizedDescription)")
+                            self.toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "The My Vodafone Service is busy right now. Please try again later.")
+                            self.stop_activity_loader()
                         }
                     }
                     task.resume()

@@ -24,6 +24,7 @@ class ProductsServicesViewController: UIViewController {
     var username = ""
     var onlyType = ""
     var defaultSrve: String?
+    var totalServices = 0
     
     @IBOutlet weak var motherView: UIView!
     
@@ -60,7 +61,7 @@ class ProductsServicesViewController: UIViewController {
         
         let Services = preference.object(forKey: UserDefaultsKeys.ServiceList.rawValue)
         if let array = Services as? NSArray {
-            let totalServices = array.count
+            totalServices = array.count
             print("Total Service:: \(totalServices)")
 //            for obj in array {
 //                if let dict = obj as? NSDictionary {
@@ -308,13 +309,6 @@ class ProductsServicesViewController: UIViewController {
         
     }
     
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @objc func goToAddServices(_sender: UITapGestureRecognizer){
         //        print("You just clicked")
         let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
@@ -331,17 +325,13 @@ class ProductsServicesViewController: UIViewController {
     
 
     @objc func goToHome(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-        present(moveTo, animated: true, completion: nil)
-//        let defaultService = self.preference.object(forKey: "DefaultService") as? String
-//        if let defaultSrve = defaultSrve{
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
-//            present(moveTo, animated: true, completion: nil)
-//        }else{
-//            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Please add a services to proceed")
-//        }
+        if totalServices == 0 {
+            toast(toast_img: UIImageView(image: #imageLiteral(resourceName: "info")), toast_message: "Please add a services to proceed")
+        }else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let moveTo = storyboard.instantiateViewController(withIdentifier: "homeVC")
+            present(moveTo, animated: true, completion: nil)
+        }
         
     }
     

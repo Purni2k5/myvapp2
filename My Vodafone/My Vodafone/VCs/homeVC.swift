@@ -37,7 +37,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     
     fileprivate var scrollViewHeight: CGFloat!
     
-    let defaultAccImage = UIImageView()
+    let defaultAccImage = imageVariables()
     let defaultCallCreditView = UIView()
     let lblCreditTitle = UILabel()
     let lblCreditRem = UILabel()
@@ -247,9 +247,12 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
             print("dService:: \(dService)")
         }else{
             //logout
-            print("Do this")
-            logout()
+//            let storyboard = UIStoryboard(name: "ProductsServices", bundle: nil)
+//            let moveTo = storyboard.instantiateViewController(withIdentifier: "ProductsServicesViewController")
+//            self.present(moveTo, animated: true, completion: nil)
         }
+        
+
         
         
         username = UserData["Username"] as! String?
@@ -316,6 +319,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }else{
             prePaidMenu()
         }
+        
     }
     
     
@@ -392,162 +396,167 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
     }
     fileprivate func loadMade4Me() {
-        //Make async call to retrieve made4me offers
-        let async_call = URL(string: String.MVA_SHAKE_PROMOS)
-        let request = NSMutableURLRequest(url: async_call!)
-        request.httpMethod = "POST"
-        let postParameters = ["action":"Made4MeBundles", "msisdn":msisdn!, "username":username!]
-        if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
-            let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
-            let requestBody: Dictionary<String, Any> = [
-                "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
-            ]
-            
-            if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+        
+        if let _ = msisdn{
+            //Make async call to retrieve made4me offers
+            let async_call = URL(string: String.MVA_SHAKE_PROMOS)
+            let request = NSMutableURLRequest(url: async_call!)
+            request.httpMethod = "POST"
+            let postParameters = ["action":"Made4MeBundles", "msisdn":msisdn!, "username":username!]
+            if let jsonParameters = try? JSONSerialization.data(withJSONObject: postParameters, options: .prettyPrinted){
+                let theJSONText = String(data: jsonParameters,encoding: String.Encoding.utf8)
+                let requestBody: Dictionary<String, Any> = [
+                    "requestBody":encryptAsyncRequest(requestBody: theJSONText!.description)
+                ]
                 
-                request.httpBody = postData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
-                session = session.replacingOccurrences(of: "-", with: "")
-                request.addValue(session, forHTTPHeaderField: "session")
-                request.addValue(username!, forHTTPHeaderField: "username")
-                
-                let task = URLSession.shared.dataTask(with: request as URLRequest){
-                    data, response, error in
-                    if error != nil {
+                if let postData = (try? JSONSerialization.data(withJSONObject: requestBody, options: JSONSerialization.WritingOptions.prettyPrinted)){
+                    
+                    request.httpBody = postData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    var session = preference.object(forKey: UserDefaultsKeys.userSession.rawValue) as! String
+                    session = session.replacingOccurrences(of: "-", with: "")
+                    request.addValue(session, forHTTPHeaderField: "session")
+                    request.addValue(username!, forHTTPHeaderField: "username")
+                    
+                    let task = URLSession.shared.dataTask(with: request as URLRequest){
+                        data, response, error in
                         if error != nil {
-                            print("error is:: \(error!.localizedDescription)")
-                            return;
-                        }
-                    }
-                    do {
-                        let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        if let parseJSON = myJSON{
-                            var sessionAuth: String!
-                            sessionAuth = parseJSON["SessionAuth"] as! String?
-                            if sessionAuth == "true" {
-                                DispatchQueue.main.async {
-                                    self.logout()
-                                }
-                                
+                            if error != nil {
+                                print("error is:: \(error!.localizedDescription)")
+                                return;
                             }
-                            var responseBody: String?
-                            responseBody = parseJSON["responseBody"] as! String?
-                            print("Made4Me:: \(responseBody ?? "")")
-                            if let resBody = responseBody {
-                                let decrypt = self.decryptAsyncRequest(requestBody: resBody)
-                                print("Decrypted:: \(decrypt)")
-                                let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
-                                print(decryptedResponseBody)
-                                
-                                var responseCode: Int?
-                                var responseMessage: NSArray?
-                                responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
-                                print("Device width:: \(self.deviceWidth)")
-                                DispatchQueue.main.async {
-                                    if responseCode == 0 {
-                                        responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSArray?
-                                        if let ressMessage = responseMessage {
-                                            self.isMade4MePresent = true
-                                            //                                                //cache
-                                            self.preference.set(responseMessage, forKey: UserDefaultsKeys.Made4MeBundles.rawValue)
-                                            var viewLeading: CGFloat = 40
-                                            for obj in ressMessage{
-                                                if let dict = obj as? NSDictionary{
-                                                    let made4MeName = dict.value(forKey: "name") as! String
-                                                    let made4MeBundleID = dict.value(forKey: "bundleid") as! String
-                                                    let currency = dict.value(forKey: "currency") as! String
-                                                    let price = dict.value(forKey: "price") as! String
-                                                    let short = dict.value(forKey: "short") as! String
-                                                    let validity = dict.value(forKey: "validity") as! String
-                                                    let volume = dict.value(forKey: "volume") as! String
-                                                    let long = dict.value(forKey: "long") as! String
-                                                    
-                                                    let made4MeView = made4MeVariables()
-                                                    self.scrollView.addSubview(made4MeView)
-                                                    made4MeView.translatesAutoresizingMaskIntoConstraints = false
-                                                    made4MeView.backgroundColor = UIColor.black
-                                                    if Int(self.deviceWidth!) <= 320{
-                                                        made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                                                        made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-                                                        made4MeView.layer.cornerRadius = 40
-                                                    }else{
-                                                        made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                                                        made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-                                                        made4MeView.layer.cornerRadius = 40
-                                                    }
-                                                    
-                                                    made4MeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: viewLeading).isActive = true
-                                                    made4MeView.topAnchor.constraint(equalTo: self.pagerView.bottomAnchor, constant: 40).isActive = true
-                                                    
-                                                    made4MeView.layer.borderColor = UIColor.white.cgColor
-                                                    made4MeView.layer.borderWidth = 1
-                                                    made4MeView.name = made4MeName
-                                                    made4MeView.price = price
-                                                    made4MeView.long = long
-                                                    made4MeView.currency = currency
-                                                    made4MeView.validity = validity
-                                                    made4MeView.short = short
-                                                    made4MeView.bundleid = made4MeBundleID
-                                                    made4MeView.volume = volume
-                                                    self.defaultImageTopConstraint2 = self.defaultAccImage.topAnchor.constraint(equalTo: made4MeView.bottomAnchor, constant: 60)
-                                                    self.defaultImageTopConstraint1?.isActive = false
-                                                    self.defaultImageTopConstraint2?.isActive = true
-                                                    made4MeView.alpha = 0
-                                                    made4MeView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-                                                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 2, options: [], animations: {
-                                                        made4MeView.transform = .identity
-                                                    }) { (success) in
+                        }
+                        do {
+                            let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            if let parseJSON = myJSON{
+                                var sessionAuth: String!
+                                sessionAuth = parseJSON["SessionAuth"] as! String?
+                                if sessionAuth == "true" {
+                                    DispatchQueue.main.async {
+                                        self.logout()
+                                    }
+                                    
+                                }
+                                var responseBody: String?
+                                responseBody = parseJSON["responseBody"] as! String?
+                                print("Made4Me:: \(responseBody ?? "")")
+                                if let resBody = responseBody {
+                                    let decrypt = self.decryptAsyncRequest(requestBody: resBody)
+                                    print("Decrypted:: \(decrypt)")
+                                    let decryptedResponseBody = self.convertToNSDictionary(decrypt: decrypt)
+                                    print(decryptedResponseBody)
+                                    
+                                    var responseCode: Int?
+                                    var responseMessage: NSArray?
+                                    responseCode = decryptedResponseBody["RESPONSECODE"] as! Int?
+                                    print("Device width:: \(self.deviceWidth)")
+                                    DispatchQueue.main.async {
+                                        if responseCode == 0 {
+                                            responseMessage = decryptedResponseBody["RESPONSEMESSAGE"] as! NSArray?
+                                            if let ressMessage = responseMessage {
+                                                self.isMade4MePresent = true
+                                                //                                                //cache
+                                                self.preference.set(responseMessage, forKey: UserDefaultsKeys.Made4MeBundles.rawValue)
+                                                var viewLeading: CGFloat = 40
+                                                for obj in ressMessage{
+                                                    if let dict = obj as? NSDictionary{
+                                                        let made4MeName = dict.value(forKey: "name") as! String
+                                                        let made4MeBundleID = dict.value(forKey: "bundleid") as! String
+                                                        let currency = dict.value(forKey: "currency") as! String
+                                                        let price = dict.value(forKey: "price") as! String
+                                                        let short = dict.value(forKey: "short") as! String
+                                                        let validity = dict.value(forKey: "validity") as! String
+                                                        let volume = dict.value(forKey: "volume") as! String
+                                                        let long = dict.value(forKey: "long") as! String
+                                                        
+                                                        let made4MeView = made4MeVariables()
+                                                        self.scrollView.addSubview(made4MeView)
+                                                        made4MeView.translatesAutoresizingMaskIntoConstraints = false
+                                                        made4MeView.backgroundColor = UIColor.black
+                                                        if Int(self.deviceWidth!) <= 320{
+                                                            made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                                                            made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                                            made4MeView.layer.cornerRadius = 40
+                                                        }else{
+                                                            made4MeView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                                                            made4MeView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                                                            made4MeView.layer.cornerRadius = 40
+                                                        }
+                                                        
+                                                        made4MeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: viewLeading).isActive = true
+                                                        made4MeView.topAnchor.constraint(equalTo: self.pagerView.bottomAnchor, constant: 40).isActive = true
+                                                        
+                                                        made4MeView.layer.borderColor = UIColor.white.cgColor
+                                                        made4MeView.layer.borderWidth = 1
+                                                        made4MeView.name = made4MeName
+                                                        made4MeView.price = price
+                                                        made4MeView.long = long
+                                                        made4MeView.currency = currency
+                                                        made4MeView.validity = validity
+                                                        made4MeView.short = short
+                                                        made4MeView.bundleid = made4MeBundleID
+                                                        made4MeView.volume = volume
+                                                        self.defaultImageTopConstraint2 = self.defaultAccImage.topAnchor.constraint(equalTo: made4MeView.bottomAnchor, constant: 60)
+                                                        self.defaultImageTopConstraint1?.isActive = false
+                                                        self.defaultImageTopConstraint2?.isActive = true
+                                                        made4MeView.alpha = 0
+                                                        made4MeView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                                                        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 2, options: [], animations: {
+                                                            made4MeView.transform = .identity
+                                                        }) { (success) in
+                                                            
+                                                        }
+                                                        made4MeView.alpha = 1
+                                                        let made4MeRec = UITapGestureRecognizer(target: self, action: #selector(self.goToMade4Me(_sender:)))
+                                                        made4MeView.addGestureRecognizer(made4MeRec)
+                                                        
+                                                        let lblPrice = UILabel()
+                                                        self.scrollView.addSubview(lblPrice)
+                                                        lblPrice.translatesAutoresizingMaskIntoConstraints = false
+                                                        lblPrice.textColor = UIColor.white
+                                                        lblPrice.text = "\(volume)"
+                                                        lblPrice.font = UIFont(name: String.defaultFontB, size: 18)
+                                                        lblPrice.centerXAnchor.constraint(equalTo: made4MeView.centerXAnchor).isActive = true
+                                                        lblPrice.centerYAnchor.constraint(equalTo: made4MeView.centerYAnchor).isActive = true
+                                                        
+                                                        let lblDescripion = UILabel()
+                                                        self.scrollView.addSubview(lblDescripion)
+                                                        lblDescripion.translatesAutoresizingMaskIntoConstraints = false
+                                                        lblDescripion.textColor = UIColor.white
+                                                        lblDescripion.text = "\(currency.uppercased()) \(price) \(validity)"
+                                                        lblDescripion.font = UIFont(name: String.defaultFontB, size: 16)
+                                                        lblDescripion.topAnchor.constraint(equalTo: made4MeView.bottomAnchor, constant: 10).isActive = true
+                                                        lblDescripion.leadingAnchor.constraint(equalTo: made4MeView.leadingAnchor, constant: 2).isActive = true
+                                                        lblDescripion.trailingAnchor.constraint(equalTo: made4MeView.trailingAnchor, constant: 2).isActive = true
+                                                        lblDescripion.numberOfLines = 0
+                                                        lblDescripion.lineBreakMode = .byWordWrapping
+                                                        
+                                                        if Int(self.deviceWidth!) <= 320 {
+                                                            viewLeading = viewLeading + 100
+                                                        }else{
+                                                            viewLeading = viewLeading + 120
+                                                        }
                                                         
                                                     }
-                                                    made4MeView.alpha = 1
-                                                    let made4MeRec = UITapGestureRecognizer(target: self, action: #selector(self.goToMade4Me(_sender:)))
-                                                    made4MeView.addGestureRecognizer(made4MeRec)
-                                                    
-                                                    let lblPrice = UILabel()
-                                                    self.scrollView.addSubview(lblPrice)
-                                                    lblPrice.translatesAutoresizingMaskIntoConstraints = false
-                                                    lblPrice.textColor = UIColor.white
-                                                    lblPrice.text = "\(volume)"
-                                                    lblPrice.font = UIFont(name: String.defaultFontB, size: 18)
-                                                    lblPrice.centerXAnchor.constraint(equalTo: made4MeView.centerXAnchor).isActive = true
-                                                    lblPrice.centerYAnchor.constraint(equalTo: made4MeView.centerYAnchor).isActive = true
-                                                    
-                                                    let lblDescripion = UILabel()
-                                                    self.scrollView.addSubview(lblDescripion)
-                                                    lblDescripion.translatesAutoresizingMaskIntoConstraints = false
-                                                    lblDescripion.textColor = UIColor.white
-                                                    lblDescripion.text = "\(currency.uppercased()) \(price) \(validity)"
-                                                    lblDescripion.font = UIFont(name: String.defaultFontB, size: 16)
-                                                    lblDescripion.topAnchor.constraint(equalTo: made4MeView.bottomAnchor, constant: 10).isActive = true
-                                                    lblDescripion.leadingAnchor.constraint(equalTo: made4MeView.leadingAnchor, constant: 2).isActive = true
-                                                    lblDescripion.trailingAnchor.constraint(equalTo: made4MeView.trailingAnchor, constant: 2).isActive = true
-                                                    lblDescripion.numberOfLines = 0
-                                                    lblDescripion.lineBreakMode = .byWordWrapping
-                                                    
-                                                    if Int(self.deviceWidth!) <= 320 {
-                                                        viewLeading = viewLeading + 100
-                                                    }else{
-                                                       viewLeading = viewLeading + 120
-                                                    }
-                                                    
                                                 }
+                                                
+                                            }else{
+                                                print("No made4me")
                                             }
-                                            
-                                        }else{
-                                            print("No made4me")
                                         }
                                     }
                                 }
                             }
+                        }catch{
+                            print("back error:: \(error.localizedDescription)")
                         }
-                    }catch{
-                        print("back error:: \(error.localizedDescription)")
                     }
+                    task.resume()
                 }
-                task.resume()
             }
+        }else{
+            print("Go back")
         }
     }
     
@@ -613,6 +622,10 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         vcHamburger.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         vcHamburger.trailingAnchor.constraint(equalTo: motherView.trailingAnchor, constant: -10).isActive = true
         vcHamburger.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        
+        //Adding pan gesture
+        /*let panGesture = UIPanGestureRecognizer(target: self, action: #selector(showMenu))
+        view.addGestureRecognizer(panGesture)*/
         
         //Menu label
         let lblMenu = UILabel()
@@ -700,7 +713,14 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         
         //Default account image
-        scrollView.addSubview(defaultAccImage)
+        view.addSubview(defaultAccImage)
+        let defaultImageGest = UITapGestureRecognizer(target: self, action: #selector(moveToEdit(sender:)))
+        defaultAccImage.isUserInteractionEnabled = true
+        defaultAccImage.addGestureRecognizer(defaultImageGest)
+        defaultAccImage.displayName = defaultAccName
+        defaultAccImage.msisdn = msisdn
+        defaultAccImage.ID = ServiceID
+        defaultAccImage.displayImageUrl = defaultImageUrl
         
         
         
@@ -1166,7 +1186,7 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
     func backgroundCalls(){
         checkStaff()
         getMobileBalances()
-        
+        updateUserServices()
     }
     @objc func goToMade4Me(_sender: UITapGestureRecognizer){
         print("Clicked")
@@ -1815,6 +1835,25 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         }
     }
     
+    @objc func moveToEdit(sender: UITapGestureRecognizer){
+//        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "FreeSHS")
+//        self.addChildViewController(moveTo)
+//        moveTo.view.frame = self.view.frame
+//        self.view.addSubview(moveTo.view)
+//        moveTo.didMove(toParentViewController: self)
+//        print("u clicked")
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "UpdateProfile") as? UpdateProfile else {return}
+        guard let gestureVariable = sender.view as? imageVariables else {return}
+        print(gestureVariable.ID)
+        moveTo.displayMsisdn = gestureVariable.msisdn
+        moveTo.displayName = gestureVariable.displayName
+        moveTo.displayImage = gestureVariable.displayImageUrl
+        moveTo.id = gestureVariable.ID
+        present(moveTo, animated: true, completion: nil)
+    }
+    
     @objc func updateHome(){
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
@@ -1824,6 +1863,95 @@ class homeVC: baseViewControllerM, FSPagerViewDataSource, FSPagerViewDelegate {
         
         updateIcon.layer.add(rotateAnimation, forKey: "rotate")
         getMobileBalances()
+    }
+    
+    //Function to update services
+    func updateUserServices(){
+        let postParameters: Dictionary<String, Any> = [
+            "action":"getAccountServices",
+            "username":username,
+            "os":getAppVersion()
+        ]
+        let async_call = URL(string: String.oldUserSVC)
+        let request = NSMutableURLRequest(url: async_call!)
+        request.httpMethod = "POST"
+        if let postData = (try? JSONSerialization.data(withJSONObject: postParameters, options: JSONSerialization.WritingOptions.prettyPrinted)){
+            request.httpBody = postData
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data, response, error in
+                if error != nil {
+                    print("error is:: \(error!.localizedDescription)")
+                    return;
+                }
+                do {
+                    let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = myJSON{
+                        var responseCode: Int?
+                        
+                        responseCode = parseJSON["RESPONSECODE"] as! Int?
+                        if responseCode == 0 {
+                            let responseData: NSDictionary?
+                            let serviceList: NSArray?
+                            responseData = parseJSON["RESPONSEDATA"] as! NSDictionary?
+                            serviceList = responseData!["ServiceList"] as? NSArray
+                            self.preference.removeObject(forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            self.preference.set(serviceList!, forKey: UserDefaultsKeys.ServiceList.rawValue)
+                            if let array = serviceList as? NSArray {
+                                var foundDefault = false
+                                print(foundDefault)
+                                for obj in array {
+                                    if foundDefault == false{
+                                        if let dict = obj as? NSDictionary {
+                                            
+                                            self.ServiceID = dict.value(forKey: "ID") as! String?
+                                            self.AcctType = dict.value(forKey: "Type") as! String?
+                                            
+                                            if(self.ServiceID == self.dService){
+                                                //                            print("checked against \(defaultService)")
+                                                self.defaultAccName = dict.value(forKey: "DisplayName") as! String?
+                                                self.primaryID = dict.value(forKey: "primaryID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                self.defaultImageUrl = dict.value(forKey: "DisplayImageUrl") as? String
+                                                foundDefault = true
+                                                
+                                                //                            print("found defName \(defaultAccName)")
+                                                
+                                            }else{
+                                                
+                                                self.ServiceID = dict.value(forKey: "ID") as! String?
+                                                self.AcctType = dict.value(forKey: "Type") as! String?
+                                                self.primaryID = dict.value(forKey: "primaryID") as! String?
+                                                
+                                            }
+                                            self.preference.set(self.defaultAccName, forKey: UserDefaultsKeys.defaultName.rawValue)
+                                            self.defaultAccName = self.preference.object(forKey: UserDefaultsKeys.defaultName.rawValue) as? String
+                                            if let defAccName = self.defaultAccName{
+                                                let defaultAccNameArr = defAccName.components(separatedBy: " ")
+                                                
+                                                self.defaultAccName = defaultAccNameArr[0]
+                                                let phoneTextIndex = defaultAccNameArr.count - 1
+                                                let phoneText = defaultAccNameArr[phoneTextIndex]
+                                                DispatchQueue.main.async {
+                                                    self.defaultAccDisName.text = "\(self.defaultAccName!) \n\(phoneText)"
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                        }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+        }
     }
     
     

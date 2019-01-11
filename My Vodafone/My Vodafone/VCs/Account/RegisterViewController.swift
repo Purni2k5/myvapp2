@@ -124,7 +124,6 @@ class RegisterViewController: baseViewControllerM {
                                 let myJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                                 DispatchQueue.main.async {
                                     if let parsJSON = myJSON {
-                                        
                                         var responseCode: Int!
                                         var responseMessage: String!
                                         var responseData: NSDictionary!
@@ -150,7 +149,6 @@ class RegisterViewController: baseViewControllerM {
                                                 moveTo.responseMessage = responseMessage //A message containing a verification code has been sent to 0503088509. Use this code to activate your account within 5 minutes.
                                                 self.present(moveTo, animated: true, completion: nil)
                                             }
-                                            
                                             self.stop_activity_loader()
 //                                        }
                                     }else{
@@ -161,8 +159,11 @@ class RegisterViewController: baseViewControllerM {
                                 
                                 
                             }catch {
-                                print("catch error:: \(error.localizedDescription)")
-                                self.stop_activity_loader()
+                                DispatchQueue.main.async {
+                                    print("catch error:: \(error.localizedDescription)")
+                                    self.stop_activity_loader()
+                                }
+                                
                             }
                         }
                         task.resume()
