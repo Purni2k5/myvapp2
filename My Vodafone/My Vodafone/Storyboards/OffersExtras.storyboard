@@ -22,14 +22,14 @@
             <objects>
                 <viewController storyboardIdentifier="OffersExtrasViewController" id="v5G-QX-bWx" customClass="OffersExtrasViewController" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZQy-Iy-BJW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1730"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wwd-D7-eGn">
-                                <rect key="frame" x="0.0" y="20" width="375" height="1580"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="1710"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Yl-Mi-cKU">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1730"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="d8n-qh-ffy">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="651"/>
@@ -500,7 +500,7 @@
                                             <constraint firstItem="EIh-VC-uxK" firstAttribute="leading" secondItem="0Yl-Mi-cKU" secondAttribute="leading" constant="5" id="5X8-zO-WaJ"/>
                                             <constraint firstAttribute="trailing" secondItem="Mg7-yc-AUM" secondAttribute="trailing" constant="20" id="COR-ZI-vAP"/>
                                             <constraint firstAttribute="trailing" secondItem="p62-Ir-AGI" secondAttribute="trailing" constant="20" id="FEo-7k-pEq"/>
-                                            <constraint firstAttribute="height" constant="1600" id="FTR-X1-dK9"/>
+                                            <constraint firstAttribute="height" constant="1730" id="FTR-X1-dK9"/>
                                             <constraint firstItem="p62-Ir-AGI" firstAttribute="leading" secondItem="0Yl-Mi-cKU" secondAttribute="leading" constant="20" id="GVe-gH-ioo"/>
                                             <constraint firstItem="aNE-5q-O7h" firstAttribute="top" secondItem="0Yl-Mi-cKU" secondAttribute="top" constant="40" id="HjW-bb-K8n"/>
                                             <constraint firstAttribute="trailing" secondItem="PQn-rS-btR" secondAttribute="trailing" constant="20" id="HxU-As-4xi"/>
@@ -560,7 +560,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U0w-qN-y7i"/>
                     </view>
-                    <size key="freeformSize" width="375" height="1600"/>
+                    <size key="freeformSize" width="375" height="1730"/>
                     <connections>
                         <outlet property="IDDBundlesCard" destination="prm-g3-foo" id="f0z-dp-eeO"/>
                         <outlet property="btnBack" destination="EIh-VC-uxK" id="0kV-gl-fla"/>
@@ -606,6 +606,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnW-0I-Z2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4352.8000000000002" y="-616.64167916041981"/>
+        </scene>
+        <!--Fleet Tracking-->
+        <scene sceneID="0cx-YH-Rm8">
+            <objects>
+                <viewController storyboardIdentifier="fleetTracking" id="lHB-Tg-8AW" customClass="fleetTracking" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LyB-5M-sAx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="C2Z-5A-yws"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UgV-nM-HRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5130" y="-617"/>
+        </scene>
+        <!--Fleet Packages-->
+        <scene sceneID="WUE-ri-zyu">
+            <objects>
+                <viewController storyboardIdentifier="fleetPackages" id="Gmd-AC-HjM" customClass="fleetPackages" customModule="My_Vodafone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qwS-Zo-FoS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="g0c-Wg-X8A"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iRS-VC-rD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5865" y="-618"/>
         </scene>
         <!--Display Chosen Offer Vc-->
         <scene sceneID="eLv-Ey-nfb">

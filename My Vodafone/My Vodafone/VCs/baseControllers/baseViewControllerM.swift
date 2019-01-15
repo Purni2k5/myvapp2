@@ -1294,15 +1294,15 @@ class baseViewControllerM: UIViewController {
     }
     
     @objc func goToSpeedChecker(_sender: UITapGestureRecognizer){
-//        let storyboard = UIStoryboard(name: "NetPerform", bundle: nil)
-//        let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
-//        present(moveTo, animated: true, completion: nil)
-        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
-        let moveTo = storyboard.instantiateViewController(withIdentifier: "FreeSHS")
-        self.addChildViewController(moveTo)
-        moveTo.view.frame = self.view.frame
-        self.view.addSubview(moveTo.view)
-        moveTo.didMove(toParentViewController: self)
+        let storyboard = UIStoryboard(name: "NetPerform", bundle: nil)
+        let moveTo = storyboard.instantiateViewController(withIdentifier: "speedChecker")
+        present(moveTo, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "TopUp", bundle: nil)
+//        let moveTo = storyboard.instantiateViewController(withIdentifier: "FreeSHS")
+//        self.addChildViewController(moveTo)
+//        moveTo.view.frame = self.view.frame
+//        self.view.addSubview(moveTo.view)
+//        moveTo.didMove(toParentViewController: self)
     }
     
     @objc func goToLogin(_sender: UITapGestureRecognizer){

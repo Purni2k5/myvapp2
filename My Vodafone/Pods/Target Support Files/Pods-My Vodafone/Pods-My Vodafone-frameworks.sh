@@ -144,34 +144,18 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/EDSunriseSet/EDSunriseSet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RBBAnimation/RBBAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
-  install_framework "${PODS_ROOT}/VFGCommonUI/VFGCommonUI/VFGCommonUI.framework"
-  install_framework "${PODS_ROOT}/VFGCommonUtils/VFGCommonUtils/VFGCommonUtils.framework"
-  install_framework "${PODS_ROOT}/VFGSplash/VFGSplash/VFGSplash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/EDSunriseSet/EDSunriseSet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RBBAnimation/RBBAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
-  install_framework "${PODS_ROOT}/VFGCommonUI/VFGCommonUI/VFGCommonUI.framework"
-  install_framework "${PODS_ROOT}/VFGCommonUtils/VFGCommonUtils/VFGCommonUtils.framework"
-  install_framework "${PODS_ROOT}/VFGSplash/VFGSplash/VFGSplash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

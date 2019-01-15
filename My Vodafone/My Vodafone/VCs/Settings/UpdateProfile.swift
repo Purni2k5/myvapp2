@@ -261,8 +261,8 @@ class UpdateProfile: baseViewControllerM {
         btnChangeImage.topAnchor.constraint(equalTo: lblDisplayNumber.bottomAnchor, constant: 20).isActive = true
         btnChangeImage.trailingAnchor.constraint(equalTo: darkView.trailingAnchor, constant: -60).isActive = true
         btnChangeImage.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        btnChangeImage.borderColor = UIColor.white
-        btnChangeImage.borderWidth = 1
+        btnChangeImage.layer.borderColor = UIColor.white.cgColor
+        btnChangeImage.layer.borderWidth = 1
         let gestureRec = UITapGestureRecognizer(target: self, action: #selector(openChooseType(_sender:)))
         btnChangeImage.addGestureRecognizer(gestureRec)
         

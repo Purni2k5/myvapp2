@@ -21,7 +21,7 @@ import UIKit
         layer.shadowColor = shadowColour.cgColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight)
         
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadiuss)
         layer.shadowPath = shadowPath.cgPath
         layer.shadowOpacity = Float(shadowOpacity)
     }

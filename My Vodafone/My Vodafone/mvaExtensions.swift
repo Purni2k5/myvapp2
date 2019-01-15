@@ -86,4 +86,6 @@ extension String {
     static let MVA_ROAMINGDISCOUNTS = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roamingdiscounts.html";
     static let MVA_ROAMINGFAQ = "https://myvodafoneapp.vodafone.com.gh/voda_port/roaming/roaming_faq.html";
     static let MVA_SHAKE_PROMOS = "https://myvodafoneappmw.vodafone.com.gh/MVAppAPI/Promos";
+    static let fleetTracking = "https://vtrack.vodafone.com.gh/mobi"
+    static let fleetPackages = "https://vodafone.com.gh/business/m2m"
 }

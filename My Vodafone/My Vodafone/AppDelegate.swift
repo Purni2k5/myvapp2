@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import VFGSplash
+//import VFGSplash
 import UserNotifications
 import Firebase
 
@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Get the app's main bundle
-        let mainBundle = Bundle.main
+//        let mainBundle = Bundle.main
         
-        let storyboardName = "Main"
+        /*let storyboardName = "Main"
         let viewControllerID = "ViewController"
         let targetBundle = mainBundle
         let durationInSeconds = 3
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         runVodafoneSplash(storyboardName: storyboardName,
         viewControllerId: viewControllerID,
         targetBundle: targetBundle,
-        durationInSeconds: durationInSeconds)
+        durationInSeconds: durationInSeconds)*/
         
         //Push Notifications
         UNUserNotificationCenter.current().delegate = self
@@ -91,13 +91,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func runVodafoneSplash(storyboardName storyboard: String, viewControllerId vcId: String, targetBundle bundle: Bundle, durationInSeconds timeout: Int){
+    /*func runVodafoneSplash(storyboardName storyboard: String, viewControllerId vcId: String, targetBundle bundle: Bundle, durationInSeconds timeout: Int){
         
         let nextViewController = viewControllerWith(storyboardID: storyboard,
                                                     viewControllerID: vcId,
@@ -108,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             self?.moveToNext(ViewController: nextViewController)
         }
-    }
+    }*/
     
     /*
      utility method to get a specified viewController from a target bundle
@@ -122,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     /*
      This function plays the animation of the splash
-     */
+     
     func playSplashAnimation(withTimeout timeout: Int, onCompletion: @escaping () -> Void){
         
         //get the viewController of splash from the component
@@ -158,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //set your completion block which should be called once the animation finishes and the splash disappears
         VFGAnimatedSplash.sharedInstance.setComplitionHandler(completionHandler: {(completed) in
             if completed { onCompletion() }})
-    }
+    }*/
     
     func greetings() -> String{
         var time: String = "Unknown"
@@ -178,14 +179,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     /*
      removes splashViewController from the root and set the root with nextViewController
-     */
+     
     func moveToNext(ViewController nextVC: UIViewController){
         VFGAnimatedSplash.sharedInstance.removeSplashView { [weak self](completed) in
             if completed {
                 self?.setRoot(ViewController: nextVC)
             }
         }
-    }
+    }*/
     
     /*
      replaces the rootView controller of your application with the given one passed in it's params.

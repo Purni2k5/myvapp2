@@ -71,6 +71,15 @@ class OffersExtrasViewController: baseViewControllerM {
         return label
     }()
     
+    //IOT Card
+    let IOTCard: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
+        view.heightAnchor.constraint(equalToConstant: 106).isActive = true
+        return view
+    }()
+    
 //    var menuShowing = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +148,7 @@ class OffersExtrasViewController: baseViewControllerM {
         
         bottomImage.contentMode = .scaleAspectFill
         
-//        setUpViews()
+        setupViewsOffers()
         //Download offer details
         let request = NSMutableURLRequest(url: asycURL!)
         request.httpMethod = "POST"
@@ -396,5 +405,90 @@ class OffersExtrasViewController: baseViewControllerM {
         present(moveTo, animated: true, completion: nil)
     }
     
+    //Function to go to IOT
+    @objc func goToIOT(_sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "OffersExtras", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "displayChosenOfferVc") as? displayChosenOfferVc else {return}
+        moveTo.selectedOffer = "Internet Of Things"
+        present(moveTo, animated: true, completion: nil)
+    }
+    
+    func setupViewsOffers(){
+        scrollView.addSubview(IOTCard)
+        IOTCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        IOTCard.topAnchor.constraint(equalTo: servicesCard.bottomAnchor, constant: 16).isActive = true
+        IOTCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
+        IOTCard.layer.cornerRadius = 2
+        IOTCard.layer.shadowOffset = CGSize(width: 0, height: 1)
+        IOTCard.layer.shadowOpacity = 0.3
+        IOTCard.layer.shadowColor = UIColor.black.cgColor
+        
+        let imageColour = UIImageView()
+        imageColour.translatesAutoresizingMaskIntoConstraints = false
+        IOTCard.addSubview(imageColour)
+        imageColour.backgroundColor = UIColor.cardImageColour
+        
+        let roundImage = UIImageView()
+        roundImage.translatesAutoresizingMaskIntoConstraints = false
+        IOTCard.addSubview(roundImage)
+        roundImage.backgroundColor = UIColor.vodaIconColour
+        
+        let lblIOT = UILabel()
+        lblIOT.translatesAutoresizingMaskIntoConstraints = false
+        IOTCard.addSubview(lblIOT)
+        lblIOT.textColor = UIColor.black
+        lblIOT.text = "IOT"
+        lblIOT.numberOfLines = 0
+        lblIOT.lineBreakMode = .byWordWrapping
+        lblIOT.font = UIFont(name: String.defaultFontB, size: 21)
+        
+        let lblIOTDesc = UILabel()
+        lblIOTDesc.translatesAutoresizingMaskIntoConstraints = false
+        IOTCard.addSubview(lblIOTDesc)
+        lblIOTDesc.textColor = UIColor.black
+        lblIOTDesc.text = "Internet of Things"
+        lblIOTDesc.numberOfLines = 0
+        lblIOTDesc.lineBreakMode = .byWordWrapping
+        lblIOTDesc.font = UIFont(name: String.defaultFontR, size: 15)
+        
+        let rightArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+        rightArrow.translatesAutoresizingMaskIntoConstraints = false
+        IOTCard.addSubview(rightArrow)
+        
+        
+        NSLayoutConstraint.activate([
+            imageColour.leadingAnchor.constraint(equalTo: IOTCard.leadingAnchor),
+            imageColour.topAnchor.constraint(equalTo: IOTCard.topAnchor),
+            imageColour.widthAnchor.constraint(equalToConstant: 12),
+            imageColour.bottomAnchor.constraint(equalTo: IOTCard.bottomAnchor),
+            
+            roundImage.leadingAnchor.constraint(equalTo: imageColour.trailingAnchor, constant: 19),
+            roundImage.topAnchor.constraint(equalTo: IOTCard.topAnchor, constant: 28),
+            roundImage.widthAnchor.constraint(equalToConstant: 50),
+            roundImage.heightAnchor.constraint(equalToConstant: 50),
+            
+            lblIOT.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 10),
+            lblIOT.topAnchor.constraint(equalTo: IOTCard.topAnchor, constant: 38),
+            lblIOT.trailingAnchor.constraint(equalTo: IOTCard.trailingAnchor, constant: -10),
+            
+            lblIOTDesc.leadingAnchor.constraint(equalTo: roundImage.trailingAnchor, constant: 10),
+            lblIOTDesc.topAnchor.constraint(equalTo: lblIOT.bottomAnchor, constant: 2.5),
+            lblIOTDesc.trailingAnchor.constraint(equalTo: IOTCard.trailingAnchor, constant: -10),
+            
+            rightArrow.trailingAnchor.constraint(equalTo: IOTCard.trailingAnchor, constant: -9),
+            rightArrow.topAnchor.constraint(equalTo: IOTCard.topAnchor, constant: 35),
+            rightArrow.widthAnchor.constraint(equalToConstant: 10),
+            rightArrow.heightAnchor.constraint(equalToConstant: 25)
+            ])
+        roundImage.layer.cornerRadius = 25
+        let round_image = UIImage(named: "ic_settings")
+        let tintColour = round_image?.withRenderingMode(.alwaysTemplate)
+        roundImage.image = tintColour
+        roundImage.tintColor = UIColor.white
+        
+        let iotRec = UITapGestureRecognizer(target: self, action: #selector(goToIOT(_sender:)))
+        IOTCard.addGestureRecognizer(iotRec)
+    }
     
 }

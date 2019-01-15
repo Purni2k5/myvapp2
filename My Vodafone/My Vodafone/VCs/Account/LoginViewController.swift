@@ -176,7 +176,7 @@ class LoginViewController: baseViewControllerM {
         btn.setTitle("Login with Fixed Broadband", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: String.defaultFontR, size: 20)
-        
+        btn.isHidden = true
         return btn
     }()
     

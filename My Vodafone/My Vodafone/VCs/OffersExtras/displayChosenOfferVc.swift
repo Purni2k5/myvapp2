@@ -441,7 +441,134 @@ class displayChosenOfferVc: baseViewControllerM {
             bookArrow.trailingAnchor.constraint(equalTo: bookAppoimentCard.trailingAnchor, constant: -9).isActive = true
             
             scrollView.contentSize.height = view.frame.size.height + creditTransferCard.frame.size.height + simSwapCard.frame.size.height + bookAppoimentCard.frame.size.height
-        } else if selectedOffer == "FBB" {
+        }else if selectedOffer == "Internet Of Things" {
+            /* Fleet Tracking */
+            let fleetTrackingCard = UIView()
+            scrollView.addSubview(fleetTrackingCard)
+            fleetTrackingCard.translatesAutoresizingMaskIntoConstraints = false
+            fleetTrackingCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            fleetTrackingCard.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 20).isActive = true
+            fleetTrackingCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            fleetTrackingCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            fleetTrackingCard.backgroundColor = UIColor.white
+            //transforming it a card
+            fleetTrackingCard.layer.cornerRadius = 2
+            fleetTrackingCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            fleetTrackingCard.layer.shadowColor = UIColor.black.cgColor
+            fleetTrackingCard.layer.shadowOpacity = 0.2
+            
+            let fleetTrackingCardRec = UITapGestureRecognizer(target: self, action: #selector(goToFleetTracking(_sender:)))
+            fleetTrackingCard.addGestureRecognizer(fleetTrackingCardRec)
+            
+            //left image with colour
+            let fleetLeftImageApp = UIImageView()
+            fleetTrackingCard.addSubview(fleetLeftImageApp)
+            fleetLeftImageApp.translatesAutoresizingMaskIntoConstraints = false
+            fleetLeftImageApp.backgroundColor = UIColor.cardImageColour
+            fleetLeftImageApp.leadingAnchor.constraint(equalTo: fleetTrackingCard.leadingAnchor).isActive = true
+            fleetLeftImageApp.topAnchor.constraint(equalTo: fleetTrackingCard.topAnchor).isActive = true
+            fleetLeftImageApp.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            fleetLeftImageApp.bottomAnchor.constraint(equalTo: fleetTrackingCard.bottomAnchor).isActive = true
+            
+            //round image with icon
+            let fleetRoundImageApp = UIImageView(image: #imageLiteral(resourceName: "ic_headset"))
+            fleetRoundImageApp.image = fleetRoundImageApp.image!.withRenderingMode(.alwaysTemplate)
+            fleetTrackingCard.addSubview(fleetRoundImageApp)
+            fleetRoundImageApp.tintColor = UIColor.white
+            fleetRoundImageApp.backgroundColor = UIColor.vodaIconColour
+            fleetRoundImageApp.translatesAutoresizingMaskIntoConstraints = false
+            fleetRoundImageApp.topAnchor.constraint(equalTo: fleetTrackingCard.topAnchor, constant: 30).isActive = true
+            fleetRoundImageApp.leadingAnchor.constraint(equalTo: fleetLeftImageApp.trailingAnchor, constant: 19).isActive = true
+            fleetRoundImageApp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            fleetRoundImageApp.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            fleetRoundImageApp.layer.cornerRadius = fleetRoundImageApp.frame.size.width / 2
+            fleetRoundImageApp.clipsToBounds = true
+            
+            //adding label
+            let fleetLabel = UILabel()
+            fleetTrackingCard.addSubview(fleetLabel)
+            fleetLabel.translatesAutoresizingMaskIntoConstraints = false
+            fleetLabel.text = "Fleet Tracking"
+            fleetLabel.font = UIFont(name: String.defaultFontB, size: 20)
+            fleetLabel.leadingAnchor.constraint(equalTo: fleetRoundImageApp.trailingAnchor, constant: 8).isActive = true
+            fleetLabel.topAnchor.constraint(equalTo: fleetTrackingCard.topAnchor, constant: 40).isActive = true
+            fleetLabel.trailingAnchor.constraint(equalTo: fleetTrackingCard.trailingAnchor, constant: 1).isActive = true
+            
+            
+            //adding right arrow
+            let bookArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+            fleetTrackingCard.addSubview(bookArrow)
+            bookArrow.translatesAutoresizingMaskIntoConstraints = false
+            bookArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            bookArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            bookArrow.topAnchor.constraint(equalTo: fleetTrackingCard.topAnchor, constant: 57).isActive = true
+            bookArrow.trailingAnchor.constraint(equalTo: fleetTrackingCard.trailingAnchor, constant: -9).isActive = true
+            
+            /* Packages and Details */
+            let fleetPackagesCard = UIView()
+            scrollView.addSubview(fleetPackagesCard)
+            fleetPackagesCard.translatesAutoresizingMaskIntoConstraints = false
+            fleetPackagesCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+            fleetPackagesCard.topAnchor.constraint(equalTo: fleetTrackingCard.bottomAnchor, constant: 20).isActive = true
+            fleetPackagesCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+            fleetPackagesCard.heightAnchor.constraint(equalToConstant: 130).isActive = true
+            fleetPackagesCard.backgroundColor = UIColor.white
+            //transforming it a card
+            fleetPackagesCard.layer.cornerRadius = 2
+            fleetPackagesCard.layer.shadowOffset = CGSize(width: 0, height: 5)
+            fleetPackagesCard.layer.shadowColor = UIColor.black.cgColor
+            fleetPackagesCard.layer.shadowOpacity = 0.2
+            
+            let fleetPackagesCardRec = UITapGestureRecognizer(target: self, action: #selector(goToFleetPackages(_sender:)))
+            fleetPackagesCard.addGestureRecognizer(fleetPackagesCardRec)
+            
+            //left image with colour
+            let packagesLeftImageApp = UIImageView()
+            fleetPackagesCard.addSubview(packagesLeftImageApp)
+            packagesLeftImageApp.translatesAutoresizingMaskIntoConstraints = false
+            packagesLeftImageApp.backgroundColor = UIColor.cardImageColour
+            packagesLeftImageApp.leadingAnchor.constraint(equalTo: fleetPackagesCard.leadingAnchor).isActive = true
+            packagesLeftImageApp.topAnchor.constraint(equalTo: fleetPackagesCard.topAnchor).isActive = true
+            packagesLeftImageApp.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            packagesLeftImageApp.bottomAnchor.constraint(equalTo: fleetPackagesCard.bottomAnchor).isActive = true
+            
+            //round image with icon
+            let packagesRoundImageApp = UIImageView(image: #imageLiteral(resourceName: "data_icon"))
+            packagesRoundImageApp.image = packagesRoundImageApp.image!.withRenderingMode(.alwaysTemplate)
+            fleetPackagesCard.addSubview(packagesRoundImageApp)
+            packagesRoundImageApp.tintColor = UIColor.white
+            packagesRoundImageApp.backgroundColor = UIColor.vodaIconColour
+            packagesRoundImageApp.translatesAutoresizingMaskIntoConstraints = false
+            packagesRoundImageApp.topAnchor.constraint(equalTo: fleetPackagesCard.topAnchor, constant: 30).isActive = true
+            packagesRoundImageApp.leadingAnchor.constraint(equalTo: fleetLeftImageApp.trailingAnchor, constant: 19).isActive = true
+            packagesRoundImageApp.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            packagesRoundImageApp.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            packagesRoundImageApp.layer.cornerRadius = fleetRoundImageApp.frame.size.width / 2
+            packagesRoundImageApp.clipsToBounds = true
+            
+            //adding label
+            let packagesLabel = UILabel()
+            fleetPackagesCard.addSubview(packagesLabel)
+            packagesLabel.translatesAutoresizingMaskIntoConstraints = false
+            packagesLabel.text = "Packages and Details"
+            packagesLabel.font = UIFont(name: String.defaultFontB, size: 20)
+            packagesLabel.leadingAnchor.constraint(equalTo: packagesRoundImageApp.trailingAnchor, constant: 8).isActive = true
+            packagesLabel.topAnchor.constraint(equalTo: fleetPackagesCard.topAnchor, constant: 40).isActive = true
+            packagesLabel.trailingAnchor.constraint(equalTo: fleetPackagesCard.trailingAnchor, constant: 1).isActive = true
+            
+            
+            //adding right arrow
+            let packagesArrow = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+            fleetPackagesCard.addSubview(packagesArrow)
+            packagesArrow.translatesAutoresizingMaskIntoConstraints = false
+            packagesArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            packagesArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            packagesArrow.topAnchor.constraint(equalTo: fleetPackagesCard.topAnchor, constant: 57).isActive = true
+            packagesArrow.trailingAnchor.constraint(equalTo: fleetPackagesCard.trailingAnchor, constant: -9).isActive = true
+            
+//            scrollView.contentSize.height = view.frame.size.height + creditTransferCard.frame.size.height + simSwapCard.frame.size.height + bookAppoimentCard.frame.size.height
+        }
+        else if selectedOffer == "FBB" {
             //Browse lable
             let lblBrowse = UILabel()
             scrollView.addSubview(lblBrowse)
@@ -1538,6 +1665,30 @@ class displayChosenOfferVc: baseViewControllerM {
         moveTo.selectedOfferDesc = gestureVariables.offerDescription!
         moveTo.selectedOfferPID = gestureVariables.offerPID!
         moveTo.selectedUSSD = gestureVariables.offerUSSD!
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    //Function to go to Fleet Tracking
+    @objc func goToFleetTracking(_sender: UITapGestureRecognizer){
+        //        print(array[sender.view!.tag])
+        let storyboard = UIStoryboard(name: "OffersExtras", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "fleetTracking") as? fleetTracking else {return}
+        
+        self.addChildViewController(moveTo)
+        moveTo.view.frame = self.view.frame
+        self.view.addSubview(moveTo.view)
+        moveTo.didMove(toParentViewController: self)
+    }
+    
+    //Function to go to Fleet Packages
+    @objc func goToFleetPackages(_sender: UITapGestureRecognizer){
+        //        print(array[sender.view!.tag])
+        let storyboard = UIStoryboard(name: "OffersExtras", bundle: nil)
+        guard let moveTo = storyboard.instantiateViewController(withIdentifier: "fleetPackages") as? fleetPackages else {return}
+        
         self.addChildViewController(moveTo)
         moveTo.view.frame = self.view.frame
         self.view.addSubview(moveTo.view)
